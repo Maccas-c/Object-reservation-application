@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MaciejM123/Object-reservation-application#readme",
   "dependencies": {
+    "angular": "^1.7.9",
     "node": "^13.10.1"
   }
 }
