@@ -1,0 +1,22 @@
+{
+  "name": "object-reservation-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaciejM123/Object-reservation-application.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaciejM123/Object-reservation-application/issues"
+  },
+  "homepage": "https://github.com/MaciejM123/Object-reservation-application#readme",
+  "dependencies": {
+    "node": "^13.10.1"
+  }
+}
