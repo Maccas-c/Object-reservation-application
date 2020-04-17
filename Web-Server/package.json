@@ -1,0 +1,15 @@
+{
+  "name": "Web-Server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
