@@ -24,9 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-mongoose.connect(process.env.DB_CONNECTION, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, () => console.log("connect to db"))
+//DATABASE
+require('./config/database');
 
 module.exports = app;
