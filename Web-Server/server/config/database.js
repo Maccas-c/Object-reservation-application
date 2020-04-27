@@ -16,6 +16,7 @@ require('dotenv').config();
 
 const devConnection = process.env.DB_CONNECTION;
 const prodConnection = process.env.DB_CONNECTION_PROD;
+const atlasConnection = process.env.DB_CONNECTION_ATLAS;
 
 // Connect to the correct environment database
 if (process.env.NODE_ENV === 'production') {
@@ -25,15 +26,25 @@ if (process.env.NODE_ENV === 'production') {
     });
 
     mongoose.connection.on('connected', () => {
-        console.log('Database connected' + prodConnection);
+        console.log('Connected to database ' + prodConnection);
     });
-} else {
+} else if( process.env.NODE_ENV === 'atlas'){
+    mongoose.connect(atlasConnection, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+
+    mongoose.connection.on('connected', () => {
+        console.log('Connected to database ' + atlasConnection);
+    });
+}
+else {
     mongoose.connect(devConnection, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
 
     mongoose.connection.on('connected', () => {
-        console.log('Database connected' + devConnection);
+        console.log('Connected to database ' + devConnection);
     });
 }
