@@ -1,17 +1,15 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
-class Layout extends Component {
-  state = {
-    showSideDrawer: false
-  };
+import NavigationMenu from './components/Navigation/SideDrawer/SideDrawer';
 
-  render() {
-    return (
-      <Fragment>
-        <main>{this.props.children}</main>
-      </Fragment>
-    );
-  }
-}
+const layout = (props) => {
+  return (
+    <Fragment>
+      <NavigationMenu>
+        <h1>XD</h1>
+      </NavigationMenu>
+    </Fragment>
+  );
+};
 
-export default Layout;
+export default layout;
