@@ -8,8 +8,6 @@ class Layout extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Toolbar</h1>
-        <h1>SideDrawer</h1>
         <main>{this.props.children}</main>
       </Fragment>
     );
