@@ -1,5 +1,6 @@
-export const menuItems = [
-  'Kalendarz',
-  'Profil Użytkownika',
-  'Lista Użytkowników'
-];
+export const MENU_ITEMS = {
+  HOME: 'Strona główna',
+  USER_PROFILE: 'Profil Użytkownika',
+  CALENDAR: 'Kalendarz',
+  USERS_LIST: 'Lista Użytkowników'
+};

@@ -1,40 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import Toolbar from '../Toolbar/Toolbar';
-import { menuItems } from '../../../constansts/menuList/menuItems';
+import Header from '../Header/Header';
+import { MENU_ITEMS } from '../../../constansts/menuList/menuItems';
+import { MENU_ROUTES } from '../../../constansts/routes/routes';
+
 import makeStyles from './SideDrawerStyles';
 
-function ResponsiveDrawer(props) {
+const SideDrawer = (props) => {
   const classes = makeStyles();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const {
+    location: { pathname }
+  } = props;
 
-  function handleDrawerToggle() {
+  // const menuList = Object.keys(MENU_ITEMS).map((key) => key);
+  const menuList = Object.values(MENU_ITEMS);
+
+  const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  }
+  };
+
+  const getKeyByValue = (object, value) => {
+    return Object.keys(object).find((key) => object[key] === value);
+  };
 
   const drawer = (
     <div>
       <List>
-        {menuItems.map((menuItem) => (
-          <ListItem button key={menuItem}>
-            <ListItemText primary={menuItem} />
-          </ListItem>
-        ))}
+        {menuList.map((item) => {
+          const key = getKeyByValue(MENU_ITEMS, item);
+          return (
+            <ListItem
+              button
+              component={Link}
+              to={MENU_ROUTES[key]}
+              selected={MENU_ROUTES[key] === pathname}
+              key={item}
+            >
+              <ListItemText primary={item} />
+            </ListItem>
+          );
+        })}
       </List>
     </div>
   );
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Toolbar open={handleDrawerToggle} />
+      <Header open={handleDrawerToggle} />
 
       <nav className={classes.drawer}>
         <Hidden smUp>
@@ -68,11 +93,13 @@ function ResponsiveDrawer(props) {
           </Drawer>
         </Hidden>
       </nav>
+
       <div className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
       </div>
     </div>
   );
-}
-export default ResponsiveDrawer;
+};
+
+export default withRouter(SideDrawer);

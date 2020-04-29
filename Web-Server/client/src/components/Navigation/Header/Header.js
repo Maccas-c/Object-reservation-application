@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   AppBar,
@@ -8,9 +10,11 @@ import {
   Button
 } from '@material-ui/core';
 
-import makeStyles from './ToolbarStyles';
+import { MENU_ROUTES } from '../../../constansts/routes/routes';
 
-const toolbar = (props) => {
+import makeStyles from './HeaderStyles';
+
+const Header = (props) => {
   const classes = makeStyles();
 
   return (
@@ -28,7 +32,12 @@ const toolbar = (props) => {
         <Typography variant="h6" noWrap>
           DevTeam
         </Typography>
-        <Button color="inherit" className={classes.loginButton}>
+        <Button
+          color="inherit"
+          className={classes.loginButton}
+          component={Link}
+          to={MENU_ROUTES.LOGIN}
+        >
           Login
         </Button>
       </Toolbar>
@@ -36,4 +45,4 @@ const toolbar = (props) => {
   );
 };
 
-export default toolbar;
+export default Header;
