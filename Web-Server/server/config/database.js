@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
     mongoose.connection.on('connected', () => {
         console.log('Connected to database ' + prodConnection);
     });
-} else if( process.env.NODE_ENV === 'atlas'){
+} else if (process.env.NODE_ENV === 'atlas') {
     mongoose.connect(atlasConnection, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -37,8 +37,7 @@ if (process.env.NODE_ENV === 'production') {
     mongoose.connection.on('connected', () => {
         console.log('Connected to database ' + atlasConnection);
     });
-}
-else {
+} else {
     mongoose.connect(devConnection, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -48,3 +47,4 @@ else {
         console.log('Connected to database ' + devConnection);
     });
 }
+module.exports = mongoose.connection;
