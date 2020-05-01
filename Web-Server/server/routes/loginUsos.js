@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const oauth = require("oauth");
-const userModel = require('../models/userModel2')
+const userModel = require('../models/userModel')
 const router = express.Router();
 const consumer = new oauth.OAuth(
     "https://usosapps.amu.edu.pl/services/oauth/request_token",
@@ -42,7 +42,7 @@ router.get('/loginUsos/:id', checkAuthentication, async function (req, res) {
     const user = await userModel.findById({
         _id: req.params.id
     });
-    consumer.get('https://usosapps.amu.edu.pl/services/users/user', user.name.token, user.name.tokenSecret, function (error, data, response) {
+    consumer.get('https://usosapps.amu.edu.pl/services/users/user', user.longing2.token, user.longing2.tokenSecret, function (error, data, response) {
         if (error) {
             console.log(error)
             res.redirect('/loginUsos/connect');
