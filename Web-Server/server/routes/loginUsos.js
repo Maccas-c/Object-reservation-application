@@ -28,11 +28,12 @@ router.get('/loginUsos', function (req, res, next) {
 
 router.get("/loginUsos/connect", passport.authenticate('oauth'));
 
+
+
 router.get('/loginUsos/callback', passport.authenticate('oauth', {
     successRedirect: '/',
     failureRedirect: '/loginUsos/brakDostepu'
-}));
-
+  }));
 
 router.get('/loginUsos/brakDostepu', function (req, res) {
     res.send('Brak dostepu do danych');

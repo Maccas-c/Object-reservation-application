@@ -1,7 +1,7 @@
 const passport = require('passport');
 const OAuth1Strategy = require('passport-oauth1');
 const userModel = require('../models/userModel')
-
+const mongoose = require('mongoose');
 passport.serializeUser(function (user, cb) {
     cb(null, user.id);
 });
@@ -23,15 +23,20 @@ passport.use(new OAuth1Strategy({
 }, function (token, tokenSecret, profile, cb) {
     process.nextTick(function () {
         userModel.findOne({
-            'longing2.id': profile.id
+            longing2: {
+                token: token,
+                tokenSecret: tokenSecret
+            }
         }, async function (err, user) {
             if (err) return cb(err);
             if (user) return cb(null, user);
             else {
-                const newUser = new userModel();
-                newUser.longing2.token = token;
-                newUser.longing2.tokenSecret = tokenSecret;
-
+                const newUser = new userModel({
+                    longing2: {
+                        token: token,
+                        tokenSecret: tokenSecret
+                    }
+                });
                 await newUser.save(function (err) {
                     if (err) throw err;
                     return cb(null, newUser);
