@@ -1,12 +1,15 @@
 var express = require('express');
 const reservationModel = require('../models/reservationModel');
+const passport = require('passport');
+const isAuth = require('./authMiddleware').isAuth;
 var router = express.Router();
 
-router.get('/reservation', function (req, res, next) {
+
+router.get('/reservation', isAuth, function (req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/reservations', async (req, res) => {
+router.get('/reservations', isAuth, async (req, res, next) => {
   try {
     const reservations = await reservationModel.find();
     res.json(reservations);
