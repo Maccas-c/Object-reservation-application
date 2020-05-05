@@ -30,6 +30,7 @@ const userModel = mongoose.Schema({
   longing2:{
     id: String,
     name: String,
+    surname: String,
     token: String,
     tokenSecret: String
   }
