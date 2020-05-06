@@ -1,8 +1,11 @@
 const passport = require('passport');
 const oauth = require("oauth");
 const OAuth1Strategy = require('passport-oauth1');
+const LocalStrategy = require('passport-local').Strategy;
 const userModel = require('../models/userModel')
+// const localUser = require('../models/userModelLocal');
 const mongoose = require('mongoose');
+const validPassword = require('../lib/password').validPassword;
 
 passport.serializeUser(function (user, cb) {
     cb(null, user);
@@ -71,3 +74,47 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
     });
 };
 passport.use(usosClient);
+
+
+//passport local
+const customFields = {
+    usernameField: 'user',
+    passwordField: 'password'
+};
+
+const verifyCallback = (username, password, done) => {
+
+    userModel.findOne({ 'login.username': username })
+        .then((user) => {
+            console.log(user);
+            if (!user) { return done(null, false) }
+            
+            const isValid = validPassword(password, user.hash, user.salt);
+            
+            if (isValid) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        })
+        .catch((err) => {   
+            done(err);
+        });
+
+}
+
+const strategy  = new LocalStrategy(customFields, verifyCallback);
+
+passport.use(strategy);
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((userId, done) => {
+    User.findById(userId)
+        .then((user) => {
+            done(null, user);
+        })
+        .catch(err => done(err))
+});

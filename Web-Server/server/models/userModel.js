@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
   login:{
-    name: {
+    username: {
       type: String,
     },
     surname: {
@@ -11,10 +11,12 @@ const userModel = mongoose.Schema({
     email: {
       type: String,
     },
-    password: {
+    hash: {
       type: String,
     },
-    salt: String,
+    salt:{
+      type: String,
+    },
     age: Number,
     phone_number: String,
     isActive: {

@@ -14,7 +14,9 @@ const usersRouter = require('./routes/users');
 const reservationRouter = require('./routes/reservations');
 const courtRouter = require('./routes/courts');
 const loginUsosRouter = require('./routes/loginUsos')
+const login = require('./routes/login')
 const connection = require('./config/database');
+const crypto = require('crypto');
 
 const app = express();
 
@@ -49,5 +51,6 @@ app.use(usersRouter);
 app.use(reservationRouter);
 app.use(courtRouter);
 app.use(loginUsosRouter);
+app.use(login);
 
 module.exports = app;
