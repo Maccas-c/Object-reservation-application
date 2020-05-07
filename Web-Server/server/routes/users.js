@@ -1,5 +1,6 @@
 var express = require('express');
 const userModel = require('../models/userModel');
+const genPassword = require('../lib/password').genPassword;
 var router = express.Router();
 
 /* GET users listing. */
@@ -17,19 +18,27 @@ router.get('/users', async (req, res) => {
 });
 
 router.post('/user/create', async (req, res) => {
+  const saltHash = genPassword(req.body.password);
+
+  const salt = saltHash.salt;
+  const hash = saltHash.hash;
+
   const user = new userModel({
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: req.body.password,
-    salt: req.body.salt,
-    age: req.body.age,
-    phone_number: req.body.phone_number,
-    isStudent: req.body.isStudent
+    login: {
+      name: req.body.name,
+      surname: req.body.surname,
+      email: req.body.email,
+      hash: hash,
+      salt: salt,
+      age: req.body.age,
+      phone_number: req.body.phone_number,
+      isStudent: req.body.isStudent
+    }
   });
   try {
     const savedUser = await user.save();
     res.json(savedUser);
+    res.redirect('/');
   } catch (err) {
     res.json(err);
   }
@@ -37,14 +46,13 @@ router.post('/user/create', async (req, res) => {
 
 router.patch('/user/delete/:userId', async (req, res) => {
   try {
-    const deleteUser = await userModel.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          isActive: false
-        }
+    const deleteUser = await userModel.updateOne({
+      _id: req.params.userId
+    }, {
+      $set: {
+        isActive: false
       }
-    );
+    });
     res.json(updateUser);
   } catch (err) {
     res.json(err);
@@ -53,17 +61,16 @@ router.patch('/user/delete/:userId', async (req, res) => {
 
 router.patch('/user/update/:userId', async (req, res) => {
   try {
-    const updateUser = await userModel.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          name: req.body.name,
-          surname: req.body.surname,
-          age: req.body.age,
-          phone_number: req.body.phone_number
-        }
+    const updateUser = await userModel.updateOne({
+      _id: req.params.userId
+    }, {
+      $set: {
+        name: req.body.name,
+        surname: req.body.surname,
+        age: req.body.age,
+        phone_number: req.body.phone_number
       }
-    );
+    });
     res.json(updateUser);
   } catch (err) {
     res.json(err);

@@ -6,50 +6,11 @@ const isAuth = require('./authMiddleware').isAuthLocal;
 // const isAdmin = require('./authMiddleware').isAdminLocal;
 const localUser = require('../models/userModel');
 
-/**
- * -------------- POST ROUTES ----------------
- */
 
- router.post('/login', passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: 'login-success' }));
-
- router.post('/register', (req, res, next) => {
-    const saltHash = genPassword(req.body.password);
-    
-    const salt = saltHash.salt;
-    const hash = saltHash.hash;
-
-    const newUser = new localUser({
-        login: {
-            username: req.body.user,
-            hash: hash,
-            salt: salt,
-        }
-    });
-
-    newUser.save()
-        .then((user) => {
-            console.log(user);
-        });
-
-    res.redirect('/');
- });
-
-
- /**
- * -------------- GET ROUTES ----------------
- */
-
-router.get('/', (req, res, next) => {
-    res.send('<h1>Home</h1><p>Please <a href="/register">register</a></p>');
-});
-
-router.get('/protected-route', isAuth, (req, res, next) => {
-    res.send('You made it to the route.');
-});
-
-// router.get('/admin-route', isAdmin, (req, res, next) => {
-//     res.send('You made it to the admin route.');
-// });
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/login-failure',
+    successRedirect: '/login-success'
+}));
 
 
 router.get('/logout', (req, res, next) => {

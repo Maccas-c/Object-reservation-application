@@ -76,45 +76,37 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
 passport.use(usosClient);
 
 
-//passport local
+//passport-local
 const customFields = {
-    usernameField: 'user',
+    usernameField: 'email',
     passwordField: 'password'
 };
 
-const verifyCallback = (username, password, done) => {
+const verifyCallback = (email, password, done) => {
 
-    userModel.findOne({ 'login.username': username })
+    userModel.findOne({
+            'login.email': email
+        })
         .then((user) => {
             console.log(user);
-            if (!user) { return done(null, false) }
-            
-            const isValid = validPassword(password, user.hash, user.salt);
-            
+            if (!user) {
+                return done(null, false)
+            }
+
+            const isValid = validPassword(password, user.login.hash, user.login.salt);
+
             if (isValid) {
                 return done(null, user);
             } else {
                 return done(null, false);
             }
         })
-        .catch((err) => {   
+        .catch((err) => {
             done(err);
         });
 
 }
 
-const strategy  = new LocalStrategy(customFields, verifyCallback);
+const strategy = new LocalStrategy(customFields, verifyCallback);
 
 passport.use(strategy);
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((userId, done) => {
-    User.findById(userId)
-        .then((user) => {
-            done(null, user);
-        })
-        .catch(err => done(err))
-});

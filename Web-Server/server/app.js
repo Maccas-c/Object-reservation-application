@@ -33,7 +33,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(
   session({
-    secret: "very secret",
+    secret: process.env.OAUTH_SECRET,
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 5 * 60,

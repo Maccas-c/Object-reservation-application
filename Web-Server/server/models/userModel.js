@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
   login:{
+    name: {
+      type: String,
+    },
     username: {
       type: String,
     },
