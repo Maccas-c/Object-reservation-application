@@ -15,7 +15,6 @@ export const useDarkMode = () => {
   } = theme;
 
   const toggleDarkMode = (value) => {
-    console.log(value);
     if (value !== theme.value) {
       const updatedTheme = {
         ...theme,
