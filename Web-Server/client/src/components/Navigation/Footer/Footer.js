@@ -8,6 +8,7 @@ import makeStyles from './FooterStyles';
 const Footer = (props) => {
   const classes = makeStyles();
   const [value, setValue] = React.useState(0);
+  const modeId = { dark: '0', light: '1' };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -18,14 +19,13 @@ const Footer = (props) => {
       <Tabs
         value={value}
         onChange={handleChange}
-        onClick={props.switch}
         indicatorColor="primary"
         textColor="primary"
         aria-label="full width tabs example"
         centered
       >
-        <Tab label="Dark" />
-        <Tab label="Light" />
+        <Tab label="Dark" onClick={() => props.switch(modeId.dark)} />
+        <Tab label="Light" onClick={() => props.switch(modeId.light)} />
       </Tabs>
     </AppBar>
   );

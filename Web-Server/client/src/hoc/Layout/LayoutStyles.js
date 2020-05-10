@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 const themeObject = {
+  value: '0',
   palette: {
     primary: { main: '#053f5b' },
     type: 'dark'
@@ -13,15 +14,19 @@ export const useDarkMode = () => {
     palette: { type }
   } = theme;
 
-  const toggleDarkMode = () => {
-    const updatedTheme = {
-      ...theme,
-      palette: {
-        ...theme.palette,
-        type: type === 'light' ? 'dark' : 'light'
-      }
-    };
-    setTheme(updatedTheme);
+  const toggleDarkMode = (value) => {
+    console.log(value);
+    if (value !== theme.value) {
+      const updatedTheme = {
+        ...theme,
+        value: value,
+        palette: {
+          ...theme.palette,
+          type: type === 'light' ? 'dark' : 'light'
+        }
+      };
+      setTheme(updatedTheme);
+    }
   };
   return [theme, toggleDarkMode];
 };
