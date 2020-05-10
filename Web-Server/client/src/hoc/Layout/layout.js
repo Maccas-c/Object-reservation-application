@@ -14,12 +14,12 @@ import NotFound from '../../components/Errors/NotFound';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 
 const Layout = (props) => {
-  const [updatedTheme, toggleDarkMode] = useDarkMode();
+  const [updatedTheme, toggleMode] = useDarkMode();
   const theme = createMuiTheme(updatedTheme);
 
   return (
     <ThemeProvider theme={theme}>
-      <Content switch={toggleDarkMode}>
+      <Content switch={toggleMode}>
         <Switch>
           <Route path={MENU_ROUTES.HOME} exact component={Home} />
           <Route path={MENU_ROUTES.LOGIN} component={Login} />
