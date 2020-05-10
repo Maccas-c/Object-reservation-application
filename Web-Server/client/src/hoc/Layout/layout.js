@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import NavigationMenu from '../../components/Navigation/SideDrawer/SideDrawer';
-import BottomNavigation from '../../components/Navigation/BottomNavigation/BottomNavigation';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { useDarkMode } from './LayoutStyles';
+import Content from '../../components/Navigation/SideDrawer/SideDrawer';
+import Footer from '../../components/Navigation/Footer/Footer';
 import Home from '../../components/Home/Home';
 import Login from '../../components/Login/Login';
 import UserProfile from '../../components/UserProfile/UserProfile';
@@ -12,9 +14,12 @@ import NotFound from '../../components/Errors/NotFound';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 
 const Layout = (props) => {
+  const [updatedTheme, toggleDarkMode] = useDarkMode();
+  const theme = createMuiTheme(updatedTheme);
+
   return (
-    <Fragment>
-      <NavigationMenu>
+    <ThemeProvider theme={theme}>
+      <Content switch={toggleDarkMode}>
         <Switch>
           <Route path={MENU_ROUTES.HOME} exact component={Home} />
           <Route path={MENU_ROUTES.LOGIN} component={Login} />
@@ -23,9 +28,9 @@ const Layout = (props) => {
           <Route path={MENU_ROUTES.USERS_LIST} component={UsersList} />
           <Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
         </Switch>
-      </NavigationMenu>
-      <BottomNavigation />
-    </Fragment>
+      </Content>
+      <Footer />
+    </ThemeProvider>
   );
 };
 

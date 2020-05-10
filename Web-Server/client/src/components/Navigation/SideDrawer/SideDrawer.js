@@ -8,7 +8,8 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Button
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -25,7 +26,6 @@ const SideDrawer = (props) => {
     location: { pathname }
   } = props;
 
-  // const menuList = Object.keys(MENU_ITEMS).map((key) => key);
   const menuList = Object.values(MENU_ITEMS);
 
   const handleDrawerToggle = () => {
@@ -97,6 +97,7 @@ const SideDrawer = (props) => {
       <div className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
+        <Button onClick={props.switch}>SWITCH</Button>
       </div>
     </div>
   );

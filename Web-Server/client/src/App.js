@@ -5,7 +5,7 @@ import Layout from './hoc/Layout/Layout';
 const App = (props) => {
   return (
     <div>
-      <Layout></Layout>
+      <Layout />
     </div>
   );
 };
