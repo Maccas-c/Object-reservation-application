@@ -8,8 +8,7 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText,
-  Button
+  ListItemText
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -97,7 +96,6 @@ const SideDrawer = (props) => {
       <div className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
-        <Button onClick={props.switch}>SWITCH</Button>
       </div>
     </div>
   );

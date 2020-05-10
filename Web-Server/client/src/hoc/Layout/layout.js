@@ -19,7 +19,7 @@ const Layout = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Content switch={toggleMode}>
+      <Content>
         <Switch>
           <Route path={MENU_ROUTES.HOME} exact component={Home} />
           <Route path={MENU_ROUTES.LOGIN} component={Login} />
@@ -29,7 +29,7 @@ const Layout = (props) => {
           <Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
         </Switch>
       </Content>
-      <Footer />
+      <Footer switch={toggleMode} />
     </ThemeProvider>
   );
 };
