@@ -5,13 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {
   Drawer,
   Hidden,
-  IconButton,
   List,
   ListItem,
   ListItemText
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 
+import Avatar from '../../../assets/avatar/avatarMale.png';
 import Header from '../Header/Header';
 import { MENU_ITEMS } from '../../../constansts/menuList/menuItems';
 import { MENU_ROUTES } from '../../../constansts/routes/routes';
@@ -35,8 +34,12 @@ const SideDrawer = (props) => {
     return Object.keys(object).find((key) => object[key] === value);
   };
 
+  const userRoute = () => {
+    props.history.push(MENU_ROUTES.USER_PROFILE);
+  };
+
   const drawer = (
-    <div>
+    <div className={classes.drawerList}>
       <List>
         {menuList.map((item) => {
           const key = getKeyByValue(MENU_ITEMS, item);
@@ -66,16 +69,12 @@ const SideDrawer = (props) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper
-            }}
           >
-            <IconButton
-              onClick={handleDrawerToggle}
-              className={classes.closeMenuButton}
-            >
-              <CloseIcon />
-            </IconButton>
+            <div className={classes.userProfile} onClick={userRoute}>
+              <img src={Avatar} alt="Your avatar" height="80" width="80" />
+              <h5 className={classes.userName}>Jan Kowalski</h5>
+              <h5 className={classes.userMail}>example@gmail.com</h5>
+            </div>
             {drawer}
           </Drawer>
         </Hidden>
@@ -88,6 +87,11 @@ const SideDrawer = (props) => {
             }}
           >
             <div className={classes.toolbar} />
+            <div className={classes.userProfile} onClick={userRoute}>
+              <img src={Avatar} alt="Your avatar" height="80" width="80" />
+              <h5 className={classes.userName}>Jan Kowalski</h5>
+              <h5 className={classes.userMail}>example@gmail.com</h5>
+            </div>
             {drawer}
           </Drawer>
         </Hidden>

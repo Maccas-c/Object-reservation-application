@@ -8,11 +8,12 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0
+      width: drawerWidth
     }
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: {
+    ...theme.mixins.toolbar
+  },
   drawerPaper: {
     width: drawerWidth
   },
@@ -23,6 +24,28 @@ const useStyles = makeStyles((theme) => ({
   closeMenuButton: {
     marginRight: 'auto',
     marginLeft: 0
+  },
+  drawerList: {
+    borderTop: '1px solid rgba(0,0,0,0.3)'
+  },
+  userProfile: {
+    textAlign: 'center',
+    fontSize: '15px',
+    marginTop: '18px',
+    fontFamily: 'Segoe UI',
+    cursor: 'pointer'
+  },
+  userName: {
+    marginTop: '6px',
+    marginBottom: '1px',
+    fontWeight: 400,
+    fontSize: 14
+  },
+  userMail: {
+    marginTop: '1px',
+    marginBottom: '18px',
+    fontWeight: 400,
+    fontSize: 14
   }
 }));
 

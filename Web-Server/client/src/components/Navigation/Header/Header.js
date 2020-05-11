@@ -29,7 +29,7 @@ const Header = (props) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap>
+        <Typography variant="h6" noWrap style={{ fontFamily: 'Segoe UI' }}>
           DevTeam
         </Typography>
         <Button
@@ -37,6 +37,7 @@ const Header = (props) => {
           className={classes.loginButton}
           component={Link}
           to={MENU_ROUTES.LOGIN}
+          style={{ fontFamily: 'Segoe UI' }}
         >
           Login
         </Button>

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
 const themeObject = {
+  typography: {
+    fontFamily: 'Segoe UI'
+  },
   value: '0',
   palette: {
     primary: { main: '#053f5b' },
