@@ -17,27 +17,36 @@ router.get("/users", async (req, res) => {
 });
 
 router.post("/user/create", async (req, res) => {
-  const saltHash = genPassword(req.body.password);
-
-  const salt = saltHash.salt;
-  const hash = saltHash.hash;
-
-  const user = new userModel({
-    login: {
-      email: req.body.email,
-      hash: hash,
-      salt: salt,
+  const isExist = userModel.findOne(
+    {
+      "login.email": req.body.email,
     },
-    name: req.body.name,
-    surname: req.body.surname,
-  });
-  try {
-    const savedUser = await user.save();
-    res.status(201).json(savedUser);
-    res.redirect("/");
-  } catch (err) {
-    res.status(400).json(err);
-  }
+    async function (err, user) {
+      if (err) return res.status(404).json(err);
+      if (user) return res.status(422).json("The email exist");
+      else {
+        const saltHash = await genPassword(req.body.password);
+        const salt = saltHash.salt;
+        const hash = saltHash.hash;
+
+        const user = new userModel({
+          login: {
+            email: req.body.email,
+            hash: hash,
+            salt: salt,
+          },
+          name: req.body.name,
+          surname: req.body.surname,
+        });
+        try {
+          const savedUser = await user.save();
+          res.status(201).json(savedUser);
+        } catch (err) {
+          res.status(400).res.json(err);
+        }
+      }
+    }
+  );
 });
 
 router.patch("/user/delete/:userId", async (req, res) => {
