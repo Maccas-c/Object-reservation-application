@@ -12,10 +12,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import useStyles from './LoginStyles';
+import { MENU_ROUTES } from '../../constansts/routes/routes';
 
-const Login = () => {
+const Login = (props) => {
 	const classes = useStyles();
+	const ChangeHandlerRegister = () => {
+		props.history.push(MENU_ROUTES.REGISTER);
+	};
 
+	const ChangeHandlerRememberPassword = () => {
+		props.history.push(MENU_ROUTES.REMEMBERPASSWORD);
+	};
 	return (
 		<Container component='main' maxWidth='xs'>
 			<CssBaseline />
@@ -74,11 +81,19 @@ const Login = () => {
 						Zaloguj się
 					</Button>
 					<Grid container justify='flex-end'>
-						<Link href='#' variant='body2'>
+						<Link
+							variant='body2'
+							onClick={ChangeHandlerRegister}
+							href='#'
+						>
 							Nie posiadasz konta? Zarejestruj się !
 						</Link>
 						<Grid item>
-							<Link href='#' variant='body2'>
+							<Link
+								onClick={ChangeHandlerRememberPassword}
+								href='#'
+								variant='body2'
+							>
 								Nie pamiętasz hasła? Przypomnij hasło !
 							</Link>
 						</Grid>

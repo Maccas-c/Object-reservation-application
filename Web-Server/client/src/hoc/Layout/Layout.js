@@ -12,7 +12,8 @@ import UsersList from '../../components/UsersList/UsersList';
 import Calendar from '../../components/Calendar/Calendar';
 import NotFound from '../../components/Errors/NotFound';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
-
+import Register from '../../components/Register/Register';
+import RememberPassword from '../../components/RememberPassword/RememberPassword';
 const Layout = (props) => {
 	const [updatedTheme, toggleMode] = useDarkMode();
 	const theme = createMuiTheme(updatedTheme);
@@ -32,6 +33,11 @@ const Layout = (props) => {
 						path={MENU_ROUTES.USERS_LIST}
 						component={UsersList}
 					/>
+					<Route
+						path={MENU_ROUTES.REMEMBERPASSWORD}
+						component={RememberPassword}
+					/>
+					<Route path={MENU_ROUTES.REGISTER} component={Register} />
 					<Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
 				</Switch>
 			</Content>
