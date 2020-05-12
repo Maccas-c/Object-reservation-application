@@ -21,6 +21,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
 
   let logoutBtn = null;
+  let menuIcon = null;
   if (props.isLoggedIn) {
     logoutBtn = (
       <Button
@@ -34,20 +35,23 @@ const Header = (props) => {
         Wyloguj
       </Button>
     );
+    menuIcon = (
+      <IconButton
+        color="inherit"
+        aria-label="Open drawer"
+        edge="start"
+        onClick={props.open}
+        className={classes.menuButton}
+      >
+        <MenuIcon />
+      </IconButton>
+    );
   }
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="Open drawer"
-          edge="start"
-          onClick={props.open}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
+        {menuIcon}
         <Typography variant="h6" noWrap style={{ fontFamily: 'Segoe UI' }}>
           DevTeam
         </Typography>

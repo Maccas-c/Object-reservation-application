@@ -1,21 +1,26 @@
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import {
+  Avatar,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import useStyles from './LoginStyles';
+
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 import * as authActions from '../../store/actions/index';
+
+import useStyles from './LoginStyles';
 
 const Login = (props) => {
   const classes = useStyles();
@@ -33,12 +38,14 @@ const Login = (props) => {
     props.history.replace(MENU_ROUTES.HOME);
   };
 
-  const changeHandlerRegister = () => {
+  const changeRegisterHandler = (event) => {
+    event.preventDefault();
     props.history.push(MENU_ROUTES.REGISTER);
   };
 
-  const changeHandlerRememberPassword = () => {
-    props.history.push(MENU_ROUTES.REMEMBERPASSWORD);
+  const changeRememberPasswordHandler = (event) => {
+    event.preventDefault();
+    props.history.push(MENU_ROUTES.REMEMBER_PASSWORD);
   };
 
   return (
@@ -53,7 +60,7 @@ const Login = (props) => {
           <Typography component="h1" variant="h5">
             Logowanie
           </Typography>
-          <form className={classes.form} Validate>
+          <form className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -99,14 +106,18 @@ const Login = (props) => {
               Zaloguj się
             </Button>
             <Grid container justify="flex-end">
-              <Link variant="body2" onClick={changeHandlerRegister} href="#">
+              <Link
+                variant="body2"
+                onClick={(event) => changeRegisterHandler(event)}
+                href=""
+              >
                 Nie posiadasz konta? Zarejestruj się!
               </Link>
               <Grid item>
                 <Link
-                  onClick={changeHandlerRememberPassword}
-                  href="#"
                   variant="body2"
+                  onClick={(event) => changeRememberPasswordHandler(event)}
+                  href=""
                 >
                   Nie pamiętasz hasła? Przypomnij hasło!
                 </Link>

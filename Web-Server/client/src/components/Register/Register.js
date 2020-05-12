@@ -1,92 +1,106 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import {
+  Avatar,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import useStyles from './RegisterStyles';
+
 import { MENU_ROUTES } from '../../constansts/routes/routes';
+import * as authActions from '../../store/actions/index';
+
+import useStyles from './RegisterStyles';
 
 const Register = (props) => {
-	const classes = useStyles();
-	const Handler = () => {
-		props.history.push(MENU_ROUTES.LOGIN);
-	};
-	return (
-		<Container component='main' maxWidth='xs'>
-			<CssBaseline />
-			<div className={classes.paper}>
-				<Avatar className={classes.avatar}>
-					<LockOutlinedIcon />
-				</Avatar>
-				<Typography component='h1' variant='h5'>
-					Rejestracja
-				</Typography>
-				<form className={classes.form} noValidate>
-					<Grid container spacing={2}>
-						<Grid item xs={12}>
-							<TextField
-								variant='outlined'
-								required
-								fullWidth
-								id='email'
-								label='E-mail '
-								name='email'
-								autoComplete='email'
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								variant='outlined'
-								required
-								fullWidth
-								name='password'
-								label='Hasło'
-								type='password'
-								id='password'
-								autoComplete='current-password'
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<FormControlLabel
-								control={
-									<Checkbox
-										value='allowExtraEmails'
-										color='primary'
-									/>
-								}
-								label='
-                Chcę otrzymywać promocje marketingowe i aktualizacje pocztą elektroniczną.'
-							/>
-						</Grid>
-					</Grid>
-					<Button
-						type='submit'
-						fullWidth
-						variant='contained'
-						color='primary'
-						className={classes.submit}
-					>
-						Załóż konto
-					</Button>
-					<Grid container justify='flex-end'>
-						<Grid item>
-							<Link href='#' variant='body2' onClick={Handler}>
-								Posiadasz już konto? Zaloguj się
-							</Link>
-						</Grid>
-					</Grid>
-				</form>
-			</div>
-			<Box mt={5}></Box>
-		</Container>
-	);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authActions.registration());
+    return () => {
+      dispatch(authActions.registration());
+    };
+  }, [dispatch]);
+
+  const loginRedirectingHandler = (event) => {
+    event.preventDefault();
+    props.history.replace(MENU_ROUTES.LOGIN);
+  };
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Rejestracja
+        </Typography>
+        <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="E-mail"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Hasło"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="Zapoznałem się z regulaminem aplikacji."
+              />
+            </Grid>
+          </Grid>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Załóż konto
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link
+                variant="body2"
+                onClick={(event) => loginRedirectingHandler(event)}
+                href=""
+              >
+                Posiadasz już konto? Zaloguj się
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={5}></Box>
+    </Container>
+  );
 };
-export default Register;
+export default React.memo(Register);
