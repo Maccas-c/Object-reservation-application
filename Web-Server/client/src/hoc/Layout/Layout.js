@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useDarkMode } from './LayoutStyles';
@@ -16,10 +18,17 @@ import { MENU_ROUTES } from '../../constansts/routes/routes';
 const Layout = (props) => {
   const [updatedTheme, toggleMode] = useDarkMode();
   const theme = createMuiTheme(updatedTheme);
+  const isLoggedIn = useSelector((state) => state.user);
+
+  let loginPage = null;
+  if (!isLoggedIn) {
+    loginPage = <Redirect to={MENU_ROUTES.LOGIN} />;
+  }
 
   return (
     <ThemeProvider theme={theme}>
-      <Content>
+      <Content isLoggedIn={isLoggedIn}>
+        {loginPage}
         <Switch>
           <Route path={MENU_ROUTES.HOME} exact component={Home} />
           <Route path={MENU_ROUTES.LOGIN} component={Login} />

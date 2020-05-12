@@ -6,10 +6,10 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducers/reducer';
+import auth from './store/reducers/auth';
 
 const store = createStore(
-  reducer,
+  auth,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
