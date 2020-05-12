@@ -22,6 +22,7 @@ const Footer = (props) => {
 				onChange={handleChange}
 				indicatorColor='primary'
 				textColor='primary'
+				centered
 			>
 				<Tab label='Dark' onClick={() => props.switch(modeId.dark)} />
 				<Tab label='Light' onClick={() => props.switch(modeId.light)} />
