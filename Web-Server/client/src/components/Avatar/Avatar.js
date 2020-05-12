@@ -7,7 +7,7 @@ const LetterAvatars = (props) => {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root} onClick={props.clicked}>
+		<div className={classes.root}>
 			<Avatar src={props.src} className={classes.purple}></Avatar>
 		</div>
 	);

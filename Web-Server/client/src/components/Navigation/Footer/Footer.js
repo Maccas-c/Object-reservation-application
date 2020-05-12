@@ -26,7 +26,10 @@ const Footer = (props) => {
 			>
 				<Tab label='Dark' onClick={() => props.switch(modeId.dark)} />
 				<Tab label='Light' onClick={() => props.switch(modeId.light)} />
-				<Avatar src={Logo} />
+				<Avatar
+					src={Logo}
+					style={{ justifyContent: 'space-between' }}
+				/>
 			</Tabs>
 		</AppBar>
 	);
