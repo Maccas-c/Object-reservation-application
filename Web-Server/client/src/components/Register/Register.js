@@ -11,9 +11,9 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import useStyles from './LoginStyles';
+import useStyles from './RegisterStyles';
 
-const Login = () => {
+const Register = () => {
 	const classes = useStyles();
 
 	return (
@@ -24,7 +24,7 @@ const Login = () => {
 					<LockOutlinedIcon />
 				</Avatar>
 				<Typography component='h1' variant='h5'>
-					Logowanie
+					Rejestracja
 				</Typography>
 				<form className={classes.form} noValidate>
 					<Grid container spacing={2}>
@@ -60,7 +60,7 @@ const Login = () => {
 									/>
 								}
 								label='
-                Zapamiętaj mnie'
+                Chcę otrzymywać promocje marketingowe i aktualizacje pocztą elektroniczną.'
 							/>
 						</Grid>
 					</Grid>
@@ -71,15 +71,12 @@ const Login = () => {
 						color='primary'
 						className={classes.submit}
 					>
-						Zaloguj się
+						Załóż konto
 					</Button>
 					<Grid container justify='flex-end'>
-						<Link href='#' variant='body2'>
-							Nie posiadasz konta? Zarejestruj się !
-						</Link>
 						<Grid item>
 							<Link href='#' variant='body2'>
-								Nie pamiętasz hasła? Przypomnij hasło !
+								Posiadasz już konto? Zaloguj się
 							</Link>
 						</Grid>
 					</Grid>
@@ -89,4 +86,4 @@ const Login = () => {
 		</Container>
 	);
 };
-export default Login;
+export default Register;
