@@ -13,9 +13,6 @@ router.post('/api/login', passport.authenticate('local'), function (req, res) {
         "surname": req.user.surname,
         "email": req.user.login.email,
         "isActive": req.user.isActive
-
-
-
     });
     // res.send(req.user.isActive)
 });
