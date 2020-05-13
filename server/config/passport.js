@@ -18,7 +18,7 @@ const consumer = new oauth.OAuth(
   process.env.USOS_CONSUMER_KEY,
   process.env.USOS_CONSUMER_SECRET,
   "1.0",
-  "http:/localhost:3000/sessions/callback",
+  "http:/localhost:3000/api/loginUsos/callback",
   "HMAC-SHA1"
 );
 let usosClient = new OAuth1Strategy({
@@ -27,7 +27,7 @@ let usosClient = new OAuth1Strategy({
     userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
-    callbackURL: "http:/localhost:3001/loginUsos/callback",
+    callbackURL: "http:/localhost:3001/api/loginUsos/callback",
     signatureMethod: "HMAC-SHA1",
     scopes: ["https://usosapps.amu.edu.pl/services/users/user"],
   },
@@ -43,8 +43,6 @@ let usosClient = new OAuth1Strategy({
             const newUser = new userModel({
               longing2: {
                 id: profile.id,
-                token: accessToken,
-                tokenSecret: tokenSecret,
               },
               name: profile.first_name,
               surname: profile.last_name,
@@ -111,4 +109,7 @@ const verifyCallback = (email, password, done) => {
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
+
 passport.use(strategy);
+module.exports.consumer = consumer;
+
