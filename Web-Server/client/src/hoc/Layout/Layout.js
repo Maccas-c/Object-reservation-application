@@ -38,15 +38,16 @@ const Layout = (props) => {
         {loginPage}
         <Switch>
           <Route path={MENU_ROUTES.HOME} exact component={Home} />
+          <Route
+            path={MENU_ROUTES.REMEMBER_PASSWORD}
+            component={RememberPassword}
+            exact
+          />
           <Route path={MENU_ROUTES.LOGIN} component={Login} />
           <Route path={MENU_ROUTES.USER_PROFILE} component={UserProfile} />
           <Route path={MENU_ROUTES.CALENDAR} component={Calendar} />
           <Route path={MENU_ROUTES.USERS_LIST} component={UsersList} />
           <Route path={MENU_ROUTES.REGISTER} component={Register} />
-          <Route
-            path={MENU_ROUTES.REMEMBER_PASSWORD}
-            component={RememberPassword}
-          />
           <Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
         </Switch>
       </Content>

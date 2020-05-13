@@ -38,14 +38,14 @@ const Login = (props) => {
     props.history.replace(MENU_ROUTES.HOME);
   };
 
-  const changeRegisterHandler = (event) => {
+  const registerHandler = (event) => {
     event.preventDefault();
-    props.history.push(MENU_ROUTES.REGISTER);
+    props.history.replace(MENU_ROUTES.REGISTER);
   };
 
-  const changeRememberPasswordHandler = (event) => {
+  const rememberPasswordHandler = (event) => {
     event.preventDefault();
-    props.history.push(MENU_ROUTES.REMEMBER_PASSWORD);
+    props.history.replace(MENU_ROUTES.REMEMBER_PASSWORD);
   };
 
   return (
@@ -108,7 +108,7 @@ const Login = (props) => {
             <Grid container justify="flex-end">
               <Link
                 variant="body2"
-                onClick={(event) => changeRegisterHandler(event)}
+                onClick={(event) => registerHandler(event)}
                 href=""
               >
                 Nie posiadasz konta? Zarejestruj się!
@@ -116,7 +116,7 @@ const Login = (props) => {
               <Grid item>
                 <Link
                   variant="body2"
-                  onClick={(event) => changeRememberPasswordHandler(event)}
+                  onClick={(event) => rememberPasswordHandler(event)}
                   href=""
                 >
                   Nie pamiętasz hasła? Przypomnij hasło!

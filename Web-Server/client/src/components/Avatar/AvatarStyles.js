@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { deepOrange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,14 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   purple: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[900],
     marginRight: '20px',
     margin: 'auto'
-  },
-  h1: {
-    fontSize: '16px',
-    marginTop: theme.spacing(3)
   }
 }));
 

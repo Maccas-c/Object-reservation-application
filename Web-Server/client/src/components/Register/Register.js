@@ -32,7 +32,7 @@ const Register = (props) => {
     };
   }, [dispatch]);
 
-  const loginRedirectingHandler = (event) => {
+  const loginHandler = (event) => {
     event.preventDefault();
     props.history.replace(MENU_ROUTES.LOGIN);
   };
@@ -90,7 +90,7 @@ const Register = (props) => {
             <Grid item>
               <Link
                 variant="body2"
-                onClick={(event) => loginRedirectingHandler(event)}
+                onClick={(event) => loginHandler(event)}
                 href=""
               >
                 Posiadasz już konto? Zaloguj się
