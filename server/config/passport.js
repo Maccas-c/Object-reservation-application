@@ -21,12 +21,10 @@ const consumer = new oauth.OAuth(
   "http:/localhost:3000/api/loginUsos/callback",
   "HMAC-SHA1"
 );
-let usosClient = new OAuth1Strategy(
-  {
+let usosClient = new OAuth1Strategy({
     requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token",
     accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL:
-      "https://usosapps.amu.edu.pl/services/oauth/authorize",
+    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: "http:/localhost:3001/api/loginUsos/callback",
@@ -35,8 +33,7 @@ let usosClient = new OAuth1Strategy(
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
-      userModel.findOne(
-        {
+      userModel.findOne({
           "longing2.id": profile.id,
         },
         async function (err, user) {
@@ -93,7 +90,6 @@ const verifyCallback = (email, password, done) => {
       "login.email": email,
     })
     .then((user) => {
-      console.log(user);
       if (!user) {
         return done(null, false);
       }
@@ -113,5 +109,7 @@ const verifyCallback = (email, password, done) => {
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
+
 passport.use(strategy);
 module.exports.consumer = consumer;
+

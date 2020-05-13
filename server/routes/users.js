@@ -4,11 +4,8 @@ const genPassword = require("../lib/password").genPassword;
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
 
-router.get("/user", function (req, res, next) {
-  res.send("respond with a resource");
-});
 
-router.get("/users", async (req, res) => {
+router.get("/api/users", async (req, res) => {
   try {
     const users = await userModel.find();
     res.status(200).json(users);
@@ -17,18 +14,19 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post(
-  "/user/create",
-  [
-    check("email").isEmail().notEmpty(),
 
-    check("password")
-      .isLength(5)
-      .notEmpty()
-      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/)
-      .withMessage(
-        "Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long"
-      ),
+
+router.post("/api/user/create",
+  [check("email").
+    isEmail().
+    notEmpty(),
+
+    check('password')
+    .isLength(5)
+    .notEmpty()
+    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)
+    .withMessage('Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long'),
+
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -70,7 +68,7 @@ router.post(
   }
 );
 
-router.patch("/user/delete/:userId", async (req, res) => {
+router.patch("/api/user/delete/:userId", async (req, res) => {
   try {
     const deletedUser = await userModel.updateOne(
       {
@@ -88,8 +86,9 @@ router.patch("/user/delete/:userId", async (req, res) => {
   }
 });
 
+
 router.patch(
-  "/user/update/:userId",
+  "/api/user/update/:userId",
   [
     check("name").notEmpty(),
     check("surname").notEmpty(),
@@ -113,8 +112,7 @@ router.patch(
       const updatedUser = await userModel.updateOne(
         {
           _id: req.params.userId,
-        },
-        {
+        }, {
           $set: {
             name: req.body.name,
             surname: req.body.surname,
@@ -138,7 +136,7 @@ router.patch(
   }
 );
 
-router.get("/user/:userId", async (req, res) => {
+router.get("/api/user/:userId", async (req, res) => {
   try {
     const getUser = await userModel.findById(req.params.userId);
     res.status(200).json(getUser);

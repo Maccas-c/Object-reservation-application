@@ -2,11 +2,11 @@ var express = require("express");
 const courtModel = require("../models/courtModel");
 var router = express.Router();
 
-router.get("/court", function (req, res, next) {
+router.get("/api/court", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-router.get("/courts", async (req, res) => {
+router.get("/api/courts", async (req, res) => {
   try {
     const courts = await courtModel.find();
     res.status(200).json(courts);
@@ -15,7 +15,7 @@ router.get("/courts", async (req, res) => {
   }
 });
 
-router.post("/court/create", async (req, res) => {
+router.post("/api/court/create", async (req, res) => {
   const court = new courtModel({
     id: req.body.id,
     name: req.body.name,
@@ -29,7 +29,7 @@ router.post("/court/create", async (req, res) => {
   }
 });
 
-router.delete("/court/delete/:courtId", async (req, res) => {
+router.delete("/api/court/delete/:courtId", async (req, res) => {
   try {
     const deletedCourt = await courtModel.deleteOne({
       _id: req.params.courtId,
@@ -40,25 +40,24 @@ router.delete("/court/delete/:courtId", async (req, res) => {
   }
 });
 
-router.patch("/court/update/:courtId", async (req, res) => {
+router.patch("/api/court/update/:courtId", async (req, res) => {
   try {
-    const updatedCourt = await courtModel.updateOne(
-      { _id: req.params.courtId },
-      {
-        $set: {
-          id: req.body.id,
-          name: req.body.name,
-          description: req.body.description,
-        },
-      }
-    );
+    const updatedCourt = await courtModel.updateOne({
+      _id: req.params.courtId
+    }, {
+      $set: {
+        id: req.body.id,
+        name: req.body.name,
+        description: req.body.description,
+      },
+    });
     res.status(200).json(updatedCourt);
   } catch (err) {
     res.status(404).json(err);
   }
 });
 
-router.get("/court/:courtId", async (req, res) => {
+router.get("/api/court/:courtId", async (req, res) => {
   try {
     const getCourt = await courtModel.findById(req.params.courtId);
     res.status(200).json(getCourt);
