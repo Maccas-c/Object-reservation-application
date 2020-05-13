@@ -8,8 +8,6 @@ const userModel = mongoose.Schema({
   },
   longing2: {
     id: String,
-    token: String,
-    tokenSecret: String,
   },
   name: String,
   surname: String,
@@ -31,7 +29,6 @@ const userModel = mongoose.Schema({
   },
   vat: {
     nip: String,
-    regon: String,
   },
 });
 
