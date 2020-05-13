@@ -1,81 +1,122 @@
-var express = require('express');
-const userModel = require('../models/userModel');
-var router = express.Router();
+const express = require("express");
+const userModel = require("../models/userModel");
+const genPassword = require("../lib/password").genPassword;
+const {
+  check,
+  validationResult
+} = require("express-validator");
+const router = express.Router();
 
-/* GET users listing. */
-router.get('/user', function (req, res, next) {
-  res.send('respond with a resource');
+router.get("/user", function (req, res, next) {
+  res.send("respond with a resource");
 });
 
-router.get('/users', async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const users = await userModel.find();
-    res.json(users);
+    res.status(200).json(users);
   } catch (err) {
-    res.json(err);
+    res.status(404).json(err);
   }
 });
 
-router.post('/user/create', async (req, res) => {
-  const user = new userModel({
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: req.body.password,
-    salt: req.body.salt,
-    age: req.body.age,
-    phone_number: req.body.phone_number,
-    isStudent: req.body.isStudent
+router.post("/user/create",
+  [check("email").
+    isEmail().
+    notEmpty(),
+
+    check('password')
+    .isLength(5)
+    .notEmpty()
+    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/)
+    .withMessage('Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    }
+    const isExist = userModel.findOne({
+        "login.email": req.body.email,
+      },
+      async function (err, user) {
+        if (err) return res.status(404).json(err);
+        if (user) return res.status(422).json("The email exist");
+        else {
+          const saltHash = await genPassword(req.body.password);
+          const salt = saltHash.salt;
+          const hash = saltHash.hash;
+
+          const user = new userModel({
+            login: {
+              email: req.body.email,
+              hash: hash,
+              salt: salt,
+            },
+            // name: req.body.name,
+            // surname: req.body.surname,
+          });
+          try {
+            const savedUser = await user.save();
+            res.status(201).json(savedUser);
+          } catch (err) {
+            res.status(400).res.json(err);
+          }
+        }
+      }
+    );
   });
+
+router.patch("/user/delete/:userId", async (req, res) => {
   try {
-    const savedUser = await user.save();
-    res.json(savedUser);
+    const deletedUser = await userModel.updateOne({
+      _id: req.params.userId,
+    }, {
+      $set: {
+        isActive: false,
+      },
+    });
+    res.status(200).json(deletedUser);
   } catch (err) {
-    res.json(err);
+    res.status(404).json(err);
   }
 });
 
-router.patch('/user/delete/:userId', async (req, res) => {
+router.patch("/user/update/:userId", async (req, res) => {
   try {
-    const deleteUser = await userModel.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          isActive: false
-        }
-      }
-    );
-    res.json(updateUser);
+    const updatedUser = await userModel.updateOne({
+      _id: req.params.userId,
+    }, {
+      $set: {
+        name: req.body.name,
+        surname: req.body.surname,
+        age: req.body.age,
+        phone_number: req.body.phone_number,
+        address: {
+          street: req.body.street,
+          city: req.body.city,
+          postalCode: req.body.postalCode,
+        },
+        vat: {
+          nip: req.body.nip,
+          regon: req.body.regon,
+        },
+      },
+    });
+    res.status(200).json(updatedUser);
   } catch (err) {
-    res.json(err);
+    res.status(404).json(err);
   }
 });
 
-router.patch('/user/update/:userId', async (req, res) => {
-  try {
-    const updateUser = await userModel.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          name: req.body.name,
-          surname: req.body.surname,
-          age: req.body.age,
-          phone_number: req.body.phone_number
-        }
-      }
-    );
-    res.json(updateUser);
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-router.get('/user/:userId', async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   try {
     const getUser = await userModel.findById(req.params.userId);
-    res.json(getUser);
+    res.status(200).json(getUser);
   } catch (err) {
-    res.json(err);
+    res.status(404).json(err);
   }
 });
 
