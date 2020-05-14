@@ -30,8 +30,10 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(
   session({
@@ -50,9 +52,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(indexRouter);
 app.use(usersRouter);
+
 app.use(reservationRouter);
 app.use(courtRouter);
 app.use(loginUsosRouter);
 app.use(login);
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '../client/build/index.html'));
+// });
+
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
 
 module.exports = app;

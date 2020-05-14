@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
-  Drawer,
-  Hidden,
-  List,
-  ListItem,
-  ListItemText
+	Drawer,
+	Hidden,
+	List,
+	ListItem,
+	ListItemText,
 } from '@material-ui/core';
 
 import Avatar from '../../../assets/avatar/avatarMale.png';
@@ -27,20 +27,20 @@ const SideDrawer = (props) => {
   const menuList = Object.values(MENU_ITEMS);
   const user = useSelector((state) => state.user);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	};
 
-  const getKeyByValue = (object, value) => {
-    return Object.keys(object).find((key) => object[key] === value);
-  };
+	const getKeyByValue = (object, value) => {
+		return Object.keys(object).find((key) => object[key] === value);
+	};
 
-  const userRoute = () => {
-    props.history.push(MENU_ROUTES.USER_PROFILE);
-  };
+	const userRoute = () => {
+		props.history.push(MENU_ROUTES.USER_PROFILE);
+	};
 
-  let menu = null;
-  let sideDrawer = null;
+	let menu = null;
+	let sideDrawer = null;
 
   if (props.user) {
     menu = (
@@ -109,14 +109,14 @@ const SideDrawer = (props) => {
       <CssBaseline />
       <Header open={handleDrawerToggle} user={props.user} />
 
-      {sideDrawer}
+			{sideDrawer}
 
-      <div className={classes.content}>
-        <div className={classes.toolbar} />
-        {props.children}
-      </div>
-    </div>
-  );
+			<div className={classes.content}>
+				<div className={classes.toolbar} />
+				{props.children}
+			</div>
+		</div>
+	);
 };
 
 export default withRouter(SideDrawer);
