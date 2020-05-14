@@ -1,5 +1,4 @@
 import axios from '../../axios/axios-auth';
-import { push } from 'connected-react-router';
 
 import * as actionTypes from './actionTypes';
 
@@ -47,7 +46,6 @@ export const authStart = (userInput) => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         dispatch(loginSuccess(response.data));
-        dispatch(push('/'));
       })
       .catch((err) => {
         console.log(err.response);
