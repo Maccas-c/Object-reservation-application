@@ -21,7 +21,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'https://boisko.herokuapp.com' }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
@@ -32,8 +32,8 @@ app.use(
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-app.use(express.static(path.resolve(__dirname, "../client/build")));
-app.use(logger("dev"));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(
   session({
@@ -61,8 +61,8 @@ app.use(login);
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });
 
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 module.exports = app;
