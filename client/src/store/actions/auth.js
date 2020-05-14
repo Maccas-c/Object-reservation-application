@@ -17,17 +17,6 @@ export const logoutSuccess = () => {
   };
 };
 
-export const registration = () => {
-  return {
-    type: actionTypes.REGISTRATION
-  };
-};
-
-export const rememberPassword = () => {
-  return {
-    type: actionTypes.REMEMBER_PASSWORD
-  };
-};
 export const checkUser = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   return {

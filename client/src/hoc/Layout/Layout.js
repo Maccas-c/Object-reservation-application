@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -14,40 +14,62 @@ import Calendar from '../../components/Calendar/Calendar';
 import NotFound from '../../components/Errors/NotFound';
 import Register from '../../components/Register/Register';
 import RememberPassword from '../../components/RememberPassword/RememberPassword';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import FreeRoute from '../ProtectedRoute/FreeRoute';
 
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 import * as authActions from '../../store/actions/index';
 import { useConstructor } from '../../utils/customHooks';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 const Layout = (props) => {
-  console.log('layout');
   const [updatedTheme, toggleMode] = useDarkMode();
   const theme = createMuiTheme(updatedTheme);
 
   const dispatch = useDispatch();
   useConstructor(() => dispatch(authActions.checkUser()));
-  const isLoggedIn = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   return (
     <ThemeProvider theme={theme}>
-      <Content isLoggedIn={isLoggedIn}>
+      <Content user={user}>
         <Switch>
-          <ProtectedRoute path={MENU_ROUTES.HOME} exact component={Home} />
+          <ProtectedRoute
+            path={MENU_ROUTES.HOME}
+            exact
+            component={Home}
+            user={user}
+          />
           <ProtectedRoute
             path={MENU_ROUTES.USER_PROFILE}
             component={UserProfile}
+            user={user}
           />
-          <ProtectedRoute path={MENU_ROUTES.CALENDAR} component={Calendar} />
-          <ProtectedRoute path={MENU_ROUTES.USERS_LIST} component={UsersList} />
-          <Route
-            path={MENU_ROUTES.REMEMBER_PASSWORD}
+          <ProtectedRoute
+            path={MENU_ROUTES.CALENDAR}
+            component={Calendar}
+            user={user}
+          />
+          <ProtectedRoute
+            path={MENU_ROUTES.USERS_LIST}
+            component={UsersList}
+            user={user}
+          />
+          <FreeRoute
+            path={MENU_ROUTES.PASSWORD_REC}
             component={RememberPassword}
-            exact
+            user={user}
           />
-          <Route path={MENU_ROUTES.REGISTER} component={Register} />
-          <Route path={MENU_ROUTES.LOGIN} component={Login} />
-          <ProtectedRoute path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
+          <FreeRoute
+            path={MENU_ROUTES.REGISTER}
+            component={Register}
+            user={user}
+          />
+          <FreeRoute path={MENU_ROUTES.LOGIN} component={Login} user={user} />
+          <ProtectedRoute
+            path={MENU_ROUTES.NOT_FOUND}
+            component={NotFound}
+            user={user}
+          />
         </Switch>
       </Content>
       <Footer switch={toggleMode} />

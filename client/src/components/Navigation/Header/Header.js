@@ -22,7 +22,7 @@ const Header = (props) => {
 
   let logoutBtn = null;
   let menuIcon = null;
-  if (props.isLoggedIn) {
+  if (props.user) {
     logoutBtn = (
       <Button
         color="inherit"

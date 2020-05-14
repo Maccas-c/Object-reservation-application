@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -24,14 +23,7 @@ import useStyles from './LoginStyles';
 
 const Login = (props) => {
   const classes = useStyles();
-  const isLoggedIn = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  let userLoggedIn = null;
-
-  if (isLoggedIn) {
-    userLoggedIn = <Redirect to={MENU_ROUTES.HOME}></Redirect>;
-  }
 
   const userLoginHandler = () => {
     dispatch(authActions.authStart());
@@ -50,7 +42,6 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      {userLoggedIn}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
