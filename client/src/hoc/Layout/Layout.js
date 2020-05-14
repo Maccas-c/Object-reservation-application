@@ -22,7 +22,6 @@ import * as authActions from '../../store/actions/index';
 import { useConstructor } from '../../utils/customHooks';
 
 const Layout = (props) => {
-  console.log('xd');
   const [updatedTheme, toggleMode] = useDarkMode();
   const theme = createMuiTheme(updatedTheme);
 
