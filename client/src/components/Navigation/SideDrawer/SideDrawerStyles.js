@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	content: {
 		flexGrow: 1,
-		marginTop: '5%',
 		padding: theme.spacing(3),
 		display: 'compact',
 		overflow: 'hidden',
+		bottom: 0,
 	},
 	closeMenuButton: {
 		marginRight: 'auto',
