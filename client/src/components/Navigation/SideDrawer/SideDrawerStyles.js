@@ -5,6 +5,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
+		overflow: 'hidden',
 	},
 	drawer: {
 		[theme.breakpoints.up('sm')]: {
