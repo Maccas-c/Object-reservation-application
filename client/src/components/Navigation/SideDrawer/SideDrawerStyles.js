@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: '5%',
 		padding: theme.spacing(3),
 		display: 'compact',
+		overflow: 'hidden',
 	},
 	closeMenuButton: {
 		marginRight: 'auto',
