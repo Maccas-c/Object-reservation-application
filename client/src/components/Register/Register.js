@@ -24,7 +24,7 @@ const Register = (props) => {
 
   const loginHandler = (event) => {
     event.preventDefault();
-    props.history.replace(MENU_ROUTES.LOGIN);
+    props.history.push(MENU_ROUTES.LOGIN);
   };
   return (
     <Container component="main" maxWidth="xs">

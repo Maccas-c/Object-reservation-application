@@ -22,12 +22,13 @@ import * as authActions from '../../store/actions/index';
 import { useConstructor } from '../../utils/customHooks';
 
 const Layout = (props) => {
+  console.log('xd');
   const [updatedTheme, toggleMode] = useDarkMode();
   const theme = createMuiTheme(updatedTheme);
 
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useConstructor(() => dispatch(authActions.checkUser()));
-  const user = useSelector((state) => state.user);
 
   return (
     <ThemeProvider theme={theme}>

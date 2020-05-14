@@ -22,7 +22,7 @@ const RememberPassword = (props) => {
 
   const changeLoginHandler = (event) => {
     event.preventDefault();
-    props.history.replace(MENU_ROUTES.LOGIN);
+    props.history.push(MENU_ROUTES.LOGIN);
   };
 
   return (

@@ -1,7 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  user: null
+  user: null,
+  login: '',
+  password: ''
 };
 
 const auth = (state, action) => {

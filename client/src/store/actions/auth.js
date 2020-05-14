@@ -1,10 +1,9 @@
 import axios from '../../axios/axios-auth';
+import { push } from 'connected-react-router';
 
 import * as actionTypes from './actionTypes';
 
-export const loginSuccess = (response) => {
-  localStorage.setItem('user', JSON.stringify(response.data));
-  const user = JSON.parse(localStorage.getItem('user'));
+export const loginSuccess = (user) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     user: user
@@ -32,7 +31,6 @@ export const logout = () => {
       .then((response) => {
         dispatch(logoutSuccess());
         localStorage.removeItem('user');
-        console.log(response);
       })
       .catch((error) => {
         console.log(error.message);
@@ -40,19 +38,17 @@ export const logout = () => {
   };
 };
 
-export const authStart = () => {
+export const authStart = (userInput) => {
   return (dispatch) => {
-    const authData = {
-      email: 'lol@wp.pl',
-      password: 'Lol21'
-    };
+    console.log(userInput);
     axios
-      .post('/login', authData, {
+      .post('/login', userInput, {
         withCredentials: true
       })
       .then((response) => {
-        dispatch(loginSuccess(response));
-        console.log(response);
+        localStorage.setItem('user', JSON.stringify(response.data));
+        dispatch(loginSuccess(response.data));
+        dispatch(push('/'));
       })
       .catch((err) => {
         console.log(err.response);
