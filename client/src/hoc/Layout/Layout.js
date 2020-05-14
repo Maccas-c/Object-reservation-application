@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useDarkMode } from './LayoutStyles';
 import Content from '../../components/Navigation/SideDrawer/SideDrawer';
-// import Footer from '../../components/Navigation/Footer/Footer';
+import Footer from '../../components/Navigation/Footer/Footer';
 import Home from '../../components/Home/Home';
 import Login from '../../components/Login/Login';
 import UserProfile from '../../components/UserProfile/UserProfile';
@@ -19,8 +19,8 @@ import RememberPassword from '../../components/RememberPassword/RememberPassword
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 
 const Layout = (props) => {
-	// const [updatedTheme, toggleMode] = useDarkMode();
-	// const theme = createMuiTheme(updatedTheme);
+	const [updatedTheme, toggleMode] = useDarkMode();
+	const theme = createMuiTheme(updatedTheme);
 	const isLoggedIn = useSelector((state) => state.user);
 	const isRegistrationStarted = useSelector(
 		(state) => state.registrationStart
@@ -35,7 +35,7 @@ const Layout = (props) => {
 	}
 
 	return (
-		<ThemeProvider>
+		<ThemeProvider theme={theme}>
 			<Content isLoggedIn={isLoggedIn}>
 				{loginPage}
 				<Switch>
@@ -59,7 +59,7 @@ const Layout = (props) => {
 					<Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
 				</Switch>
 			</Content>
-			{/* <Footer switch={toggleMode} /> */}
+			<Footer switch={toggleMode} />
 		</ThemeProvider>
 	);
 };
