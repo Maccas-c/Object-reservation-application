@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: theme.zIndex.drawer + 1,
 		height: '50px',
 		display: 'flex',
+		position: 'flex',
 		marginTop: 'calc(100vh - 50px)',
 		bottom: 'auto',
 	},

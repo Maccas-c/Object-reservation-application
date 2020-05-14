@@ -36,6 +36,7 @@ const Layout = (props) => {
 
 	return (
 		<ThemeProvider theme={theme}>
+			<Footer switch={toggleMode} />
 			<Content isLoggedIn={isLoggedIn}>
 				{loginPage}
 				<Switch>
@@ -58,7 +59,6 @@ const Layout = (props) => {
 					<Route path={MENU_ROUTES.REGISTER} component={Register} />
 					<Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
 				</Switch>
-				<Footer switch={toggleMode} />
 			</Content>
 		</ThemeProvider>
 	);

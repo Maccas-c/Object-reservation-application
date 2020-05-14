@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	toolbar: {
 		...theme.mixins.toolbar,
-		height: 'auto',
 	},
 	drawerPaper: {
 		width: drawerWidth,
 	},
 	content: {
 		flexGrow: 1,
-		padding: theme.spacing(3),
+		padding: theme.spacing(4),
+		position: 'flex',
 	},
 	closeMenuButton: {
 		marginRight: 'auto',
