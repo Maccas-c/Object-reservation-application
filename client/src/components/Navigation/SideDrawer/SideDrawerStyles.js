@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	content: {
 		flexGrow: 1,
-		padding: theme.spacing(1),
+		marginTop: '5%',
+		padding: theme.spacing(3),
+		display: 'compact',
 	},
 	closeMenuButton: {
 		marginRight: 'auto',
