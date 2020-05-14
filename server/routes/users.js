@@ -1,7 +1,10 @@
 const express = require("express");
 const userModel = require("../models/userModel");
 const genPassword = require("../lib/password").genPassword;
-const { check, validationResult } = require("express-validator");
+const {
+  check,
+  validationResult
+} = require("express-validator");
 const router = express.Router();
 
 
@@ -35,8 +38,7 @@ router.post("/api/user/create",
         errors: errors.array(),
       });
     }
-    const isExist = userModel.findOne(
-      {
+    const isExist = userModel.findOne({
         "login.email": req.body.email,
       },
       async function (err, user) {
@@ -70,16 +72,13 @@ router.post("/api/user/create",
 
 router.patch("/api/user/delete/:userId", async (req, res) => {
   try {
-    const deletedUser = await userModel.updateOne(
-      {
-        _id: req.params.userId,
+    const deletedUser = await userModel.updateOne({
+      _id: req.params.userId,
+    }, {
+      $set: {
+        isActive: false,
       },
-      {
-        $set: {
-          isActive: false,
-        },
-      }
-    );
+    });
     res.status(200).json(deletedUser);
   } catch (err) {
     res.status(404).json(err);
@@ -93,12 +92,12 @@ router.patch(
     check("name").notEmpty(),
     check("surname").notEmpty(),
     check("age").isNumeric(),
-    check("postalCode").matches(/^\d{2}[- ]{0,1}\d{3}$/),
+    check("postalCode").matches(/^\d{2}[-]{0,1}\d{3}$/),
     check("phone_number").matches(
       /(?:(?:(?:\+|00)?48)|(?:\(\+?48\)))?(?:1[2-8]|2[2-69]|3[2-49]|4[1-68]|5[0-9]|6[0-35-9]|[7-8][1-9]|9[145])\d{7}/
     ),
     check("nip").matches(
-      /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/
+      /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/
     ),
   ],
   async (req, res) => {
@@ -109,26 +108,24 @@ router.patch(
       });
     }
     try {
-      const updatedUser = await userModel.updateOne(
-        {
-          _id: req.params.userId,
-        }, {
-          $set: {
-            name: req.body.name,
-            surname: req.body.surname,
-            age: req.body.age,
-            phone_number: req.body.phone_number,
-            address: {
-              street: req.body.street,
-              city: req.body.city,
-              postalCode: req.body.postalCode,
-            },
-            vat: {
-              nip: req.body.nip,
-            },
+      const updatedUser = await userModel.updateOne({
+        _id: req.params.userId,
+      }, {
+        $set: {
+          name: req.body.name,
+          surname: req.body.surname,
+          age: req.body.age,
+          phone_number: req.body.phone_number,
+          address: {
+            street: req.body.street,
+            city: req.body.city,
+            postalCode: req.body.postalCode,
           },
-        }
-      );
+          vat: {
+            nip: req.body.nip,
+          },
+        },
+      });
       res.status(200).json(updatedUser);
     } catch (err) {
       res.status(404).json(err);
