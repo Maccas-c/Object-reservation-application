@@ -14,7 +14,7 @@ import Avatar from '../../../assets/avatar/avatarMale.png';
 import Header from '../Header/Header';
 import { MENU_ITEMS } from '../../../constansts/menuList/menuItems';
 import { MENU_ROUTES } from '../../../constansts/routes/routes';
-import Footer from '../Footer/Footer';
+
 import makeStyles from './SideDrawerStyles';
 
 const SideDrawer = (props) => {
@@ -129,7 +129,6 @@ const SideDrawer = (props) => {
 			{sideDrawer}
 
 			<div className={classes.content}>
-				<Footer />
 				<div className={classes.toolbar} />
 				{props.children}
 			</div>

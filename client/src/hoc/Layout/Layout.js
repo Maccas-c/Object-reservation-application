@@ -58,7 +58,7 @@ const Layout = (props) => {
 					<Route path={MENU_ROUTES.REGISTER} component={Register} />
 					<Route path={MENU_ROUTES.NOT_FOUND} component={NotFound} />
 				</Switch>
-				{/* <Footer switch={toggleMode} /> */}
+				<Footer switch={toggleMode} />
 			</Content>
 		</ThemeProvider>
 	);
