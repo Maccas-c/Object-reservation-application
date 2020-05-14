@@ -22,7 +22,7 @@ const Header = (props) => {
 
   let logoutBtn = null;
   let menuIcon = null;
-  if (props.isLoggedIn) {
+  if (props.user) {
     logoutBtn = (
       <Button
         color="inherit"
@@ -30,7 +30,7 @@ const Header = (props) => {
         component={Link}
         to={MENU_ROUTES.LOGIN}
         style={{ fontFamily: 'Segoe UI' }}
-        onClick={() => dispatch(authActions.auth())}
+        onClick={() => dispatch(authActions.logout())}
       >
         Wyloguj
       </Button>

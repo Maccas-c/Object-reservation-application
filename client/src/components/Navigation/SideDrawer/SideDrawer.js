@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -18,12 +19,13 @@ import { MENU_ROUTES } from '../../../constansts/routes/routes';
 import makeStyles from './SideDrawerStyles';
 
 const SideDrawer = (props) => {
-	const classes = makeStyles();
-	const [mobileOpen, setMobileOpen] = useState(false);
-	const {
-		location: { pathname },
-	} = props;
-	const menuList = Object.values(MENU_ITEMS);
+  const classes = makeStyles();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const {
+    location: { pathname }
+  } = props;
+  const menuList = Object.values(MENU_ITEMS);
+  const user = useSelector((state) => state.user);
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -40,91 +42,72 @@ const SideDrawer = (props) => {
 	let menu = null;
 	let sideDrawer = null;
 
-	if (props.isLoggedIn) {
-		menu = (
-			<div className={classes.drawerList}>
-				<List>
-					{menuList.map((menuitem) => {
-						const key = getKeyByValue(MENU_ITEMS, menuitem);
-						return (
-							<ListItem
-								button
-								component={Link}
-								to={MENU_ROUTES[key]}
-								selected={MENU_ROUTES[key] === pathname}
-								key={menuitem}
-							>
-								<ListItemText primary={menuitem} />
-							</ListItem>
-						);
-					})}
-				</List>
-			</div>
-		);
-		sideDrawer = (
-			<nav className={classes.drawer}>
-				<Hidden smUp>
-					<Drawer
-						variant='temporary'
-						open={mobileOpen}
-						onClose={handleDrawerToggle}
-					>
-						<div
-							className={classes.userProfile}
-							onClick={userRoute}
-						>
-							<img
-								src={Avatar}
-								alt='Your avatar'
-								height='80'
-								width='80'
-							/>
-							<h5 className={classes.userName}>Jan Kowalski</h5>
-							<h5 className={classes.userMail}>
-								example@gmail.com
-							</h5>
-						</div>
-						{menu}
-					</Drawer>
-				</Hidden>
-				<Hidden xsDown>
-					<Drawer
-						className={classes.drawer}
-						variant='permanent'
-						classes={{
-							paper: classes.drawerPaper,
-						}}
-					>
-						<div className={classes.toolbar} />
-						<div
-							className={classes.userProfile}
-							onClick={userRoute}
-						>
-							<img
-								src={Avatar}
-								alt='Your avatar'
-								height='80'
-								width='80'
-							/>
-							<h5 className={classes.userName}>Jan Kowalski</h5>
-							<h5 className={classes.userMail}>
-								example@gmail.com
-							</h5>
-						</div>
-						{menu}
-					</Drawer>
-				</Hidden>
-			</nav>
-		);
-	}
+  if (props.user) {
+    menu = (
+      <div className={classes.drawerList}>
+        <List>
+          {menuList.map((menuitem) => {
+            const key = getKeyByValue(MENU_ITEMS, menuitem);
+            return (
+              <ListItem
+                button
+                component={Link}
+                to={MENU_ROUTES[key]}
+                selected={MENU_ROUTES[key] === pathname}
+                key={menuitem}
+              >
+                <ListItemText primary={menuitem} />
+              </ListItem>
+            );
+          })}
+        </List>
+      </div>
+    );
+    sideDrawer = (
+      <nav className={classes.drawer}>
+        <Hidden smUp>
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+          >
+            <div className={classes.userProfile} onClick={userRoute}>
+              <img src={Avatar} alt="Your avatar" height="80" width="80" />
+              <h5 className={classes.userName}>
+                {user.name} {user.surname}
+              </h5>
+              <h5 className={classes.userMail}>{user.email}</h5>
+            </div>
+            {menu}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown>
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            classes={{
+              paper: classes.drawerPaper
+            }}
+          >
+            <div className={classes.toolbar} />
+            <div className={classes.userProfile} onClick={userRoute}>
+              <img src={Avatar} alt="Your avatar" height="80" width="80" />
+              <h5 className={classes.userName}>
+                {user.name} {user.surname}
+              </h5>
+              <h5 className={classes.userMail}>{user.email}</h5>
+            </div>
+            {menu}
+          </Drawer>
+        </Hidden>
+      </nav>
+    );
+  }
 
-	return (
-		<div className={classes.root}>
-			<CssBaseline />
-			<Header
-				open={handleDrawerToggle}
-				isLoggedIn={props.isLoggedIn}
-			></Header>
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <Header open={handleDrawerToggle} user={props.user} />
 
 			{sideDrawer}
 

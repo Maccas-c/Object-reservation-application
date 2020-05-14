@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -15,24 +14,15 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { MENU_ROUTES } from '../../constansts/routes/routes';
-import * as authActions from '../../store/actions/index';
 
 import useStyles from './RememberPasswordStyle';
 
 const RememberPassword = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(authActions.rememberPassword());
-    return () => {
-      dispatch(authActions.rememberPassword());
-    };
-  }, [dispatch]);
 
   const changeLoginHandler = (event) => {
     event.preventDefault();
-    props.history.replace(MENU_ROUTES.LOGIN);
+    props.history.push(MENU_ROUTES.LOGIN);
   };
 
   return (
