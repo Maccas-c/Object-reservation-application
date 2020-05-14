@@ -4,11 +4,13 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		zIndex: theme.zIndex.drawer + 1,
 		width: '100%',
-		height: '50px',
+		height: 'auto',
 		position: 'absolute',
 		marginTop: 'calc(100vh - 50px)',
 		bottom: 0,
-		left: 0,
+		flexShrink: 0,
+		margin: 0,
+		padding: 0,
 	},
 }));
 
