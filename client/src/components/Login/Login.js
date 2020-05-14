@@ -34,7 +34,7 @@ const Login = (props) => {
   }
 
   const userLoginHandler = () => {
-    dispatch(authActions.auth());
+    dispatch(authActions.authStart());
     props.history.replace(MENU_ROUTES.HOME);
   };
 

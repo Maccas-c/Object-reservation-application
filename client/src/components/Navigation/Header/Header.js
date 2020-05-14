@@ -30,7 +30,7 @@ const Header = (props) => {
         component={Link}
         to={MENU_ROUTES.LOGIN}
         style={{ fontFamily: 'Segoe UI' }}
-        onClick={() => dispatch(authActions.auth())}
+        onClick={() => dispatch(authActions.logout())}
       >
         Wyloguj
       </Button>

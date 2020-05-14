@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -24,6 +25,10 @@ const SideDrawer = (props) => {
     location: { pathname }
   } = props;
   const menuList = Object.values(MENU_ITEMS);
+  const user = useSelector((state) => state.user);
+  if (user) {
+    console.log(user.name);
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -71,8 +76,10 @@ const SideDrawer = (props) => {
           >
             <div className={classes.userProfile} onClick={userRoute}>
               <img src={Avatar} alt="Your avatar" height="80" width="80" />
-              <h5 className={classes.userName}>Jan Kowalski</h5>
-              <h5 className={classes.userMail}>example@gmail.com</h5>
+              <h5 className={classes.userName}>
+                {user.name} {user.surname}
+              </h5>
+              <h5 className={classes.userMail}>{user.email}</h5>
             </div>
             {menu}
           </Drawer>
@@ -88,8 +95,10 @@ const SideDrawer = (props) => {
             <div className={classes.toolbar} />
             <div className={classes.userProfile} onClick={userRoute}>
               <img src={Avatar} alt="Your avatar" height="80" width="80" />
-              <h5 className={classes.userName}>Jan Kowalski</h5>
-              <h5 className={classes.userMail}>example@gmail.com</h5>
+              <h5 className={classes.userName}>
+                {user.name} {user.surname}
+              </h5>
+              <h5 className={classes.userMail}>{user.email}</h5>
             </div>
             {menu}
           </Drawer>
