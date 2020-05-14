@@ -3,8 +3,6 @@ import { Route } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
 const FreeRoute = ({ component: Component, ...rest }) => {
-  const user = { ...rest };
-  console.log(user);
   return (
     <Route
       {...rest}

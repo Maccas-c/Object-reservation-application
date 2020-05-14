@@ -40,7 +40,6 @@ export const logout = () => {
 
 export const authStart = (userInput) => {
   return (dispatch) => {
-    console.log(userInput);
     axios
       .post('/login', userInput, {
         withCredentials: true
