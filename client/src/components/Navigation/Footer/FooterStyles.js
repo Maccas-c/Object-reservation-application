@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		marginTop: 'calc(100vh - 50px)',
 		bottom: 0,
-		flexShrink: 0,
 		margin: 0,
 		padding: 0,
 	},
