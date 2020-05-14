@@ -3,13 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import {
-  AppBar,
-  IconButton,
-  Typography,
-  Toolbar,
-  Button
-} from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Button } from '@material-ui/core';
 
 import { MENU_ROUTES } from '../../../constansts/routes/routes';
 import * as authActions from '../../../store/actions/index';
@@ -52,9 +46,6 @@ const Header = (props) => {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         {menuIcon}
-        <Typography variant="h6" noWrap style={{ fontFamily: 'Segoe UI' }}>
-          DevTeam
-        </Typography>
         {logoutBtn}
       </Toolbar>
     </AppBar>
