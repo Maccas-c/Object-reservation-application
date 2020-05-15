@@ -28,7 +28,8 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const userLoginHandler = () => {
+  const userLoginHandler = (event) => {
+    event.preventDefault();
     const userInput = { email: email, password: password };
     dispatch(authActions.authStart(userInput, props.history));
   };
@@ -102,11 +103,12 @@ const Login = (props) => {
               </Grid>
             </Grid>
             <Button
+              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={userLoginHandler}
+              onClick={(event) => userLoginHandler(event)}
             >
               Zaloguj się
             </Button>

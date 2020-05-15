@@ -27,7 +27,7 @@ export const checkUser = () => {
 export const logout = (route) => {
   return (dispatch) => {
     axios
-      .get('/logout', { withCredentials: true })
+      .get(MENU_ROUTES.USER_LOGOUT, { withCredentials: true })
       .then((response) => {
         dispatch(logoutSuccess());
         localStorage.removeItem('user');
@@ -42,7 +42,7 @@ export const logout = (route) => {
 export const authStart = (userInput, route) => {
   return (dispatch) => {
     axios
-      .post('/login', userInput, {
+      .post(MENU_ROUTES.LOGIN, userInput, {
         withCredentials: true
       })
       .then((response) => {

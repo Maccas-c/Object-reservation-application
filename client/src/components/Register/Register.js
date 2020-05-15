@@ -26,6 +26,7 @@ const Register = (props) => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.LOGIN);
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -93,4 +94,4 @@ const Register = (props) => {
     </Container>
   );
 };
-export default React.memo(Register);
+export default Register;

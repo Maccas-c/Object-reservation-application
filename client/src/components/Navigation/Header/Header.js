@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -13,6 +12,11 @@ const Header = (props) => {
   const classes = makeStyles();
   const dispatch = useDispatch();
 
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    dispatch(authActions.logout(props.history));
+  };
+
   let logoutBtn = null;
   let menuIcon = null;
   if (props.user) {
@@ -21,7 +25,7 @@ const Header = (props) => {
         color="inherit"
         className={classes.loginButton}
         style={{ fontFamily: 'Segoe UI' }}
-        onClick={() => dispatch(authActions.logout(props.history))}
+        onClick={(event) => logoutHandler(event)}
       >
         Wyloguj
       </Button>
@@ -49,4 +53,4 @@ const Header = (props) => {
   );
 };
 
-export default withRouter(Header);
+export default Header;

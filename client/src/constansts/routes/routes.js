@@ -6,5 +6,6 @@ export const MENU_ROUTES = {
   USER_PROFILE: '/profile',
   CALENDAR: '/calendar',
   USERS_LIST: '/users',
+  USER_LOGOUT: '/logout',
   NOT_FOUND: '/*'
 };
