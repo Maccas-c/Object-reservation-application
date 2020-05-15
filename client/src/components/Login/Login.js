@@ -30,8 +30,7 @@ const Login = (props) => {
 
   const userLoginHandler = () => {
     const userInput = { email: email, password: password };
-    dispatch(authActions.authStart(userInput));
-    props.history.push(MENU_ROUTES.HOME);
+    dispatch(authActions.authStart(userInput, props.history));
   };
 
   const registerHandler = (event) => {
@@ -103,7 +102,6 @@ const Login = (props) => {
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"

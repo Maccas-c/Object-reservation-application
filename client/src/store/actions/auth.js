@@ -1,6 +1,7 @@
 import axios from '../../axios/axios-auth';
 
 import * as actionTypes from './actionTypes';
+import { MENU_ROUTES } from '../../constansts/routes/routes';
 
 export const loginSuccess = (user) => {
   return {
@@ -23,13 +24,14 @@ export const checkUser = () => {
   };
 };
 
-export const logout = () => {
+export const logout = (route) => {
   return (dispatch) => {
     axios
       .get('/logout', { withCredentials: true })
       .then((response) => {
         dispatch(logoutSuccess());
         localStorage.removeItem('user');
+        route.push(MENU_ROUTES.LOGIN);
       })
       .catch((error) => {
         console.log(error.message);
@@ -37,7 +39,7 @@ export const logout = () => {
   };
 };
 
-export const authStart = (userInput) => {
+export const authStart = (userInput, route) => {
   return (dispatch) => {
     axios
       .post('/login', userInput, {
@@ -46,6 +48,7 @@ export const authStart = (userInput) => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         dispatch(loginSuccess(response.data));
+        route.push(MENU_ROUTES.HOME);
       })
       .catch((err) => {
         console.log(err.response);

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import { AppBar, IconButton, Toolbar, Button } from '@material-ui/core';
 
-import { MENU_ROUTES } from '../../../constansts/routes/routes';
 import * as authActions from '../../../store/actions/index';
 
 import makeStyles from './HeaderStyles';
@@ -21,10 +20,8 @@ const Header = (props) => {
       <Button
         color="inherit"
         className={classes.loginButton}
-        component={Link}
-        to={MENU_ROUTES.LOGIN}
         style={{ fontFamily: 'Segoe UI' }}
-        onClick={() => dispatch(authActions.logout())}
+        onClick={() => dispatch(authActions.logout(props.history))}
       >
         Wyloguj
       </Button>
@@ -52,4 +49,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
