@@ -1,35 +1,36 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const mongoose = require('mongoose');
-const session = require('express-session');
-const bodyParser = require('body-parser');
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const bodyParser = require("body-parser");
 const mongoStore = require("connect-mongo")(session);
-const passport = require('passport')
-require('dotenv').config();
-require('./config/passport');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const reservationRouter = require('./routes/reservations');
-const courtRouter = require('./routes/courts');
-const loginUsosRouter = require('./routes/loginUsos')
-const login = require('./routes/login')
-const connection = require('./config/database');
-const crypto = require('crypto');
+const passport = require("passport");
+require("dotenv").config();
+require("./config/passport");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const reservationRouter = require("./routes/reservations");
+const courtRouter = require("./routes/courts");
+const adminRouter = require("./routes/admin");
+const loginUsosRouter = require("./routes/loginUsos");
+const login = require("./routes/login");
+const connection = require("./config/database");
+const crypto = require("crypto");
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(
   session({
@@ -52,5 +53,5 @@ app.use(reservationRouter);
 app.use(courtRouter);
 app.use(loginUsosRouter);
 app.use(login);
-
+app.use(adminRouter);
 module.exports = app;
