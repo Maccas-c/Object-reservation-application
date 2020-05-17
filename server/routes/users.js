@@ -1,32 +1,22 @@
 const express = require("express");
 const userModel = require("../models/userModel");
 const genPassword = require("../lib/password").genPassword;
+const isAuth = require("./authMiddleware").isAuth;
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
 
+router.post(
+  "/api/user/create",
+  [
+    check("email").isEmail().notEmpty(),
 
-router.get("/api/users", async (req, res) => {
-  try {
-    const users = await userModel.find();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-});
-
-
-
-router.post("/api/user/create",
-  [check("email").
-    isEmail().
-    notEmpty(),
-
-    check('password')
-    .isLength(5)
-    .notEmpty()
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)
-    .withMessage('Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long'),
-
+    check("password")
+      .isLength(5)
+      .notEmpty()
+      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)
+      .withMessage(
+        "Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long"
+      ),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -68,7 +58,7 @@ router.post("/api/user/create",
   }
 );
 
-router.patch("/api/user/delete/:userId", async (req, res) => {
+router.patch("/api/user/delete/:userId", isAuth, async (req, res) => {
   try {
     const deletedUser = await userModel.updateOne(
       {
@@ -86,7 +76,6 @@ router.patch("/api/user/delete/:userId", async (req, res) => {
   }
 });
 
-
 router.patch(
   "/api/user/update/:userId",
   [
@@ -101,6 +90,7 @@ router.patch(
       /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/
     ),
   ],
+  isAuth,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -112,7 +102,8 @@ router.patch(
       const updatedUser = await userModel.updateOne(
         {
           _id: req.params.userId,
-        }, {
+        },
+        {
           $set: {
             name: req.body.name,
             surname: req.body.surname,
@@ -136,7 +127,7 @@ router.patch(
   }
 );
 
-router.get("/api/user/:userId", async (req, res) => {
+router.get("/api/user/:userId", isAuth, async (req, res) => {
   try {
     const getUser = await userModel.findById(req.params.userId);
     res.status(200).json(getUser);

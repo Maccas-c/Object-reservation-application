@@ -13,6 +13,20 @@ router.get(
   }
 );
 
+router.get(
+  "/api/admin/users",
+  isAuth,
+  authRole(process.env.ROLE_ADMIN),
+  async (req, res) => {
+    try {
+      const users = await userModel.find();
+      res.status(200).json(users);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+);
+
 router.patch(
   "/api/admin/modify/:userId",
   isAuth,
