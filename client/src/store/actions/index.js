@@ -1,1 +1,1 @@
-export { auth, registration, rememberPassword } from './auth';
+export { authStart, logout, checkUser } from './auth';

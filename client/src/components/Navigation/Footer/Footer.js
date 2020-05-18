@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
 import { AppBar, Tabs, Tab } from '@material-ui/core';
-import Avatar from '../../Avatar/Avatar';
-import Logo from '../../../assets/logo/logo.png';
 import makeStyles from './FooterStyles';
 
 const Footer = (props) => {
@@ -26,7 +24,6 @@ const Footer = (props) => {
         <Tab label="Dark" onClick={() => props.switch(modeId.dark)} />
         <Tab label="Light" onClick={() => props.switch(modeId.light)} />
       </Tabs>
-      <Avatar src={Logo} />
     </AppBar>
   );
 };

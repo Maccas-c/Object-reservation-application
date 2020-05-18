@@ -3,13 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import {
-  AppBar,
-  IconButton,
-  Typography,
-  Toolbar,
-  Button
-} from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Button } from '@material-ui/core';
 
 import { MENU_ROUTES } from '../../../constansts/routes/routes';
 import * as authActions from '../../../store/actions/index';
@@ -22,7 +16,7 @@ const Header = (props) => {
 
   let logoutBtn = null;
   let menuIcon = null;
-  if (props.isLoggedIn) {
+  if (props.user) {
     logoutBtn = (
       <Button
         color="inherit"
@@ -30,7 +24,7 @@ const Header = (props) => {
         component={Link}
         to={MENU_ROUTES.LOGIN}
         style={{ fontFamily: 'Segoe UI' }}
-        onClick={() => dispatch(authActions.auth())}
+        onClick={() => dispatch(authActions.logout())}
       >
         Wyloguj
       </Button>
@@ -52,9 +46,6 @@ const Header = (props) => {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         {menuIcon}
-        <Typography variant="h6" noWrap style={{ fontFamily: 'Segoe UI' }}>
-          DevTeam
-        </Typography>
         {logoutBtn}
       </Toolbar>
     </AppBar>

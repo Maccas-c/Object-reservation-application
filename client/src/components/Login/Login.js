@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -24,33 +23,37 @@ import useStyles from './LoginStyles';
 
 const Login = (props) => {
   const classes = useStyles();
-  const isLoggedIn = useSelector((state) => state.user);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  let userLoggedIn = null;
-
-  if (isLoggedIn) {
-    userLoggedIn = <Redirect to={MENU_ROUTES.HOME}></Redirect>;
-  }
-
   const userLoginHandler = () => {
-    dispatch(authActions.auth());
-    props.history.replace(MENU_ROUTES.HOME);
+    const userInput = { email: email, password: password };
+    dispatch(authActions.authStart(userInput));
+    props.history.push(MENU_ROUTES.HOME);
   };
 
   const registerHandler = (event) => {
     event.preventDefault();
-    props.history.replace(MENU_ROUTES.REGISTER);
+    props.history.push(MENU_ROUTES.REGISTER);
   };
 
   const rememberPasswordHandler = (event) => {
     event.preventDefault();
-    props.history.replace(MENU_ROUTES.REMEMBER_PASSWORD);
+    props.history.push(MENU_ROUTES.PASSWORD_REC);
+  };
+
+  const changeNameHandler = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const changeEmailHandler = (event) => {
+    setPassword(event.target.value);
   };
 
   return (
     <Fragment>
-      {userLoggedIn}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -71,6 +74,8 @@ const Login = (props) => {
                   label="E-mail"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(event) => changeNameHandler(event)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -83,6 +88,8 @@ const Login = (props) => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={password}
+                  onChange={changeEmailHandler}
                 />
               </Grid>
               <Grid item xs={12}>

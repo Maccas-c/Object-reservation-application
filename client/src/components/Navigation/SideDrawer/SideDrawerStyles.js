@@ -5,6 +5,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
+		overflow: 'hidden',
 	},
 	drawer: {
 		[theme.breakpoints.up('sm')]: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing(3),
+		display: 'compact',
+		overflow: 'hidden',
+		bottom: 0,
 	},
 	closeMenuButton: {
 		marginRight: 'auto',
