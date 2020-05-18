@@ -13,10 +13,18 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const reservationRouter = require("./routes/reservations");
 const courtRouter = require("./routes/courts");
+
+const adminRouter = require("./routes/admin");
+
 const loginUsosRouter = require("./routes/loginUsos");
 const login = require("./routes/login");
 const connection = require("./config/database");
 const crypto = require("crypto");
+
+
+const app = express();
+
+
 const cors = require("cors");
 
 const app = express();
@@ -25,16 +33,19 @@ app.use(cors({
   credentials: true,
   origin: "http://localhost:3000"
 }));
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(
@@ -59,6 +70,10 @@ app.use(reservationRouter);
 app.use(courtRouter);
 app.use(loginUsosRouter);
 app.use(login);
+
+app.use(adminRouter);
+module.exports = app;
+
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });
@@ -68,3 +83,4 @@ app.use(login);
 // });
 
 module.exports = app;
+
