@@ -3,7 +3,7 @@ const passport = require("passport");
 const genPassword = require("../lib/password").genPassword;
 const connection = require("../config/database");
 const isAuth = require("./authMiddleware").isAuthLocal;
-// const isAdmin = require('./authMiddleware').isAdminLocal;
+//const isAdmin = require('./authMiddleware').isAdminLocal;
 const localUser = require("../models/userModel");
 
 router.post("/api/login", passport.authenticate("local"), function (req, res) {
@@ -34,10 +34,10 @@ router.get("/api/logout", (req, res, next) => {
   });
 });
 
-router.get("/api/login-success", isAuth, (req, res, next) => {
-  res.send(
-    '<p>You successfully logged in. --> <a href="/protected-route">Go to protected route</a></p>'
-  );
-});
+// router.get("/api/login-success", isAuth, (req, res, next) => {
+//   res.send(
+//     '<p>You successfully logged in. --> <a href="/protected-route">Go to protected route</a></p>'
+//   );
+// });
 
 module.exports = router;
