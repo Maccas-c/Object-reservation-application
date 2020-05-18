@@ -8,12 +8,10 @@ const router = express.Router();
 router.get("/api/loginUsos", function (req, res) {
   if (req.user) {
     res.status(200).json({
-      _id: req.user._id,
       id: req.user.id,
       name: req.user.name,
       surname: req.user.surname,
       isActive: req.user.isActive,
-      role: req.user.role,
     });
   } else {
     res.status(404).end();
@@ -30,7 +28,7 @@ router.get(
   })
 );
 
-router.get("/api/loginUsos/logout", isAuth, function (req, res) {
+router.get("/api/loginUsos/logout", function (req, res) {
   req.session.destroy(function (err) {
     if (err) return res.status(404);
     res

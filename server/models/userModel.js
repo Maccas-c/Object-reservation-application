@@ -13,11 +13,7 @@ const userModel = mongoose.Schema({
   surname: String,
   age: Number,
   phone_number: String,
-  sex: String,
-  role: {
-    type: String,
-    default: "user",
-  },
+  role: String,
   address: {
     street: String,
     city: String,

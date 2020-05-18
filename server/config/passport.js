@@ -9,8 +9,8 @@ const validPassword = require("../lib/password").validPassword;
 passport.serializeUser(function (user, cb) {
   cb(null, user);
 });
-passport.deserializeUser(function (user, cb) {
-  cb(null, user);
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj);
 });
 const consumer = new oauth.OAuth(
   "https://usosapps.amu.edu.pl/services/oauth/request_token",
@@ -19,26 +19,21 @@ const consumer = new oauth.OAuth(
   process.env.USOS_CONSUMER_SECRET,
   "1.0",
   "http:/localhost:3000/api/loginUsos/callback",
-  "HMAC-SHA1",
-  null
+  "HMAC-SHA1"
 );
-let usosClient = new OAuth1Strategy(
-  {
+let usosClient = new OAuth1Strategy({
     requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token",
     accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL:
-      "https://usosapps.amu.edu.pl/services/oauth/authorize",
+    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: "http:/localhost:3001/api/loginUsos/callback",
     signatureMethod: "HMAC-SHA1",
+    scopes: ["https://usosapps.amu.edu.pl/services/users/user"],
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
-      console.log(profile);
-      userModel.findOne(
-        {
-          // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
+      userModel.findOne({
           "longing2.id": profile.id,
         },
         async function (err, user) {
@@ -114,5 +109,7 @@ const verifyCallback = (email, password, done) => {
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
+
 passport.use(strategy);
 module.exports.consumer = consumer;
+
