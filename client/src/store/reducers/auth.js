@@ -56,6 +56,8 @@ const reducer = (state = initialState, action) => {
       return checkUsosUserSuccess(state, action);
     case actionTypes.CHECK_USOS_USER_FAIL:
       return checkUsosUserFail(state, action);
+    case actionTypes.AUTH_LOGOUT_USOS:
+      return logout(state, action);
     default:
       return state;
   }

@@ -16,17 +16,30 @@ export const logoutSuccess = () => {
   };
 };
 
+export const logoutUsosSuccess = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT_USOS
+  };
+};
+
 export const logout = () => {
   return (dispatch) => {
     axios
       .get(MENU_ROUTES.USER_LOGOUT, { withCredentials: true })
       .then((response) => {
-        dispatch(logoutSuccess());
         localStorage.removeItem('user');
+        dispatch(logoutSuccess());
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+};
+
+export const logoutUsos = () => {
+  localStorage.removeItem('user');
+  return {
+    type: actionTypes.AUTH_LOGOUT
   };
 };
 
@@ -46,18 +59,22 @@ export const authStart = (userInput) => {
   };
 };
 
+export const loadUser = (user) => {
+  return {
+    type: actionTypes.CHECK_USER,
+    user: user
+  };
+};
+
 export const checkUser = () => {
   return (dispatch) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      if (user.isStudent) {
-        dispatch(checkUsosUser());
-      }
-      return {
-        type: actionTypes.CHECK_USER,
-        user: user
-      };
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    if (!user) {
+      dispatch(checkUsosUser());
+      user = JSON.parse(localStorage.getItem('user'));
     }
+    dispatch(loadUser(user));
   };
 };
 

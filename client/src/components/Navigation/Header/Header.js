@@ -17,19 +17,15 @@ const Header = (props) => {
     dispatch(authActions.logout());
   };
 
+  const logoutUsosHandler = (event) => {
+    event.preventDefault();
+    window.location.href = 'http://localhost:3001/api/loginUsos/logout';
+    dispatch(authActions.logout());
+  };
+
   let logoutBtn = null;
   let menuIcon = null;
   if (props.user) {
-    logoutBtn = (
-      <Button
-        color="inherit"
-        className={classes.loginButton}
-        style={{ fontFamily: 'Segoe UI' }}
-        onClick={(event) => logoutHandler(event)}
-      >
-        Wyloguj
-      </Button>
-    );
     menuIcon = (
       <IconButton
         color="inherit"
@@ -41,6 +37,29 @@ const Header = (props) => {
         <MenuIcon />
       </IconButton>
     );
+    if (!props.user.isStudent) {
+      logoutBtn = (
+        <Button
+          color="inherit"
+          className={classes.loginButton}
+          style={{ fontFamily: 'Segoe UI' }}
+          onClick={(event) => logoutHandler(event)}
+        >
+          Wyloguj
+        </Button>
+      );
+    } else {
+      logoutBtn = (
+        <Button
+          color="inherit"
+          className={classes.loginButton}
+          style={{ fontFamily: 'Segoe UI' }}
+          onClick={(event) => logoutUsosHandler(event)}
+        >
+          Wyloguj
+        </Button>
+      );
+    }
   }
 
   return (
