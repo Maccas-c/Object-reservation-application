@@ -1,1 +1,7 @@
-export { authStart, logout, checkUser } from './auth';
+export {
+  authStart,
+  logout,
+  checkUser,
+  authUsosStart,
+  checkUsosUser
+} from './auth';

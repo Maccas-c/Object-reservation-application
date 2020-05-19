@@ -16,14 +16,6 @@ export const logoutSuccess = () => {
   };
 };
 
-export const checkUser = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return {
-    type: actionTypes.CHECK_USER,
-    user: user
-  };
-};
-
 export const logout = () => {
   return (dispatch) => {
     axios
@@ -33,7 +25,7 @@ export const logout = () => {
         localStorage.removeItem('user');
       })
       .catch((error) => {
-        console.log(error.message);
+        console.log(error);
       });
   };
 };
@@ -49,7 +41,62 @@ export const authStart = (userInput) => {
         dispatch(loginSuccess(response.data));
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       });
   };
+};
+
+export const checkUser = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) {
+    if (user.isStudent) {
+      return (dispatch) => {
+        dispatch(checkUsosUser());
+      };
+    }
+    return {
+      type: actionTypes.CHECK_USER,
+      user: user
+    };
+  }
+};
+
+export const checkUsosUser = () => {
+  return (dispatch) => {
+    axios
+      .get('/loginUsos', {
+        withCredentials: true
+      })
+      .then((response) => {
+        dispatch(checkUsosUserSuccess(response.data));
+      })
+      .catch((err) => {
+        dispatch(checkUsosUserFail());
+      });
+  };
+};
+
+export const checkUsosUserSuccess = (user) => {
+  user.isStudent = true;
+  localStorage.setItem('user', JSON.stringify(user));
+  return {
+    type: actionTypes.CHECK_USOS_USER_SUCCESS,
+    user: user
+  };
+};
+
+export const checkUsosUserFail = () => {
+  return {
+    type: actionTypes.CHECK_USOS_USER_FAIL
+  };
+};
+
+export const authUsosStart = () => {
+  axios
+    .get('/loginUsos/connect', {
+      withCredentials: true
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

@@ -1,10 +1,10 @@
-const passport = require("passport");
-const oauth = require("oauth");
-const OAuth1Strategy = require("passport-oauth1");
-const LocalStrategy = require("passport-local").Strategy;
-const userModel = require("../models/userModel");
-const mongoose = require("mongoose");
-const validPassword = require("../lib/password").validPassword;
+const passport = require('passport');
+const oauth = require('oauth');
+const OAuth1Strategy = require('passport-oauth1');
+const LocalStrategy = require('passport-local').Strategy;
+const userModel = require('../models/userModel');
+const mongoose = require('mongoose');
+const validPassword = require('../lib/password').validPassword;
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -13,28 +13,31 @@ passport.deserializeUser(function (obj, cb) {
   cb(null, obj);
 });
 const consumer = new oauth.OAuth(
-  "https://usosapps.amu.edu.pl/services/oauth/request_token",
-  "https://usosapps.amu.edu.pl/services/oauth/access_token",
+  'https://usosapps.amu.edu.pl/services/oauth/request_token',
+  'https://usosapps.amu.edu.pl/services/oauth/access_token',
   process.env.USOS_CONSUMER_KEY,
   process.env.USOS_CONSUMER_SECRET,
-  "1.0",
-  "http:/localhost:3000/api/loginUsos/callback",
-  "HMAC-SHA1"
+  '1.0',
+  'http://localhost:3001/api/loginUsos/callback',
+  'HMAC-SHA1'
 );
-let usosClient = new OAuth1Strategy({
-    requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token",
-    accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
+let usosClient = new OAuth1Strategy(
+  {
+    requestTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/request_token',
+    accessTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/access_token',
+    userAuthorizationURL:
+      'https://usosapps.amu.edu.pl/services/oauth/authorize',
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
-    callbackURL: "http:/localhost:3001/api/loginUsos/callback",
-    signatureMethod: "HMAC-SHA1",
-    scopes: ["https://usosapps.amu.edu.pl/services/users/user"],
+    callbackURL: 'http://localhost:3001/api/loginUsos/callback',
+    signatureMethod: 'HMAC-SHA1',
+    scopes: ['https://usosapps.amu.edu.pl/services/users/user']
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
-      userModel.findOne({
-          "longing2.id": profile.id,
+      userModel.findOne(
+        {
+          'longing2.id': profile.id
         },
         async function (err, user) {
           if (err) return cb(err);
@@ -42,11 +45,11 @@ let usosClient = new OAuth1Strategy({
           else {
             const newUser = new userModel({
               longing2: {
-                id: profile.id,
+                id: profile.id
               },
               name: profile.first_name,
               surname: profile.last_name,
-              isStudent: true,
+              isStudent: true
             });
             await newUser.save(function (err) {
               if (err) throw err;
@@ -60,7 +63,7 @@ let usosClient = new OAuth1Strategy({
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
-    "https://usosapps.amu.edu.pl/services/users/user",
+    'https://usosapps.amu.edu.pl/services/users/user',
     token,
     tokenSecret,
     function (error, data, response) {
@@ -80,14 +83,14 @@ passport.use(usosClient);
 
 //passport-local
 const customFields = {
-  usernameField: "email",
-  passwordField: "password",
+  usernameField: 'email',
+  passwordField: 'password'
 };
 
 const verifyCallback = (email, password, done) => {
   userModel
     .findOne({
-      "login.email": email,
+      'login.email': email
     })
     .then((user) => {
       if (!user) {
@@ -109,7 +112,5 @@ const verifyCallback = (email, password, done) => {
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
-
 passport.use(strategy);
 module.exports.consumer = consumer;
-

@@ -33,6 +33,10 @@ const Login = (props) => {
     const userInput = { email: email, password: password };
     dispatch(authActions.authStart(userInput));
   };
+  const userUsosLoginHandler = (event) => {
+    event.preventDefault();
+    window.location.href = 'http://localhost:3001/api/loginUsos/connect';
+  };
 
   const registerHandler = (event) => {
     event.preventDefault();
@@ -111,6 +115,16 @@ const Login = (props) => {
               onClick={(event) => userLoginHandler(event)}
             >
               Zaloguj się
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(event) => userUsosLoginHandler(event)}
+            >
+              Zaloguj się przez USOS
             </Button>
             <Grid container justify="flex-end">
               <Link
