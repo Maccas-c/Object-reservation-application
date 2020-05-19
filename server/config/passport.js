@@ -22,12 +22,10 @@ const consumer = new oauth.OAuth(
   "HMAC-SHA1",
   null
 );
-let usosClient = new OAuth1Strategy(
-  {
-    requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token",
+let usosClient = new OAuth1Strategy({
+    requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
     accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL:
-      "https://usosapps.amu.edu.pl/services/oauth/authorize",
+    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: "http:/localhost:3001/api/loginUsos/callback",
@@ -36,8 +34,7 @@ let usosClient = new OAuth1Strategy(
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
       console.log(profile);
-      userModel.findOne(
-        {
+      userModel.findOne({
           // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
           "longing2.id": profile.id,
         },
@@ -65,7 +62,7 @@ let usosClient = new OAuth1Strategy(
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
-    "https://usosapps.amu.edu.pl/services/users/user",
+    "https://usosapps.amu.edu.pl/services/users/user?fields=id|email|first_name|last_name|sex|student_number|student_status|mobile_numbers",
     token,
     tokenSecret,
     function (error, data, response) {
@@ -74,6 +71,7 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
       }
       try {
         const parsedData = JSON.parse(data);
+        console.log(parsedData);
         cb(null, parsedData);
       } catch (e) {
         return cb(e);
