@@ -9,8 +9,8 @@ const validPassword = require("../lib/password").validPassword;
 passport.serializeUser(function (user, cb) {
   cb(null, user);
 });
-passport.deserializeUser(function (obj, cb) {
-  cb(null, obj);
+passport.deserializeUser(function (user, cb) {
+  cb(null, user);
 });
 const consumer = new oauth.OAuth(
   "https://usosapps.amu.edu.pl/services/oauth/request_token",
@@ -19,21 +19,26 @@ const consumer = new oauth.OAuth(
   process.env.USOS_CONSUMER_SECRET,
   "1.0",
   "http:/localhost:3000/api/loginUsos/callback",
-  "HMAC-SHA1"
+  "HMAC-SHA1",
+  null
 );
-let usosClient = new OAuth1Strategy({
-    requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token",
+let usosClient = new OAuth1Strategy(
+  {
+    requestTokenURL:
+      "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
     accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
+    userAuthorizationURL:
+      "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: "http:/localhost:3001/api/loginUsos/callback",
     signatureMethod: "HMAC-SHA1",
-    scopes: ["https://usosapps.amu.edu.pl/services/users/user"],
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
-      userModel.findOne({
+      userModel.findOne(
+        {
+          // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
           "longing2.id": profile.id,
         },
         async function (err, user) {
@@ -43,9 +48,13 @@ let usosClient = new OAuth1Strategy({
             const newUser = new userModel({
               longing2: {
                 id: profile.id,
+                email: profile.email,
+                student_status: profile.student_status,
+                student_number: profile.student_number,
               },
               name: profile.first_name,
               surname: profile.last_name,
+              sex: profile.sex,
               isStudent: true,
             });
             await newUser.save(function (err) {
@@ -60,7 +69,7 @@ let usosClient = new OAuth1Strategy({
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
-    "https://usosapps.amu.edu.pl/services/users/user",
+    "https://usosapps.amu.edu.pl/services/users/user?fields=id|email|first_name|last_name|sex|student_number|student_status",
     token,
     tokenSecret,
     function (error, data, response) {
@@ -69,6 +78,7 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
       }
       try {
         const parsedData = JSON.parse(data);
+        console.log(parsedData);
         cb(null, parsedData);
       } catch (e) {
         return cb(e);
@@ -109,7 +119,5 @@ const verifyCallback = (email, password, done) => {
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
-
 passport.use(strategy);
 module.exports.consumer = consumer;
-

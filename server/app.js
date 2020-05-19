@@ -13,6 +13,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const reservationRouter = require("./routes/reservations");
 const courtRouter = require("./routes/courts");
+const adminRouter = require("./routes/admin");
 const loginUsosRouter = require("./routes/loginUsos");
 const login = require("./routes/login");
 const connection = require("./config/database");
@@ -21,10 +22,12 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors({
-  credentials: true,
-  origin: "http://localhost:3000"
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000"
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(

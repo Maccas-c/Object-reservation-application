@@ -1,35 +1,25 @@
 const express = require("express");
 const userModel = require("../models/userModel");
 const genPassword = require("../lib/password").genPassword;
+const isAuth = require("./authMiddleware").isAuth;
 const {
   check,
   validationResult
 } = require("express-validator");
 const router = express.Router();
 
+router.post(
+  "/api/user/create",
+  [
+    check("email").isEmail().notEmpty(),
 
-router.get("/api/users", async (req, res) => {
-  try {
-    const users = await userModel.find();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-});
-
-
-
-router.post("/api/user/create",
-  [check("email").
-    isEmail().
-    notEmpty(),
-
-    check('password')
+    check("password")
     .isLength(5)
     .notEmpty()
     .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)
-    .withMessage('Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long'),
-
+    .withMessage(
+      "Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long"
+    ),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -70,7 +60,7 @@ router.post("/api/user/create",
   }
 );
 
-router.patch("/api/user/delete/:userId", async (req, res) => {
+router.patch("/api/user/delete/:userId", isAuth, async (req, res) => {
   try {
     const deletedUser = await userModel.updateOne({
       _id: req.params.userId,
@@ -85,21 +75,21 @@ router.patch("/api/user/delete/:userId", async (req, res) => {
   }
 });
 
-
 router.patch(
   "/api/user/update/:userId",
   [
     check("name").notEmpty(),
     check("surname").notEmpty(),
     check("age").isNumeric(),
-    check("postalCode").matches(/^\d{2}[-]{0,1}\d{3}$/),
+    check("postalCode").matches(/^\d{2}[- ]{0,1}\d{3}$/),
     check("phone_number").matches(
       /(?:(?:(?:\+|00)?48)|(?:\(\+?48\)))?(?:1[2-8]|2[2-69]|3[2-49]|4[1-68]|5[0-9]|6[0-35-9]|[7-8][1-9]|9[145])\d{7}/
     ),
     check("nip").matches(
-      /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/
+      /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/
     ),
   ],
+  isAuth,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -133,7 +123,7 @@ router.patch(
   }
 );
 
-router.get("/api/user/:userId", async (req, res) => {
+router.get("/api/user/:userId", isAuth, async (req, res) => {
   try {
     const getUser = await userModel.findById(req.params.userId);
     res.status(200).json(getUser);
