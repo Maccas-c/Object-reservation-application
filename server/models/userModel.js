@@ -8,12 +8,19 @@ const userModel = mongoose.Schema({
   },
   longing2: {
     id: String,
+    email: String,
+    student_status: String,
+    student_number: String,
   },
   name: String,
   surname: String,
   age: Number,
   phone_number: String,
-  role: String,
+  sex: String,
+  role: {
+    type: String,
+    default: "user",
+  },
   address: {
     street: String,
     city: String,
