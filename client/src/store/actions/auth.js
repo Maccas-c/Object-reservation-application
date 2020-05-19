@@ -24,14 +24,13 @@ export const checkUser = () => {
   };
 };
 
-export const logout = (route) => {
+export const logout = () => {
   return (dispatch) => {
     axios
       .get(MENU_ROUTES.USER_LOGOUT, { withCredentials: true })
       .then((response) => {
         dispatch(logoutSuccess());
         localStorage.removeItem('user');
-        route.push(MENU_ROUTES.LOGIN);
       })
       .catch((error) => {
         console.log(error.message);
@@ -39,7 +38,7 @@ export const logout = (route) => {
   };
 };
 
-export const authStart = (userInput, route) => {
+export const authStart = (userInput) => {
   return (dispatch) => {
     axios
       .post(MENU_ROUTES.LOGIN, userInput, {
@@ -48,7 +47,6 @@ export const authStart = (userInput, route) => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         dispatch(loginSuccess(response.data));
-        route.push(MENU_ROUTES.HOME);
       })
       .catch((err) => {
         console.log(err.response);

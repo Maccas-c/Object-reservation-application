@@ -31,7 +31,7 @@ const Login = (props) => {
   const userLoginHandler = (event) => {
     event.preventDefault();
     const userInput = { email: email, password: password };
-    dispatch(authActions.authStart(userInput, props.history));
+    dispatch(authActions.authStart(userInput));
   };
 
   const registerHandler = (event) => {

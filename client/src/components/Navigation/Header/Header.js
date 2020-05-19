@@ -14,7 +14,7 @@ const Header = (props) => {
 
   const logoutHandler = (event) => {
     event.preventDefault();
-    dispatch(authActions.logout(props.history));
+    dispatch(authActions.logout());
   };
 
   let logoutBtn = null;
