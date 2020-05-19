@@ -47,18 +47,18 @@ export const authStart = (userInput) => {
 };
 
 export const checkUser = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user) {
-    if (user.isStudent) {
-      return (dispatch) => {
+  return (dispatch) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      if (user.isStudent) {
         dispatch(checkUsosUser());
+      }
+      return {
+        type: actionTypes.CHECK_USER,
+        user: user
       };
     }
-    return {
-      type: actionTypes.CHECK_USER,
-      user: user
-    };
-  }
+  };
 };
 
 export const checkUsosUser = () => {
