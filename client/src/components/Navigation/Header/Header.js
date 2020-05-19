@@ -19,8 +19,8 @@ const Header = (props) => {
 
   const logoutUsosHandler = (event) => {
     event.preventDefault();
-    window.location.href = 'http://localhost:3001/api/loginUsos/logout';
     dispatch(authActions.logout());
+    window.location.href = 'http://localhost:3001/api/loginUsos/logout';
   };
 
   let logoutBtn = null;
