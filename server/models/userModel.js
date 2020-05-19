@@ -8,6 +8,9 @@ const userModel = mongoose.Schema({
   },
   longing2: {
     id: String,
+    email: String,
+    student_status: String,
+    student_number: String,
   },
   name: String,
   surname: String,
