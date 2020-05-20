@@ -75,7 +75,6 @@ export const checkLocalUser = () => {
         } else {
           dispatch(loadUserToStore(user));
         }
-        dispatch(endLoadingUser());
       })
       .catch((err) => {
         dispatch(checkUserFail());
@@ -99,6 +98,7 @@ export const checkUsosUser = () => {
       })
       .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
+        dispatch(endLoadingUser());
       });
   };
 };
