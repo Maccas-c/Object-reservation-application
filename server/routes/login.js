@@ -1,12 +1,12 @@
-const router = require("express").Router();
-const passport = require("passport");
-const genPassword = require("../lib/password").genPassword;
-const connection = require("../config/database");
-const isAuth = require("./authMiddleware").isAuthLocal;
+const router = require('express').Router();
+const passport = require('passport');
+const genPassword = require('../lib/password').genPassword;
+const connection = require('../config/database');
+const isAuth = require('./authMiddleware').isAuthLocal;
 //const isAdmin = require('./authMiddleware').isAdminLocal;
-const localUser = require("../models/userModel");
+const localUser = require('../models/userModel');
 
-router.post("/api/login", passport.authenticate("local"), function (req, res) {
+router.post('/api/login', passport.authenticate('local'), function (req, res) {
   if (req.user) {
     res.status(200).json({
       name: req.user.name,
@@ -19,17 +19,17 @@ router.post("/api/login", passport.authenticate("local"), function (req, res) {
   }
 });
 
-router.get("/api/logout", (req, res, next) => {
+router.get('/api/logout', (req, res, next) => {
   req.logout(function (err) {
     if (err) return res.status(404);
   });
-  res.clearCookie("connect.sid", function (err) {
+  res.clearCookie('connect.sid', function (err) {
     if (err) return res.status(404);
   });
   req.session.destroy(function (err) {
     if (err) return res.status(404);
     res.send({
-      message: "Successfully logged out"
+      message: 'Successfully logged out'
     });
   });
 });

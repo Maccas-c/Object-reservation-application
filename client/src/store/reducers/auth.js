@@ -23,7 +23,7 @@ const logout = (state, action) => {
   };
 };
 
-const checkUser = (state, action) => {
+const loadUser = (state, action) => {
   return {
     ...state,
     user: action.user
@@ -38,9 +38,11 @@ const checkUsosUserSuccess = (state, action) => {
   };
 };
 
-const checkUsosUserFail = (state, action) => {
+const checkUserFail = (state, action) => {
   return {
-    ...state
+    ...state,
+    user: null,
+    isStudent: false
   };
 };
 
@@ -50,12 +52,12 @@ const reducer = (state = initialState, action) => {
       return auth(state, action);
     case actionTypes.AUTH_LOGOUT:
       return logout(state, action);
-    case actionTypes.CHECK_USER:
-      return checkUser(state, action);
+    case actionTypes.LOAD_USER:
+      return loadUser(state, action);
     case actionTypes.CHECK_USOS_USER_SUCCESS:
       return checkUsosUserSuccess(state, action);
-    case actionTypes.CHECK_USOS_USER_FAIL:
-      return checkUsosUserFail(state, action);
+    case actionTypes.CHECK_USER_FAIL:
+      return checkUserFail(state, action);
     default:
       return state;
   }

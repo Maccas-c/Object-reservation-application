@@ -55,21 +55,36 @@ export const authStart = (userInput) => {
   };
 };
 
-export const loadUser = (user) => {
+export const loadUserToStore = (user) => {
   return {
-    type: actionTypes.CHECK_USER,
+    type: actionTypes.LOAD_USER,
     user: user
+  };
+};
+
+export const checkLocalUser = () => {
+  return (dispatch) => {
+    axios
+      .get('/checkAuthUser', {
+        withCredentials: true
+      })
+      .then((response) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+          dispatch(checkUsosUser());
+        } else {
+          dispatch(loadUserToStore(user));
+        }
+      })
+      .catch((err) => {
+        dispatch(checkUserFail());
+      });
   };
 };
 
 export const checkUser = () => {
   return (dispatch) => {
-    let user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
-      dispatch(checkUsosUser());
-      user = JSON.parse(localStorage.getItem('user'));
-    }
-    dispatch(loadUser(user));
+    dispatch(checkLocalUser());
   };
 };
 
@@ -81,11 +96,9 @@ export const checkUsosUser = () => {
       })
       .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
-        console.log(response);
       })
       .catch((err) => {
-        dispatch(checkUsosUserFail());
-        console.log('bad');
+        dispatch(checkUserFail());
       });
   };
 };
@@ -99,8 +112,14 @@ export const checkUsosUserSuccess = (user) => {
   };
 };
 
-export const checkUsosUserFail = () => {
+export const checkLocalUserSuccess = (user) => {
+  user.isStudent = false;
+  localStorage.setItem('user', JSON.stringify(user));
+};
+
+export const checkUserFail = () => {
+  localStorage.clear();
   return {
-    type: actionTypes.CHECK_USOS_USER_FAIL
+    type: actionTypes.CHECK_USER_FAIL
   };
 };

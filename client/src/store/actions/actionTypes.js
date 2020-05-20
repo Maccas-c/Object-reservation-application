@@ -1,8 +1,8 @@
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
-export const CHECK_USER = 'CHECK_USER';
+export const LOAD_USER = 'CHECK_USER';
+export const CHECK_USER_FAIL = 'CHECK_USOS_USER_FAIL';
 
 export const CHECK_USOS_USER_SUCCESS = 'CHECK_USOS_USER_SUCCESS';
-export const CHECK_USOS_USER_FAIL = 'CHECK_USOS_USER_FAIL';
 export const AUTH_LOGOUT_USOS = 'AUTH_LOGOUT_USOS';
