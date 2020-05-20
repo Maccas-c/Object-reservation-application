@@ -130,8 +130,8 @@ const Register = props => {
                 name='password'
                 label='Hasło'
                 type='password'
-                error={password.length === 0 ? true : false}
                 id='password'
+                error={password.length === 0 ? true : false}
                 autoComplete='current-password'
                 value={password}
                 onChange={event => changePasswordHandler(event)}
@@ -168,7 +168,8 @@ const Register = props => {
             variant='contained'
             color='primary'
             className={classes.submit}
-            onClick={event => userRegisterHandler(event)}>
+            onClick={event => userRegisterHandler(event)}
+            disabled={!email || !password || !name || !surname || !sex}>
             Załóż konto
           </Button>
 
