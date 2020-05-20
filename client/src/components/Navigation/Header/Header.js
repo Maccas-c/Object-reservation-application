@@ -20,6 +20,7 @@ const Header = (props) => {
 
   const logoutUsosHandler = (event) => {
     event.preventDefault();
+    dispatch(authActions.startLoadingUser());
     dispatch(authActions.logoutUsos());
   };
 

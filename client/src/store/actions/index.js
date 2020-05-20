@@ -4,5 +4,6 @@ export {
   checkUser,
   checkUsosUser,
   logoutUsos,
-  logoutSuccess
+  logoutSuccess,
+  startLoadingUser
 } from './auth';

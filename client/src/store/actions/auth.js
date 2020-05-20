@@ -23,6 +23,7 @@ export const logout = () => {
       .then((response) => {
         localStorage.removeItem('user');
         dispatch(logoutSuccess());
+        dispatch(endLoadingUser());
       })
       .catch((error) => {
         console.log(error);
@@ -34,8 +35,8 @@ export const logoutUsos = () => {
   return (dispatch) => {
     localStorage.removeItem('user');
     dispatch(logoutSuccess());
-    window.location.reload(true);
     window.location.href = 'http://localhost:3001/api/loginUsos/logout';
+    dispatch(endLoadingUser());
   };
 };
 
