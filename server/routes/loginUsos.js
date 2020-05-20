@@ -34,6 +34,9 @@ router.get(
 );
 
 router.get('/api/loginUsos/logout', isAuth, function (req, res) {
+  res.clearCookie('connect.sid', function (err) {
+    if (err) return res.status(404);
+  });
   req.session.destroy(function (err) {
     if (err) return res.status(404);
     res

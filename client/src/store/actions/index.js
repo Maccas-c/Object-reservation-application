@@ -2,6 +2,7 @@ export {
   authStart,
   logout,
   checkUser,
-  authUsosStart,
-  checkUsosUser
+  checkUsosUser,
+  logoutUsos,
+  logoutSuccess
 } from './auth';

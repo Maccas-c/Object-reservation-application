@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import { AppBar, IconButton, Toolbar, Button } from '@material-ui/core';
@@ -19,8 +20,7 @@ const Header = (props) => {
 
   const logoutUsosHandler = (event) => {
     event.preventDefault();
-    dispatch(authActions.logout());
-    window.location.href = 'http://localhost:3001/api/loginUsos/logout';
+    dispatch(authActions.logoutUsos());
   };
 
   let logoutBtn = null;
@@ -72,4 +72,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

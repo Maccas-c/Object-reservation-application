@@ -16,12 +16,6 @@ export const logoutSuccess = () => {
   };
 };
 
-export const logoutUsosSuccess = () => {
-  return {
-    type: actionTypes.AUTH_LOGOUT_USOS
-  };
-};
-
 export const logout = () => {
   return (dispatch) => {
     axios
@@ -37,9 +31,11 @@ export const logout = () => {
 };
 
 export const logoutUsos = () => {
-  localStorage.removeItem('user');
-  return {
-    type: actionTypes.AUTH_LOGOUT
+  return (dispatch) => {
+    localStorage.removeItem('user');
+    dispatch(logoutSuccess());
+    window.location.reload(true);
+    window.location.href = 'http://localhost:3001/api/loginUsos/logout';
   };
 };
 
@@ -69,7 +65,6 @@ export const loadUser = (user) => {
 export const checkUser = () => {
   return (dispatch) => {
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     if (!user) {
       dispatch(checkUsosUser());
       user = JSON.parse(localStorage.getItem('user'));
@@ -86,9 +81,11 @@ export const checkUsosUser = () => {
       })
       .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
+        console.log(response);
       })
       .catch((err) => {
         dispatch(checkUsosUserFail());
+        console.log('bad');
       });
   };
 };
@@ -106,14 +103,4 @@ export const checkUsosUserFail = () => {
   return {
     type: actionTypes.CHECK_USOS_USER_FAIL
   };
-};
-
-export const authUsosStart = () => {
-  axios
-    .get('/loginUsos/connect', {
-      withCredentials: true
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 };
