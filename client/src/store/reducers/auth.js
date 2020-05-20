@@ -3,8 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   user: null,
   isStudent: false,
-  login: '',
-  password: ''
+  isLoading: false
 };
 
 const auth = (state, action) => {
@@ -46,6 +45,19 @@ const checkUserFail = (state, action) => {
   };
 };
 
+const startLoadingUser = (state, action) => {
+  return {
+    ...state,
+    isLoading: true
+  };
+};
+const endLoadingUser = (state, action) => {
+  return {
+    ...state,
+    isLoading: false
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_SUCCESS:
@@ -58,6 +70,10 @@ const reducer = (state = initialState, action) => {
       return checkUsosUserSuccess(state, action);
     case actionTypes.CHECK_USER_FAIL:
       return checkUserFail(state, action);
+    case actionTypes.START_LOADING_USER:
+      return startLoadingUser(state, action);
+    case actionTypes.END_LOADING_USER:
+      return endLoadingUser(state, action);
     default:
       return state;
   }

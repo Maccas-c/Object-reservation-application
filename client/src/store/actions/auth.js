@@ -75,15 +75,18 @@ export const checkLocalUser = () => {
         } else {
           dispatch(loadUserToStore(user));
         }
+        dispatch(endLoadingUser());
       })
       .catch((err) => {
         dispatch(checkUserFail());
+        dispatch(endLoadingUser());
       });
   };
 };
 
 export const checkUser = () => {
   return (dispatch) => {
+    dispatch(startLoadingUser());
     dispatch(checkLocalUser());
   };
 };
@@ -96,9 +99,6 @@ export const checkUsosUser = () => {
       })
       .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
-      })
-      .catch((err) => {
-        dispatch(checkUserFail());
       });
   };
 };
@@ -121,5 +121,17 @@ export const checkUserFail = () => {
   localStorage.clear();
   return {
     type: actionTypes.CHECK_USER_FAIL
+  };
+};
+
+export const startLoadingUser = () => {
+  return {
+    type: actionTypes.START_LOADING_USER
+  };
+};
+
+export const endLoadingUser = () => {
+  return {
+    type: actionTypes.END_LOADING_USER
   };
 };
