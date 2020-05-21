@@ -15,6 +15,11 @@ export const registerFailure = () => {
     type: actionTypes.REGISTER_FAILURE,
   };
 };
+export const isExistEmail = () => {
+  return {
+    type: actionTypes.IS_EXIST_EMAIL,
+  };
+};
 
 export const registerStart = (userInput, route) => {
   return dispatch => {
@@ -26,8 +31,11 @@ export const registerStart = (userInput, route) => {
         dispatch(registerSuccess(response.data));
         route.push(MENU_ROUTES.LOGIN);
       })
-      .catch(err => {
-        console.log(err.response);
+      .catch(error => {
+        if (error.response.status === 422) {
+          dispatch(isExistEmail());
+          alert('Mail ma już przypisane konto');
+        }
       });
   };
 };

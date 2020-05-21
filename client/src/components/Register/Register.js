@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -28,6 +28,7 @@ import FormControl from '@material-ui/core/FormControl';
 const Register = props => {
   const classes = useStyles();
 
+  const isExistEmail = useSelector(state => state.isExistEmail);
   const [check, setCheck] = useState({ ChangeState: false });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -81,7 +82,6 @@ const Register = props => {
         check: check,
       };
       dispatch(regActions.registerStart(userInput, props.history));
-      alert('Rejestracja przeszła pomyślnie, potwierdź adres e-mail');
     } else if (!email.match(mail) && password.match(passw)) {
       setEmailValid(true);
       setPasswordValid(false);
