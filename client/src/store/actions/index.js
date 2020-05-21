@@ -5,5 +5,6 @@ export {
   checkUsosUser,
   logoutUsos,
   logoutSuccess,
-  startLoadingUser
+  startLoadingUser,
+  switchModeTheme
 } from './auth';

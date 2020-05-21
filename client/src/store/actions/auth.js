@@ -119,7 +119,7 @@ export const checkLocalUserSuccess = (user) => {
 };
 
 export const checkUserFail = () => {
-  localStorage.clear();
+  localStorage.removeItem('user');
   return {
     type: actionTypes.CHECK_USER_FAIL
   };
@@ -134,5 +134,14 @@ export const startLoadingUser = () => {
 export const endLoadingUser = () => {
   return {
     type: actionTypes.END_LOADING_USER
+  };
+};
+
+export const switchModeTheme = (switchFun, modeId) => {
+  switchFun(modeId);
+  localStorage.setItem('mode', modeId);
+  return {
+    type: actionTypes.SWITCH_MODE_THEME,
+    modeId: modeId
   };
 };

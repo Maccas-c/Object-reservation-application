@@ -24,10 +24,19 @@ import { useConstructor } from '../../utils/customHooks';
 const Layout = (props) => {
   const [updatedTheme, toggleMode] = useDarkMode();
   const theme = createMuiTheme(updatedTheme);
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  useConstructor(() => dispatch(authActions.checkUser()));
+  let value = parseInt(useSelector((state) => state.modeId));
+
+  useConstructor(() => {
+    dispatch(authActions.checkUser());
+    const localStorageModeId = localStorage.getItem('mode');
+    if (localStorageModeId !== null) {
+      dispatch(authActions.switchModeTheme(toggleMode, localStorageModeId));
+      value = parseInt(localStorageModeId);
+    }
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -72,7 +81,7 @@ const Layout = (props) => {
           />
         </Switch>
       </Content>
-      <Footer switch={toggleMode} />
+      <Footer switch={toggleMode} value={value} />
     </ThemeProvider>
   );
 };

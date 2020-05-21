@@ -18,7 +18,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 import * as authActions from '../../store/actions/index';
-import spinner from '../../assets/spinner.jpg';
+
+import Spinner from '../UI/Spinner/Spinner';
 
 import useStyles from './LoginStyles';
 
@@ -61,9 +62,7 @@ const Login = (props) => {
   const loginPanel = isLoading ? (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <img src={spinner} alt="Girl in a jacket" />
-      </div>
+      <Spinner></Spinner>
     </Container>
   ) : (
     <Fragment>

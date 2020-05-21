@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   user: null,
   isStudent: false,
-  isLoading: false
+  isLoading: false,
+  modeId: '0'
 };
 
 const auth = (state, action) => {
@@ -57,6 +58,12 @@ const endLoadingUser = (state, action) => {
     isLoading: false
   };
 };
+const switchModeTheme = (state, action) => {
+  return {
+    ...state,
+    modeId: action.modeId
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -74,6 +81,8 @@ const reducer = (state = initialState, action) => {
       return startLoadingUser(state, action);
     case actionTypes.END_LOADING_USER:
       return endLoadingUser(state, action);
+    case actionTypes.SWITCH_MODE_THEME:
+      return switchModeTheme(state, action);
     default:
       return state;
   }
