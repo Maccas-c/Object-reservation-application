@@ -98,7 +98,10 @@ const Register = props => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography
+          style={{ fontFamily: 'roboto' }}
+          component='h1'
+          variant='h5'>
           Rejestracja
         </Typography>
         <form className={classes.form} noValidate>
@@ -187,6 +190,7 @@ const Register = props => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    style={{ fontFamily: 'roboto' }}
                     value={check}
                     onChange={event => handleChangedTrue(event)}
                     required

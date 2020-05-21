@@ -61,7 +61,10 @@ const Login = props => {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component='h1' variant='h5'>
+          <Typography
+            style={{ fontFamily: 'roboto' }}
+            component='h1'
+            variant='h5'>
             Logowanie
           </Typography>
           <form className={classes.form} noValidate>
