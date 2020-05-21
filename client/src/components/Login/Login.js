@@ -12,7 +12,7 @@ import {
   Grid,
   Box,
   Typography,
-  Container
+  Container,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -21,73 +21,74 @@ import * as authActions from '../../store/actions/index';
 
 import useStyles from './LoginStyles';
 
-const Login = (props) => {
+const Login = props => {
   const classes = useStyles();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const userLoginHandler = (event) => {
+  const userLoginHandler = event => {
     event.preventDefault();
+
     const userInput = { email: email, password: password };
     dispatch(authActions.authStart(userInput, props.history));
   };
 
-  const registerHandler = (event) => {
+  const registerHandler = event => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.REGISTER);
   };
 
-  const rememberPasswordHandler = (event) => {
+  const rememberPasswordHandler = event => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.PASSWORD_REC);
   };
 
-  const changeNameHandler = (event) => {
+  const changeNameHandler = event => {
     setEmail(event.target.value);
   };
 
-  const changeEmailHandler = (event) => {
+  const changeEmailHandler = event => {
     setPassword(event.target.value);
   };
 
   return (
     <Fragment>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             Logowanie
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   required
                   fullWidth
-                  id="email"
-                  label="E-mail"
-                  name="email"
-                  autoComplete="email"
+                  id='email'
+                  label='E-mail'
+                  name='email'
+                  autoComplete='email'
                   value={email}
-                  onChange={(event) => changeNameHandler(event)}
+                  onChange={event => changeNameHandler(event)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   required
                   fullWidth
-                  name="password"
-                  label="Hasło"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  name='password'
+                  label='Hasło'
+                  type='password'
+                  id='password'
+                  autoComplete='current-password'
                   value={password}
                   onChange={changeEmailHandler}
                 />
@@ -95,37 +96,34 @@ const Login = (props) => {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox value='allowExtraEmails' color='primary' />
                   }
-                  label="
-                Zapamiętaj mnie"
+                  label='
+                Zapamiętaj mnie'
                 />
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               className={classes.submit}
-              onClick={(event) => userLoginHandler(event)}
-            >
+              onClick={event => userLoginHandler(event)}>
               Zaloguj się
             </Button>
-            <Grid container justify="flex-end">
+            <Grid container justify='flex-end'>
               <Link
-                variant="body2"
-                onClick={(event) => registerHandler(event)}
-                href=""
-              >
+                variant='body2'
+                onClick={event => registerHandler(event)}
+                href=''>
                 Nie posiadasz konta? Zarejestruj się!
               </Link>
               <Grid item>
                 <Link
-                  variant="body2"
-                  onClick={(event) => rememberPasswordHandler(event)}
-                  href=""
-                >
+                  variant='body2'
+                  onClick={event => rememberPasswordHandler(event)}
+                  href=''>
                   Nie pamiętasz hasła? Przypomnij hasło!
                 </Link>
               </Grid>

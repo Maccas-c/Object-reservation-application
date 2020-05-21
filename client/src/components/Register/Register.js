@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
   Avatar,
@@ -12,7 +13,6 @@ import {
   Box,
   Typography,
   Container,
-  FormHelperText,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -28,16 +28,20 @@ import FormControl from '@material-ui/core/FormControl';
 const Register = props => {
   const classes = useStyles();
 
+  const [check, setCheck] = useState({ ChangeState: false });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const dispatch = useDispatch();
+  const [is_email_valid, setEmailValid] = useState(false);
+  const [is_password_valid, setPasswordValid] = useState(false);
+  const [sex, setSex] = useState('male');
+
   const loginHandler = event => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.LOGIN);
   };
-  const [sex, setSex] = useState('male');
 
   const handleChange = event => {
     setSex(event.target.value);
@@ -57,17 +61,36 @@ const Register = props => {
     setEmail(event.target.value);
   };
 
+  const handleChangedTrue = () => {
+    setCheck(check => ({
+      ChangeState: !check.ChangeState,
+    }));
+  };
+
   const userRegisterHandler = event => {
     event.preventDefault();
-    const userInput = {
-      email: email,
-      password: password,
-      name: name,
-      surname: surname,
-      sex: sex,
-    };
-    dispatch(regActions.registerStart(userInput, props.history));
+    let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    let mail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (password.match(passw) && email.match(mail)) {
+      const userInput = {
+        email: email,
+        password: password,
+        name: name,
+        surname: surname,
+        sex: sex,
+        check: check,
+      };
+      dispatch(regActions.registerStart(userInput, props.history));
+      alert('Rejestracja przeszła pomyślnie, potwierdź adres e-mail');
+    } else if (!email.match(mail) && password.match(passw)) {
+      setEmailValid(true);
+      setPasswordValid(false);
+    } else if (!password.match(passw) && email.match(mail)) {
+      setEmailValid(false);
+      setPasswordValid(true);
+    }
   };
+
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -87,9 +110,10 @@ const Register = props => {
                 fullWidth
                 id='email'
                 label='E-mail'
-                error={email.length === 0 ? true : false}
                 name='email'
                 autoComplete='email'
+                error={is_email_valid}
+                helperText={is_email_valid ? 'Niepoprawny format mail' : ''}
                 value={email}
                 onChange={event => changeEmailHandler(event)}
               />
@@ -102,7 +126,6 @@ const Register = props => {
                 name='name'
                 label='Imię'
                 type='name'
-                error={name.length === 0 ? true : false}
                 id='name'
                 value={name}
                 onChange={event => changeNameHandler(event)}
@@ -116,7 +139,6 @@ const Register = props => {
                 name='surname'
                 label='Nazwisko'
                 type='surname'
-                error={surname.length === 0 ? true : false}
                 id='surname'
                 value={surname}
                 onChange={event => changeSurnameHandler(event)}
@@ -131,7 +153,12 @@ const Register = props => {
                 label='Hasło'
                 type='password'
                 id='password'
-                error={password.length === 0 ? true : false}
+                error={is_password_valid}
+                helperText={
+                  is_password_valid
+                    ? 'Hasło musi się składać z co najmniej 7 i co najwyżej 14 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę,jeden znak specjalny oraz jedną cyfrę.'
+                    : ''
+                }
                 autoComplete='current-password'
                 value={password}
                 onChange={event => changePasswordHandler(event)}
@@ -158,7 +185,14 @@ const Register = props => {
             </FormControl>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value='allowExtraEmails' color='primary' />}
+                control={
+                  <Checkbox
+                    value={check}
+                    onChange={event => handleChangedTrue(event)}
+                    required
+                    color='primary'
+                  />
+                }
                 label='Zapoznałem się z regulaminem aplikacji.'
               />
             </Grid>
@@ -168,8 +202,15 @@ const Register = props => {
             variant='contained'
             color='primary'
             className={classes.submit}
-            onClick={event => userRegisterHandler(event)}
-            disabled={!email || !password || !name || !surname || !sex}>
+            disabled={
+              !email ||
+              !password ||
+              !name ||
+              !surname ||
+              !sex ||
+              !check.ChangeState
+            }
+            onClick={event => userRegisterHandler(event)}>
             Załóż konto
           </Button>
 
