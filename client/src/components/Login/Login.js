@@ -108,6 +108,7 @@ const Login = props => {
               fullWidth
               variant='contained'
               color='primary'
+              disabled={!password || !email}
               className={classes.submit}
               onClick={event => userLoginHandler(event)}>
               Zaloguj się
