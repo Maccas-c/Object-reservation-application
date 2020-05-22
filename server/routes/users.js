@@ -20,18 +20,18 @@ router.post(
       .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)
       .withMessage(
         'Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long'
-      )
+      ),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
-        errors: errors.array()
+        errors: errors.array(),
       });
     }
     const isExist = userModel.findOne(
       {
-        'login.email': req.body.email
+        'login.email': req.body.email,
       },
       async function (err, user) {
         if (err) return res.status(404).json(err);
@@ -45,10 +45,11 @@ router.post(
             login: {
               email: req.body.email,
               hash: hash,
-              salt: salt
-            }
-            // name: req.body.name,
-            // surname: req.body.surname,
+              salt: salt,
+            },
+            name: req.body.name,
+            surname: req.body.surname,
+            sex: req.body.sex,
           });
           try {
             const savedUser = await user.save();
@@ -66,12 +67,12 @@ router.patch('/api/user/delete/:userId', isAuth, async (req, res) => {
   try {
     const deletedUser = await userModel.updateOne(
       {
-        _id: req.params.userId
+        _id: req.params.userId,
       },
       {
         $set: {
-          isActive: false
-        }
+          isActive: false,
+        },
       }
     );
     res.status(200).json(deletedUser);
@@ -92,20 +93,20 @@ router.patch(
     ),
     check('nip').matches(
       /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/
-    )
+    ),
   ],
   isAuth,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
-        errors: errors.array()
+        errors: errors.array(),
       });
     }
     try {
       const updatedUser = await userModel.updateOne(
         {
-          _id: req.params.userId
+          _id: req.params.userId,
         },
         {
           $set: {
@@ -116,12 +117,12 @@ router.patch(
             address: {
               street: req.body.street,
               city: req.body.city,
-              postalCode: req.body.postalCode
+              postalCode: req.body.postalCode,
             },
             vat: {
-              nip: req.body.nip
-            }
-          }
+              nip: req.body.nip,
+            },
+          },
         }
       );
       res.status(200).json(updatedUser);

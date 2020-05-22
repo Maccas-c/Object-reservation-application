@@ -6,5 +6,6 @@ export {
   logoutUsos,
   logoutSuccess,
   startLoadingUser,
-  switchModeTheme
+  switchModeTheme,
 } from './auth';
+export { registerStart } from './register';

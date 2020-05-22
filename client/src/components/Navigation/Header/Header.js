@@ -9,16 +9,16 @@ import * as authActions from '../../../store/actions/index';
 
 import makeStyles from './HeaderStyles';
 
-const Header = (props) => {
+const Header = props => {
   const classes = makeStyles();
   const dispatch = useDispatch();
 
-  const logoutHandler = (event) => {
+  const logoutHandler = event => {
     event.preventDefault();
     dispatch(authActions.logout());
   };
 
-  const logoutUsosHandler = (event) => {
+  const logoutUsosHandler = event => {
     event.preventDefault();
     dispatch(authActions.startLoadingUser());
     dispatch(authActions.logoutUsos());
@@ -27,36 +27,42 @@ const Header = (props) => {
   let logoutBtn = null;
   let menuIcon = null;
   if (props.user) {
+    logoutBtn = (
+      <Button
+        color='inherit'
+        className={classes.loginButton}
+        style={{ fontFamily: 'roboto' }}
+        onClick={event => logoutHandler(event)}>
+        Wyloguj
+      </Button>
+    );
     menuIcon = (
       <IconButton
-        color="inherit"
-        aria-label="Open drawer"
-        edge="start"
+        color='inherit'
+        aria-label='Open drawer'
+        edge='start'
         onClick={props.open}
-        className={classes.menuButton}
-      >
+        className={classes.menuButton}>
         <MenuIcon />
       </IconButton>
     );
     if (!props.user.isStudent) {
       logoutBtn = (
         <Button
-          color="inherit"
+          color='inherit'
           className={classes.loginButton}
           style={{ fontFamily: 'Segoe UI' }}
-          onClick={(event) => logoutHandler(event)}
-        >
+          onClick={event => logoutHandler(event)}>
           Wyloguj
         </Button>
       );
     } else {
       logoutBtn = (
         <Button
-          color="inherit"
+          color='inherit'
           className={classes.loginButton}
           style={{ fontFamily: 'Segoe UI' }}
-          onClick={(event) => logoutUsosHandler(event)}
-        >
+          onClick={event => logoutUsosHandler(event)}>
           Wyloguj
         </Button>
       );
@@ -64,7 +70,7 @@ const Header = (props) => {
   }
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar position='fixed' className={classes.appBar}>
       <Toolbar>
         {menuIcon}
         {logoutBtn}
