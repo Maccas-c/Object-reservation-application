@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import { AppBar, IconButton, Toolbar, Button } from '@material-ui/core';
@@ -14,22 +15,18 @@ const Header = (props) => {
 
   const logoutHandler = (event) => {
     event.preventDefault();
-    dispatch(authActions.logout(props.history));
+    dispatch(authActions.logout());
+  };
+
+  const logoutUsosHandler = (event) => {
+    event.preventDefault();
+    dispatch(authActions.startLoadingUser());
+    dispatch(authActions.logoutUsos());
   };
 
   let logoutBtn = null;
   let menuIcon = null;
   if (props.user) {
-    logoutBtn = (
-      <Button
-        color="inherit"
-        className={classes.loginButton}
-        style={{ fontFamily: 'Segoe UI' }}
-        onClick={(event) => logoutHandler(event)}
-      >
-        Wyloguj
-      </Button>
-    );
     menuIcon = (
       <IconButton
         color="inherit"
@@ -41,6 +38,29 @@ const Header = (props) => {
         <MenuIcon />
       </IconButton>
     );
+    if (!props.user.isStudent) {
+      logoutBtn = (
+        <Button
+          color="inherit"
+          className={classes.loginButton}
+          style={{ fontFamily: 'Segoe UI' }}
+          onClick={(event) => logoutHandler(event)}
+        >
+          Wyloguj
+        </Button>
+      );
+    } else {
+      logoutBtn = (
+        <Button
+          color="inherit"
+          className={classes.loginButton}
+          style={{ fontFamily: 'Segoe UI' }}
+          onClick={(event) => logoutUsosHandler(event)}
+        >
+          Wyloguj
+        </Button>
+      );
+    }
   }
 
   return (
@@ -53,4 +73,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

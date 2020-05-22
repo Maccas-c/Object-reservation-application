@@ -1,1 +1,10 @@
-export { authStart, logout, checkUser } from './auth';
+export {
+  authStart,
+  logout,
+  checkUser,
+  checkUsosUser,
+  logoutUsos,
+  logoutSuccess,
+  startLoadingUser,
+  switchModeTheme
+} from './auth';

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -19,6 +19,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 import * as authActions from '../../store/actions/index';
 
+import Spinner from '../UI/Spinner/Spinner';
+
 import useStyles from './LoginStyles';
 
 const Login = (props) => {
@@ -26,12 +28,17 @@ const Login = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
 
   const userLoginHandler = (event) => {
     event.preventDefault();
     const userInput = { email: email, password: password };
-    dispatch(authActions.authStart(userInput, props.history));
+    dispatch(authActions.authStart(userInput));
+  };
+  const userUsosLoginHandler = (event) => {
+    event.preventDefault();
+    window.location.href = 'http://localhost:3001/api/loginUsos/connect';
   };
 
   const registerHandler = (event) => {
@@ -52,7 +59,12 @@ const Login = (props) => {
     setPassword(event.target.value);
   };
 
-  return (
+  const loginPanel = isLoading ? (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Spinner></Spinner>
+    </Container>
+  ) : (
     <Fragment>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -98,7 +110,7 @@ const Login = (props) => {
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="
-                Zapamiętaj mnie"
+            Zapamiętaj mnie"
                 />
               </Grid>
             </Grid>
@@ -111,6 +123,16 @@ const Login = (props) => {
               onClick={(event) => userLoginHandler(event)}
             >
               Zaloguj się
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(event) => userUsosLoginHandler(event)}
+            >
+              Zaloguj się przez USOS
             </Button>
             <Grid container justify="flex-end">
               <Link
@@ -136,6 +158,7 @@ const Login = (props) => {
       </Container>
     </Fragment>
   );
+  return loginPanel;
 };
 
 export default Login;
