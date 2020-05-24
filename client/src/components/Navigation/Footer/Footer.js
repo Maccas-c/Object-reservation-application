@@ -12,7 +12,7 @@ const Footer = (props) => {
   if (value.toString() !== props.value) {
     value = props.value;
   }
-  const modeId = { dark: '0', light: '1' };
+  const modeId = { light: '0', dark: '1' };
 
   const dispatch = useDispatch();
 
@@ -33,8 +33,8 @@ const Footer = (props) => {
         textColor="primary"
         centered
       >
-        <Tab label="Dark" onClick={() => switchTheme(modeId.dark)} />
         <Tab label="Light" onClick={() => switchTheme(modeId.light)} />
+        <Tab label="Dark" onClick={() => switchTheme(modeId.dark)} />
       </Tabs>
     </AppBar>
   );
