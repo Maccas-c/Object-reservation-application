@@ -2,18 +2,14 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   user: null,
-
-  isStudent: false,
-  isLoading: false,
-  modeId: '0',
-  isExistEmail: false,
+  isStudent: false
 };
 
 const auth = (state, action) => {
   return {
     ...state,
     user: action.user,
-    isStudent: false,
+    isStudent: false
   };
 };
 
@@ -21,21 +17,14 @@ const logout = (state, action) => {
   return {
     ...state,
     user: null,
-    isStudent: false,
+    isStudent: false
   };
 };
 
 const loadUser = (state, action) => {
   return {
     ...state,
-    user: action.user,
-  };
-};
-
-const isExistEmail = (state, action) => {
-  return {
-    ...state,
-    isExistEmail: true,
+    user: action.user
   };
 };
 
@@ -43,7 +32,7 @@ const checkUsosUserSuccess = (state, action) => {
   return {
     ...state,
     user: action.user,
-    isStudent: true,
+    isStudent: true
   };
 };
 
@@ -51,26 +40,7 @@ const checkUserFail = (state, action) => {
   return {
     ...state,
     user: null,
-    isStudent: false,
-  };
-};
-
-const startLoadingUser = (state, action) => {
-  return {
-    ...state,
-    isLoading: true,
-  };
-};
-const endLoadingUser = (state, action) => {
-  return {
-    ...state,
-    isLoading: false,
-  };
-};
-const switchModeTheme = (state, action) => {
-  return {
-    ...state,
-    modeId: action.modeId,
+    isStudent: false
   };
 };
 
@@ -86,15 +56,6 @@ const reducer = (state = initialState, action) => {
       return checkUsosUserSuccess(state, action);
     case actionTypes.CHECK_USER_FAIL:
       return checkUserFail(state, action);
-    case actionTypes.START_LOADING_USER:
-      return startLoadingUser(state, action);
-    case actionTypes.END_LOADING_USER:
-      return endLoadingUser(state, action);
-    case actionTypes.SWITCH_MODE_THEME:
-      return switchModeTheme(state, action);
-    case actionTypes.IS_EXIST_EMAIL:
-      return isExistEmail(state, action);
-
     default:
       return state;
   }

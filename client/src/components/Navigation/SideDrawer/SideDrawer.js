@@ -8,7 +8,7 @@ import {
   Hidden,
   List,
   ListItem,
-  ListItemText,
+  ListItemText
 } from '@material-ui/core';
 
 import Avatar from '../../../assets/avatar/avatarMale.png';
@@ -18,21 +18,21 @@ import { MENU_ROUTES } from '../../../constansts/routes/routes';
 
 import makeStyles from './SideDrawerStyles';
 
-const SideDrawer = props => {
+const SideDrawer = (props) => {
   const classes = makeStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   const {
-    location: { pathname },
+    location: { pathname }
   } = props;
   const menuList = Object.values(MENU_ITEMS);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.auth.user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const getKeyByValue = (object, value) => {
-    return Object.keys(object).find(key => object[key] === value);
+    return Object.keys(object).find((key) => object[key] === value);
   };
 
   const userRoute = () => {
@@ -46,7 +46,7 @@ const SideDrawer = props => {
     menu = (
       <div style={{ fontFamily: 'roboto' }} className={classes.drawerList}>
         <List>
-          {menuList.map(menuitem => {
+          {menuList.map((menuitem) => {
             const key = getKeyByValue(MENU_ITEMS, menuitem);
             return (
               <ListItem
@@ -54,7 +54,8 @@ const SideDrawer = props => {
                 component={Link}
                 to={MENU_ROUTES[key]}
                 selected={MENU_ROUTES[key] === pathname}
-                key={menuitem}>
+                key={menuitem}
+              >
                 <ListItemText primary={menuitem} />
               </ListItem>
             );
@@ -66,11 +67,12 @@ const SideDrawer = props => {
       <nav className={classes.drawer}>
         <Hidden smUp>
           <Drawer
-            variant='temporary'
+            variant="temporary"
             open={mobileOpen}
-            onClose={handleDrawerToggle}>
+            onClose={handleDrawerToggle}
+          >
             <div className={classes.userProfile} onClick={userRoute}>
-              <img src={Avatar} alt='Your avatar' height='80' width='80' />
+              <img src={Avatar} alt="Your avatar" height="80" width="80" />
               <h5 className={classes.userName}>
                 {user.name} {user.surname}
               </h5>
@@ -82,13 +84,14 @@ const SideDrawer = props => {
         <Hidden xsDown>
           <Drawer
             className={classes.drawer}
-            variant='permanent'
+            variant="permanent"
             classes={{
-              paper: classes.drawerPaper,
-            }}>
+              paper: classes.drawerPaper
+            }}
+          >
             <div className={classes.toolbar} />
             <div className={classes.userProfile} onClick={userRoute}>
-              <img src={Avatar} alt='Your avatar' height='80' width='80' />
+              <img src={Avatar} alt="Your avatar" height="80" width="80" />
               <h5 className={classes.userName}>
                 {user.name} {user.surname}
               </h5>

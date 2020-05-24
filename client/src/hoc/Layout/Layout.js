@@ -26,8 +26,8 @@ const Layout = (props) => {
   const theme = createMuiTheme(updatedTheme);
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
-  let value = parseInt(useSelector((state) => state.modeId));
+  const user = useSelector((state) => state.auth.user);
+  let value = parseInt(useSelector((state) => state.utils.modeId));
 
   useConstructor(() => {
     dispatch(authActions.checkUser());
