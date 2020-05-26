@@ -21,11 +21,9 @@ const userModel = mongoose.Schema({
     type: String,
     default: "user",
   },
-  address: {
-    street: String,
-    city: String,
-    postalCode: String,
-  },
+  adress_street: String,
+  adress_city: String,
+  adress_postalCode: String,
   isStudent: {
     type: Boolean,
     default: false,
