@@ -1,33 +1,19 @@
 import React from 'react';
-
+import axios from '../../axios/axios-auth';
 import MaterialTable from 'material-table';
 import { withRouter } from 'react-router-dom';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
+
 const UserLists = props => {
-  const tableRef = React.createRef();
   const userRoute = () => {
     props.history.push(MENU_ROUTES.USER_PROFILE);
   };
   const [state, setState] = React.useState({
     columns: [
-      { title: 'E-mail', field: 'email' },
+      { title: 'E-mail', field: 'login.email' },
+      { title: 'Email Usos', field: 'longing2.email' },
       { title: 'Imie', field: 'name' },
       { title: 'Nazwisko', field: 'surname' },
-      { title: 'Rok Urodzenia', field: 'rok_urodzenia', type: 'numeric' },
-    ],
-    data: [
-      {
-        name: 'Maciek',
-        surname: 'Baran',
-        email: 'Janek@gmail.com',
-        rok_urodzenia: 1987,
-      },
-      {
-        name: 'Janusz',
-        surname: 'Fiołek',
-        rok_urodzenia: 2017,
-        email: 'Waldek@email.com',
-      },
     ],
   });
 
@@ -35,57 +21,26 @@ const UserLists = props => {
     <MaterialTable
       title='Lista użytkowników'
       columns={state.columns}
-      data={state.data}
+      data={query =>
+        new Promise((resolve, reject) => {
+          axios.get('/admin/users', { withCredentials: true }).then(result => {
+            resolve({
+              data: result.data,
+              totalCount: result.total,
+              page: result.page - 1,
+            });
+          });
+        })
+      }
       actions={[
         {
           icon: 'person',
           tooltip: 'Pokaż dane',
           onClick: userRoute,
         },
-        {
-          icon: 'refresh',
-          tooltip: 'Refresh Data',
-          isFreeAction: true,
-          onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-        },
+        { icon: 'delete', tooltip: 'usun użytkownika' },
+        { icon: 'edit', tooltip: 'Edytuj' },
       ]}
-      editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              setState(prevState => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState(prevState => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
-          }),
-        onRowDelete: oldData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              setState(prevState => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-      }}
     />
   );
 };
