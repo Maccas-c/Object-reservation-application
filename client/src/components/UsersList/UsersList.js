@@ -10,8 +10,7 @@ const UserLists = props => {
   };
   const [state, setState] = React.useState({
     columns: [
-      { title: 'E-mail', field: 'login.email' },
-      { title: 'Email Usos', field: 'longing2.email' },
+      { title: 'E-mail', field: 'longing2.email' },
       { title: 'Imie', field: 'name' },
       { title: 'Nazwisko', field: 'surname' },
     ],
@@ -21,6 +20,7 @@ const UserLists = props => {
     <MaterialTable
       title='Lista użytkowników'
       columns={state.columns}
+      options={{ search: true }}
       data={query =>
         new Promise((resolve, reject) => {
           axios.get('/admin/users', { withCredentials: true }).then(result => {
@@ -38,8 +38,8 @@ const UserLists = props => {
           tooltip: 'Pokaż dane',
           onClick: userRoute,
         },
-        { icon: 'delete', tooltip: 'usun użytkownika' },
-        { icon: 'edit', tooltip: 'Edytuj' },
+        { icon: 'delete', tooltip: 'Usuń usera' },
+        { icon: 'edit', tooltip: 'Edytuj usera' },
       ]}
     />
   );
