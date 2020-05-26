@@ -18,3 +18,13 @@ module.exports.authRole = (role) => {
     next();
   };
 };
+
+module.exports.checkUser = (req, res, next) => {
+  if (req.body._id == req.user._id) {
+    next();
+  } else {
+    res.status(401).json({
+      msg: 'You are diffrent user'
+    });
+  }
+};

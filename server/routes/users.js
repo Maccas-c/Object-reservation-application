@@ -1,7 +1,9 @@
 const express = require('express');
+const { ObjectId } = require('mongodb');
 const userModel = require('../models/userModel');
 const genPassword = require('../lib/password').genPassword;
 const isAuth = require('./authMiddleware').isAuth;
+const checkUser = require('./authMiddleware').checkUser;
 const { check, validationResult } = require('express-validator');
 const router = express.Router();
 
@@ -13,6 +15,7 @@ router.post(
   '/api/user/create',
   [
     check('email').isEmail().notEmpty(),
+
     check('password')
       .isLength(5)
       .notEmpty()
@@ -39,6 +42,7 @@ router.post(
           const saltHash = await genPassword(req.body.password);
           const salt = saltHash.salt;
           const hash = saltHash.hash;
+
           const user = new userModel({
             login: {
               email: req.body.email,
@@ -82,10 +86,10 @@ router.patch('/api/user/delete/:userId', isAuth, async (req, res) => {
 router.patch(
   '/api/user/update',
   [
-    check('name').optional(),
-    check('surname').optional(),
+    check('name').notEmpty().optional(),
+    check('surname').notEmpty().optional(),
     check('age').isNumeric().optional(),
-    check('postalCode')
+    check('adress_postalCode')
       .matches(/^\d{2}[- ]{0,1}\d{3}$/)
       .optional(),
     check('phone_number')
@@ -113,6 +117,7 @@ router.patch(
         {
           _id: ObjectId(req.body._id)
         },
+
         req.body
       );
       res.status(200).json(updatedUser);

@@ -11,7 +11,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(userActions.getUserProfileStart(user.id));
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   return <Fragment></Fragment>;
 };

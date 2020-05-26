@@ -6,7 +6,7 @@ import * as actionTypes from './actionTypes';
 export const getUserProfileStart = (userId) => {
   return (dispatch) => {
     axios
-      .get(MENU_ROUTES.USER_PROFILE + userId, { withCredentials: true })
+      .get(MENU_ROUTES.GET_USER_PROFILE + userId, { withCredentials: true })
       .then((response) => {
         dispatch(getUserProfileSuccess(response.data));
       })
