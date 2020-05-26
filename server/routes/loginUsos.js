@@ -8,14 +8,10 @@ const router = express.Router();
 router.get('/api/loginUsos', function (req, res) {
   if (req.user) {
     res.status(200).json({
-      _id: req.user._id,
-      id: req.user.longing2.id,
       name: req.user.name,
       surname: req.user.surname,
-      isActive: req.user.isActive,
       sex: req.user.sex,
       email: req.user.longing2.email,
-      student_number: req.user.longing2.student_number,
       role: req.user.role
     });
   } else {

@@ -1,20 +1,20 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const isAuth = require("./authMiddleware").isAuth;
-const authRole = require("./authMiddleware").authRole;
-const userModel = require("../models/userModel");
+const isAuth = require('./authMiddleware').isAuth;
+const authRole = require('./authMiddleware').authRole;
+const userModel = require('../models/userModel');
 
 router.get(
-  "/api/admin",
+  '/api/admin',
   isAuth,
   authRole(process.env.ROLE_ADMIN),
   (req, res) => {
-    res.send("admin");
+    res.send('admin');
   }
 );
 
 router.get(
-  "/api/admin/users",
+  '/api/admin/users',
   isAuth,
   authRole(process.env.ROLE_ADMIN),
   async (req, res) => {
@@ -28,19 +28,19 @@ router.get(
 );
 
 router.patch(
-  "/api/admin/modify/:userId",
+  '/api/admin/delete/:userId',
   isAuth,
   authRole(process.env.ROLE_ADMIN),
   async function (req, res) {
     try {
       const updatedUser = await userModel.updateOne(
         {
-          _id: req.params.userId,
+          _id: req.params.userId
         },
         {
           $set: {
-            isStudent: req.body.isStudent,
-          },
+            isStudent: !userModel.isStudent
+          }
         }
       );
       res.status(200).json(updatedUser);

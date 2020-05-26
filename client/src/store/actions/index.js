@@ -5,7 +5,9 @@ export {
   checkUsosUser,
   logoutUsos,
   logoutSuccess,
-  startLoadingUser,
-  switchModeTheme,
+  startLoadingUser
 } from './auth';
+
 export { registerStart } from './register';
+
+export { switchModeTheme } from './utils';

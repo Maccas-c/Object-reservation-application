@@ -11,7 +11,8 @@ import {
   ListItemText
 } from '@material-ui/core';
 
-import Avatar from '../../../assets/avatar/avatarMale.png';
+import AvatarMale from '../../../assets/avatar/male.png';
+import AvatarFemale from '../../../assets/avatar/female.png';
 import Header from '../Header/Header';
 import { MENU_ITEMS } from '../../../constansts/menuList/menuItems';
 import { MENU_ROUTES } from '../../../constansts/routes/routes';
@@ -41,6 +42,13 @@ const SideDrawer = (props) => {
 
   let menu = null;
   let sideDrawer = null;
+  let avatar = null;
+
+  if (props.user && props.user.sex.toLowerCase().startsWith('m')) {
+    avatar = AvatarMale;
+  } else {
+    avatar = AvatarFemale;
+  }
 
   if (props.user) {
     menu = (
@@ -72,7 +80,7 @@ const SideDrawer = (props) => {
             onClose={handleDrawerToggle}
           >
             <div className={classes.userProfile} onClick={userRoute}>
-              <img src={Avatar} alt="Your avatar" height="80" width="80" />
+              <img src={avatar} alt="Your avatar" height="80" width="80" />
               <h5 className={classes.userName}>
                 {user.name} {user.surname}
               </h5>
@@ -91,7 +99,7 @@ const SideDrawer = (props) => {
           >
             <div className={classes.toolbar} />
             <div className={classes.userProfile} onClick={userRoute}>
-              <img src={Avatar} alt="Your avatar" height="80" width="80" />
+              <img src={avatar} alt="Your avatar" height="120" width="120" />
               <h5 className={classes.userName}>
                 {user.name} {user.surname}
               </h5>
