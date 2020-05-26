@@ -1,22 +1,22 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const isAuth = require("./authMiddleware").isAuth;
-const authRole = require("./authMiddleware").authRole;
-const userModel = require("../models/userModel");
+const isAuth = require('./authMiddleware').isAuth;
+const authRole = require('./authMiddleware').authRole;
+const userModel = require('../models/userModel');
 
 router.get(
-  "/api/admin",
+  '/api/admin',
   isAuth,
   authRole(process.env.ROLE_ADMIN),
   (req, res) => {
-    res.send("admin");
+    res.send('admin');
   }
 );
 
 router.get(
-  "/api/admin/users",
-  isAuth,
-  authRole(process.env.ROLE_ADMIN),
+  '/api/admin/users',
+  // isAuth,
+  // authRole(process.env.ROLE_ADMIN),
   async (req, res) => {
     try {
       const users = await userModel.find();
@@ -28,7 +28,7 @@ router.get(
 );
 
 router.patch(
-  "/api/admin/modify/:userId",
+  '/api/admin/modify/:userId',
   isAuth,
   authRole(process.env.ROLE_ADMIN),
   async function (req, res) {
