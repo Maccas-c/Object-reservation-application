@@ -7,8 +7,13 @@ const router = express.Router();
 
 router.get('/api/loginUsos', function (req, res) {
   if (req.user) {
+    if (req.user.sex.startsWith('M')) {
+      req.user.sex = 'male';
+    } else {
+      req.user.sex = 'female';
+    }
     res.status(200).json({
-      id: req.user.id,
+      id: req.user._id,
       name: req.user.name,
       surname: req.user.surname,
       sex: req.user.sex,

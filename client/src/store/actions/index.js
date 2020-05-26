@@ -5,11 +5,12 @@ export {
   checkUsosUser,
   logoutUsos,
   logoutSuccess,
-  startLoadingUser
+  startLoadingUser,
+  updateAuthUser
 } from './auth';
 
 export { registerStart } from './register';
 
 export { switchModeTheme } from './utils';
 
-export { getUserProfileStart } from './userProfile';
+export { getUserProfileStart, updateUserProfileStart } from './userProfile';

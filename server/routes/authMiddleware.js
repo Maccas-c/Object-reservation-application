@@ -20,7 +20,7 @@ module.exports.authRole = (role) => {
 };
 
 module.exports.checkUser = (req, res, next) => {
-  if (req.body._id == req.user._id) {
+  if (req.body.id == req.user._id) {
     next();
   } else {
     res.status(401).json({

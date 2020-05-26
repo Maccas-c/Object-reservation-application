@@ -28,16 +28,17 @@ import FormControl from '@material-ui/core/FormControl';
 const Register = (props) => {
   const classes = useStyles();
 
-  const isExistEmail = useSelector((state) => state.register.isExistEmail);
   const [check, setCheck] = useState({ ChangeState: false });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
-  const dispatch = useDispatch();
   const [is_email_valid, setEmailValid] = useState(false);
   const [is_password_valid, setPasswordValid] = useState(false);
   const [sex, setSex] = useState('male');
+
+  const isExistEmail = useSelector((state) => state.register.isExistEmail);
+  const dispatch = useDispatch();
 
   const loginHandler = (event) => {
     event.preventDefault();

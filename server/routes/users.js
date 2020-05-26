@@ -115,7 +115,7 @@ router.patch(
     try {
       const updatedUser = await userModel.updateOne(
         {
-          _id: ObjectId(req.body._id)
+          _id: ObjectId(req.body.id)
         },
 
         req.body

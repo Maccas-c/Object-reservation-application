@@ -139,3 +139,19 @@ export const endLoadingUser = () => {
     type: actionTypes.END_LOADING_USER
   };
 };
+
+export const updateAuthUser = (updatedUser) => {
+  const updatedLocalStorageUser = {
+    id: updatedUser.id,
+    name: updatedUser.name,
+    surname: updatedUser.surname,
+    email: updatedUser.email,
+    sex: updatedUser.sex,
+    role: updatedUser.role
+  };
+  localStorage.setItem('user', updatedLocalStorageUser);
+  return {
+    type: actionTypes.CHANGE_AUTH_USER,
+    user: updatedLocalStorageUser
+  };
+};

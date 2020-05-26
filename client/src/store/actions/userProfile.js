@@ -22,3 +22,24 @@ export const getUserProfileSuccess = (user) => {
     user: user
   };
 };
+
+export const updateUserProfileStart = (user, router) => {
+  return (dispatch) => {
+    axios
+      .patch(MENU_ROUTES.UPDATE_USER_PROFILE, user, { withCredentials: true })
+      .then((response) => {
+        dispatch(updateUserProfileStartSuccess(response.data));
+        router.push(MENU_ROUTES.HOME);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const updateUserProfileStartSuccess = (user) => {
+  return {
+    type: actionTypes.UPDATE_USER_PROFILE,
+    user: user
+  };
+};
