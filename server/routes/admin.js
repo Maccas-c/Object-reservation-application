@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const {
+  ObjectId
+} = require("mongodb");
 const isAuth = require("./authMiddleware").isAuth;
 const authRole = require("./authMiddleware").authRole;
 const userModel = require("../models/userModel");
@@ -51,8 +54,9 @@ router.patch(
   }
 );
 
-router.patch("/api/admin/update/:userId", isAuth,
-  authRole(process.env.ROLE_ADMIN),
+router.patch("/api/admin/update",
+  // isAuth,
+  //   authRole(process.env.ROLE_ADMIN),
   [
     check('name').optional(),
     check('surname').optional(),
@@ -74,8 +78,9 @@ router.patch("/api/admin/update/:userId", isAuth,
     }
     try {
       const updatedUser = await userModel.updateOne({
-          _id: ObjectId(req.body._id),
+          _id: ObjectId(req.body._id)
         },
+
         req.body
       );
       res.status(200).json(updatedUser);
