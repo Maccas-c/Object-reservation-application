@@ -10,13 +10,14 @@ import * as serviceWorker from './serviceWorker';
 import auth from './store/reducers/auth';
 import register from './store/reducers/register';
 import utils from './store/reducers/utils';
-
+import listUser from './store/reducers/listUser';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: auth,
   register: register,
-  utils: utils
+  utils: utils,
+  listUser: listUser,
 });
 
 const store = createStore(

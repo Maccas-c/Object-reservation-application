@@ -12,7 +12,7 @@ import {
   Grid,
   Box,
   Typography,
-  Container
+  Container,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -25,10 +25,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-const Register = (props) => {
+const Register = props => {
   const classes = useStyles();
 
-  const isExistEmail = useSelector((state) => state.register.isExistEmail);
+  const isExistEmail = useSelector(state => state.register.isExistEmail);
   const [check, setCheck] = useState({ ChangeState: false });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,36 +39,36 @@ const Register = (props) => {
   const [is_password_valid, setPasswordValid] = useState(false);
   const [sex, setSex] = useState('male');
 
-  const loginHandler = (event) => {
+  const loginHandler = event => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.LOGIN);
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setSex(event.target.value);
   };
-  const changeNameHandler = (event) => {
+  const changeNameHandler = event => {
     setName(event.target.value);
   };
 
-  const changeSurnameHandler = (event) => {
+  const changeSurnameHandler = event => {
     setSurname(event.target.value);
   };
 
-  const changePasswordHandler = (event) => {
+  const changePasswordHandler = event => {
     setPassword(event.target.value);
   };
-  const changeEmailHandler = (event) => {
+  const changeEmailHandler = event => {
     setEmail(event.target.value);
   };
 
   const handleChangedTrue = () => {
-    setCheck((check) => ({
-      ChangeState: !check.ChangeState
+    setCheck(check => ({
+      ChangeState: !check.ChangeState,
     }));
   };
 
-  const userRegisterHandler = (event) => {
+  const userRegisterHandler = event => {
     event.preventDefault();
     let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     let mail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -79,7 +79,7 @@ const Register = (props) => {
         name: name,
         surname: surname,
         sex: sex,
-        check: check
+        check: check,
       };
       dispatch(regActions.registerStart(userInput, props.history));
     } else if (password.match(passw) && !email.match(mail)) {
@@ -88,7 +88,6 @@ const Register = (props) => {
     } else if (!password.match(passw) && email.match(mail)) {
       setEmailValid(false);
       setPasswordValid(true);
-      console.log(1);
     } else {
       setPasswordValid(true);
       setEmailValid(true);
@@ -96,7 +95,7 @@ const Register = (props) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -104,91 +103,89 @@ const Register = (props) => {
         </Avatar>
         <Typography
           style={{ fontFamily: 'roboto' }}
-          component="h1"
-          variant="h5"
-        >
+          component='h1'
+          variant='h5'>
           Rejestracja
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                variant='outlined'
                 required
                 fullWidth
-                id="email"
-                label="E-mail"
-                name="email"
-                autoComplete="email"
+                id='email'
+                label='E-mail'
+                name='email'
+                autoComplete='email'
                 error={is_email_valid}
                 helperText={is_email_valid ? 'Niepoprawny format mail' : ''}
                 value={email}
-                onChange={(event) => changeEmailHandler(event)}
+                onChange={event => changeEmailHandler(event)}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                variant="outlined"
+                variant='outlined'
                 required
                 fullWidth
-                name="name"
-                label="Imię"
-                type="name"
-                id="name"
+                name='name'
+                label='Imię'
+                type='name'
+                id='name'
                 value={name}
-                onChange={(event) => changeNameHandler(event)}
+                onChange={event => changeNameHandler(event)}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                variant="outlined"
+                variant='outlined'
                 required
                 fullWidth
-                name="surname"
-                label="Nazwisko"
-                type="surname"
-                id="surname"
+                name='surname'
+                label='Nazwisko'
+                type='surname'
+                id='surname'
                 value={surname}
-                onChange={(event) => changeSurnameHandler(event)}
+                onChange={event => changeSurnameHandler(event)}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                variant='outlined'
                 required
                 fullWidth
-                name="password"
-                label="Hasło"
-                type="password"
-                id="password"
+                name='password'
+                label='Hasło'
+                type='password'
+                id='password'
                 error={is_password_valid}
                 helperText={
                   is_password_valid
                     ? 'Hasło musi się składać z co najmniej 7 i co najwyżej 14 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę,jeden znak specjalny oraz jedną cyfrę.'
                     : ''
                 }
-                autoComplete="current-password"
+                autoComplete='current-password'
                 value={password}
-                onChange={(event) => changePasswordHandler(event)}
+                onChange={event => changePasswordHandler(event)}
               />
             </Grid>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Płeć</FormLabel>
+            <FormControl component='fieldset'>
+              <FormLabel component='legend'>Płeć</FormLabel>
               <RadioGroup
-                aria-label="gender"
-                name="gender1"
+                aria-label='gender'
+                name='gender1'
                 value={sex}
-                onChange={(event) => handleChange(event)}
-              >
+                onChange={event => handleChange(event)}>
                 <FormControlLabel
-                  value="female"
+                  value='female'
                   control={<Radio />}
-                  label="Kobieta"
+                  label='Kobieta'
                 />
                 <FormControlLabel
-                  value="male"
+                  value='male'
                   control={<Radio />}
-                  label="Mężczyzna"
+                  label='Mężczyzna'
                 />
               </RadioGroup>
             </FormControl>
@@ -198,19 +195,19 @@ const Register = (props) => {
                   <Checkbox
                     style={{ fontFamily: 'roboto' }}
                     value={check}
-                    onChange={(event) => handleChangedTrue(event)}
+                    onChange={event => handleChangedTrue(event)}
                     required
-                    color="primary"
+                    color='primary'
                   />
                 }
-                label="Zapoznałem się z regulaminem aplikacji."
+                label='Zapoznałem się z regulaminem aplikacji.'
               />
             </Grid>
           </Grid>
           <Button
             fullWidth
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             className={classes.submit}
             disabled={
               !email ||
@@ -220,18 +217,16 @@ const Register = (props) => {
               !sex ||
               !check.ChangeState
             }
-            onClick={(event) => userRegisterHandler(event)}
-          >
+            onClick={event => userRegisterHandler(event)}>
             Załóż konto
           </Button>
 
-          <Grid container justify="flex-end">
+          <Grid container justify='flex-end'>
             <Grid item>
               <Link
-                variant="body2"
-                onClick={(event) => loginHandler(event)}
-                href=""
-              >
+                variant='body2'
+                onClick={event => loginHandler(event)}
+                href=''>
                 Posiadasz już konto? Zaloguj się
               </Link>
             </Grid>
