@@ -11,3 +11,5 @@ export {
 export { registerStart } from './register';
 
 export { switchModeTheme } from './utils';
+
+export { getUserProfileStart } from './userProfile';

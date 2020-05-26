@@ -15,8 +15,8 @@ router.get(
 
 router.get(
   '/api/admin/users',
-  isAuth,
-  authRole(process.env.ROLE_ADMIN),
+  // isAuth,
+  // authRole(process.env.ROLE_ADMIN),
   async (req, res) => {
     try {
       const users = await userModel.find();
