@@ -2,9 +2,11 @@ import axios from '../../axios/axios-auth';
 
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 import * as actionTypes from './actionTypes';
+import { startLoadingUser } from './auth';
 
 export const getUserProfileStart = (userId) => {
   return (dispatch) => {
+    dispatch(startLoadingUser());
     axios
       .get(MENU_ROUTES.GET_USER_PROFILE + userId, { withCredentials: true })
       .then((response) => {

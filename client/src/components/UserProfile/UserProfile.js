@@ -52,7 +52,7 @@ const UserProfile = (props) => {
       setId(userProfile._id);
       setName(userProfile.name);
       setSurname(userProfile.surname);
-      setEmail(userProfile.login.email);
+      setEmail(userProfile.email);
       setPhoneNumber(userProfile.phone_number);
       setAge(userProfile.age);
       setCity(userProfile.adress_city);
@@ -69,9 +69,7 @@ const UserProfile = (props) => {
       id: id,
       name: name,
       surname: surname,
-      login: {
-        email: email
-      },
+      email: email,
       phone_number: phoneNumber,
       age: age,
       adress_city: city,

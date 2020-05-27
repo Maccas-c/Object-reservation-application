@@ -79,6 +79,7 @@ export const checkLocalUser = () => {
         } else {
           dispatch(loadUserToStore(user));
         }
+        dispatch(endLoadingUser());
       })
       .catch((err) => {
         dispatch(checkUserFail());
@@ -102,7 +103,6 @@ export const checkUsosUser = () => {
       })
       .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
-        dispatch(endLoadingUser());
       });
   };
 };
@@ -145,7 +145,7 @@ export const updateAuthUser = (updatedUser, route) => {
     id: updatedUser.id,
     name: updatedUser.name,
     surname: updatedUser.surname,
-    email: updatedUser.login.email,
+    email: updatedUser.email,
     sex: updatedUser.sex,
     role: updatedUser.role
   };

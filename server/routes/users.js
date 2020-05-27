@@ -115,7 +115,7 @@ router.patch(
     try {
       const updatedUser = await userModel.updateOne(
         {
-          _id: ObjectId(req.body.id)
+          _id: ObjectId(req.body._id)
         },
 
         req.body
@@ -127,13 +127,32 @@ router.patch(
   }
 );
 
-router.get('/api/user/:userId', isAuth, async (req, res) => {
+router.get('/api/user/:userId', async (req, res) => {
   try {
     const getUser = await userModel.findById(req.params.userId);
-    res.status(200).json(getUser);
+    const json = JSON.parse(
+      JSON.stringify(getUser).split('"login":').join('"longing2":')
+    );
+    json.email = json.longing2.email;
+    if (json) {
+      if (json.sex.startsWith('M')) {
+        json.sex = 'male';
+      } else {
+        json.sex = 'female';
+      }
+    }
+    res.status(200).json(json);
   } catch (err) {
     res.status(404).json(err);
   }
 });
 
 module.exports = router;
+
+// const usersLocal = await userModel.find({ isStudent: "false" });
+// const usersUAM = await userModel.find({ isStudent: "true" });
+// const newUsersLocal = usersLocal;
+// newUsersLocal.forEach(function (obj) {
+//   obj.longing2 = obj.login;
+// });
+// res.status(200).json(newUsersLocal.concat(usersUAM));
