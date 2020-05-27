@@ -22,7 +22,7 @@ export const loadAllUserStart = () => {
         dispatch(endLoadingUser());
       })
       .catch((error) => {
-        console.log(error.response.status);
+        console.log(error.response);
         dispatch(endLoadingUser());
       });
   };

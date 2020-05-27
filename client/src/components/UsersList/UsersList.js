@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import * as userActions from '../../store/actions/index';
@@ -7,7 +7,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,8 +33,17 @@ const UserLists = (props) => {
   }, [dispatch]);
 
   let table = <Spinner></Spinner>;
+  let activeUsers = [];
 
   if (users) {
+    activeUsers = users.filter((user) => user.isActive);
+    activeUsers.filter((user) => {
+      if (user.sex.toLowerCase().startsWith('m')) {
+        user.sex = 'male';
+      } else if (user.sex.toLowerCase().startsWith('f')) {
+        user.sex = 'female';
+      }
+    });
     table = isLoading ? (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -47,44 +55,33 @@ const UserLists = (props) => {
           <TableRow hover="true">
             <TableCell align="left">Akcje</TableCell>
             <TableCell align="left">E-mail</TableCell>
-            <TableCell align="left">Imie</TableCell>
+            <TableCell align="left">Imię</TableCell>
             <TableCell align="left">Nazwisko</TableCell>
             <TableCell align="left">Płeć</TableCell>
           </TableRow>
           <TableBody>
-            {users.map((row) => (
-              <TableRow key={row.id}>
+            {activeUsers.map((user) => (
+              <TableRow>
                 <TableCell component="th" scope="row">
                   <Tooltip title="Person">
                     <IconButton aria-label="Show Profile">
                       <PersonIcon />
                     </IconButton>
-                  </Tooltip>{' '}
+                  </Tooltip>
                   <Tooltip title="Delete">
-                    <IconButton aria-label="delete">
+                    <IconButton>
                       <DeleteIcon
-                        onClick={() => {
-                          dispatch(userActions.deleteContactStart(row._id));
-                        }}
+                        onClick={(event) =>
+                          dispatch(userActions.deleteContactStart(user._id))
+                        }
                       />
                     </IconButton>
-                  </Tooltip>{' '}
-                  {row.idk}
+                  </Tooltip>
                 </TableCell>
-                <TableCell align="left">
-                  {row.longing2.email && row.isActive
-                    ? row.longing2.email
-                    : null}
-                </TableCell>
-                <TableCell align="left">
-                  {row.name && row.isActive ? row.name : null}
-                </TableCell>
-                <TableCell align="left">
-                  {row.surname && row.isActive ? row.surname : null}
-                </TableCell>
-                <TableCell align="left">
-                  {row.sex && row.isActive ? row.sex : null}
-                </TableCell>
+                <TableCell align="left">{user.longing2.email}</TableCell>
+                <TableCell align="left">{user.name}</TableCell>
+                <TableCell align="left">{user.surname}</TableCell>
+                <TableCell align="left">{user.sex}</TableCell>
               </TableRow>
             ))}
           </TableBody>
