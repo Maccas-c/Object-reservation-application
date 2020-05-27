@@ -1,6 +1,7 @@
 import axios from '../../axios/axios-auth';
 import * as actionTypes from './actionTypes';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { startLoadingUser, endLoadingUser } from './auth';
 
 export const loadAllUserSuccess = users => {
   return {
@@ -11,15 +12,18 @@ export const loadAllUserSuccess = users => {
 
 export const loadAllUserStart = () => {
   return dispatch => {
-    axios
+    return axios
       .get(MENU_ROUTES.USERS_LIST, {
         withCredentials: true,
       })
       .then(response => {
+        dispatch(startLoadingUser);
         dispatch(loadAllUserSuccess(response.data));
+        console.log('pobralem dane');
+        dispatch(endLoadingUser());
       })
       .catch(error => {
-        console.log(error.response.data);
+        console.log(error.response.status);
       });
   };
 };

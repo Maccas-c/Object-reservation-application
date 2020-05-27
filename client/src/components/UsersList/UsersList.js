@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MaterialTable from 'material-table';
-import { withRouter } from 'react-router-dom';
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import * as userActions from '../../store/actions/index';
+import { Container } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,7 +11,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Spinner from '../UI/Spinner/Spinner';
 const UserLists = props => {
+  const isLoading = useSelector(state => state.utils.isLoading);
   const dispatch = useDispatch();
   const useStyles = makeStyles({
     table: {
@@ -30,41 +31,42 @@ const UserLists = props => {
   function createData(idk, calories, fat, carbs, protein) {
     return { idk, calories, fat, carbs, protein };
   }
+  console.log(users);
 
-  const rows = [
-    createData(1, 159, 6.0, 24, 4.0),
-    createData(2, 237, 9.0, 37, 4.3),
-    createData(3, 262, 16.0, 24, 6.0),
-  ];
-
-  return (
+  const table = isLoading ? (
+    <Container component='main' maxWidth='xs'>
+      <CssBaseline />
+      <Spinner></Spinner>
+    </Container>
+  ) : (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label='caption table'>
-        <caption>A basic table example with a caption</caption>
-        <TableHead>
-          <TableRow>
-            <TableCell>Lista użytkowników</TableCell>
-            <TableCell align='right'>E-mail</TableCell>
-            <TableCell align='right'>Imie&nbsp;</TableCell>
-            <TableCell align='right'>Nazwisko&nbsp;</TableCell>
-            <TableCell align='right'>Płeć&nbsp;</TableCell>
-          </TableRow>
-        </TableHead>
+        <TableRow hover='true' selected='true'>
+          <TableCell align='left'></TableCell>
+          <TableCell align='left'>E-mail</TableCell>
+          <TableCell align='left'>Imie</TableCell>
+          <TableCell align='left'>Nazwisko</TableCell>
+          <TableCell align='left'>Płeć</TableCell>
+        </TableRow>
+
         <TableBody>
-          {rows.map(row => (
+          {users.map(row => (
             <TableRow key={row.id}>
               <TableCell component='th' scope='row'>
                 {row.idk}
               </TableCell>
-              <TableCell align='right'>{}</TableCell>
-              <TableCell align='right'>{row.fat}</TableCell>
-              <TableCell align='right'>{row.carbs}</TableCell>
-              <TableCell align='right'>{row.protein}</TableCell>
+              <TableCell align='left'>{row.longing2.email}</TableCell>
+              <TableCell onclick={event => {}} align='left'>
+                {row.name}
+              </TableCell>
+              <TableCell align='left'>{row.surname}</TableCell>
+              <TableCell align='left'>{row.sex}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
+  return table;
 };
 export default UserLists;
