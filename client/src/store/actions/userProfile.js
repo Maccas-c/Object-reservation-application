@@ -9,6 +9,7 @@ export const getUserProfileStart = (userId) => {
       .get(MENU_ROUTES.GET_USER_PROFILE + userId, { withCredentials: true })
       .then((response) => {
         dispatch(getUserProfileSuccess(response.data));
+        dispatch(endLoadingUser());
       })
       .catch((error) => {
         console.log(error);
@@ -23,13 +24,12 @@ export const getUserProfileSuccess = (user) => {
   };
 };
 
-export const updateUserProfileStart = (user, router) => {
+export const updateUserProfileStart = (user) => {
   return (dispatch) => {
     axios
       .patch(MENU_ROUTES.UPDATE_USER_PROFILE, user, { withCredentials: true })
       .then((response) => {
-        dispatch(updateUserProfileStartSuccess(response.data));
-        router.push(MENU_ROUTES.HOME);
+        dispatch(updateUserProfileStartSuccess(user));
       })
       .catch((error) => {
         console.log(error);
@@ -41,5 +41,11 @@ export const updateUserProfileStartSuccess = (user) => {
   return {
     type: actionTypes.UPDATE_USER_PROFILE,
     user: user
+  };
+};
+
+export const endLoadingUser = () => {
+  return {
+    type: actionTypes.END_LOADING_USER
   };
 };

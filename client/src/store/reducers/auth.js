@@ -47,7 +47,7 @@ const checkUserFail = (state, action) => {
 const updateAuthUser = (state, action) => {
   return {
     ...state,
-    user: action.updatedLocalStorageUser
+    user: action.user
   };
 };
 
@@ -63,7 +63,7 @@ const reducer = (state = initialState, action) => {
       return checkUsosUserSuccess(state, action);
     case actionTypes.CHECK_USER_FAIL:
       return checkUserFail(state, action);
-    case actionTypes.UPDATE_USER_PROFILE:
+    case actionTypes.CHANGE_AUTH_USER:
       return updateAuthUser(state, action);
     default:
       return state;

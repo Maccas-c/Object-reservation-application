@@ -17,6 +17,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
+import Spinner from '../UI/Spinner/Spinner';
 
 import * as userActions from '../../store/actions/index';
 
@@ -24,25 +25,60 @@ import useStyles from './UserProfileStyles';
 
 const UserProfile = (props) => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
 
   const [isValid, setValid] = useState(false);
-  const [name, setName] = useState(user.name);
-  const [surname, setSurname] = useState(user.surname);
-  const [email, setEmail] = useState(user.email);
-  const [phoneNumber, setPhoneNumber] = useState(user.phone_number);
-  const [age, setAge] = useState(user.age);
-  const [city, setCity] = useState(user.adress_city);
-  const [street, setStreet] = useState(user.adress_street);
-  const [postalCode, setPostalCode] = useState(user.postalCode);
-  const [sex, setSex] = useState(user.sex);
-  const [id] = useState(user.id);
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [age, setAge] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [sex, setSex] = useState('');
+  const [id, setId] = useState('');
+  const [role, setRole] = useState('');
+
+  const userProfile = useSelector((state) => state.userProfile.user);
+  const isLoading = useSelector((state) => state.utils.isLoading);
 
   useEffect(() => {
-    dispatch(userActions.getUserProfileStart(user.id));
-  }, [dispatch, user.id]);
+    // const loadUserData = () => {
+    //   setId(userProfile._id);
+    //   setName(userProfile.name);
+    //   setSurname(userProfile.surname);
+    //   setEmail(userProfile.login.email);
+    //   setPhoneNumber(userProfile.phone_number);
+    //   setAge(userProfile.age);
+    //   setCity(userProfile.adress_city);
+    //   setStreet(userProfile.adress_street);
+    //   setPostalCode(userProfile.adress_postalCode);
+    //   setSex(userProfile.sex);
+    //   setRole(userProfile.role);
+    // };
+    if (!userProfile) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      dispatch(userActions.getUserProfileStart(user.id));
+    }
+    if (userProfile) {
+      console.log('xd');
+      setId(userProfile._id);
+      setName(userProfile.name);
+      setSurname(userProfile.surname);
+      setEmail(userProfile.login.email);
+      setPhoneNumber(userProfile.phone_number);
+      setAge(userProfile.age);
+      setCity(userProfile.adress_city);
+      setStreet(userProfile.adress_street);
+      setPostalCode(userProfile.adress_postalCode);
+      setSex(userProfile.sex);
+      setRole(userProfile.role);
+    }
+    // if (userProfile) {
+    //   loadUserData();
+    // }
+  }, [dispatch, userProfile]);
 
   const updateUserHandler = (event) => {
     event.preventDefault();
@@ -50,15 +86,19 @@ const UserProfile = (props) => {
       id: id,
       name: name,
       surname: surname,
-      email: email,
+      login: {
+        email: email
+      },
       phone_number: phoneNumber,
       age: age,
       adress_city: city,
       adress_postalCode: postalCode,
-      sex: sex
+      adress_street: street,
+      sex: sex,
+      role: role
     };
-    console.log(updatedUser);
-    dispatch(userActions.updateUserProfileStart(updatedUser, props.history));
+    dispatch(userActions.updateUserProfileStart(updatedUser));
+    dispatch(userActions.updateAuthUser(updatedUser, props.history));
   };
 
   const changeNameHandler = (event) => {
@@ -101,7 +141,12 @@ const UserProfile = (props) => {
     setValid(true);
   };
 
-  return (
+  const userPanel = isLoading ? (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Spinner></Spinner>
+    </Container>
+  ) : (
     <Fragment>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -149,7 +194,6 @@ const UserProfile = (props) => {
                   fullWidth
                   name="email"
                   label="E-mail"
-                  type="email"
                   id="email"
                   value={email}
                   onChange={(event) => changeEmailHandler(event)}
@@ -250,6 +294,8 @@ const UserProfile = (props) => {
       </Container>
     </Fragment>
   );
+
+  return userPanel;
 };
 
 export default UserProfile;

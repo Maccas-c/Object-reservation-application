@@ -140,16 +140,17 @@ export const endLoadingUser = () => {
   };
 };
 
-export const updateAuthUser = (updatedUser) => {
+export const updateAuthUser = (updatedUser, route) => {
   const updatedLocalStorageUser = {
     id: updatedUser.id,
     name: updatedUser.name,
     surname: updatedUser.surname,
-    email: updatedUser.email,
+    email: updatedUser.login.email,
     sex: updatedUser.sex,
     role: updatedUser.role
   };
-  localStorage.setItem('user', updatedLocalStorageUser);
+  localStorage.setItem('user', JSON.stringify(updatedLocalStorageUser));
+  route.push(MENU_ROUTES.HOME);
   return {
     type: actionTypes.CHANGE_AUTH_USER,
     user: updatedLocalStorageUser
