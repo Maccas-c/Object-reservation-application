@@ -23,6 +23,7 @@ export const logout = () => {
       .then((response) => {
         localStorage.removeItem('user');
         dispatch(logoutSuccess());
+        dispatch(clearUserProfile());
         dispatch(endLoadingUser());
       })
       .catch((error) => {
@@ -36,6 +37,7 @@ export const logoutUsos = () => {
     localStorage.removeItem('user');
     dispatch(logoutSuccess());
     window.location.href = 'http://localhost:3001/api/loginUsos/logout';
+    dispatch(clearUserProfile());
     dispatch(endLoadingUser());
   };
 };
@@ -108,7 +110,6 @@ export const checkUsosUser = () => {
 };
 
 export const checkUsosUserSuccess = (user) => {
-  user.isStudent = true;
   localStorage.setItem('user', JSON.stringify(user));
   return {
     type: actionTypes.CHECK_USOS_USER_SUCCESS,
@@ -140,7 +141,7 @@ export const endLoadingUser = () => {
   };
 };
 
-export const updateAuthUser = (updatedUser, route) => {
+export const updateAuthUserSuccess = (updatedUser, route) => {
   const updatedLocalStorageUser = {
     id: updatedUser.id,
     name: updatedUser.name,
@@ -154,5 +155,18 @@ export const updateAuthUser = (updatedUser, route) => {
   return {
     type: actionTypes.CHANGE_AUTH_USER,
     user: updatedLocalStorageUser
+  };
+};
+
+export const updateAuthUserStart = (updatedUser, route) => {
+  return (dispatch) => {
+    dispatch(clearUserProfile());
+    dispatch(updateAuthUserSuccess(updatedUser, route));
+  };
+};
+
+export const clearUserProfile = () => {
+  return {
+    type: actionTypes.UPDATE_USER_PROFILE
   };
 };

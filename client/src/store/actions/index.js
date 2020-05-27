@@ -6,7 +6,7 @@ export {
   logoutUsos,
   logoutSuccess,
   startLoadingUser,
-  updateAuthUser
+  updateAuthUserStart
 } from './auth';
 
 export { registerStart } from './register';

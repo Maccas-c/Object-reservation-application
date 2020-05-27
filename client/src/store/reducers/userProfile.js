@@ -14,7 +14,7 @@ const getUserProfile = (state, action) => {
 const updateUserProfile = (state, action) => {
   return {
     ...state,
-    user: action.user
+    user: null
   };
 };
 

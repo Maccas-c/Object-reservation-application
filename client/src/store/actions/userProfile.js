@@ -31,7 +31,7 @@ export const updateUserProfileStart = (user) => {
     axios
       .patch(MENU_ROUTES.UPDATE_USER_PROFILE, user, { withCredentials: true })
       .then((response) => {
-        dispatch(updateUserProfileStartSuccess(user));
+        dispatch(clearUserProfileStartSuccess());
       })
       .catch((error) => {
         console.log(error);
@@ -39,23 +39,9 @@ export const updateUserProfileStart = (user) => {
   };
 };
 
-export const updateUserProfileStartSuccess = (user) => {
-  const updatedUser = {
-    id: user.id,
-    name: user.name,
-    surname: user.surname,
-    email: user.email,
-    phone_number: user.phoneNumber,
-    age: user.age,
-    adress_city: user.city,
-    adress_postalCode: user.postalCode,
-    adress_street: user.street,
-    sex: user.sex,
-    role: user.role
-  };
+export const clearUserProfileStartSuccess = () => {
   return {
-    type: actionTypes.UPDATE_USER_PROFILE,
-    user: updatedUser
+    type: actionTypes.UPDATE_USER_PROFILE
   };
 };
 

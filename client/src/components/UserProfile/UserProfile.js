@@ -39,6 +39,7 @@ const UserProfile = (props) => {
   const [sex, setSex] = useState('');
   const [id, setId] = useState('');
   const [role, setRole] = useState('');
+  const [isStudent, setIsStudent] = useState(false);
 
   const userProfile = useSelector((state) => state.userProfile.user);
   const isLoading = useSelector((state) => state.utils.isLoading);
@@ -60,6 +61,7 @@ const UserProfile = (props) => {
       setPostalCode(userProfile.adress_postalCode);
       setSex(userProfile.sex);
       setRole(userProfile.role);
+      setIsStudent(userProfile.isStudent);
     }
   }, [dispatch, userProfile]);
 
@@ -76,10 +78,11 @@ const UserProfile = (props) => {
       adress_postalCode: postalCode,
       adress_street: street,
       sex: sex,
-      role: role
+      role: role,
+      email: email
     };
     dispatch(userActions.updateUserProfileStart(updatedUser));
-    dispatch(userActions.updateAuthUser(updatedUser, props.history));
+    dispatch(userActions.updateAuthUserStart(updatedUser, props.history));
   };
 
   const changeNameHandler = (event) => {
@@ -147,6 +150,7 @@ const UserProfile = (props) => {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
+                  disabled={isStudent}
                   required
                   fullWidth
                   id="name"
@@ -159,6 +163,7 @@ const UserProfile = (props) => {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
+                  disabled={isStudent}
                   required
                   fullWidth
                   id="surname"
@@ -171,6 +176,7 @@ const UserProfile = (props) => {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
+                  disabled={isStudent}
                   required
                   fullWidth
                   name="email"
@@ -247,12 +253,13 @@ const UserProfile = (props) => {
                   onChange={(event) => changeSexHandler(event)}
                 >
                   <FormControlLabel
+                    disabled={isStudent}
                     value="female"
                     control={<Radio />}
                     label="Kobieta"
                   />
                   <FormControlLabel
-                    className={classes.sexPanel}
+                    disabled={isStudent}
                     value="male"
                     control={<Radio />}
                     label="Mężczyzna"

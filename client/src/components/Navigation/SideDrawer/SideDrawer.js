@@ -27,6 +27,7 @@ const SideDrawer = (props) => {
   } = props;
   const menuList = Object.values(MENU_ITEMS);
   const user = useSelector((state) => state.auth.user);
+  const isStudent = useSelector((state) => state.auth.isStudent);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -115,7 +116,11 @@ const SideDrawer = (props) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Header open={handleDrawerToggle} user={props.user} />
+      <Header
+        open={handleDrawerToggle}
+        user={props.user}
+        isStudent={isStudent}
+      />
 
       {sideDrawer}
 
