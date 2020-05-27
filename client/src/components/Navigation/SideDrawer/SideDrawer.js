@@ -44,7 +44,7 @@ const SideDrawer = (props) => {
   let sideDrawer = null;
   let avatar = null;
 
-  if (props.user && props.user.sex.toLowerCase().startsWith('m')) {
+  if (props.user && props.user.sex === 'male') {
     avatar = AvatarMale;
   } else {
     avatar = AvatarFemale;

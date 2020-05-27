@@ -69,7 +69,7 @@ const UserProfile = (props) => {
       id: id,
       name: name,
       surname: surname,
-      email: email,
+      'login.email': email,
       phone_number: phoneNumber,
       age: age,
       adress_city: city,

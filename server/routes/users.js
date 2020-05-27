@@ -115,7 +115,7 @@ router.patch(
     try {
       const updatedUser = await userModel.updateOne(
         {
-          _id: ObjectId(req.body._id)
+          _id: ObjectId(req.body.id)
         },
 
         req.body
@@ -135,7 +135,8 @@ router.get('/api/user/:userId', async (req, res) => {
     );
     json.email = json.longing2.email;
     if (json) {
-      if (json.sex.startsWith('M')) {
+      console.log(json.sex);
+      if (json.sex.toLowerCase().startsWith('m')) {
         json.sex = 'male';
       } else {
         json.sex = 'female';
