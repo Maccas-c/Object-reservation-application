@@ -14,30 +14,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import Spinner from '../UI/Spinner/Spinner';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
-import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const UserLists = props => {
+  const users = useSelector(state => state.listUser.users);
   const isLoading = useSelector(state => state.utils.isLoading);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userActions.loadAllUserStart());
+  }, [dispatch]);
   const useStyles = makeStyles({
     table: {
       minWidth: 650,
     },
   });
   const classes = useStyles();
-
-  useEffect(() => {
-    dispatch(userActions.loadAllUserStart());
-  }, [dispatch]);
-
-  const users = useSelector(state => state.listUser.users);
-
-  function createData(idk, calories, fat, carbs, protein) {
-    return { idk, calories, fat, carbs, protein };
-  }
-  console.log(users);
 
   const table = isLoading ? (
     <Container component='main' maxWidth='xs'>
@@ -54,7 +46,6 @@ const UserLists = props => {
           <TableCell align='left'>Nazwisko</TableCell>
           <TableCell align='left'>Płeć</TableCell>
         </TableRow>
-
         <TableBody>
           {users.map(row => (
             <TableRow key={row.id}>
@@ -66,20 +57,17 @@ const UserLists = props => {
                 </Tooltip>{' '}
                 <Tooltip title='Delete'>
                   <IconButton aria-label='delete'>
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>{' '}
-                <Tooltip title='Edit'>
-                  <IconButton aria-label='edit'>
-                    <EditIcon />
+                    <DeleteIcon
+                      onClick={() => {
+                        dispatch(userActions.deleteContactStart(row._id));
+                      }}
+                    />
                   </IconButton>
                 </Tooltip>{' '}
                 {row.idk}
               </TableCell>
               <TableCell align='left'>{row.longing2.email}</TableCell>
-              <TableCell onclick={event => {}} align='left'>
-                {row.name}
-              </TableCell>
+              <TableCell align='left'>{row.name}</TableCell>
               <TableCell align='left'>{row.surname}</TableCell>
               <TableCell align='left'>{row.sex}</TableCell>
             </TableRow>

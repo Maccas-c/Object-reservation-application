@@ -18,3 +18,4 @@ export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 export const IS_EXIST_EMAIL = 'IS_EXIST_EMAIL';
 
 export const GET_USERS = 'GET_USERS';
+export const REMOVE_CONTACT = 'REMOVE_CONTACT';

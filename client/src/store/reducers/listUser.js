@@ -9,10 +9,19 @@ const getUsers = (state, action) => {
     users: action.users,
   };
 };
+
+const deleteUser = (state, action) => {
+  return {
+    ...state,
+    isActive: false,
+  };
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USERS:
       return getUsers(state, action);
+    case actionTypes.REMOVE_CONTACT:
+      return deleteUser(state, action);
     default:
       return state;
   }

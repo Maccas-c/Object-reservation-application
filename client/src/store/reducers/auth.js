@@ -2,14 +2,14 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   user: null,
-  isStudent: false
+  isStudent: false,
 };
 
 const auth = (state, action) => {
   return {
     ...state,
     user: action.user,
-    isStudent: false
+    isStudent: false,
   };
 };
 
@@ -17,14 +17,14 @@ const logout = (state, action) => {
   return {
     ...state,
     user: null,
-    isStudent: false
+    isStudent: false,
   };
 };
 
 const loadUser = (state, action) => {
   return {
     ...state,
-    user: action.user
+    user: action.user,
   };
 };
 
@@ -32,7 +32,7 @@ const checkUsosUserSuccess = (state, action) => {
   return {
     ...state,
     user: action.user,
-    isStudent: true
+    isStudent: true,
   };
 };
 
@@ -40,7 +40,7 @@ const checkUserFail = (state, action) => {
   return {
     ...state,
     user: null,
-    isStudent: false
+    isStudent: false,
   };
 };
 
@@ -56,6 +56,7 @@ const reducer = (state = initialState, action) => {
       return checkUsosUserSuccess(state, action);
     case actionTypes.CHECK_USER_FAIL:
       return checkUserFail(state, action);
+
     default:
       return state;
   }

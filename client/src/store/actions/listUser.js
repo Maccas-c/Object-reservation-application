@@ -27,3 +27,22 @@ export const loadAllUserStart = () => {
       });
   };
 };
+
+export const deleteContactStart = id => {
+  return dispatch => {
+    return axios
+      .patch('user/delete/' + id, { withCredentials: true })
+      .then(response => {
+        dispatch(deleteContactSuccess());
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const deleteContactSuccess = () => {
+  return {
+    type: actionTypes.REMOVE_CONTACT,
+  };
+};

@@ -23,8 +23,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.IS_EXIST_EMAIL:
       return isExistEmail(state, action);
-    case 'GET_USERS':
-      return getUsers(state, action);
+
     default:
       return state;
   }
