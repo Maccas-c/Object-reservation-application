@@ -12,6 +12,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Spinner from '../UI/Spinner/Spinner';
+import DeleteIcon from '@material-ui/icons/Delete';
+import PersonIcon from '@material-ui/icons/Person';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+
 const UserLists = props => {
   const isLoading = useSelector(state => state.utils.isLoading);
   const dispatch = useDispatch();
@@ -41,8 +47,8 @@ const UserLists = props => {
   ) : (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label='caption table'>
-        <TableRow hover='true' selected='true'>
-          <TableCell align='left'></TableCell>
+        <TableRow hover='true'>
+          <TableCell align='left'>Akcje</TableCell>
           <TableCell align='left'>E-mail</TableCell>
           <TableCell align='left'>Imie</TableCell>
           <TableCell align='left'>Nazwisko</TableCell>
@@ -53,6 +59,21 @@ const UserLists = props => {
           {users.map(row => (
             <TableRow key={row.id}>
               <TableCell component='th' scope='row'>
+                <Tooltip title='Person'>
+                  <IconButton aria-label='Show Profile'>
+                    <PersonIcon />
+                  </IconButton>
+                </Tooltip>{' '}
+                <Tooltip title='Delete'>
+                  <IconButton aria-label='delete'>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>{' '}
+                <Tooltip title='Edit'>
+                  <IconButton aria-label='edit'>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>{' '}
                 {row.idk}
               </TableCell>
               <TableCell align='left'>{row.longing2.email}</TableCell>
