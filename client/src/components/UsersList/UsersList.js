@@ -66,10 +66,18 @@ const UserLists = props => {
                 </Tooltip>{' '}
                 {row.idk}
               </TableCell>
-              <TableCell align='left'>{row.longing2.email}</TableCell>
-              <TableCell align='left'>{row.name}</TableCell>
-              <TableCell align='left'>{row.surname}</TableCell>
-              <TableCell align='left'>{row.sex}</TableCell>
+              <TableCell align='left'>
+                {row.longing2.email && row.isActive ? row.longing2.email : null}
+              </TableCell>
+              <TableCell align='left'>
+                {row.name && row.isActive ? row.name : null}
+              </TableCell>
+              <TableCell align='left'>
+                {row.surname && row.isActive ? row.surname : null}
+              </TableCell>
+              <TableCell align='left'>
+                {row.sex && row.isActive ? row.sex : null}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
