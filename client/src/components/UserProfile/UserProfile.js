@@ -44,25 +44,11 @@ const UserProfile = (props) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
 
   useEffect(() => {
-    // const loadUserData = () => {
-    //   setId(userProfile._id);
-    //   setName(userProfile.name);
-    //   setSurname(userProfile.surname);
-    //   setEmail(userProfile.login.email);
-    //   setPhoneNumber(userProfile.phone_number);
-    //   setAge(userProfile.age);
-    //   setCity(userProfile.adress_city);
-    //   setStreet(userProfile.adress_street);
-    //   setPostalCode(userProfile.adress_postalCode);
-    //   setSex(userProfile.sex);
-    //   setRole(userProfile.role);
-    // };
     if (!userProfile) {
       const user = JSON.parse(localStorage.getItem('user'));
       dispatch(userActions.getUserProfileStart(user.id));
     }
     if (userProfile) {
-      console.log('xd');
       setId(userProfile._id);
       setName(userProfile.name);
       setSurname(userProfile.surname);
@@ -75,9 +61,6 @@ const UserProfile = (props) => {
       setSex(userProfile.sex);
       setRole(userProfile.role);
     }
-    // if (userProfile) {
-    //   loadUserData();
-    // }
   }, [dispatch, userProfile]);
 
   const updateUserHandler = (event) => {
