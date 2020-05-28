@@ -28,8 +28,6 @@ const clearUsers = (state, action) => {
 const deleteUser = (state, action) => {
   const newUsers = Object.assign([], state.users);
   const updatedUsers = newUsers.filter((user) => user._id !== action.id);
-  console.log(action.id);
-  console.log(updatedUsers);
   return {
     ...state,
     users: updatedUsers,

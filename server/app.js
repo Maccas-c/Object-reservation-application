@@ -63,6 +63,7 @@ app.use(reservationRouter);
 app.use(courtRouter);
 app.use(loginUsosRouter);
 app.use(login);
+app.use(adminRouter);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });

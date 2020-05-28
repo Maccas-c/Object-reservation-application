@@ -10,5 +10,7 @@ export const MENU_ROUTES = {
   USER_LOGOUT: '/logout',
   DELETE_USER: '/user/delete/',
   GET_USER: '/user/',
+  GET_USER_PROFILE: '/user/',
+  UPDATE_USER_PROFILE: '/user/update',
   NOT_FOUND: '/*'
 };

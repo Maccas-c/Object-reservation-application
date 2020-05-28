@@ -9,10 +9,12 @@ const localUser = require('../models/userModel');
 router.post('/api/login', passport.authenticate('local'), function (req, res) {
   if (req.user) {
     res.status(200).json({
+      id: req.user.id,
+      email: req.user.login.email,
       name: req.user.name,
       surname: req.user.surname,
-      email: req.user.login.email,
-      isActive: req.user.isActive
+      sex: req.user.sex,
+      role: req.user.role
     });
   } else {
     res.status(404).end();

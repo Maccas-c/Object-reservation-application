@@ -35,16 +35,12 @@ const UserProfile = (props) => {
     if (userProfile) {
       setName(userProfile.name);
       setSurname(userProfile.surname);
-      if (userProfile.isStudent) {
-        setEmail(userProfile.longing2.email);
-      } else {
-        setEmail(userProfile.login.email);
-      }
-      setPhoneNumber(userProfile.phoneNumber);
+      setEmail(userProfile.longing2.email);
+      setPhoneNumber(userProfile.phone_number);
       setAge(userProfile.age);
-      setCity(userProfile.city);
-      setStreet(userProfile.street);
-      setPostalCode(userProfile.postalCode);
+      setCity(userProfile.adress_city);
+      setStreet(userProfile.adress_street);
+      setPostalCode(userProfile.adress_postalCode);
       if (userProfile.sex.toLowerCase().startsWith('m')) {
         setSex('Mężczyzna');
       } else {
