@@ -18,11 +18,16 @@ const clearUsers = (state, action) => {
 };
 
 const deleteUser = (state, action) => {
+  const newUsers = Object.assign([], state.users);
+  const updatedUsers = newUsers.filter((user) => user._id != action.id);
+  console.log(action.id);
+  console.log(updatedUsers);
   return {
     ...state,
-    isActive: false
+    users: updatedUsers
   };
 };
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USERS:

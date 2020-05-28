@@ -6,7 +6,7 @@ export {
   logoutUsos,
   logoutSuccess,
   startLoadingUser,
-  switchModeTheme,
+  switchModeTheme
 } from './auth';
 export { registerStart } from './register';
-export { loadAllUserStart, deleteContactStart } from './listUser';
+export { loadUsersStart, deleteUserStart } from './usersList';

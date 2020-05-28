@@ -7,5 +7,6 @@ export const MENU_ROUTES = {
   CALENDAR: '/calendar',
   USERS_LIST: '/admin/users',
   USER_LOGOUT: '/logout',
-  NOT_FOUND: '/*',
+  DELETE_USER: '/user/delete/',
+  NOT_FOUND: '/*'
 };

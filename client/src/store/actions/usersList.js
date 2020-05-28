@@ -3,14 +3,14 @@ import * as actionTypes from './actionTypes';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 import { startLoadingUser, endLoadingUser } from './auth';
 
-export const loadAllUserSuccess = (users) => {
+export const loadUserSuccess = (users) => {
   return {
     type: 'GET_USERS',
     users: users
   };
 };
 
-export const loadAllUserStart = () => {
+export const loadUsersStart = () => {
   return (dispatch) => {
     dispatch(startLoadingUser());
     return axios
@@ -18,7 +18,7 @@ export const loadAllUserStart = () => {
         withCredentials: true
       })
       .then((response) => {
-        dispatch(loadAllUserSuccess(response.data));
+        dispatch(loadUserSuccess(response.data));
         dispatch(endLoadingUser());
       })
       .catch((error) => {
@@ -28,12 +28,12 @@ export const loadAllUserStart = () => {
   };
 };
 
-export const deleteContactStart = (id) => {
+export const deleteUserStart = (id) => {
   return (dispatch) => {
     return axios
-      .patch('user/delete/' + id, { withCredentials: true })
+      .patch(MENU_ROUTES.DELETE_USER + id, { withCredentials: true })
       .then((response) => {
-        dispatch(deleteContactSuccess());
+        dispatch(deleteUserSuccess(id));
       })
       .catch((error) => {
         console.log(error);
@@ -41,8 +41,9 @@ export const deleteContactStart = (id) => {
   };
 };
 
-export const deleteContactSuccess = () => {
+export const deleteUserSuccess = (id) => {
   return {
-    type: actionTypes.REMOVE_CONTACT
+    type: actionTypes.REMOVE_CONTACT,
+    id: id
   };
 };
