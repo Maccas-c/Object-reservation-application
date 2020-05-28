@@ -10,7 +10,7 @@ import {
   Box,
   Typography,
   FormControlLabel,
-  Container,
+  Container
 } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -23,7 +23,7 @@ import * as userActions from '../../store/actions/index';
 
 import useStyles from './UserProfileStyles';
 
-const UserProfile = props => {
+const UserProfile = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -43,8 +43,8 @@ const UserProfile = props => {
   const [role, setRole] = useState('');
   const [isStudent, setIsStudent] = useState(false);
 
-  const userProfile = useSelector(state => state.userProfile.user);
-  const isLoading = useSelector(state => state.utils.isLoading);
+  const userProfile = useSelector((state) => state.userProfile.user);
+  const isLoading = useSelector((state) => state.utils.isLoading);
 
   useEffect(() => {
     if (!userProfile) {
@@ -67,7 +67,7 @@ const UserProfile = props => {
     }
   }, [dispatch, userProfile]);
 
-  const updateUserHandler = event => {
+  const updateUserHandler = (event) => {
     event.preventDefault();
     let postcode = /^\d{2}[- ]{0,1}\d{3}$/;
     let phoneN = /(?:(?:(?:\+|00)?48)|(?:\(\+?48\)))?(?:1[2-8]|2[2-69]|3[2-49]|4[1-68]|5[0-9]|6[0-35-9]|[7-8][1-9]|9[145])\d{7}/;
@@ -91,6 +91,7 @@ const UserProfile = props => {
         sex: sex,
         role: role,
         email: email,
+        isStudent: isStudent
       };
       dispatch(userActions.updateUserProfileStart(updatedUser, props.history));
       dispatch(userActions.updateAuthUserStart(updatedUser));
@@ -192,56 +193,56 @@ const UserProfile = props => {
     }
   };
 
-  const changeNameHandler = event => {
+  const changeNameHandler = (event) => {
     setName(event.target.value);
   };
 
-  const changeSurnameHandler = event => {
+  const changeSurnameHandler = (event) => {
     setSurname(event.target.value);
   };
 
-  const changeEmailHandler = event => {
+  const changeEmailHandler = (event) => {
     setEmail(event.target.value);
   };
 
-  const changePhoneNumberHandler = event => {
+  const changePhoneNumberHandler = (event) => {
     setPhoneNumber(event.target.value);
   };
 
-  const changeAgeHandler = event => {
+  const changeAgeHandler = (event) => {
     setAge(event.target.value);
   };
 
-  const changeCityHandler = event => {
+  const changeCityHandler = (event) => {
     setCity(event.target.value);
   };
 
-  const changeStreetHandler = event => {
+  const changeStreetHandler = (event) => {
     setStreet(event.target.value);
   };
 
-  const changePostalCodeHandler = event => {
+  const changePostalCodeHandler = (event) => {
     setPostalCode(event.target.value);
   };
 
-  const changeSexHandler = event => {
+  const changeSexHandler = (event) => {
     setSex(event.target.value);
   };
 
   let userPanel = (
-    <Container component='main' maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Spinner></Spinner>
     </Container>
   );
   userPanel = isLoading ? (
-    <Container component='main' maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Spinner></Spinner>
     </Container>
   ) : (
     <Fragment>
-      <Container component='main' maxWidth='xs'>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -249,120 +250,121 @@ const UserProfile = props => {
           </Avatar>
           <Typography
             style={{ fontFamily: 'roboto' }}
-            component='h1'
-            variant='h5'>
+            component="h1"
+            variant="h5"
+          >
             Profil użytkownika
           </Typography>
-          <form className={classes.form} noValidate autoComplete='off'>
+          <form className={classes.form} noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   disabled={isStudent}
                   required
                   fullWidth
-                  id='name'
-                  label='Imię'
-                  name='name'
+                  id="name"
+                  label="Imię"
+                  name="name"
                   value={name}
-                  onChange={event => changeNameHandler(event)}
+                  onChange={(event) => changeNameHandler(event)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   disabled={isStudent}
                   required
                   fullWidth
-                  id='surname'
-                  label='Nazwisko'
-                  name='surname'
+                  id="surname"
+                  label="Nazwisko"
+                  name="surname"
                   value={surname}
-                  onChange={event => changeSurnameHandler(event)}
+                  onChange={(event) => changeSurnameHandler(event)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   disabled={isStudent}
                   required
                   fullWidth
-                  name='email'
-                  label='E-mail'
-                  id='email'
+                  name="email"
+                  label="E-mail"
+                  id="email"
                   error={is_email_valid}
                   helperText={is_email_valid ? 'Niepoprawny format mail' : ''}
                   value={email}
-                  onChange={event => changeEmailHandler(event)}
+                  onChange={(event) => changeEmailHandler(event)}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  name='phoneNumber'
-                  label='Numer telefonu'
-                  id='phoneNumber'
+                  name="phoneNumber"
+                  label="Numer telefonu"
+                  id="phoneNumber"
                   error={is_phoneNumber_valid}
                   helperText={
-                    is_phoneNumber_valid  ? 'Niepoprawny format numeru' : ''
+                    is_phoneNumber_valid ? 'Niepoprawny format numeru' : ''
                   }
                   value={phoneNumber}
-                  onChange={event => changePhoneNumberHandler(event)}
+                  onChange={(event) => changePhoneNumberHandler(event)}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  name='age'
-                  label='Wiek'
-                  id='age'
+                  name="age"
+                  label="Wiek"
+                  id="age"
                   helperText={'Np. 24'}
                   value={age}
-                  onChange={event => changeAgeHandler(event)}
+                  onChange={(event) => changeAgeHandler(event)}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  name='city'
-                  label='Miasto'
-                  id='city'
+                  name="city"
+                  label="Miasto"
+                  id="city"
                   value={city}
-                  onChange={event => changeCityHandler(event)}
+                  onChange={(event) => changeCityHandler(event)}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  name='postalCode'
-                  label='Kod pocztowy'
-                  id='postalCode'
+                  name="postalCode"
+                  label="Kod pocztowy"
+                  id="postalCode"
                   error={is_postalCode_valid}
                   helperText={
                     is_postalCode_valid ? 'Niepoprawny kod-pocztowy' : ''
                   }
                   value={postalCode}
-                  onChange={event => changePostalCodeHandler(event)}
+                  onChange={(event) => changePostalCodeHandler(event)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  name='street'
-                  label='Ulica'
-                  id='street'
+                  name="street"
+                  label="Ulica"
+                  id="street"
                   value={street}
-                  onChange={event => changeStreetHandler(event)}
+                  onChange={(event) => changeStreetHandler(event)}
                 />
               </Grid>
 
@@ -370,26 +372,27 @@ const UserProfile = props => {
                 <FormLabel>Płeć</FormLabel>
                 <RadioGroup
                   value={sex}
-                  onChange={event => changeSexHandler(event)}>
+                  onChange={(event) => changeSexHandler(event)}
+                >
                   <FormControlLabel
                     disabled={isStudent}
-                    value='female'
+                    value="female"
                     control={<Radio />}
-                    label='Kobieta'
+                    label="Kobieta"
                   />
                   <FormControlLabel
                     disabled={isStudent}
-                    value='male'
+                    value="male"
                     control={<Radio />}
-                    label='Mężczyzna'
+                    label="Mężczyzna"
                   />
                 </RadioGroup>
               </FormControl>
             </Grid>
             <Button
               fullWidth
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               disabled={
                 !name ||
                 !surname ||
@@ -399,9 +402,10 @@ const UserProfile = props => {
                 !postalCode
               }
               className={classes.submit}
-              onClick={event => {
+              onClick={(event) => {
                 updateUserHandler(event);
-              }}>
+              }}
+            >
               Zapisz
             </Button>
           </form>

@@ -151,10 +151,11 @@ export const updateAuthUserSuccess = (updatedUser) => {
     surname: updatedUser.surname,
     email: updatedUser.email,
     sex: updatedUser.sex,
-    role: updatedUser.role
+    role: updatedUser.role,
+    isStudent: updatedUser.isStudent
   };
   localStorage.setItem('user', JSON.stringify(updatedLocalStorageUser));
-  
+
   return {
     type: actionTypes.CHANGE_AUTH_USER,
     user: updatedLocalStorageUser
