@@ -144,7 +144,7 @@ export const endLoadingUser = () => {
   };
 };
 
-export const updateAuthUserSuccess = (updatedUser, route) => {
+export const updateAuthUserSuccess = (updatedUser) => {
   const updatedLocalStorageUser = {
     id: updatedUser.id,
     name: updatedUser.name,
@@ -154,17 +154,17 @@ export const updateAuthUserSuccess = (updatedUser, route) => {
     role: updatedUser.role
   };
   localStorage.setItem('user', JSON.stringify(updatedLocalStorageUser));
-  route.push(MENU_ROUTES.HOME);
+  
   return {
     type: actionTypes.CHANGE_AUTH_USER,
     user: updatedLocalStorageUser
   };
 };
 
-export const updateAuthUserStart = (updatedUser, route) => {
+export const updateAuthUserStart = (updatedUser) => {
   return (dispatch) => {
     dispatch(clearUserProfile());
-    dispatch(updateAuthUserSuccess(updatedUser, route));
+    dispatch(updateAuthUserSuccess(updatedUser));
   };
 };
 
