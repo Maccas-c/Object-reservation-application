@@ -23,6 +23,7 @@ export const logout = () => {
       .then((response) => {
         localStorage.removeItem('user');
         dispatch(logoutSuccess());
+        dispatch(clearUserProfile());
         dispatch(endLoadingUser());
         dispatch(clearUsersList());
       })
@@ -37,6 +38,7 @@ export const logoutUsos = () => {
     localStorage.removeItem('user');
     dispatch(logoutSuccess());
     window.location.href = 'http://localhost:3001/api/loginUsos/logout';
+    dispatch(clearUserProfile());
     dispatch(endLoadingUser());
     dispatch(clearUsersList());
   };
@@ -81,6 +83,7 @@ export const checkLocalUser = () => {
         } else {
           dispatch(loadUserToStore(user));
         }
+        dispatch(endLoadingUser());
       })
       .catch((err) => {
         dispatch(checkUserFail());
@@ -104,7 +107,6 @@ export const checkUsosUser = () => {
       })
       .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
-        dispatch(endLoadingUser());
       });
   };
 };
@@ -142,12 +144,33 @@ export const endLoadingUser = () => {
   };
 };
 
-export const switchModeTheme = (switchFun, modeId) => {
-  switchFun(modeId);
-  localStorage.setItem('mode', modeId);
+export const updateAuthUserSuccess = (updatedUser, route) => {
+  const updatedLocalStorageUser = {
+    id: updatedUser.id,
+    name: updatedUser.name,
+    surname: updatedUser.surname,
+    email: updatedUser.email,
+    sex: updatedUser.sex,
+    role: updatedUser.role
+  };
+  localStorage.setItem('user', JSON.stringify(updatedLocalStorageUser));
+  route.push(MENU_ROUTES.HOME);
   return {
-    type: actionTypes.SWITCH_MODE_THEME,
-    modeId: modeId
+    type: actionTypes.CHANGE_AUTH_USER,
+    user: updatedLocalStorageUser
+  };
+};
+
+export const updateAuthUserStart = (updatedUser, route) => {
+  return (dispatch) => {
+    dispatch(clearUserProfile());
+    dispatch(updateAuthUserSuccess(updatedUser, route));
+  };
+};
+
+export const clearUserProfile = () => {
+  return {
+    type: actionTypes.UPDATE_USER_PROFILE
   };
 };
 

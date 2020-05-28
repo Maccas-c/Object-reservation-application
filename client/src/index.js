@@ -11,13 +11,15 @@ import auth from './store/reducers/auth';
 import register from './store/reducers/register';
 import utils from './store/reducers/utils';
 import usersList from './store/reducers/usersList';
+import userProfile from './store/reducers/userProfile';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: auth,
   register: register,
   utils: utils,
-  usersList: usersList
+  usersList: usersList,
+  userProfile: userProfile
 });
 
 const store = createStore(

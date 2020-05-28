@@ -21,3 +21,7 @@ export const GET_USERS = 'GET_USERS';
 export const CLEAR_USERS_LIST = 'CLEAR_USERS_LIST';
 export const DELETE_USER = 'DELETE_USER';
 export const GET_USER = 'GET_USER';
+
+export const GET_USER_PROFILE = 'GET_USER_PROFILE';
+export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
+export const CHANGE_AUTH_USER = 'CHANGE_AUTH_USER';

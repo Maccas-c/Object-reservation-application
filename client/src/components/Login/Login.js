@@ -6,8 +6,6 @@ import {
   Avatar,
   Button,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Grid,
   Box,
@@ -107,15 +105,6 @@ const Login = (props) => {
                   autoComplete="current-password"
                   value={password}
                   onChange={changeEmailHandler}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="
-            Zapamiętaj mnie"
                 />
               </Grid>
             </Grid>

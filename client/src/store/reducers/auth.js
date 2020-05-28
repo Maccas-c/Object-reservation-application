@@ -1,46 +1,48 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  user: null,
-  isStudent: false,
+  user: null
 };
 
 const auth = (state, action) => {
   return {
     ...state,
-    user: action.user,
-    isStudent: false,
+    user: action.user
   };
 };
 
 const logout = (state, action) => {
   return {
     ...state,
-    user: null,
-    isStudent: false,
+    user: null
   };
 };
 
 const loadUser = (state, action) => {
   return {
     ...state,
-    user: action.user,
+    user: action.user
   };
 };
 
 const checkUsosUserSuccess = (state, action) => {
   return {
     ...state,
-    user: action.user,
-    isStudent: true,
+    user: action.user
   };
 };
 
 const checkUserFail = (state, action) => {
   return {
     ...state,
-    user: null,
-    isStudent: false,
+    user: null
+  };
+};
+
+const updateAuthUser = (state, action) => {
+  return {
+    ...state,
+    user: action.user
   };
 };
 
@@ -56,7 +58,8 @@ const reducer = (state = initialState, action) => {
       return checkUsosUserSuccess(state, action);
     case actionTypes.CHECK_USER_FAIL:
       return checkUserFail(state, action);
-
+    case actionTypes.CHANGE_AUTH_USER:
+      return updateAuthUser(state, action);
     default:
       return state;
   }
