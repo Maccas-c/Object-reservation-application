@@ -63,7 +63,7 @@ router.post(
   }
 );
 
-router.patch('/api/user/delete/:userId', isAuth, async (req, res) => {
+router.patch('/api/user/delete/:userId', async (req, res) => {
   try {
     const deletedUser = await userModel.updateOne(
       {

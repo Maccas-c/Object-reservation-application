@@ -26,14 +26,14 @@ app.use(
   cors({
     credentials: true,
 
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3000',
   })
 );
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(cookieParser());
@@ -47,18 +47,18 @@ app.use(
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 5 * 60,
-      autoRemove: 'native'
+      autoRemove: 'native',
     }),
     dbName: 'DevelopTeam',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(indexRouter);
 app.use(usersRouter);
-
+app.use(adminRouter);
 app.use(reservationRouter);
 app.use(courtRouter);
 app.use(loginUsosRouter);

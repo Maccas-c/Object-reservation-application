@@ -3,55 +3,57 @@ import axios from '../../axios/axios-auth';
 import * as actionTypes from './actionTypes';
 import { MENU_ROUTES } from '../../constansts/routes/routes';
 
-export const loginSuccess = user => {
+export const loginSuccess = (user) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    user: user,
+    user: user
   };
 };
 
 export const logoutSuccess = () => {
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: actionTypes.AUTH_LOGOUT
   };
 };
 
 export const logout = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios
       .get(MENU_ROUTES.USER_LOGOUT, { withCredentials: true })
-      .then(response => {
+      .then((response) => {
         localStorage.removeItem('user');
         dispatch(logoutSuccess());
         dispatch(endLoadingUser());
+        dispatch(clearUsersList());
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 
 export const logoutUsos = () => {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.removeItem('user');
     dispatch(logoutSuccess());
     window.location.href = 'http://localhost:3001/api/loginUsos/logout';
     dispatch(endLoadingUser());
+    dispatch(clearUsersList());
   };
 };
 
-export const authStart = userInput => {
-  return dispatch => {
+export const authStart = (userInput) => {
+  return (dispatch) => {
     axios
       .post(MENU_ROUTES.LOGIN, userInput, {
-        withCredentials: true,
+        withCredentials: true
       })
-      .then(response => {
+      .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         dispatch(loginSuccess(response.data));
       })
 
-      .catch(error => {
+      .catch((error) => {
         if (error.response.status === 401) {
           alert('Niepoprawne Email lub Hasło');
         }
@@ -59,20 +61,20 @@ export const authStart = userInput => {
   };
 };
 
-export const loadUserToStore = user => {
+export const loadUserToStore = (user) => {
   return {
     type: actionTypes.LOAD_USER,
-    user: user,
+    user: user
   };
 };
 
 export const checkLocalUser = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios
       .get('/checkAuthUser', {
-        withCredentials: true,
+        withCredentials: true
       })
-      .then(response => {
+      .then((response) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user) {
           dispatch(checkUsosUser());
@@ -80,7 +82,7 @@ export const checkLocalUser = () => {
           dispatch(loadUserToStore(user));
         }
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(checkUserFail());
         dispatch(endLoadingUser());
       });
@@ -88,35 +90,35 @@ export const checkLocalUser = () => {
 };
 
 export const checkUser = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(startLoadingUser());
     dispatch(checkLocalUser());
   };
 };
 
 export const checkUsosUser = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios
       .get('/loginUsos', {
-        withCredentials: true,
+        withCredentials: true
       })
-      .then(response => {
+      .then((response) => {
         dispatch(checkUsosUserSuccess(response.data));
         dispatch(endLoadingUser());
       });
   };
 };
 
-export const checkUsosUserSuccess = user => {
+export const checkUsosUserSuccess = (user) => {
   user.isStudent = true;
   localStorage.setItem('user', JSON.stringify(user));
   return {
     type: actionTypes.CHECK_USOS_USER_SUCCESS,
-    user: user,
+    user: user
   };
 };
 
-export const checkLocalUserSuccess = user => {
+export const checkLocalUserSuccess = (user) => {
   user.isStudent = false;
   localStorage.setItem('user', JSON.stringify(user));
 };
@@ -124,19 +126,19 @@ export const checkLocalUserSuccess = user => {
 export const checkUserFail = () => {
   localStorage.removeItem('user');
   return {
-    type: actionTypes.CHECK_USER_FAIL,
+    type: actionTypes.CHECK_USER_FAIL
   };
 };
 
 export const startLoadingUser = () => {
   return {
-    type: actionTypes.START_LOADING_USER,
+    type: actionTypes.START_LOADING_USER
   };
 };
 
 export const endLoadingUser = () => {
   return {
-    type: actionTypes.END_LOADING_USER,
+    type: actionTypes.END_LOADING_USER
   };
 };
 
@@ -145,6 +147,12 @@ export const switchModeTheme = (switchFun, modeId) => {
   localStorage.setItem('mode', modeId);
   return {
     type: actionTypes.SWITCH_MODE_THEME,
-    modeId: modeId,
+    modeId: modeId
+  };
+};
+
+export const clearUsersList = () => {
+  return {
+    type: actionTypes.CLEAR_USERS_LIST
   };
 };

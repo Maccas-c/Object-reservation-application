@@ -7,6 +7,11 @@ const router = express.Router();
 
 router.get('/api/loginUsos', function (req, res) {
   if (req.user) {
+    if (req.user.sex.startsWith('M')) {
+      req.user.sex = 'male';
+    } else {
+      req.user.sex = 'female';
+    }
     res.status(200).json({
       _id: req.user._id,
       id: req.user.longing2.id,
@@ -16,7 +21,7 @@ router.get('/api/loginUsos', function (req, res) {
       sex: req.user.sex,
       email: req.user.longing2.email,
       student_number: req.user.longing2.student_number,
-      role: req.user.role
+      role: req.user.role,
     });
   } else {
     res.status(404).end();
@@ -29,7 +34,7 @@ router.get(
   '/api/loginUsos/callback',
   passport.authenticate('oauth', {
     successRedirect: 'http://localhost:3000/login',
-    failureRedirect: '/api/loginUsos/connect'
+    failureRedirect: '/api/loginUsos/connect',
   })
 );
 
