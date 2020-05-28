@@ -32,7 +32,8 @@ const deleteUser = (state, action) => {
   console.log(updatedUsers);
   return {
     ...state,
-    users: updatedUsers
+    users: updatedUsers,
+    user: null
   };
 };
 
