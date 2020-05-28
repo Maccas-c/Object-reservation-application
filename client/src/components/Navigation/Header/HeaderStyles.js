@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   },
   loginButton: {
     marginLeft: 'auto'
+  },
+  switchButton: {
+    marginRight: 'auto'
   }
 }));
 

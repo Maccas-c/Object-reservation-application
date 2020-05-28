@@ -120,6 +120,8 @@ const SideDrawer = (props) => {
         open={handleDrawerToggle}
         user={props.user}
         isStudent={isStudent}
+        switch={props.switch}
+        value={props.value}
       />
 
       {sideDrawer}

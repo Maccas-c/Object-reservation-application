@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useDarkMode } from './LayoutStyles';
 import Content from '../../components/Navigation/SideDrawer/SideDrawer';
-import Footer from '../../components/Navigation/Footer/Footer';
 import Home from '../../components/Home/Home';
 import Login from '../../components/Login/Login';
 import UserProfile from '../../components/UserProfile/UserProfile';
@@ -41,7 +40,7 @@ const Layout = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Content user={user}>
+      <Content user={user} switch={toggleMode} value={value}>
         <Switch>
           <ProtectedRoute
             path={MENU_ROUTES.HOME}
@@ -87,7 +86,6 @@ const Layout = (props) => {
           />
         </Switch>
       </Content>
-      <Footer switch={toggleMode} value={value} />
     </ThemeProvider>
   );
 };

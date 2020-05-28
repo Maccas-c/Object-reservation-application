@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import { AppBar, IconButton, Toolbar, Button } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Button, Switch } from '@material-ui/core';
 
 import * as authActions from '../../../store/actions/index';
 
@@ -12,6 +12,23 @@ import makeStyles from './HeaderStyles';
 const Header = (props) => {
   const classes = makeStyles();
   const dispatch = useDispatch();
+
+  let [value, setValue] = useState(0);
+  if (value.toString() !== props.value) {
+    value = props.value;
+  }
+  let [switchMode, setSwitchMode] = useState(props.value !== 0);
+
+  const switchTheme = (event) => {
+    if (event.target.checked) {
+      value = 1;
+      setSwitchMode(true);
+    } else {
+      value = 0;
+      setSwitchMode(false);
+    }
+    dispatch(authActions.switchModeTheme(props.switch, value));
+  };
 
   const logoutHandler = (event) => {
     event.preventDefault();
@@ -77,6 +94,12 @@ const Header = (props) => {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         {menuIcon}
+        <Switch
+          className={classes.switchButton}
+          checked={switchMode}
+          onChange={(event) => switchTheme(event)}
+          name="checkedA"
+        />
         {logoutBtn}
       </Toolbar>
     </AppBar>
