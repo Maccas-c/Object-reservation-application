@@ -9,4 +9,4 @@ export {
   switchModeTheme
 } from './auth';
 export { registerStart } from './register';
-export { loadUsersStart, deleteUserStart } from './usersList';
+export { loadUsersStart, deleteUserStart, getUserStart } from './usersList';

@@ -41,9 +41,34 @@ export const deleteUserStart = (id) => {
   };
 };
 
+export const getUserStart = (id) => {
+  return (dispatch) => {
+    dispatch(startLoadingUser());
+    return axios
+      .get(MENU_ROUTES.GET_USER + id, {
+        withCredentials: true
+      })
+      .then((response) => {
+        dispatch(getUserSuccess(response.data));
+        dispatch(endLoadingUser());
+      })
+      .catch((error) => {
+        console.log(error.response);
+        dispatch(endLoadingUser());
+      });
+  };
+};
+
 export const deleteUserSuccess = (id) => {
   return {
-    type: actionTypes.REMOVE_CONTACT,
+    type: actionTypes.DELETE_USER,
     id: id
+  };
+};
+
+export const getUserSuccess = (user) => {
+  return {
+    type: actionTypes.GET_USER,
+    user: user
   };
 };

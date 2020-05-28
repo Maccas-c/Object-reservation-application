@@ -10,6 +10,7 @@ import Home from '../../components/Home/Home';
 import Login from '../../components/Login/Login';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UsersList from '../../components/UsersList/UsersList';
+import AdminUserProfile from '../../components/UsersList/UserProfile';
 import Calendar from '../../components/Calendar/Calendar';
 import NotFound from '../../components/Errors/NotFound';
 import Register from '../../components/Register/Register';
@@ -61,6 +62,11 @@ const Layout = (props) => {
           <ProtectedRoute
             path={MENU_ROUTES.USERS_LIST}
             component={UsersList}
+            user={user}
+          />
+          <ProtectedRoute
+            path={MENU_ROUTES.ADMIN_USER_PROFILE}
+            component={AdminUserProfile}
             user={user}
           />
           <FreeRoute

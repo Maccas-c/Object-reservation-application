@@ -16,6 +16,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import Spinner from '../UI/Spinner/Spinner';
+import { MENU_ROUTES } from '../../constansts/routes/routes';
 import * as userActions from '../../store/actions/index';
 
 import useStyles from './UsersListStyles';
@@ -35,19 +36,17 @@ const UserLists = (props) => {
     dispatch(userActions.deleteUserStart(id));
   };
 
+  const getUserHandler = (event, id) => {
+    event.preventDefault();
+    dispatch(userActions.getUserStart(id));
+    props.history.push(MENU_ROUTES.ADMIN_USER_PROFILE);
+  };
+
   let table = <Spinner></Spinner>;
   let activeUsers = [];
 
   if (users) {
     activeUsers = users.filter((user) => user.isActive);
-    activeUsers.filter((user) => {
-      if (user.sex.toLowerCase().startsWith('m')) {
-        user.sex = 'male';
-      } else if (user.sex.toLowerCase().startsWith('f')) {
-        user.sex = 'female';
-      }
-      return user;
-    });
     table = isLoading ? (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -62,7 +61,6 @@ const UserLists = (props) => {
               <TableCell align="left">{TABLE_ROWS[1]}</TableCell>
               <TableCell align="left">{TABLE_ROWS[2]}</TableCell>
               <TableCell align="left">{TABLE_ROWS[3]}</TableCell>
-              <TableCell align="left">{TABLE_ROWS[4]}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -75,10 +73,24 @@ const UserLists = (props) => {
                     />
                   </Tooltip>
                 </TableCell>
-                <TableCell align="left">{user.longing2.email}</TableCell>
-                <TableCell align="left">{user.name}</TableCell>
-                <TableCell align="left">{user.surname}</TableCell>
-                <TableCell align="left">{user.sex}</TableCell>
+                <TableCell
+                  align="left"
+                  onClick={(event) => getUserHandler(event, user._id)}
+                >
+                  {user.longing2.email}
+                </TableCell>
+                <TableCell
+                  align="left"
+                  onClick={(event) => getUserHandler(event, user._id)}
+                >
+                  {user.name}
+                </TableCell>
+                <TableCell
+                  align="left"
+                  onClick={(event) => getUserHandler(event, user._id)}
+                >
+                  {user.surname}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

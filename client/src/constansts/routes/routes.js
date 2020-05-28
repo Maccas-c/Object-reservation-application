@@ -4,9 +4,11 @@ export const MENU_ROUTES = {
   REGISTER: '/user/create',
   PASSWORD_REC: '/login/account-recovery',
   USER_PROFILE: '/profile',
+  ADMIN_USER_PROFILE: '/admin/user-profile',
   CALENDAR: '/calendar',
   USERS_LIST: '/admin/users',
   USER_LOGOUT: '/logout',
   DELETE_USER: '/user/delete/',
+  GET_USER: '/user/',
   NOT_FOUND: '/*'
 };

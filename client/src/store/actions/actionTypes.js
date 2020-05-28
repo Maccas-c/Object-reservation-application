@@ -19,4 +19,5 @@ export const IS_EXIST_EMAIL = 'IS_EXIST_EMAIL';
 
 export const GET_USERS = 'GET_USERS';
 export const CLEAR_USERS_LIST = 'CLEAR_USERS_LIST';
-export const REMOVE_CONTACT = 'REMOVE_CONTACT';
+export const DELETE_USER = 'DELETE_USER';
+export const GET_USER = 'GET_USER';
