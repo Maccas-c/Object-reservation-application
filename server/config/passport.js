@@ -1,10 +1,10 @@
-const passport = require('passport');
-const oauth = require('oauth');
-const OAuth1Strategy = require('passport-oauth1');
-const LocalStrategy = require('passport-local').Strategy;
-const userModel = require('../models/userModel');
-const mongoose = require('mongoose');
-const validPassword = require('../lib/password').validPassword;
+const passport = require("passport");
+const oauth = require("oauth");
+const OAuth1Strategy = require("passport-oauth1");
+const LocalStrategy = require("passport-local").Strategy;
+const userModel = require("../models/userModel");
+const mongoose = require("mongoose");
+const { validPassword } = require("../lib/password");
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -13,33 +13,33 @@ passport.deserializeUser(function (user, cb) {
   cb(null, user);
 });
 const consumer = new oauth.OAuth(
-  'https://usosapps.amu.edu.pl/services/oauth/request_token',
-  'https://usosapps.amu.edu.pl/services/oauth/access_token',
+  "https://usosapps.amu.edu.pl/services/oauth/request_token",
+  "https://usosapps.amu.edu.pl/services/oauth/access_token",
   process.env.USOS_CONSUMER_KEY,
   process.env.USOS_CONSUMER_SECRET,
-  '1.0',
-  'http:/localhost:3000/api/loginUsos/callback',
-  'HMAC-SHA1',
+  "1.0",
+  "http:/localhost:3000/api/loginUsos/callback",
+  "HMAC-SHA1",
   null
 );
 let usosClient = new OAuth1Strategy(
   {
     requestTokenURL:
-      'https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies',
-    accessTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/access_token',
+      "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
+    accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
     userAuthorizationURL:
-      'https://usosapps.amu.edu.pl/services/oauth/authorize',
+      "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
-    callbackURL: 'http:/localhost:3001/api/loginUsos/callback',
-    signatureMethod: 'HMAC-SHA1'
+    callbackURL: "http:/localhost:3001/api/loginUsos/callback",
+    signatureMethod: "HMAC-SHA1",
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
       userModel.findOne(
         {
           // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
-          'longing2.id': profile.id
+          "longing2.id": profile.id,
         },
         async function (err, user) {
           if (err) return cb(err);
@@ -50,12 +50,12 @@ let usosClient = new OAuth1Strategy(
                 id: profile.id,
                 email: profile.email,
                 student_status: profile.student_status,
-                student_number: profile.student_number
+                student_number: profile.student_number,
               },
               name: profile.first_name,
               surname: profile.last_name,
               sex: profile.sex,
-              isStudent: true
+              isStudent: true,
             });
             await newUser.save(function (err) {
               if (err) throw err;
@@ -69,7 +69,7 @@ let usosClient = new OAuth1Strategy(
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
-    'https://usosapps.amu.edu.pl/services/users/user?fields=id|email|first_name|last_name|sex|student_number|student_status',
+    "https://usosapps.amu.edu.pl/services/users/user?fields=id|email|first_name|last_name|sex|student_number|student_status",
     token,
     tokenSecret,
     function (error, data, response) {
@@ -78,7 +78,8 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
       }
       try {
         const parsedData = JSON.parse(data);
-        console.log(parsedData);
+        if ((parsedData["sex"] = "M")) parsedData["sex"] = "male";
+        else parsedData["sex"] = "female";
         cb(null, parsedData);
       } catch (e) {
         return cb(e);
@@ -90,14 +91,14 @@ passport.use(usosClient);
 
 //passport-local
 const customFields = {
-  usernameField: 'email',
-  passwordField: 'password'
+  usernameField: "email",
+  passwordField: "password",
 };
 
 const verifyCallback = (email, password, done) => {
   userModel
     .findOne({
-      'login.email': email
+      "login.email": email,
     })
     .then((user) => {
       if (!user) {

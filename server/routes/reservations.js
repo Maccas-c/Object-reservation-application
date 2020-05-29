@@ -1,86 +1,32 @@
-var express = require("express");
-const reservationModel = require("../models/reservationModel");
-const passport = require("passport");
-const isAuth = require("./authMiddleware").isAuth;
-var router = express.Router();
+const express = require("express");
+const { isAuth } = require("./authMiddleware");
+const router = express.Router();
+const reservationController = require("./../controllers/reservationController");
 
-router.get("/api/reservations", isAuth, async (req, res, next) => {
-  try {
-    const reservations = await reservationModel.find();
-    res.status(200).json(reservations);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-});
+router.get("/api/reservations", isAuth, reservationController.reservationsGet);
 
 router.post(
   "/api/reservation/create/:userId/:courtId",
   isAuth,
-  async (req, res) => {
-    const reservation = new reservationModel({
-      start_time: req.body.start_time,
-      end_time: req.body.end_time, // ex. 2020-04-26T18:25:43.511Z
-      userId: req.params.userId,
-      courtId: req.params.courtId,
-    });
-    try {
-      const savedReservation = await reservation.save();
-      res.status(201).json(savedReservation);
-    } catch (err) {
-      res.status(400).json(err);
-    }
-  }
+  reservationController.reservationCreate
 );
 
 router.delete(
   "/api/reservation/delete/:reservationId",
   isAuth,
-  async (req, res) => {
-    try {
-      const deletedReservation = await reservationModel.remove({
-        _id: req.params.reservationId,
-      });
-      res.status(200).json(deletedReservation);
-    } catch (err) {
-      res.status(404).json(err);
-    }
-  }
+  reservationController.reservationDelete
 );
 
 router.patch(
   "/api/reservation/update/:reservationId",
   isAuth,
-  async (req, res) => {
-    try {
-      const updatedReservation = await reservationModel.updateOne(
-        {
-          _id: req.params.reservationId,
-        },
-        {
-          $set: {
-            start_time: req.body.start_time,
-            end_time: req.body.end_time,
-            userId: req.body.userId,
-            courtId: req.body.courtId,
-          },
-        }
-      );
-      res.status(200).json(updatedReservation);
-    } catch (err) {
-      res.status(404).json(err);
-    }
-  }
+  reservationController.reservationUpdate
 );
 
-router.get("/api/reservation/:reservationId", isAuth, async (req, res) => {
-  try {
-    const getReservation = await reservationModel.findById(
-      req.params.reservationId
-    );
-    res.status(200).json(getReservation);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-});
+router.get(
+  "/api/reservation/:reservationId",
+  isAuth,
+  reservationController.getReservation
+);
 
 module.exports = router;

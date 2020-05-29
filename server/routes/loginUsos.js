@@ -1,53 +1,22 @@
-const express = require('express');
-const passport = require('passport');
-const oauth = require('oauth');
-const userModel = require('../models/userModel');
-const isAuth = require('./authMiddleware').isAuth;
+const express = require("express");
+const passport = require("passport");
+const oauth = require("oauth");
+const isAuth = require("./authMiddleware").isAuth;
 const router = express.Router();
+const loginUsosController = require("./../controllers/loginUsosController");
 
-router.get('/api/loginUsos', function (req, res) {
-  if (req.user) {
-    if (req.user.sex.toLowerCase().startsWith('m')) {
-      req.user.sex = 'male';
-    } else {
-      req.user.sex = 'female';
-    }
-    res.status(200).json({
-      id: req.user._id,
-      name: req.user.name,
-      surname: req.user.surname,
-      sex: req.user.sex,
-      email: req.user.longing2.email,
-      student_number: req.user.longing2.student_number,
-      role: req.user.role,
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+router.get("/api/loginUsos", loginUsosController.login);
 
-router.get('/api/loginUsos/connect', passport.authenticate('oauth'));
+router.get("/api/loginUsos/connect", passport.authenticate("oauth"));
 
 router.get(
-  '/api/loginUsos/callback',
-  passport.authenticate('oauth', {
-    successRedirect: 'http://localhost:3000/login',
-    failureRedirect: '/api/loginUsos/connect',
+  "/api/loginUsos/callback",
+  passport.authenticate("oauth", {
+    successRedirect: "http://localhost:3000/login",
+    failureRedirect: "/api/loginUsos/connect",
   })
 );
 
-router.get('/api/loginUsos/logout', isAuth, function (req, res) {
-  res.clearCookie('connect.sid', function (err) {
-    if (err) return res.status(404);
-  });
-  req.session.destroy(function (err) {
-    if (err) return res.status(404);
-    res
-      .status(200)
-      .redirect(
-        'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj'
-      );
-  });
-});
+router.get("/api/loginUsos/logout", isAuth, loginUsosController.logout);
 
 module.exports = router;
