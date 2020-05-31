@@ -77,7 +77,7 @@ const UserLists = (props) => {
                   align="left"
                   onClick={(event) => getUserHandler(event, user._id)}
                 >
-                  {user.longing2.email}
+                  {user.email}
                 </TableCell>
                 <TableCell
                   align="left"

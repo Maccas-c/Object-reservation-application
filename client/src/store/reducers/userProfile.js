@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USER_PROFILE:
       return getUserProfile(state, action);
-    case actionTypes.UPDATE_USER_PROFILE:
+    case actionTypes.CLEAR_USER_PROFILE:
       return updateUserProfile(state, action);
     default:
       return state;

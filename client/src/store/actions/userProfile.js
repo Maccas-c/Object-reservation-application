@@ -26,14 +26,14 @@ export const getUserProfileSuccess = (user) => {
   };
 };
 
-export const updateUserProfileStart = (user,route) => {
+export const updateUserProfileStart = (user, route) => {
   return (dispatch) => {
     axios
       .patch(MENU_ROUTES.UPDATE_USER_PROFILE, user, { withCredentials: true })
       .then((response) => {
         dispatch(clearUserProfileStartSuccess(route));
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.status === 422) {
           alert('Niepoprawny format danych');
         }
@@ -42,9 +42,9 @@ export const updateUserProfileStart = (user,route) => {
 };
 
 export const clearUserProfileStartSuccess = (route) => {
-  route.push(MENU_ROUTES.HOME)
+  route.push(MENU_ROUTES.HOME);
   return {
-    type: actionTypes.UPDATE_USER_PROFILE
+    type: actionTypes.CLEAR_USER_PROFILE
   };
 };
 

@@ -146,7 +146,7 @@ export const endLoadingUser = () => {
 
 export const updateAuthUserSuccess = (updatedUser) => {
   const updatedLocalStorageUser = {
-    id: updatedUser.id,
+    _id: updatedUser.id,
     name: updatedUser.name,
     surname: updatedUser.surname,
     email: updatedUser.email,
@@ -171,7 +171,7 @@ export const updateAuthUserStart = (updatedUser) => {
 
 export const clearUserProfile = () => {
   return {
-    type: actionTypes.UPDATE_USER_PROFILE
+    type: actionTypes.CLEAR_USER_PROFILE
   };
 };
 

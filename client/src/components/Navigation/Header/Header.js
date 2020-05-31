@@ -13,7 +13,7 @@ const Header = (props) => {
   const classes = makeStyles();
   const dispatch = useDispatch();
 
-  let [value, setValue] = useState(0);
+  let [value] = useState(0);
   if (value.toString() !== props.value) {
     value = props.value;
   }

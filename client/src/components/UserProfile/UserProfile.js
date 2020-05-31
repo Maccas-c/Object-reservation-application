@@ -49,7 +49,7 @@ const UserProfile = (props) => {
   useEffect(() => {
     if (!userProfile) {
       const user = JSON.parse(localStorage.getItem('user'));
-      dispatch(userActions.getUserProfileStart(user.id));
+      dispatch(userActions.getUserProfileStart(user._id));
     }
     if (userProfile) {
       setId(userProfile._id);
@@ -82,7 +82,6 @@ const UserProfile = (props) => {
         id: id,
         name: name,
         surname: surname,
-        'login.email': email,
         phone_number: phoneNumber,
         age: age,
         adress_city: city,

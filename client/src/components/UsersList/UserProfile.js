@@ -35,17 +35,13 @@ const UserProfile = (props) => {
     if (userProfile) {
       setName(userProfile.name);
       setSurname(userProfile.surname);
-      setEmail(userProfile.longing2.email);
+      setEmail(userProfile.email);
       setPhoneNumber(userProfile.phone_number);
       setAge(userProfile.age);
       setCity(userProfile.adress_city);
       setStreet(userProfile.adress_street);
       setPostalCode(userProfile.adress_postalCode);
-      if (userProfile.sex.toLowerCase().startsWith('m')) {
-        setSex('Mężczyzna');
-      } else {
-        setSex('Kobieta');
-      }
+      setSex(userProfile.sex);
     }
   }, [userProfile]);
 
