@@ -5,8 +5,8 @@ module.exports.login = function (req, res) {
       name: req.user.name,
       surname: req.user.surname,
       sex: req.user.sex,
-      email: req.user.longing2.email,
-      student_number: req.user.longing2.student_number,
+      email: req.user.email,
+      student_number: req.user.student_number,
       role: req.user.role,
     });
   } else {
