@@ -41,7 +41,11 @@ const UserProfile = (props) => {
       setCity(userProfile.adress_city);
       setStreet(userProfile.adress_street);
       setPostalCode(userProfile.adress_postalCode);
-      setSex(userProfile.sex);
+      if (userProfile.sex === 'male') {
+        setSex('Mężczyzna');
+      } else {
+        setSex('Kobieta');
+      }
     }
   }, [userProfile]);
 

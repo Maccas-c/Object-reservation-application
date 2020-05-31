@@ -1,13 +1,13 @@
 module.exports.login = function (req, res) {
   if (req.user) {
     res.status(200).json({
-      id: req.user._id,
+      _id: req.user._id,
       name: req.user.name,
       surname: req.user.surname,
       sex: req.user.sex,
       email: req.user.email,
       student_number: req.user.student_number,
-      role: req.user.role,
+      role: req.user.role
     });
   } else {
     res.status(404).end();
@@ -15,7 +15,7 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.logout = function (req, res) {
-  res.clearCookie("connect.sid", function (err) {
+  res.clearCookie('connect.sid', function (err) {
     if (err) return res.status(404);
   });
   req.session.destroy(function (err) {
@@ -23,7 +23,7 @@ module.exports.logout = function (req, res) {
     res
       .status(200)
       .redirect(
-        "https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj"
+        'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj'
       );
   });
 };
