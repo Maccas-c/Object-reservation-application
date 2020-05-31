@@ -4,7 +4,9 @@ const OAuth1Strategy = require("passport-oauth1");
 const LocalStrategy = require("passport-local").Strategy;
 const userModel = require("../models/userModel");
 const mongoose = require("mongoose");
-const { validPassword } = require("../lib/password");
+const {
+  validPassword
+} = require("../lib/password");
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -22,13 +24,10 @@ const consumer = new oauth.OAuth(
   "HMAC-SHA1",
   null
 );
-let usosClient = new OAuth1Strategy(
-  {
-    requestTokenURL:
-      "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
+let usosClient = new OAuth1Strategy({
+    requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
     accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL:
-      "https://usosapps.amu.edu.pl/services/oauth/authorize",
+    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: "http:/localhost:3001/api/loginUsos/callback",
@@ -36,8 +35,7 @@ let usosClient = new OAuth1Strategy(
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
-      userModel.findOne(
-        {
+      userModel.findOne({
           // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
           "longing2.id": profile.id,
         },
@@ -46,12 +44,10 @@ let usosClient = new OAuth1Strategy(
           if (user) return cb(null, user);
           else {
             const newUser = new userModel({
-              longing2: {
-                id: profile.id,
-                email: profile.email,
-                student_status: profile.student_status,
-                student_number: profile.student_number,
-              },
+              id: profile.id,
+              email: profile.email,
+              student_status: profile.student_status,
+              student_number: profile.student_number.
               name: profile.first_name,
               surname: profile.last_name,
               sex: profile.sex,
@@ -98,14 +94,14 @@ const customFields = {
 const verifyCallback = (email, password, done) => {
   userModel
     .findOne({
-      "login.email": email,
+      "email": email,
     })
     .then((user) => {
       if (!user) {
         return done(null, false);
       }
 
-      const isValid = validPassword(password, user.login.hash, user.login.salt);
+      const isValid = validPassword(password, user.hash, user.salt);
 
       if (isValid) {
         return done(null, user);

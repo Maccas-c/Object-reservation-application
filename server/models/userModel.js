@@ -1,17 +1,12 @@
 const mongoose = require("mongoose");
 
 const userModel = mongoose.Schema({
-  login: {
-    email: String,
-    hash: String,
-    salt: String,
-  },
-  longing2: {
-    id: String,
-    email: String,
-    student_status: String,
-    student_number: String,
-  },
+  email: String,
+  hash: String,
+  salt: String,
+  id: String, //usos
+  student_status: String, //usos
+  student_number: String, //usos
   name: String,
   surname: String,
   age: Number,
@@ -27,14 +22,12 @@ const userModel = mongoose.Schema({
   isStudent: {
     type: Boolean,
     default: false,
-  },
+  }, //usos
   isActive: {
     type: Boolean,
     default: true,
   },
-  vat: {
-    nip: String,
-  },
+  nip: String,
 });
 
 module.exports = mongoose.model("userModel", userModel);
