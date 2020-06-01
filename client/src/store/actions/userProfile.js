@@ -35,7 +35,7 @@ export const updateUserProfileStart = (user, route) => {
       })
       .catch((error) => {
         if (error.response.status === 422) {
-          alert('Taki E-mail już istnieje!');
+          alert('Zły format wieku!');
         }
       });
   };
