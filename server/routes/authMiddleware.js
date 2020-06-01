@@ -36,7 +36,11 @@ module.exports.checkEmail = (req, res, next) => {
     user
   ) {
     if (err) return res.status(404).json(err);
-    else if (user) return res.status(422).json("The email exist");
+    else if (user){
+      if( req.body.email == req.user.email) next();
+      else return res.status(422).json("The email exist");
+     ;}
+
     else next();
   });
 };
