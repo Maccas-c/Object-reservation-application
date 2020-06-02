@@ -43,10 +43,8 @@ const UserLists = (props) => {
   };
 
   let table = <Spinner></Spinner>;
-  let activeUsers = [];
 
   if (users) {
-    activeUsers = users.filter((user) => user.isActive);
     table = isLoading ? (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -64,7 +62,7 @@ const UserLists = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {activeUsers.map((user) => (
+            {users.map((user) => (
               <TableRow hover={true} key={user._id}>
                 <TableCell>
                   <Tooltip title="Delete">
