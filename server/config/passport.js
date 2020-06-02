@@ -4,9 +4,7 @@ const OAuth1Strategy = require("passport-oauth1");
 const LocalStrategy = require("passport-local").Strategy;
 const userModel = require("../models/userModel");
 const mongoose = require("mongoose");
-const {
-  validPassword
-} = require("../lib/password");
+const { validPassword } = require("../lib/password");
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -24,10 +22,13 @@ const consumer = new oauth.OAuth(
   "HMAC-SHA1",
   null
 );
-let usosClient = new OAuth1Strategy({
-    requestTokenURL: "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
+let usosClient = new OAuth1Strategy(
+  {
+    requestTokenURL:
+      "https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies",
     accessTokenURL: "https://usosapps.amu.edu.pl/services/oauth/access_token",
-    userAuthorizationURL: "https://usosapps.amu.edu.pl/services/oauth/authorize",
+    userAuthorizationURL:
+      "https://usosapps.amu.edu.pl/services/oauth/authorize",
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: "http:/localhost:3001/api/loginUsos/callback",
@@ -35,14 +36,22 @@ let usosClient = new OAuth1Strategy({
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(function () {
-      userModel.findOne({
+      userModel.findOne(
+        {
           // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
           id: profile.id,
         },
         async function (err, user) {
           if (err) return cb(err);
-          if (user) return cb(null, user);
-          else {
+          if (user) {
+            if (user.isActive === false) {
+              await user.update({
+                isActive: true,
+              });
+              user.save();
+              return cb(null, user);
+            } else return cb(null, user);
+          } else {
             const newUser = new userModel({
               id: profile.id,
               email: profile.email,
@@ -52,7 +61,7 @@ let usosClient = new OAuth1Strategy({
               surname: profile.last_name,
               sex: profile.sex,
               isStudent: true,
-              isActive: true
+              isActive: true,
             });
             await newUser.save(function (err) {
               if (err) throw err;
@@ -96,7 +105,7 @@ const verifyCallback = (email, password, done) => {
   userModel
     .findOne({
       email: email,
-      isActive: true
+      isActive: true,
     })
     .then((user) => {
       if (!user) {
