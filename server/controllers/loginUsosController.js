@@ -7,7 +7,7 @@ module.exports.login = function (req, res) {
       sex: req.user.sex,
       email: req.user.email,
       student_number: req.user.student_number,
-      role: req.user.role
+      role: req.user.role,
     });
   } else {
     res.status(404).end();

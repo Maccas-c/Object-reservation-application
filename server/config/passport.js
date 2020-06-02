@@ -52,6 +52,7 @@ let usosClient = new OAuth1Strategy({
               surname: profile.last_name,
               sex: profile.sex,
               isStudent: true,
+              isActive: true
             });
             await newUser.save(function (err) {
               if (err) throw err;
