@@ -16,7 +16,7 @@ const courtRouter = require('./routes/courts');
 const adminRouter = require('./routes/admin');
 const loginUsosRouter = require('./routes/loginUsos');
 const forgotPassword = require('./routes/forgotPassword');
-// const resetPassword = require('./routes/resetPassword');
+const resetPassword = require('./routes/resetPassword');
 const updatePasswordViaEmail = require('./routes/updatePasswordViaEmail');
 const login = require('./routes/login');
 const connection = require('./config/database');
@@ -29,14 +29,14 @@ app.use(
   cors({
     credentials: true,
 
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3000'
   })
 );
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false,
+    extended: false
   })
 );
 app.use(cookieParser());
@@ -50,11 +50,11 @@ app.use(
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 5 * 60,
-      autoRemove: 'native',
+      autoRemove: 'native'
     }),
     dbName: 'DevelopTeam',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
 );
 app.use(passport.initialize());
@@ -68,7 +68,7 @@ app.use(loginUsosRouter);
 app.use(login);
 app.use(adminRouter);
 app.use(forgotPassword);
-//app.use(resetPassword);
+app.use(resetPassword);
 app.use(updatePasswordViaEmail);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));

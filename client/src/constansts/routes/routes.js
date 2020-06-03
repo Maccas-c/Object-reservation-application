@@ -12,5 +12,8 @@ export const MENU_ROUTES = {
   GET_USER: '/user/',
   GET_USER_PROFILE: '/user/',
   UPDATE_USER_PROFILE: '/user/update',
-  NOT_FOUND: '/*'
+  NOT_FOUND: '/*',
+  RECOVERY_PASSWORD: '/forgotPassword',
+  RESET_PASSWORD: '/reset',
+  UPDATE_PASSWORD: '/updatePasswordViaEmail'
 };
