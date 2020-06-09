@@ -31,6 +31,7 @@ export default function SimpleCard() {
         <Tab label="Strefa A" />
         <Tab label="Strefa B" />
         <Tab label="Strefa C" />
+        <Tab label="Strefa D "/>
       </Tabs>
     </Paper>
   );
