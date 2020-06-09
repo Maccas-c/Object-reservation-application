@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
       width:'100%',
+      margin:4
     },
     demo: {
       backgroundColor: theme.palette.background.paper,
