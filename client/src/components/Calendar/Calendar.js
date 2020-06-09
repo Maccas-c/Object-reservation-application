@@ -1,7 +1,8 @@
 import React, { Fragment,useState } from 'react';
 import Calendar from 'react-calendar';
 import './Calendar.css'
-import SimpleTabs from './Card'
+import Court from './Court'
+import InteractiveList from './Hours'
 const Calendars = () => {
 
   const [value,onChange] = useState(new Date())
@@ -11,7 +12,8 @@ const Calendars = () => {
       <Calendar
         onChange={onChange}
         value={console.log(value)}/>
-        <SimpleTabs />
+        <Court />
+        <InteractiveList/>
       </div>
     </Fragment>
   );
