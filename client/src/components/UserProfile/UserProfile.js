@@ -27,7 +27,7 @@ const UserProfile = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [is_age_valid,setAgeValid] = useState(false)
+  
   const [is_phoneNumber_valid, setPhoneValid] = useState(false);
   const [is_postalCode_valid, setPostalCodeValid] = useState(false);
   const [is_email_valid, setEmailValid] = useState(false);
@@ -72,8 +72,9 @@ const UserProfile = (props) => {
     event.preventDefault();
     const postcode = /^\d{2}[- ]{0,1}\d{3}$/;
     const phoneN = /(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/
+    // eslint-disable-next-line
     const mail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const old = /^([1-9][0-9]?){0,1}$/
+   
     if (
       email.match(mail) &&
       phoneNumber.match(phoneN) &&
@@ -325,9 +326,6 @@ const UserProfile = (props) => {
                   name="age"
                   label="Wiek"
                   id="age"
-                  error={is_age_valid}
-                  helperText={is_age_valid ? 'Niepoprawny format wieku' : ''}
-                  value={age}
                   onChange={(event) => changeAgeHandler(event)}
                 />
               </Grid>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -70,7 +70,9 @@ const Register = (props) => {
 
   const userRegisterHandler = (event) => {
     event.preventDefault();
+    // eslint-disable-next-line
     let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    // eslint-disable-next-line
     let mail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (password.match(passw) && email.match(mail)) {
       const userInput = {
