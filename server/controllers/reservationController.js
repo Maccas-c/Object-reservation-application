@@ -1,8 +1,11 @@
 const reservationModel = require("../models/reservationModel");
 
 module.exports.reservationsGet = async function (req, res) {
+  const date = req.body.time;
   try {
-    const reservations = await reservationModel.find();
+    const reservations = await reservationModel.find({
+      start_time: date,
+    });
     res.status(200).json(reservations);
   } catch (err) {
     res.status(404).json(err);
