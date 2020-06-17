@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as regActions from '../../store/actions/index';
 import useStyles from './RegisterStyles';
 

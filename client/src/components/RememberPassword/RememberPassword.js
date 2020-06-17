@@ -15,7 +15,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Spinner from '../UI/Spinner/Spinner';
 
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as recoveryActions from '../../store/actions/index';
 
 import useStyles from './RememberPasswordStyle';

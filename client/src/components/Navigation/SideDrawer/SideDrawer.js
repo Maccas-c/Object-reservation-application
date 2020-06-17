@@ -14,8 +14,8 @@ import {
 import AvatarMale from '../../../assets/avatar/male.png';
 import AvatarFemale from '../../../assets/avatar/female.png';
 import Header from '../Header/Header';
-import { MENU_ITEMS } from '../../../constansts/menuList/menuItems';
-import { MENU_ROUTES } from '../../../constansts/routes/routes';
+import { MENU_ITEMS } from '../../../constants/menuList/menuItems';
+import { MENU_ROUTES } from '../../../constants/routes/routes';
 
 import makeStyles from './SideDrawerStyles';
 

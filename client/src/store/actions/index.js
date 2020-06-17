@@ -18,3 +18,4 @@ export {
   resetPasswordStart,
   updatePasswordStart
 } from './recoveryPassword';
+export { checkDayStart } from './calendar';

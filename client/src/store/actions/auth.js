@@ -1,7 +1,7 @@
 import axios from '../../axios/axios-auth';
 
 import * as actionTypes from './actionTypes';
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
 
 export const loginSuccess = (user) => {
   return {

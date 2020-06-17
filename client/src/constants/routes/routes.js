@@ -15,5 +15,6 @@ export const MENU_ROUTES = {
   NOT_FOUND: '/*',
   RECOVERY_PASSWORD: '/forgotPassword',
   RESET_PASSWORD: '/reset',
-  UPDATE_PASSWORD: '/updatePasswordViaEmail'
+  UPDATE_PASSWORD: '/updatePasswordViaEmail',
+  CHECK_DAY: '/my'
 };

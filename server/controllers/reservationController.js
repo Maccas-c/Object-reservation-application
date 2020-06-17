@@ -2,7 +2,7 @@ const reservationModel = require("../models/reservationModel");
 
 module.exports.reservationsGet = async function (req, res) {
   // 2020-05-12
-  const date = req.body.time;
+  const date = req.query.time;
   try {
     const reservations = await reservationModel.find({
       start_time: date,
