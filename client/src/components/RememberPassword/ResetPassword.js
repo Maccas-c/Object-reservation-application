@@ -24,7 +24,7 @@ import useStyles from './ResetPasswordStyle';
 
 const ResetPassword = (props) => {
   const classes = useStyles();
-
+  const [is_password_valid, setPasswordValid] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.utils.isLoading);
   const isValidToken = useSelector(
@@ -45,7 +45,10 @@ const ResetPassword = (props) => {
   };
 
   const resetPassword = (event) => {
+    // eslint-disable-next-line
+    let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     event.preventDefault();
+    if(password.match(passw)){
     const userEmail = email.email;
     dispatch(
       recoveryActions.updatePasswordStart(
@@ -55,6 +58,9 @@ const ResetPassword = (props) => {
         props.history
       )
     );
+  } else {
+    setPasswordValid(true)
+  }
   };
 
   let content = (
@@ -87,7 +93,16 @@ const ResetPassword = (props) => {
                   variant="outlined"
                   required
                   fullWidth
+                  name="password"
                   label="Hasło"
+                  type="password"
+                  id="password"
+                  error={is_password_valid}
+                  helperText={
+                  is_password_valid
+                    ? 'Hasło musi się składać z co najmniej 7 i co najwyżej 14 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę,jeden znak specjalny oraz jedną cyfrę.'
+                    : ''
+                }
                   onChange={(event) => changePasswordHandler(event)}
                 />
               </Grid>
