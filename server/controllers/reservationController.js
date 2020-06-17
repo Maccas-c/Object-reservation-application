@@ -1,6 +1,7 @@
 const reservationModel = require("../models/reservationModel");
 
 module.exports.reservationsGet = async function (req, res) {
+  // 2020-05-12
   const date = req.body.time;
   try {
     const reservations = await reservationModel.find({
@@ -39,19 +40,16 @@ module.exports.reservationDelete = async function (req, res) {
 };
 module.exports.reservationUpdate = async function (req, res) {
   try {
-    const updatedReservation = await reservationModel.updateOne(
-      {
-        _id: req.params.reservationId,
+    const updatedReservation = await reservationModel.updateOne({
+      _id: req.params.reservationId,
+    }, {
+      $set: {
+        start_time: req.body.start_time,
+        end_time: req.body.end_time,
+        userId: req.body.userId,
+        courtId: req.body.courtId,
       },
-      {
-        $set: {
-          start_time: req.body.start_time,
-          end_time: req.body.end_time,
-          userId: req.body.userId,
-          courtId: req.body.courtId,
-        },
-      }
-    );
+    });
     res.status(200).json(updatedReservation);
   } catch (err) {
     res.status(404).json(err);
