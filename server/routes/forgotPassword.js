@@ -30,19 +30,14 @@ router.post('/api/forgotPassword', async (req, res) => {
 
   //         console.log(user)
   const token = crypto.randomBytes(20).toString('hex');
-  await User.findOneAndUpdate(
-    {
-      email: req.body.email
-    },
-    {
-      //$set: {
-      //login: {
+  await User.findOneAndUpdate({
+      email: req.body.email,
+      isStudent: false
+    }, {
+
       resetPasswordToken: token,
       resetPasswordExpires: Date.now() + 3600000
-      //}
-      //}
-    },
-    {
+    }, {
       // useNewUrlParser: true,
       //useFindAndModify: false
     },
@@ -51,7 +46,7 @@ router.post('/api/forgotPassword', async (req, res) => {
         console.log('Something wrong when updating data!');
         res.status(401).end('recovery email sent');
       }
-      if (!user) res.status(401).json('uzytkownik nie istniej');
+      if (!user) return res.status(401).json('uzytkownik nie istniej');
       console.log(user);
 
       const transporter = nodemailer.createTransport({
@@ -66,8 +61,7 @@ router.post('/api/forgotPassword', async (req, res) => {
         from: `${process.env.EMAIL_ADDRESS}`,
         to: `${user.email}`,
         subject: 'Link To Reset Password',
-        text:
-          'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n' +
           `http://localhost:3000/reset/${token}\n\n` +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
