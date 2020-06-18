@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Calendar from 'react-calendar';
 import './Calendar.css'
 import Court from './Court'
-import InteractiveList from './Hours'
+import Hours from './Hours'
 import Spinner from '../UI/Spinner/Spinner';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Container } from '@material-ui/core';
@@ -17,7 +17,6 @@ const Calendars = () => {
 
   useConstructor(() => {
     setValue(value);
-    console.log(value);
     let date = `${value.getFullYear()}-${value.getMonth() + 1}-${value.getDate()}`;
     dispatch(calendarActions.checkDayStart(date));
   });
@@ -25,7 +24,6 @@ const Calendars = () => {
   let reservationTable = null;
 
   const checkDay = (event) => {
-    console.log(event);
     let date = `${event.getFullYear()}-${event.getMonth() + 1}-${event.getDate()}`;
     dispatch(calendarActions.checkDayStart(date));
   }
@@ -38,7 +36,7 @@ const Calendars = () => {
     ) : (
     <div>
       <Court />
-      <InteractiveList/>
+      <Hours />
     </div>
   );
 
