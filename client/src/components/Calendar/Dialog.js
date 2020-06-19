@@ -6,12 +6,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-
+import { MENU_ROUTES } from '../../constants/routes/routes';
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction='up' ref={ref} {...props} />;
 });
 
-const AlertDialogSlide = () => {
+const AlertDialogSlide = props => {
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -34,9 +34,7 @@ const AlertDialogSlide = () => {
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
-                onClose={handleClose}
-                aria-labelledby='alert-dialog-slide-title'
-                aria-describedby='alert-dialog-slide-description'>
+                onClose={handleClose}>
                 <DialogTitle id='alert-dialog-slide-title'>
                     {'Potwierdzenie rezerwacji'}
                 </DialogTitle>

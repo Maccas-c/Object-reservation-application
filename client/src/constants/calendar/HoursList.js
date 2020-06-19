@@ -1,1 +1,7 @@
-export const HOURS_ROWS = ['', 'Godzina', 'Strefa', 'Status'];
+export const HOURS_ROWS = [
+    '',
+    'Rozpoczęcie rezerwacji',
+    'Strefa',
+    'Zakończenie rezerwacji',
+    '',
+];
