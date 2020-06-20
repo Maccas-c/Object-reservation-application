@@ -28,7 +28,7 @@ export const resetPasswordStart = (token) => {
   };
 };
 
-export const recoveryPasswordStart = (email) => {
+export const recoveryPasswordStart = (email, route) => {
   return (dispatch) => {
     dispatch(startLoadingUser());
     axios
@@ -36,6 +36,7 @@ export const recoveryPasswordStart = (email) => {
       .then((response) => {
         dispatch(recoveryPasswordSuccess());
         dispatch(endLoadingUser());
+        route.push(MENU_ROUTES.HOME);
       })
       .catch((error) => {
         dispatch(endLoadingUser());
@@ -53,7 +54,7 @@ export const updatePasswordStart = (email, token, password, route) => {
       .then((response) => {
         dispatch(updatePasswordSuccess());
         dispatch(endLoadingUser());
-        route.push('/home');
+        route.push(MENU_ROUTES.HOME);
       })
       .catch((error) => {
         dispatch(endLoadingUser());

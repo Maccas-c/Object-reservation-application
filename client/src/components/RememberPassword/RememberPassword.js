@@ -28,17 +28,17 @@ const RememberPassword = (props) => {
 
   const [email, setEmail] = useState('');
 
-  const changeEmailHandler = (event) => {
+  const inputMailHandler = (event) => {
     setEmail(event.target.value);
   };
 
-  const recoveryPassword = (event, email) => {
+  const sendResetMailHandler = (event, email) => {
     event.preventDefault();
     const userEmail = { email: email };
-    dispatch(recoveryActions.recoveryPasswordStart(userEmail));
+    dispatch(recoveryActions.recoveryPasswordStart(userEmail, props.history));
   };
 
-  const changeLoginHandler = (event) => {
+  const backToLoginHandler = (event) => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.LOGIN);
   };
@@ -72,23 +72,24 @@ const RememberPassword = (props) => {
                 required
                 fullWidth
                 label="E-mail"
-                onChange={(event) => changeEmailHandler(event)}
+                onChange={(event) => inputMailHandler(event)}
               />
             </Grid>
           </Grid>
           <Button
+            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(event) => recoveryPassword(event, email)}
+            onClick={(event) => sendResetMailHandler(event, email)}
           >
             Przypomnij hasło
           </Button>
           <Grid container justify="flex-end">
             <Link
               variant="body2"
-              onClick={(event) => changeLoginHandler(event)}
+              onClick={(event) => backToLoginHandler(event)}
               href=""
             >
               Cofnij się do logowania!

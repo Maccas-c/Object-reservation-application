@@ -31,7 +31,6 @@ const Login = (props) => {
 
   const userLoginHandler = (event) => {
     event.preventDefault();
-
     const userInput = { email: email, password: password };
     dispatch(authActions.authStart(userInput));
   };

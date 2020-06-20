@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
   Avatar,
   Button,
   TextField,
-  Link,
   Grid,
   Box,
   Typography,
@@ -17,7 +15,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Spinner from '../UI/Spinner/Spinner';
 
 import { useConstructor } from '../../utils/customHooks';
-import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as recoveryActions from '../../store/actions/index';
 
 import useStyles from './ResetPasswordStyle';
@@ -32,7 +29,6 @@ const ResetPassword = (props) => {
   );
   const email = useSelector((state) => state.recoveryPassword.email);
 
-  const [error, setError] = useState(true);
   const [password, setPassword] = useState('');
   const token = props.match.params.token;
 
@@ -45,22 +41,23 @@ const ResetPassword = (props) => {
   };
 
   const resetPassword = (event) => {
+    event.preventDefault();
     // eslint-disable-next-line
     let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     event.preventDefault();
-    if(password.match(passw)){
-    const userEmail = email.email;
-    dispatch(
-      recoveryActions.updatePasswordStart(
-        userEmail,
-        token,
-        password,
-        props.history
-      )
-    );
-  } else {
-    setPasswordValid(true)
-  }
+    if (password.match(passw)) {
+      const userEmail = email.email;
+      dispatch(
+        recoveryActions.updatePasswordStart(
+          userEmail,
+          token,
+          password,
+          props.history
+        )
+      );
+    } else {
+      setPasswordValid(true);
+    }
   };
 
   let content = (
@@ -99,15 +96,16 @@ const ResetPassword = (props) => {
                   id="password"
                   error={is_password_valid}
                   helperText={
-                  is_password_valid
-                    ? 'Hasło musi się składać z co najmniej 7 i co najwyżej 14 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę,jeden znak specjalny oraz jedną cyfrę.'
-                    : ''
-                }
+                    is_password_valid
+                      ? 'Hasło musi się składać z co najmniej 7 i co najwyżej 14 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę,jeden znak specjalny oraz jedną cyfrę.'
+                      : ''
+                  }
                   onChange={(event) => changePasswordHandler(event)}
                 />
               </Grid>
             </Grid>
             <Button
+              type="submit"
               fullWidth
               variant="contained"
               color="primary"
@@ -132,4 +130,4 @@ const ResetPassword = (props) => {
 
   return content;
 };
-export default withRouter(ResetPassword);
+export default ResetPassword;
