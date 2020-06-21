@@ -25,6 +25,7 @@ import * as calendarActions from '../../store/actions/index';
 
 const Calendars = () => {
   const [value, setValue] = useState(new Date());
+  const [date, setDate] = useState('');
   const classes = useStyles();
   const isLoading = useSelector((state) => state.utils.isLoading);
   const currentCourtId = useSelector((state) => state.calendar.courtId);
@@ -33,20 +34,30 @@ const Calendars = () => {
 
   useConstructor(() => {
     setValue(value);
-    let date = `${value.getFullYear()}-${
+    let dateInHook = `${value.getFullYear()}-${
       value.getMonth() + 1
     }-${value.getDate()}`;
-    dispatch(calendarActions.checkDayStart(date));
+    setDate(dateInHook);
+    dispatch(calendarActions.checkDayStart(dateInHook));
   });
 
   const checkDay = (event) => {
-    let date = `${event.getFullYear()}-${
+    let dateInHook = `${event.getFullYear()}-${
       event.getMonth() + 1
     }-${event.getDate()}`;
-    dispatch(calendarActions.checkDayStart(date));
+    setDate(dateInHook);
+    dispatch(calendarActions.checkDayStart(dateInHook));
   };
 
-  const bookHourHandler = () => {};
+  const bookHourHandler = (reservation) => {
+    const reservationData = {
+      start_time: date,
+      hour: reservation.reservationStart,
+      courtid: currentCourtId
+    };
+
+    dispatch(calendarActions.bookHourStart(reservationData));
+  };
 
   let reservationsByDay = null;
   RESERVATIONS_TIMES.forEach((res) => (res.isActive = true));
@@ -62,9 +73,10 @@ const Calendars = () => {
       });
     });
   }
+  console.log(RESERVATIONS_TIMES);
+  console.log(reservationsByDay);
 
   let reservationTable = null;
-
   reservationTable =
     isLoading || !RESERVATIONS_TIMES ? (
       <Container component="main" maxWidth="xs">
@@ -73,7 +85,7 @@ const Calendars = () => {
       </Container>
     ) : (
       <div>
-        <CourtChanger />
+        <CourtChanger color={currentCourtId} />
 
         <TableContainer
           component={Paper}
@@ -96,7 +108,9 @@ const Calendars = () => {
                       </TableCell>
                       <TableCell align="center">
                         <Tooltip title="Rezerwuj">
-                          <AddCircleIcon onClick={() => bookHourHandler()} />
+                          <AddCircleIcon
+                            onClick={() => bookHourHandler(reservation)}
+                          />
                         </Tooltip>
                       </TableCell>
                     </TableRow>

@@ -1,30 +1,30 @@
-const express = require("express");
-const { isAuth } = require("./authMiddleware");
+const express = require('express');
+const { isAuth } = require('./authMiddleware');
 const router = express.Router();
-const reservationController = require("./../controllers/reservationController");
+const reservationController = require('./../controllers/reservationController');
 
-router.get("/api/my", reservationController.reservationsGet);
+router.get('/api/my', reservationController.reservationsGet);
 
 router.post(
-  "/api/reservation/create/:userId/:courtId",
+  '/api/reservation/create',
   isAuth,
   reservationController.reservationCreate
 );
 
 router.delete(
-  "/api/reservation/delete/:reservationId",
+  '/api/reservation/delete/:reservationId',
   isAuth,
   reservationController.reservationDelete
 );
 
 router.patch(
-  "/api/reservation/update/:reservationId",
+  '/api/reservation/update/:reservationId',
   isAuth,
   reservationController.reservationUpdate
 );
 
 router.get(
-  "/api/reservation/:reservationId",
+  '/api/reservation/:reservationId',
   isAuth,
   reservationController.getReservation
 );

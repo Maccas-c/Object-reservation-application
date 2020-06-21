@@ -1,23 +1,17 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const reservationModel = mongoose.Schema({
   start_time: {
     type: String,
+    required: true
   },
   hour: {
     type: String,
+    required: true
   },
-  end_time: {
-    type: Date,
-    required: true,
-  },
-  userId: {
+  courtid: {
     type: String,
-    required: true,
-  },
-  courtId: {
-    type: String,
-    required: true,
-  },
+    required: true
+  }
 });
-module.exports = mongoose.model("reservationModel", reservationModel);
+module.exports = mongoose.model('reservationModel', reservationModel);

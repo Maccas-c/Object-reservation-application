@@ -16,5 +16,6 @@ export const MENU_ROUTES = {
   RECOVERY_PASSWORD: '/forgotPassword',
   RESET_PASSWORD: '/reset',
   UPDATE_PASSWORD: '/updatePasswordViaEmail',
-  CHECK_DAY: '/my'
+  CHECK_DAY: '/my',
+  BOOK_HOUR: '/reservation/create'
 };

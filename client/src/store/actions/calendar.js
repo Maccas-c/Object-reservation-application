@@ -31,6 +31,29 @@ export const checkDayStart = (date) => {
   };
 };
 
+export const bookHourStart = (reservation) => {
+  return (dispatch) => {
+    axios
+      .post(MENU_ROUTES.BOOK_HOUR, reservation, {
+        withCredentials: true
+      })
+      .then((response) => {
+        dispatch(checkDayStart(reservation.start_time));
+      })
+
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+};
+
+export const addNewReservation = (reservation) => {
+  return {
+    type: actionTypes.ADD_NEW_RESERVATION,
+    reservation: reservation
+  };
+};
+
 export const checkDaySuccess = (days) => {
   return {
     type: actionTypes.CHECK_DAY,
