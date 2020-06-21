@@ -65,7 +65,7 @@ const UserLists = (props) => {
             {users.map((user) => (
               <TableRow hover={true} key={user._id}>
                 <TableCell>
-                  <Tooltip title="Delete">
+                  <Tooltip title="Usuń">
                     <DeleteIcon
                       onClick={(event) => deleteUserHandler(user._id)}
                     />

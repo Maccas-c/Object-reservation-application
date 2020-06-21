@@ -9,15 +9,16 @@ export const checkDayStart = (date) => {
     axios
       .get(
         MENU_ROUTES.CHECK_DAY,
-        { params: {
-          time: date,
-        }
-      },
+        {
+          params: {
+            time: date
+          }
+        },
         { withCredentials: true }
       )
       .then((response) => {
         let reservationList = response.data;
-        if(reservationList.length === 0) {
+        if (reservationList.length === 0) {
           reservationList = null;
         }
         dispatch(checkDaySuccess(reservationList));
@@ -34,5 +35,12 @@ export const checkDaySuccess = (days) => {
   return {
     type: actionTypes.CHECK_DAY,
     days: days
+  };
+};
+
+export const changeCurrentCourt = (courtId) => {
+  return {
+    type: actionTypes.CHANGE_COURT,
+    courtId: courtId
   };
 };

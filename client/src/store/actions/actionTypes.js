@@ -33,3 +33,4 @@ export const UPDATE_PASSWORD_SUCCESS = 'UPDATE_PASSWORD_SUCCESS';
 
 export const CHECK_DAY = 'CHECK_DAY';
 export const CANCEL_DAY = 'CANCEL_DAY';
+export const CHANGE_COURT = 'CHANGE_COURT';
