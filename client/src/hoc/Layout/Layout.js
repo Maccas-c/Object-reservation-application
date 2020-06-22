@@ -14,10 +14,11 @@ import Calendar from '../../components/Calendar/Calendar';
 import NotFound from '../../components/Errors/NotFound';
 import Register from '../../components/Register/Register';
 import RememberPassword from '../../components/RememberPassword/RememberPassword';
+import ResetPassword from '../../components/RememberPassword/ResetPassword';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import FreeRoute from '../ProtectedRoute/FreeRoute';
 
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as authActions from '../../store/actions/index';
 import { useConstructor } from '../../utils/customHooks';
 
@@ -79,6 +80,11 @@ const Layout = (props) => {
             user={user}
           />
           <FreeRoute path={MENU_ROUTES.LOGIN} component={Login} user={user} />
+          <FreeRoute
+            path={MENU_ROUTES.RESET_PASSWORD + '/:token'}
+            component={ResetPassword}
+            user={user}
+          />
           <ProtectedRoute
             path={MENU_ROUTES.NOT_FOUND}
             component={NotFound}

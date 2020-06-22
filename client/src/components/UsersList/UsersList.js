@@ -16,11 +16,11 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import Spinner from '../UI/Spinner/Spinner';
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as userActions from '../../store/actions/index';
 
 import useStyles from './UsersListStyles';
-import { TABLE_ROWS } from '../../constansts/usersList/usersList';
+import { TABLE_ROWS } from '../../constants/usersList/usersList';
 
 const UserLists = (props) => {
   const classes = useStyles();
@@ -65,7 +65,7 @@ const UserLists = (props) => {
             {users.map((user) => (
               <TableRow hover={true} key={user._id}>
                 <TableCell>
-                  <Tooltip title="Delete">
+                  <Tooltip title="Usuń">
                     <DeleteIcon
                       onClick={(event) => deleteUserHandler(user._id)}
                     />

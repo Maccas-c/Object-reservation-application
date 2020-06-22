@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -12,20 +13,48 @@ import {
   Container
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Spinner from '../UI/Spinner/Spinner';
 
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
+import * as recoveryActions from '../../store/actions/index';
 
 import useStyles from './RememberPasswordStyle';
 
 const RememberPassword = (props) => {
   const classes = useStyles();
 
-  const changeLoginHandler = (event) => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.utils.isLoading);
+
+  const [email, setEmail] = useState('');
+
+  const inputMailHandler = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const sendResetMailHandler = (event, email) => {
+    event.preventDefault();
+    const userEmail = { email: email };
+    dispatch(recoveryActions.recoveryPasswordStart(userEmail, props.history));
+  };
+
+  const backToLoginHandler = (event) => {
     event.preventDefault();
     props.history.push(MENU_ROUTES.LOGIN);
   };
 
-  return (
+  let content = (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Spinner></Spinner>
+    </Container>
+  );
+  content = isLoading ? (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Spinner></Spinner>
+    </Container>
+  ) : (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -38,21 +67,29 @@ const RememberPassword = (props) => {
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField variant="outlined" required fullWidth label="E-mail" />
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="E-mail"
+                onChange={(event) => inputMailHandler(event)}
+              />
             </Grid>
           </Grid>
           <Button
+            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(event) => sendResetMailHandler(event, email)}
           >
             Przypomnij hasło
           </Button>
           <Grid container justify="flex-end">
             <Link
               variant="body2"
-              onClick={(event) => changeLoginHandler(event)}
+              onClick={(event) => backToLoginHandler(event)}
               href=""
             >
               Cofnij się do logowania!
@@ -63,5 +100,7 @@ const RememberPassword = (props) => {
       <Box mt={5}></Box>
     </Container>
   );
+
+  return content;
 };
 export default RememberPassword;

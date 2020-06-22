@@ -39,7 +39,7 @@ let usosClient = new OAuth1Strategy(
       userModel.findOne(
         {
           // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
-          id: profile.id,
+          email: profile.email,
         },
         async function (err, user) {
           if (err) return cb(err);

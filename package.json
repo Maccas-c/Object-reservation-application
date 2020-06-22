@@ -11,6 +11,7 @@
   "dependencies": {
     "concurrently": "^5.1.0",
     "material-table": "^1.58.2",
-    "nodemailer": "^6.4.6"
+    "nodemailer": "^6.4.6",
+    "react-calendar": "^3.1.0"
   }
 }

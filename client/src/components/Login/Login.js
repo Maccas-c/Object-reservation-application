@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import { MENU_ROUTES } from '../../constansts/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as authActions from '../../store/actions/index';
 
 import Spinner from '../UI/Spinner/Spinner';
@@ -31,7 +31,6 @@ const Login = (props) => {
 
   const userLoginHandler = (event) => {
     event.preventDefault();
-
     const userInput = { email: email, password: password };
     dispatch(authActions.authStart(userInput));
   };

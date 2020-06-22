@@ -3,10 +3,10 @@ const { isAuth } = require("./authMiddleware");
 const router = express.Router();
 const reservationController = require("./../controllers/reservationController");
 
-router.get("/api/reservations", isAuth, reservationController.reservationsGet);
+router.get("/api/reservations", reservationController.reservationsGet);
 
 router.post(
-  "/api/reservation/create/:userId/:courtId",
+  "/api/reservation/create",
   isAuth,
   reservationController.reservationCreate
 );
