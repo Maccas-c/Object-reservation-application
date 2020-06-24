@@ -1,7 +1,3 @@
-import React, { Fragment, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Calendar from 'react-calendar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import {
     Container,
     Table,
@@ -11,20 +7,28 @@ import {
     TableRow,
     TableHead,
     Paper,
-    Tooltip,
 } from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import React, { Fragment, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Calendar from 'react-calendar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { useConstructor } from '../../utils/customHooks';
 import CourtChanger from './CourtChanger';
 import Spinner from '../UI/Spinner/Spinner';
 import './Calendar.css';
 import useStyles from './TableStyles';
-
 import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
 import * as calendarActions from '../../store/actions/index';
 
-const Calendars = () => {
+const Calendars = props => {
     const [value, setValue] = useState(new Date());
+    const [open, setOpen] = useState(false);
     const [date, setDate] = useState('');
     const classes = useStyles();
     const isLoading = useSelector(state => state.utils.isLoading);
@@ -59,6 +63,18 @@ const Calendars = () => {
         dispatch(calendarActions.bookHourStart(reservationData));
     };
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = event => {
+        setOpen(false);
+    };
+
+    const handleCloseBook = reservation => {
+        bookHourHandler(reservation);
+        setOpen(false);
+    };
     let reservationsByDay = null;
     RESERVATIONS_TIMES.forEach(res => (res.isActive = true));
     if (reservations) {
@@ -73,8 +89,6 @@ const Calendars = () => {
             });
         });
     }
-    console.log(RESERVATIONS_TIMES);
-    console.log(reservationsByDay);
 
     let reservationTable = null;
     reservationTable =
@@ -113,15 +127,47 @@ const Calendars = () => {
                                                 {reservation.reservationTime}
                                             </TableCell>
                                             <TableCell align='center'>
-                                                <Tooltip title='Rezerwuj'>
-                                                    <AddCircleIcon
-                                                        onClick={() =>
-                                                            bookHourHandler(
-                                                                reservation
-                                                            )
+                                                <Button
+                                                    variant='outlined'
+                                                    color='primary'
+                                                    onClick={handleClickOpen}>
+                                                    Zarezerwuj!
+                                                </Button>
+                                                <Dialog
+                                                    open={open}
+                                                    keepMounted
+                                                    onClose={handleClose}>
+                                                    <DialogTitle id='alert-dialog-slide-title'>
+                                                        {
+                                                            'Potwierdzenie rezerwacji'
                                                         }
-                                                    />
-                                                </Tooltip>
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText id='alert-dialog-slide-description'>
+                                                            Czy jesteś pewny, że
+                                                            chcesz zarezerwować
+                                                            boisko?
+                                                        </DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button
+                                                            onClick={() =>
+                                                                handleCloseBook(
+                                                                    reservation
+                                                                )
+                                                            }
+                                                            color='primary'>
+                                                            TAK
+                                                        </Button>
+                                                        <Button
+                                                            onClick={
+                                                                handleClose
+                                                            }
+                                                            color='primary'>
+                                                            NIE
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
                                             </TableCell>
                                         </TableRow>
                                     );
