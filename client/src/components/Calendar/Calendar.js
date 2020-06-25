@@ -36,15 +36,6 @@ const Calendars = props => {
     const reservations = useSelector(state => state.calendar.days);
     const dispatch = useDispatch();
 
-    useConstructor(() => {
-        setValue(value);
-        let dateInHook = `${value.getFullYear()}-${
-            value.getMonth() + 1
-        }-${value.getDate()}`;
-        setDate(dateInHook);
-        dispatch(calendarActions.checkDayStart(dateInHook));
-    });
-
     const checkDay = event => {
         let dateInHook = `${event.getFullYear()}-${
             event.getMonth() + 1
@@ -75,6 +66,16 @@ const Calendars = props => {
         bookHourHandler(reservation);
         setOpen(false);
     };
+
+    useConstructor(() => {
+        setValue(value);
+        let dateInHook = `${value.getFullYear()}-${
+            value.getMonth() + 1
+        }-${value.getDate()}`;
+        setDate(dateInHook);
+        dispatch(calendarActions.checkDayStart(dateInHook));
+    });
+
     let reservationsByDay = null;
     RESERVATIONS_TIMES.forEach(res => (res.isActive = true));
     if (reservations) {
