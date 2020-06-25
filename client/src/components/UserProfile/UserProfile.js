@@ -42,6 +42,7 @@ const UserProfile = props => {
     const [id, setId] = useState('');
     const [role, setRole] = useState('');
     const [isStudent, setIsStudent] = useState(false);
+    const [nip, setNIP] = useState('');
 
     const userProfile = useSelector(state => state.userProfile.user);
     const isLoading = useSelector(state => state.utils.isLoading);
@@ -64,6 +65,7 @@ const UserProfile = props => {
             setSex(userProfile.sex);
             setRole(userProfile.role);
             setIsStudent(userProfile.isStudent);
+            setNIP(userProfile.nip);
         }
     }, [dispatch, userProfile]);
 
@@ -93,6 +95,7 @@ const UserProfile = props => {
                 role: role,
                 email: email,
                 isStudent: isStudent,
+                nip: nip,
             };
             dispatch(
                 userActions.updateUserProfileStart(updatedUser, props.history)
@@ -196,6 +199,9 @@ const UserProfile = props => {
         }
     };
 
+    const changeNIPHandler = event => {
+        setNIP(event.target.value);
+    };
     const changeNameHandler = event => {
         setName(event.target.value);
     };
@@ -389,6 +395,18 @@ const UserProfile = props => {
                                     }
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant='outlined'
+                                    required
+                                    fullWidth
+                                    name='NIP'
+                                    label='NIP'
+                                    id='NIP'
+                                    value={nip}
+                                    onChange={event => changeNIPHandler(event)}
+                                />
+                            </Grid>
 
                             <FormControl>
                                 <FormLabel>Płeć</FormLabel>
@@ -420,7 +438,8 @@ const UserProfile = props => {
                                 !email ||
                                 !phoneNumber ||
                                 !age ||
-                                !postalCode
+                                !postalCode ||
+                                !nip
                             }
                             className={classes.submit}
                             onClick={event => {
