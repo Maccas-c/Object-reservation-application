@@ -6,7 +6,7 @@ module.exports.login = function (req, res) {
       name: req.user.name,
       surname: req.user.surname,
       sex: req.user.sex,
-      role: req.user.role
+      role: req.user.role,
     });
   } else {
     res.status(404).end();
@@ -22,8 +22,8 @@ module.exports.logout = function (req, res) {
   });
   req.session.destroy(function (err) {
     if (err) return res.status(404);
-    res.send({
-      message: 'Successfully logged out'
+    res.status(200).send({
+      message: 'Successfully logged out',
     });
   });
 };
