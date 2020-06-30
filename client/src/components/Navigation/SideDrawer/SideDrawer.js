@@ -57,6 +57,12 @@ const SideDrawer = (props) => {
         <List>
           {menuList.map((menuitem) => {
             const key = getKeyByValue(MENU_ITEMS, menuitem);
+            if (
+              props.user.role === 'user' &&
+              menuitem === 'Lista użytkowników'
+            ) {
+              return null;
+            }
             return (
               <ListItem
                 button
