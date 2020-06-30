@@ -12,7 +12,7 @@ const Home = () => {
                     <Paper elevation={3}></Paper>
                 </div>
             </Hidden>
-            <Hidden lgDown>
+            <Hidden xlDown>
                 <div className={classes.root}>
                     <Paper elevation={3}></Paper>
                 </div>
