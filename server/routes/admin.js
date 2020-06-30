@@ -14,8 +14,8 @@ router.get(
 
 router.get(
   '/api/admin/users',
-  //isAuth,
-  //authRole(process.env.ROLE_ADMIN),
+  isAuth,
+  authRole(process.env.ROLE_ADMIN),
   adminController.usersGet
 );
 
@@ -44,7 +44,7 @@ router.patch(
       .matches(
         /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/
       )
-      .optional(),
+      .optional()
   ],
   adminController.userUpdate
 );
