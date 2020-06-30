@@ -8,16 +8,13 @@ module.exports.forgotPassword = async function (req, res) {
     res.status(400).send('email required');
   }
   const token = crypto.randomBytes(20).toString('hex');
-  await User.findOneAndUpdate(
-    {
+  await User.findOneAndUpdate({
       email: req.body.email,
       isStudent: false,
-    },
-    {
+    }, {
       resetPasswordToken: token,
       resetPasswordExpires: Date.now() + 3600000,
-    },
-    {
+    }, {
       // useNewUrlParser: true,
       //useFindAndModify: false
     },
@@ -39,11 +36,10 @@ module.exports.forgotPassword = async function (req, res) {
         from: `${process.env.EMAIL_ADDRESS}`,
         to: `${user.email}`,
         subject: 'Link To Reset Password',
-        text:
-          'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n' +
+        text: 'Otrzymujesz to, ponieważ Ty (lub ktoś inny) poprosiłeś o zresetowanie hasła do swojego konta.\n\n' +
+          'Kliknij następujący link lub wklej go do przeglądarki, aby zakończyć proces w ciągu godziny od jego otrzymania:\n\n' +
           `http://localhost:3000/reset/${token}\n\n` +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+          'Jeśli nie poprosiłeś o to, zignoruj ​​ten e-mail, a twoje hasło pozostanie niezmienione.\n',
       };
 
       transporter.sendMail(mailOptions, (err, response) => {
