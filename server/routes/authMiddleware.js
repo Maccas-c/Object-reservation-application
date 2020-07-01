@@ -30,13 +30,18 @@ module.exports.checkUser = (req, res, next) => {
     });
   }
 };
-module.exports.checkEmail = (req, res, next) => {
-  const isExist = userModel.findOne({ email: req.body.email }, async function (
+module.exports.checkEmail = async function (req, res, next) {
+  const isExist = await userModel.findOne({
+    email: req.body.email
+  }, function (
     err,
     user
   ) {
     if (err) return res.status(404).json(err);
     else if (user) {
+      console.log("req.body.email", req.body.email)
+      console.log("user", user)
+      console.log("req.user", req.user)
       if (req.body.email == req.user.email) next();
       else return res.status(422).json('The email exist');
     } else next();

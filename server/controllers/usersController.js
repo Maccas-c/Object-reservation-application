@@ -1,7 +1,11 @@
-const { ObjectId } = require('mongodb');
+const {
+  ObjectId
+} = require('mongodb');
 const userModel = require('./../models/userModel');
 const genPassword = require('./../lib/password').genPassword;
-const { validationResult } = require('express-validator');
+const {
+  validationResult
+} = require('express-validator');
 
 module.exports.userCreate = async function (req, res) {
   const errors = validationResult(req);
@@ -10,8 +14,7 @@ module.exports.userCreate = async function (req, res) {
       errors: errors.array(),
     });
   }
-  const isExist = userModel.findOne(
-    {
+  const isExist = userModel.findOne({
       email: req.body.email,
     },
     async function (err, user) {
@@ -68,16 +71,13 @@ module.exports.userCreate = async function (req, res) {
 
 module.exports.userDelete = async function (req, res) {
   try {
-    const deletedUser = await userModel.updateOne(
-      {
-        _id: req.params.userId,
+    const deletedUser = await userModel.updateOne({
+      _id: req.params.userId,
+    }, {
+      $set: {
+        isActive: false,
       },
-      {
-        $set: {
-          isActive: false,
-        },
-      }
-    );
+    });
     res.status(200).json(deletedUser);
   } catch (err) {
     res.status(404).json(err);
@@ -86,14 +86,15 @@ module.exports.userDelete = async function (req, res) {
 
 module.exports.userUpdate = async function (req, res) {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
+    console.log(errors)
     return res.status(422).json({
       errors: errors.array(),
     });
   }
   try {
-    const updatedUser = await userModel.updateOne(
-      {
+    const updatedUser = await userModel.updateOne({
         _id: ObjectId(req.body.id),
       },
       req.body
