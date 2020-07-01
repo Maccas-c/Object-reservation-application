@@ -23,7 +23,7 @@ import * as userActions from '../../store/actions/index';
 
 import useStyles from './UserProfileStyles';
 
-const UserProfile = props => {
+const UserProfile = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -43,9 +43,10 @@ const UserProfile = props => {
     const [role, setRole] = useState('');
     const [isStudent, setIsStudent] = useState(false);
     const [nip, setNIP] = useState('');
+    const [is_nip_valid, setNipVaild] = useState(false);
 
-    const userProfile = useSelector(state => state.userProfile.user);
-    const isLoading = useSelector(state => state.utils.isLoading);
+    const userProfile = useSelector((state) => state.userProfile.user);
+    const isLoading = useSelector((state) => state.utils.isLoading);
 
     useEffect(() => {
         if (!userProfile) {
@@ -69,8 +70,9 @@ const UserProfile = props => {
         }
     }, [dispatch, userProfile]);
 
-    const updateUserHandler = event => {
+    const updateUserHandler = (event) => {
         event.preventDefault();
+        const nipValid = /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/;
         const postcode = /^\d{2}[- ]{0,1}\d{3}$/;
         const phoneN = /(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/;
         // eslint-disable-next-line
@@ -79,9 +81,9 @@ const UserProfile = props => {
         if (
             email.match(mail) &&
             phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
+            postalCode.match(postcode) &&
+            nip.match(nipValid)
         ) {
-            console.log('ok');
             const updatedUser = {
                 id: id,
                 name: name,
@@ -102,139 +104,170 @@ const UserProfile = props => {
             );
             dispatch(userActions.updateAuthUserStart(updatedUser));
         } else if (
+            !email.match(mail) &&
+            phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            nip.match(nipValid)
+        ) {
+            setEmailValid(true);
+        } else if (
+            email.match(mail) &&
+            !phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            nip.match(nipValid)
+        ) {
+            setPhoneValid(true);
+        } else if (
             email.match(mail) &&
             phoneNumber.match(phoneN) &&
-            !postalCode.match(postcode)
+            !postalCode.match(postcode) &&
+            nip.match(nipValid)
         ) {
             setPostalCodeValid(true);
         } else if (
             email.match(mail) &&
+            phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            !nip.match(nipValid)
+        ) {
+            setNipVaild(true);
+        } else if (
+            !email.match(mail) &&
             !phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
+            postalCode.match(postcode) &&
+            nip.match(nipValid)
         ) {
             setPhoneValid(true);
-        } else if (
-            email.match(mail) &&
-            phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
-        ) {
+            setEmailValid(true);
         } else if (
             !email.match(mail) &&
             phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
+            !postalCode.match(postcode) &&
+            nip.match(nipValid)
+        ) {
+            setPhoneValid(true);
+            setEmailValid(true);
+        } else if (
+            !email.match(mail) &&
+            phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            !nip.match(nipValid)
         ) {
             setEmailValid(true);
+            setNipVaild(true);
         } else if (
             email.match(mail) &&
             !phoneNumber.match(phoneN) &&
-            !postalCode.match(postcode)
+            !postalCode.match(postcode) &&
+            nip.match(nipValid)
         ) {
+            setPostalCodeValid(true);
+            setPhoneValid(true);
+        } else if (
+            email.match(mail) &&
+            !phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            !nip.match(nipValid)
+        ) {
+            setPhoneValid(true);
+            setNipVaild(true);
+        } else if (
+            !email.match(mail) &&
+            !phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            !nip.match(nipValid)
+        ) {
+            setEmailValid(true);
+            setNipVaild(true);
+            setPhoneValid(true);
+        } else if (
+            email.match(mail) &&
+            !phoneNumber.match(phoneN) &&
+            !postalCode.match(postcode) &&
+            !nip.match(nipValid)
+        ) {
+            setPhoneValid(true);
+            setPostalCodeValid(true);
+            setNipVaild(true);
+        } else if (
+            !email.match(mail) &&
+            phoneNumber.match(phoneN) &&
+            !postalCode.match(postcode) &&
+            !nip.match(nipValid)
+        ) {
+            setNipVaild(true);
+            setEmailValid(true);
+            setPostalCodeValid(true);
+        } else if (
+            !email.match(mail) &&
+            !phoneNumber.match(phoneN) &&
+            postalCode.match(postcode) &&
+            !nip.match(nipValid)
+        ) {
+            setNipVaild(true);
+            setEmailValid(true);
+            setPhoneValid(true);
+        } else if (
+            !email.match(mail) &&
+            !phoneNumber.match(phoneN) &&
+            !postalCode.match(postcode) &&
+            nip.match(nipValid)
+        ) {
+            setEmailValid(true);
             setPhoneValid(true);
             setPostalCodeValid(true);
         } else if (
             email.match(mail) &&
-            !phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
-        ) {
-            setPhoneValid(true);
-        } else if (
-            !email.match(mail) &&
             phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
+            !postalCode.match(postcode) &&
+            !nip.match(nipValid)
         ) {
-            setEmailValid(true);
-        } else if (
-            !email.match(mail) &&
-            phoneNumber.match(phoneN) &&
-            !postalCode.match(postcode)
-        ) {
-            setEmailValid(true);
-            setPostalCodeValid(true);
-        } else if (
-            email.match(mail) &&
-            !phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
-        ) {
-            setPhoneValid(true);
-        } else if (
-            !email.match(mail) &&
-            !phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
-        ) {
-            setEmailValid(true);
-            setPhoneValid(true);
-        } else if (
-            !email.match(mail) &&
-            !phoneNumber.match(phoneN) &&
-            !postalCode.match(postcode)
-        ) {
-            setEmailValid(true);
-            setPhoneValid(true);
-            setPostalCodeValid(true);
-        } else if (
-            !email.match(mail) &&
-            phoneNumber.match(phoneN) &&
-            !postalCode.match(postcode)
-        ) {
-            setEmailValid(true);
-            setPostalCodeValid(true);
-        } else if (
-            !email.match(mail) &&
-            !phoneNumber.match(phoneN) &&
-            postalCode.match(postcode)
-        ) {
-            setEmailValid(true);
-            setPhoneValid(true);
-        } else if (
-            email.match(mail) &&
-            !phoneNumber.match(phoneN) &&
-            !postalCode.match(postcode)
-        ) {
-            setPhoneValid(true);
+            setNipVaild(true);
             setPostalCodeValid(true);
         } else {
             setPostalCodeValid(true);
             setEmailValid(true);
             setPhoneValid(true);
+            setNipVaild(true);
         }
     };
 
-    const changeNIPHandler = event => {
+    const changeNIPHandler = (event) => {
         setNIP(event.target.value);
     };
-    const changeNameHandler = event => {
+    const changeNameHandler = (event) => {
         setName(event.target.value);
     };
 
-    const changeSurnameHandler = event => {
+    const changeSurnameHandler = (event) => {
         setSurname(event.target.value);
     };
 
-    const changeEmailHandler = event => {
+    const changeEmailHandler = (event) => {
         setEmail(event.target.value);
     };
 
-    const changePhoneNumberHandler = event => {
+    const changePhoneNumberHandler = (event) => {
         setPhoneNumber(event.target.value);
     };
 
-    const changeAgeHandler = event => {
+    const changeAgeHandler = (event) => {
         setAge(event.target.value);
     };
 
-    const changeCityHandler = event => {
+    const changeCityHandler = (event) => {
         setCity(event.target.value);
     };
 
-    const changeStreetHandler = event => {
+    const changeStreetHandler = (event) => {
         setStreet(event.target.value);
     };
 
-    const changePostalCodeHandler = event => {
+    const changePostalCodeHandler = (event) => {
         setPostalCode(event.target.value);
     };
 
-    const changeSexHandler = event => {
+    const changeSexHandler = (event) => {
         setSex(event.target.value);
     };
 
@@ -278,7 +311,9 @@ const UserProfile = props => {
                                     label='Imię'
                                     name='name'
                                     value={name}
-                                    onChange={event => changeNameHandler(event)}
+                                    onChange={(event) =>
+                                        changeNameHandler(event)
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -291,7 +326,7 @@ const UserProfile = props => {
                                     label='Nazwisko'
                                     name='surname'
                                     value={surname}
-                                    onChange={event =>
+                                    onChange={(event) =>
                                         changeSurnameHandler(event)
                                     }
                                 />
@@ -312,7 +347,7 @@ const UserProfile = props => {
                                             : ''
                                     }
                                     value={email}
-                                    onChange={event =>
+                                    onChange={(event) =>
                                         changeEmailHandler(event)
                                     }
                                 />
@@ -332,7 +367,7 @@ const UserProfile = props => {
                                             : ''
                                     }
                                     value={phoneNumber}
-                                    onChange={event =>
+                                    onChange={(event) =>
                                         changePhoneNumberHandler(event)
                                     }
                                 />
@@ -346,7 +381,9 @@ const UserProfile = props => {
                                     label='Wiek'
                                     id='age'
                                     value={age}
-                                    onChange={event => changeAgeHandler(event)}
+                                    onChange={(event) =>
+                                        changeAgeHandler(event)
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -358,7 +395,9 @@ const UserProfile = props => {
                                     label='Miasto'
                                     id='city'
                                     value={city}
-                                    onChange={event => changeCityHandler(event)}
+                                    onChange={(event) =>
+                                        changeCityHandler(event)
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -376,7 +415,7 @@ const UserProfile = props => {
                                             : ''
                                     }
                                     value={postalCode}
-                                    onChange={event =>
+                                    onChange={(event) =>
                                         changePostalCodeHandler(event)
                                     }
                                 />
@@ -390,7 +429,7 @@ const UserProfile = props => {
                                     label='Ulica'
                                     id='street'
                                     value={street}
-                                    onChange={event =>
+                                    onChange={(event) =>
                                         changeStreetHandler(event)
                                     }
                                 />
@@ -404,7 +443,15 @@ const UserProfile = props => {
                                     label='NIP'
                                     id='NIP'
                                     value={nip}
-                                    onChange={event => changeNIPHandler(event)}
+                                    error={is_nip_valid}
+                                    helperText={
+                                        is_nip_valid
+                                            ? 'Niepoprawny kod-pocztowy'
+                                            : ''
+                                    }
+                                    onChange={(event) =>
+                                        changeNIPHandler(event)
+                                    }
                                 />
                             </Grid>
 
@@ -412,7 +459,9 @@ const UserProfile = props => {
                                 <FormLabel>Płeć</FormLabel>
                                 <RadioGroup
                                     value={sex}
-                                    onChange={event => changeSexHandler(event)}>
+                                    onChange={(event) =>
+                                        changeSexHandler(event)
+                                    }>
                                     <FormControlLabel
                                         disabled={isStudent}
                                         value='female'
@@ -438,11 +487,10 @@ const UserProfile = props => {
                                 !email ||
                                 !phoneNumber ||
                                 !age ||
-                                !postalCode ||
-                                !nip
+                                !postalCode
                             }
                             className={classes.submit}
-                            onClick={event => {
+                            onClick={(event) => {
                                 updateUserHandler(event);
                             }}>
                             Zapisz
