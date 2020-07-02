@@ -27,6 +27,7 @@ const UserLists = (props) => {
   const users = useSelector((state) => state.usersList.users);
   const isLoading = useSelector((state) => state.utils.isLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(userActions.loadUsersStart());
   }, [dispatch]);
