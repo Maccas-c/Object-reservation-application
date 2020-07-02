@@ -169,6 +169,7 @@ const UserProfile = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  disabled={true}
                   variant="outlined"
                   required
                   fullWidth
