@@ -7,8 +7,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         width: theme.spacing(100),
         height: theme.spacing(55),
-        marginLeft: '15%',
-        marginTop: '5%',
+        marginLeft: '25%',
+        marginTop: '7%',
         backgroundImage: `url(${Image_main})`,
     },
     main: {
@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(40),
         height: theme.spacing(78),
         marginTop: '10%',
-
         backgroundImage: `url(${Image_phone})`,
     },
     tablet: {

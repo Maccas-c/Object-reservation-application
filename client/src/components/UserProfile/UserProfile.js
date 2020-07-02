@@ -446,7 +446,7 @@ const UserProfile = (props) => {
                                     error={is_nip_valid}
                                     helperText={
                                         is_nip_valid
-                                            ? 'Niepoprawny kod-pocztowy'
+                                            ? 'Niepoprawny formatu NIPU'
                                             : ''
                                     }
                                     onChange={(event) =>
