@@ -13,11 +13,10 @@ import {
   Container
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Spinner from '../UI/Spinner/Spinner';
 
 import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as authActions from '../../store/actions/index';
-
-import Spinner from '../UI/Spinner/Spinner';
 
 import useStyles from './LoginStyles';
 

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { AppBar, Tabs, Tab } from '@material-ui/core';
-import makeStyles from './FooterStyles';
 
 import * as modeActions from '../../../store/actions/index';
+
+import makeStyles from './FooterStyles';
 
 const Footer = (props) => {
   const classes = makeStyles();

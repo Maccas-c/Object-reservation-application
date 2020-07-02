@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, ButtonGroup } from '@material-ui/core';
-import useStyles from './CourtChangerStyles';
 
 import * as calendarActions from '../../store/actions/index';
+
+import useStyles from './CourtChangerStyles';
 
 const CourtChanger = (props) => {
   const classes = useStyles();
@@ -15,7 +16,7 @@ const CourtChanger = (props) => {
 
   return (
     <div className={classes.root}>
-      <ButtonGroup aria-label="outlined primary button group">
+      <ButtonGroup>
         <Button
           color={props.color === 'a' ? 'secondary' : null}
           onClick={() => changeCourtHandler('a')}

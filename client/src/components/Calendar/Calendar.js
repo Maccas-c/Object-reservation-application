@@ -11,26 +11,30 @@ import {
 import React, { Fragment, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Calendar from 'react-calendar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  CssBaseline,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@material-ui/core';
 import { useConstructor } from '../../utils/customHooks';
 import CourtChanger from './CourtChanger';
 import Spinner from '../UI/Spinner/Spinner';
-import './Calendar.css';
-import useStyles from './TableStyles';
+
 import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
 import * as calendarActions from '../../store/actions/index';
+
+import './Calendar.css';
+import useStyles from './TableStyles';
 
 const Calendars = (props) => {
   const [value, setValue] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState('');
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useState('');
   const classes = useStyles();
   const isLoading = useSelector((state) => state.utils.isLoading);
   const currentCourtId = useSelector((state) => state.calendar.courtId);
@@ -105,15 +109,12 @@ const Calendars = (props) => {
         <div className={classes.court}>
           <CourtChanger color={currentCourtId} />
         </div>
-        <TableContainer
-          component={Paper}
-          style={{ width: '70%', marginLeft: '9%' }}
-        >
-          <Table className={classes.table} aria-label="spanning table">
+        <TableContainer className={classes.table} component={Paper}>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell align="center">Wolne godziny</TableCell>
-                <TableCell align="center">Zarezerwuj</TableCell>
+                <TableCell align="center">Rezerwacja</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -127,17 +128,18 @@ const Calendars = (props) => {
                       <TableCell align="center">
                         <Button
                           variant="outlined"
+                          size="small"
                           color="primary"
                           onClick={() => handleClickOpen(reservation)}
                         >
-                          Zarezerwuj!
+                          Rezerwuj
                         </Button>
                         <Dialog open={open} keepMounted onClose={handleClose}>
-                          <DialogTitle id="alert-dialog-slide-title">
+                          <DialogTitle>
                             {'Potwierdzenie rezerwacji'}
                           </DialogTitle>
                           <DialogContent>
-                            <DialogContentText id="alert-dialog-slide-description">
+                            <DialogContentText>
                               Czy jesteś pewny, że chcesz zarezerwować boisko?
                             </DialogContentText>
                           </DialogContent>
