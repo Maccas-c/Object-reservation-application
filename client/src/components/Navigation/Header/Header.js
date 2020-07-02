@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import MenuIcon from '@material-ui/icons/Menu';
 import { AppBar, IconButton, Toolbar, Button, Switch } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import * as authActions from '../../../store/actions/index';
 
