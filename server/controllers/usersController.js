@@ -6,6 +6,7 @@ const genPassword = require('./../lib/password').genPassword;
 const {
   validationResult
 } = require('express-validator');
+const nodemailer = require('nodemailer');
 
 module.exports.userCreate = async function (req, res) {
   const errors = validationResult(req);
@@ -20,7 +21,7 @@ module.exports.userCreate = async function (req, res) {
     async function (err, user) {
       if (err) return res.status(404).json(err);
       if (user) {
-        if ((user.isActive = false)) {
+        if ((user.isActive == true)) {
           return res.status(422).json('The email exist');
         } else {
           try {
@@ -58,6 +59,30 @@ module.exports.userCreate = async function (req, res) {
           surname: req.body.surname,
           sex: req.body.sex,
         });
+
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: `${process.env.EMAIL_ADDRESS}`,
+            pass: `${process.env.EMAIL_PASSWORD}`,
+          },
+        });
+  
+        const mailOptions = {
+          from: `${process.env.EMAIL_ADDRESS}`,
+          to: `${user.email}`,
+          subject: 'Link To Reset Password',
+          text: 'Otrzymujesz to, ponieważ Ty (lub ktoś inny) poprosiłeś o zresetowanie hasła do swojego konta.'
+        };
+  
+        transporter.sendMail(mailOptions, (err, response) => {
+          // if (err) {
+          //   return res.status(422).send(err);
+          // } else {
+          //   res.status(200).json('recovery email sent');
+          // }
+        });
+
         try {
           const savedUser = await user.save();
           res.status(201).json(savedUser);
