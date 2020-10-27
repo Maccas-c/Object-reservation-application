@@ -71,16 +71,16 @@ module.exports.userCreate = async function (req, res) {
         const mailOptions = {
           from: `${process.env.EMAIL_ADDRESS}`,
           to: `${user.email}`,
-          subject: 'Link To Reset Password',
-          text: 'Otrzymujesz to, ponieważ Ty (lub ktoś inny) poprosiłeś o zresetowanie hasła do swojego konta.'
+          subject: 'Create account',
+          text: 'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.'
         };
   
         transporter.sendMail(mailOptions, (err, response) => {
-          // if (err) {
-          //   return res.status(422).send(err);
-          // } else {
-          //   res.status(200).json('recovery email sent');
-          // }
+          if (err) {
+            return res.status(422).send(err);
+          } else {
+            res.status(200).json('recovery email sent');
+          }
         });
 
         try {
