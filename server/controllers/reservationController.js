@@ -87,7 +87,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
   const userId = req.params.userId;
   try {
     const reservations = await reservationModel.find({
-      userid: ObjectId(userId)
+      userid: userId
     });
     res.status(200).json(reservations);
   } catch (err) {
