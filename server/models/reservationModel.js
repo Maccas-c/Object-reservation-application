@@ -1,3 +1,4 @@
+const { ObjectID, ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const reservationModel = mongoose.Schema({
@@ -11,6 +12,10 @@ const reservationModel = mongoose.Schema({
   },
   courtid: {
     type: String,
+    required: true
+  },
+  userid: {
+    type: ObjectId,
     required: true
   }
 });

@@ -72,11 +72,24 @@ module.exports.reservationUpdate = async function (req, res) {
 };
 
 module.exports.getReservation = async function (req, res) {
+  console.log("lol");
   try {
     const getReservation = await reservationModel.findById(
       req.params.reservationId
     );
     res.status(200).json(getReservation);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
+module.exports.reservationsGetByUserId = async function (req, res) {
+  const userId = req.params.userId;
+  try {
+    const reservations = await reservationModel.find({
+      userid: ObjectId(userId)
+    });
+    res.status(200).json(reservations);
   } catch (err) {
     res.status(404).json(err);
   }

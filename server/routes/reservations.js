@@ -25,8 +25,10 @@ router.patch(
 
 router.get(
   '/api/reservation/:reservationId',
-  isAuth,
+  //isAuth,
   reservationController.getReservation
 );
+
+router.get('/api/reservations/:userId', reservationController.reservationsGetByUserId);
 
 module.exports = router;
