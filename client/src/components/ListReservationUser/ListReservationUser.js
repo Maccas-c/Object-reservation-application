@@ -2,7 +2,6 @@ import React, {useEffect} from 'react'
 import useStyles from "../ListReservationUser/ListReservationUserStyles";
 import {useDispatch, useSelector} from "react-redux";
 import * as userActions from "../../store/actions";
-import {MENU_ROUTES} from "../../constants/routes/routes";
 import Spinner from "../UI/Spinner/Spinner";
 import {
     Container,
@@ -15,21 +14,22 @@ import {
     TableRow,
 
 } from "@material-ui/core";
-import {TABLE_ROWS} from "../../constants/usersList/usersList";
+import {TABLE_RESERVATION_USER_ROWS} from "../../constants/usersList/usersList";
 
 const ListReservationUser = () => {
     const classes = useStyles();
-    const users = useSelector((state) => state.usersList.users);
+    const reservations = useSelector((state) => state.auth.reservation);
     const isLoading = useSelector((state) => state.utils.isLoading);
+    const userId = useSelector((state) => state.auth.user._id)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(userActions.fetchReservationUser());
-    }, [dispatch]);
+        dispatch(userActions.fetchReservationUser(userId));
+    }, [dispatch, userId]);
 
     let table = <Spinner/>;
 
-    if (users) {
+    if (reservations) {
         table = isLoading ? (
             <Container component="main" maxWidth="xs">
                 <Spinner/>
@@ -39,29 +39,30 @@ const ListReservationUser = () => {
                 <Table className={classes.table} aria-label="caption table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left">{TABLE_ROWS[0]}</TableCell>
-                            <TableCell align="left">{TABLE_ROWS[1]}</TableCell>
-                            <TableCell align="left">{TABLE_ROWS[2]}</TableCell>
-                            <TableCell align="left">{TABLE_ROWS[3]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_USER_ROWS[3]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_USER_ROWS[2]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_USER_ROWS[1]}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map((user) => (
-                            <TableRow hover={true} key={user._id}>
+                        {reservations.map((reservation) => (
+                            <TableRow hover={true} key={reservation._id}>
+
                                 <TableCell
                                     align="left"
                                 >
-                                    {user.email}
+                                    {
+                                        reservation.start_time}
                                 </TableCell>
                                 <TableCell
                                     align="left"
                                 >
-                                    {user.name}
+                                    {reservation.hour}
                                 </TableCell>
                                 <TableCell
                                     align="left"
                                 >
-                                    {user.surname}
+                                    {reservation.courtid.toUpperCase()}
                                 </TableCell>
                             </TableRow>
                         ))}

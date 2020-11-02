@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    user: null
+    user: null,
+    reservation: null,
 };
 
 const auth = (state, action) => {
@@ -49,7 +50,7 @@ const updateAuthUser = (state, action) => {
 const fetchListReservationUser = (state, action) => {
     return {
         ...state,
-        reservation: action.user
+        reservation: action.reservation
     }
 }
 const reducer = (state = initialState, action) => {
