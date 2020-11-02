@@ -33,9 +33,9 @@ export const logout = () => {
     };
 };
 
-export const fetchReservationUser = () => {
+export const fetchReservationUser = (id) => {
     return (dispatch) => {
-        axios.get(MENU_ROUTES.LIST_USER_RESERVATION, {withCredentials: true})
+        axios.get(MENU_ROUTES.LIST_USER_RESERVATION + id, {withCredentials: true})
             .then((response) => {
                 dispatch(fetchReservationUserList(response.data))
             })

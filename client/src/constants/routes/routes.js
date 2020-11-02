@@ -18,5 +18,5 @@ export const MENU_ROUTES = {
   UPDATE_PASSWORD: "/updatePasswordViaEmail",
   CHECK_DAY: "/reservations",
   BOOK_HOUR: "/reservation/create",
-  LIST_USER_RESERVATION: '/user/reservationList'
+  LIST_USER_RESERVATION: '/reservations/'
 };

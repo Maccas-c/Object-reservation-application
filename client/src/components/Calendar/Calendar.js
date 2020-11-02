@@ -1,180 +1,182 @@
 import {
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  TableHead,
-  Paper
+    Container,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow,
+    TableHead,
+    Paper
 } from '@material-ui/core';
-import React, { Fragment, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {Fragment, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import Calendar from 'react-calendar';
 import {
-  CssBaseline,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
+    CssBaseline,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
 } from '@material-ui/core';
-import { useConstructor } from '../../utils/customHooks';
+import {useConstructor} from '../../utils/customHooks';
 import CourtChanger from './CourtChanger';
 import Spinner from '../UI/Spinner/Spinner';
 
-import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
+import {RESERVATIONS_TIMES} from '../../constants/calendar/reservetionListHelper';
 import * as calendarActions from '../../store/actions/index';
 
 import './Calendar.css';
 import useStyles from './TableStyles';
 
 const Calendars = (props) => {
-  const [value, setValue] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const classes = useStyles();
-  const isLoading = useSelector((state) => state.utils.isLoading);
-  const currentCourtId = useSelector((state) => state.calendar.courtId);
-  const reservations = useSelector((state) => state.calendar.days);
-  const dispatch = useDispatch();
+    const [value, setValue] = useState(new Date());
+    const [open, setOpen] = useState(false);
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const classes = useStyles();
+    const isLoading = useSelector((state) => state.utils.isLoading);
+    const currentCourtId = useSelector((state) => state.calendar.courtId);
+    const reservations = useSelector((state) => state.calendar.days);
+    const userId = useSelector((state) => state.auth.user._id)
+    const dispatch = useDispatch();
 
-  const checkDay = (event) => {
-    let dateInHook = `${event.getFullYear()}-${
-      event.getMonth() + 1
-    }-${event.getDate()}`;
-    setDate(dateInHook);
-    dispatch(calendarActions.checkDayStart(dateInHook));
-  };
-
-  const bookHourHandler = (reservation) => {
-    const reservationData = {
-      start_time: date,
-      hour: reservation.reservationStart,
-      courtid: currentCourtId
+    const checkDay = (event) => {
+        let dateInHook = `${event.getFullYear()}-${
+            event.getMonth() + 1
+        }-${event.getDate()}`;
+        setDate(dateInHook);
+        dispatch(calendarActions.checkDayStart(dateInHook));
     };
 
-    dispatch(calendarActions.bookHourStart(reservationData));
-  };
+    const bookHourHandler = (reservation) => {
+        const reservationData = {
+            start_time: date,
+            hour: reservation.reservationStart,
+            courtId: currentCourtId,
+            userId: userId
+        };
 
-  const handleClickOpen = (timeReservation) => {
-    setOpen(true);
-    setTime(timeReservation);
-  };
+        dispatch(calendarActions.bookHourStart(reservationData));
+    };
 
-  const handleClose = (event) => {
-    setOpen(false);
-  };
+    const handleClickOpen = (timeReservation) => {
+        setOpen(true);
+        setTime(timeReservation);
+    };
 
-  const handleCloseBook = (reservation) => {
-    bookHourHandler(time);
-    setOpen(false);
-  };
+    const handleClose = (event) => {
+        setOpen(false);
+    };
 
-  useConstructor(() => {
-    setValue(value);
-    let dateInHook = `${value.getFullYear()}-${
-      value.getMonth() + 1
-    }-${value.getDate()}`;
-    setDate(dateInHook);
-    dispatch(calendarActions.checkDayStart(dateInHook));
-  });
+    const handleCloseBook = (reservation) => {
+        bookHourHandler(time);
+        setOpen(false);
+    };
 
-  let reservationsByDay = null;
-  RESERVATIONS_TIMES.forEach((res) => (res.isActive = true));
-  if (reservations) {
-    reservationsByDay = reservations.filter(
-      (res) => res.courtid === currentCourtId
-    );
-    RESERVATIONS_TIMES.forEach((res) => {
-      reservationsByDay.forEach((resDay) => {
-        if (resDay.hour === res.reservationStart) {
-          res.isActive = false;
-        }
-      });
+    useConstructor(() => {
+        setValue(value);
+        let dateInHook = `${value.getFullYear()}-${
+            value.getMonth() + 1
+        }-${value.getDate()}`;
+        setDate(dateInHook);
+        dispatch(calendarActions.checkDayStart(dateInHook));
     });
-  }
 
-  let reservationTable = null;
-  reservationTable =
-    isLoading || !RESERVATIONS_TIMES ? (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Spinner></Spinner>
-      </Container>
-    ) : (
-      <div>
-        <div className={classes.court}>
-          <CourtChanger color={currentCourtId} />
-        </div>
-        <TableContainer className={classes.table} component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Wolne godziny</TableCell>
-                <TableCell align="center">Rezerwacja</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {RESERVATIONS_TIMES.map((reservation) => {
-                if (reservation.isActive) {
-                  return (
-                    <TableRow hover={true} key={reservation.id}>
-                      <TableCell align="center">
-                        {reservation.reservationTime}
-                      </TableCell>
-                      <TableCell align="center">
-                        <Button
-                          variant="outlined"
-                          size="small"
-                          color="primary"
-                          onClick={() => handleClickOpen(reservation)}
-                        >
-                          Rezerwuj
-                        </Button>
-                        <Dialog open={open} keepMounted onClose={handleClose}>
-                          <DialogTitle>
-                            {'Potwierdzenie rezerwacji'}
-                          </DialogTitle>
-                          <DialogContent>
-                            <DialogContentText>
-                              Czy jesteś pewny, że chcesz zarezerwować boisko?
-                            </DialogContentText>
-                          </DialogContent>
-                          <DialogActions>
-                            <Button onClick={handleCloseBook} color="primary">
-                              TAK
-                            </Button>
-                            <Button onClick={handleClose} color="primary">
-                              NIE
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
-                      </TableCell>
-                    </TableRow>
-                  );
-                } else {
-                  return null;
+    let reservationsByDay = null;
+    RESERVATIONS_TIMES.forEach((res) => (res.isActive = true));
+    if (reservations) {
+        reservationsByDay = reservations.filter(
+            (res) => res.courtid === currentCourtId
+        );
+        RESERVATIONS_TIMES.forEach((res) => {
+            reservationsByDay.forEach((resDay) => {
+                if (resDay.hour === res.reservationStart) {
+                    res.isActive = false;
                 }
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    );
+            });
+        });
+    }
 
-  return (
-    <Fragment>
-      <Calendar
-        onChange={setValue}
-        value={value}
-        onClickDay={(event) => checkDay(event)}
-      />
-      {reservationTable}
-    </Fragment>
-  );
+    let reservationTable = null;
+    reservationTable =
+        isLoading || !RESERVATIONS_TIMES ? (
+            <Container component="main" maxWidth="xs">
+                <CssBaseline/>
+                <Spinner></Spinner>
+            </Container>
+        ) : (
+            <div>
+                <div className={classes.court}>
+                    <CourtChanger color={currentCourtId}/>
+                </div>
+                <TableContainer className={classes.table} component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center">Wolne godziny</TableCell>
+                                <TableCell align="center">Rezerwacja</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {RESERVATIONS_TIMES.map((reservation) => {
+                                if (reservation.isActive) {
+                                    return (
+                                        <TableRow hover={true} key={reservation.id}>
+                                            <TableCell align="center">
+                                                {reservation.reservationTime}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <Button
+                                                    variant="outlined"
+                                                    size="small"
+                                                    color="primary"
+                                                    onClick={() => handleClickOpen(reservation)}
+                                                >
+                                                    Rezerwuj
+                                                </Button>
+                                                <Dialog open={open} keepMounted onClose={handleClose}>
+                                                    <DialogTitle>
+                                                        {'Potwierdzenie rezerwacji'}
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText>
+                                                            Czy jesteś pewny, że chcesz zarezerwować boisko?
+                                                        </DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button onClick={handleCloseBook} color="primary">
+                                                            TAK
+                                                        </Button>
+                                                        <Button onClick={handleClose} color="primary">
+                                                            NIE
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                } else {
+                                    return null;
+                                }
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        );
+
+    return (
+        <Fragment>
+            <Calendar
+                onChange={setValue}
+                value={value}
+                onClickDay={(event) => checkDay(event)}
+            />
+            {reservationTable}
+        </Fragment>
+    );
 };
 
 export default Calendars;
