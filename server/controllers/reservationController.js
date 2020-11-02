@@ -18,7 +18,8 @@ module.exports.reservationCreate = async function (req, res) {
     {
       start_time: req.body.start_time,
       hour: req.body.hour,
-      courtid: req.body.courtid
+      courtid: req.body.courtId,
+      userid: req.body.userId
     },
     async function (err, obj) {
       if (err) return res.status(404).json(err);
@@ -27,7 +28,8 @@ module.exports.reservationCreate = async function (req, res) {
         const reservation = new reservationModel({
           start_time: req.body.start_time,
           hour: req.body.hour,
-          courtid: req.body.courtid
+          courtid: req.body.courtId,
+          userid: req.body.userId
         });
         try {
           const savedReservation = await reservation.save();
@@ -60,7 +62,7 @@ module.exports.reservationUpdate = async function (req, res) {
         $set: {
           start_time: req.body.start_time,
           end_time: req.body.end_time,
-          userId: req.body.userId,
+          userid: req.body.userId,
           courtId: req.body.courtId
         }
       }
@@ -72,7 +74,6 @@ module.exports.reservationUpdate = async function (req, res) {
 };
 
 module.exports.getReservation = async function (req, res) {
-  console.log("lol");
   try {
     const getReservation = await reservationModel.findById(
       req.params.reservationId
