@@ -6,7 +6,8 @@ export {
   logoutUsos,
   logoutSuccess,
   startLoadingUser,
-  updateAuthUserStart
+  updateAuthUserStart,
+    fetchReservationUser
 } from './auth';
 
 export { registerStart } from './register';
@@ -24,3 +25,4 @@ export {
 } from './recoveryPassword';
 
 export { checkDayStart, changeCurrentCourt, bookHourStart } from './calendar';
+
