@@ -16,8 +16,10 @@ import Register from '../../components/Register/Register';
 import RememberPassword from '../../components/RememberPassword/RememberPassword';
 import ResetPassword from '../../components/RememberPassword/ResetPassword';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import FreeRoute from '../ProtectedRoute/FreeRoute';
+import ListReservationUser from "../../components/ListReservationUser/ListReservationUser";
 
+
+import FreeRoute from '../ProtectedRoute/FreeRoute';
 import { MENU_ROUTES } from '../../constants/routes/routes';
 import * as authActions from '../../store/actions/index';
 import { useConstructor } from '../../utils/customHooks';
@@ -73,6 +75,11 @@ const Layout = (props) => {
             path={MENU_ROUTES.PASSWORD_REC}
             component={RememberPassword}
             user={user}
+          />
+          <ProtectedRoute
+              path={MENU_ROUTES.LIST_USER_RESERVATION}
+              component={ListReservationUser}
+              user={user}
           />
           <FreeRoute
             path={MENU_ROUTES.REGISTER}
