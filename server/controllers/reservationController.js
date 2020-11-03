@@ -1,5 +1,5 @@
 const reservationModel = require("../models/reservationModel");
-
+const userModel = require("./../models/userModel")
 
 module.exports.reservationsGet = async function (req, res) {
   // 2020-05-12
@@ -17,11 +17,48 @@ module.exports.reservationsGet = async function (req, res) {
 module.exports.reservationsGetAll = async function (req, res) {
   try {
     const reservations = await reservationModel.find();
-    res.status(200).json(reservations);
+    const users = await userModel.find();
+    let resultsres = []
+    let resultsusr = []
+    let finalReservations = []
+    for (let reser of reservations){
+          resultsres.push({
+            idReservation: reser._id,
+            start_time: reser.start_time,
+            hour:reser.hour,
+            courtid:reser.courtid,
+            userid:reser.userid
+          })
+    }
+    for (let usr of users){
+      resultsusr.push({
+        _id: usr._id,
+        email:usr.email,
+        name:usr.name,
+        surname:usr.surname,
+      })
+    }
+    
+    for( let user of resultsusr){
+      resultsres.filter(res =>{
+        if(user._id.equals(res.userid)){
+          finalReservations.push({
+            _id: user._id,
+            email:user.email,
+            name:user.name,
+            surname:user.surname,
+            ...res
+          })
+        }
+      })
+      }
+    res.status(200).json(finalReservations);
   } catch (err) {
+    console.log(err)
     res.status(404).json(err);
   }
 };
+
 
 module.exports.reservationCreate = async function (req, res) {
   const isExist = reservationModel.findOne(
