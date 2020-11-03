@@ -53,6 +53,13 @@ const fetchListReservationUser = (state, action) => {
         reservation: action.reservation
     }
 }
+
+const fetchListReservationAdmin = (state, action) => {
+    return {
+        ...state,
+        reservation: action.reservation
+    }
+}
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_SUCCESS:
@@ -69,6 +76,9 @@ const reducer = (state = initialState, action) => {
             return updateAuthUser(state, action);
         case actionTypes.FETCH_LIST_RESERVATION_USER:
             return fetchListReservationUser(state, action)
+        case actionTypes.FETCH_LIST_RESERVATION_ADMIN:
+            return fetchListReservationAdmin(state, action)
+
         default:
             return state;
     }
