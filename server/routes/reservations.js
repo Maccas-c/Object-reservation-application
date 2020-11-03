@@ -3,7 +3,9 @@ const { isAuth, authRole} = require('./authMiddleware');
 const router = express.Router();
 const reservationController = require('./../controllers/reservationController');
 
-router.get('/api/reservations', 
+router.get('/api/reservations', reservationController.reservationsGet);
+
+router.get('/api/allreservations', 
 isAuth,
 authRole(process.env.ROLE_ADMIN),
 reservationController.reservationsGetAll);
