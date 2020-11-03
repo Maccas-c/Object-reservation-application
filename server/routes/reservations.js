@@ -5,7 +5,7 @@ const reservationController = require('./../controllers/reservationController');
 
 router.get('/api/reservations', reservationController.reservationsGet);
 
-router.get('/api/allreservations', 
+router.get('/api/allReservations',
 isAuth,
 authRole(process.env.ROLE_ADMIN),
 reservationController.reservationsGetAll);

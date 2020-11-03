@@ -64,6 +64,8 @@ const SideDrawer = (props) => {
                             return null;
                         } else if (props.user.role === 'admin' && menuitem === 'Historia Rezerwacji') {
                             return null;
+                        } else if (props.user.role === 'user' && menuitem === 'Lista Rezerwacji') {
+                            return null;
                         }
                         return (
                             <ListItem
