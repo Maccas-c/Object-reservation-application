@@ -14,7 +14,7 @@ import {
     TableRow,
 
 } from "@material-ui/core";
-import {TABLE_RESERVATION_USER_ROWS} from "../../constants/usersList/usersList";
+import {TABLE_RESERVATION_ADMIN_ROWS} from "../../constants/usersList/usersList";
 
 const ListAdminReservations = () => {
     const classes = useStyles();
@@ -39,9 +39,13 @@ const ListAdminReservations = () => {
                 <Table className={classes.table} aria-label="caption table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left">{TABLE_RESERVATION_USER_ROWS[3]}</TableCell>
-                            <TableCell align="left">{TABLE_RESERVATION_USER_ROWS[2]}</TableCell>
-                            <TableCell align="left">{TABLE_RESERVATION_USER_ROWS[1]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_ADMIN_ROWS[3]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_ADMIN_ROWS[2]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_ADMIN_ROWS[4]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_ADMIN_ROWS[5]}</TableCell>
+                            <TableCell align="left">{TABLE_RESERVATION_ADMIN_ROWS[1]}</TableCell>
+
+
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -58,6 +62,16 @@ const ListAdminReservations = () => {
                                     align="left"
                                 >
                                     {reservation.hour}
+                                </TableCell>
+                                <TableCell
+                                    align="left"
+                                >
+                                    {reservation.name}
+                                </TableCell>
+                                <TableCell
+                                    align="left"
+                                >
+                                    {reservation.surname}
                                 </TableCell>
                                 <TableCell
                                     align="left"
