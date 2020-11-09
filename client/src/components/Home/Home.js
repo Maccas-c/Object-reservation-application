@@ -1,30 +1,29 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
-import {Paper, Hidden} from '@material-ui/core';
 
 import useStyles from './HomeStyles';
+import {Container,FormGroup} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const Home = () => {
     const classes = useStyles();
 
     return (
-        <Fragment>
-            <Hidden lgUp>
-                <div className={classes.main}>
-                    <Paper elevation={3}/>
+        <div>
+        <FormGroup className={classes.container}  row>
+            {[1,2,3,4].map((item,index)=> (
+                <div key={index} className={classes.margin}>
+                    <h1 className={classes.title}>Strefa A</h1>
+                    <Container className={classes.court}>
+                        <Button className={classes.buttonDelete} variant='contained' color='primary'>Usuń strefę!</Button>
+                    </Container>
                 </div>
-            </Hidden>
-            <Hidden xlDown>
-                <div className={classes.root}>
-                    <Paper elevation={3}/>
-                </div>
-            </Hidden>
-            <Hidden smDown>
-                <div className={classes.root}>
-                    <Paper elevation={3}/>
-                </div>
-            </Hidden>
-        </Fragment>
+                ))}
+
+            </FormGroup>
+        <Button className={classes.button} color='primary' variant='outlined'>Dodaj kolejne strefę!</Button>
+
+        </div>
     );
 };
 

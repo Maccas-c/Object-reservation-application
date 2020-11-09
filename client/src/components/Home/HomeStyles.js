@@ -1,29 +1,22 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Image_phone from '../../assets/court/Boisko_phone.png';
-import Image_main from '../../assets/court/Boisko_desktop.png';
-import Image_tablet from '../../assets/court/Boisko_tablet.png';
+import {makeStyles} from '@material-ui/core/styles';
+import {green} from "@material-ui/core/colors";
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        width: theme.spacing(100),
-        height: theme.spacing(55),
-        marginLeft: '25%',
-        marginTop: '7%',
-        backgroundImage: `url(${Image_main})`,
+    title: {
+        marginLeft: '30%'
     },
-    main: {
-        display: 'flex',
-        width: theme.spacing(40),
-        height: theme.spacing(78),
-        marginTop: '10%',
-        backgroundImage: `url(${Image_phone})`,
+    margin: {
+        margin: 5
     },
-    tablet: {
-        display: 'flex',
-        width: theme.spacing(40),
-        height: theme.spacing(78),
-        marginTop: '5%',
-        backgroundImage: `url(${Image_tablet})`,
+    court: {height: '70vh',
+        width: '30vh',
+        backgroundColor: green[300]},
+    button:{
+        marginLeft:'85%'
     },
+    buttonDelete:{
+        marginLeft:'24%',
+        marginTop:'65vh'
+    }
 }));
 export default useStyles;
