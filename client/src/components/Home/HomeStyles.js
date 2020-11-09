@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     },
     court: {height: '70vh',
         width: '28vh',
-        backgroundColor: green[300]},
+        backgroundColor: green[800]},
     button:{
         marginLeft:'85%'
     },

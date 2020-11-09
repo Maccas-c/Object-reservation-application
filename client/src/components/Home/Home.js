@@ -4,8 +4,11 @@ import React from 'react';
 import useStyles from './HomeStyles';
 import {Container,FormGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import {useSelector} from "react-redux";
 
 const Home = () => {
+    const roleUser = useSelector(state=>state.auth.user.role)
+    console.log(roleUser)
     const classes = useStyles();
 
     return (
@@ -15,13 +18,13 @@ const Home = () => {
                 <div key={index} className={classes.margin}>
                     <h1 className={classes.title}>Strefa A</h1>
                     <Container className={classes.court}>
-                        <Button className={classes.buttonDelete} variant='contained' color='primary'>Usuń strefę!</Button>
+                        {roleUser === 'admin' ? <Button className={classes.buttonDelete} variant='contained' color='primary'>Usuń strefę!</Button> : null}
                     </Container>
                 </div>
                 ))}
 
             </FormGroup>
-        <Button className={classes.button} color='primary' variant='outlined'>Dodaj kolejne strefę!</Button>
+            {roleUser === 'admin' ? <Button className={classes.button} color='primary' variant='outlined'>Dodaj kolejne strefę!</Button>: null }
 
         </div>
     );
