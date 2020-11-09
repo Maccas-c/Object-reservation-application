@@ -66,12 +66,12 @@ const ListAdminReservations = () => {
                                 <TableCell
                                     align="left"
                                 >
-                                    {reservation.name}
+                                    {reservation.userid.name}
                                 </TableCell>
                                 <TableCell
                                     align="left"
                                 >
-                                    {reservation.surname}
+                                    {reservation.userid.surname}
                                 </TableCell>
                                 <TableCell
                                     align="left"
