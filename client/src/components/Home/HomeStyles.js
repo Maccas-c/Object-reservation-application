@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
         margin: 5
     },
     court: {height: '70vh',
-        width: '30vh',
+        width: '28vh',
         backgroundColor: green[300]},
     button:{
         marginLeft:'85%'
