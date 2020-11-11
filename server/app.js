@@ -19,6 +19,7 @@ const forgotPassword = require('./routes/forgotPassword');
 const resetPassword = require('./routes/resetPassword');
 const updatePasswordViaEmail = require('./routes/updatePasswordViaEmail');
 const login = require('./routes/login');
+const tariff = require('./routes/tariff');
 const connection = require('./config/database');
 const crypto = require('crypto');
 const cors = require('cors');
@@ -70,6 +71,7 @@ app.use(adminRouter);
 app.use(forgotPassword);
 app.use(resetPassword);
 app.use(updatePasswordViaEmail);
+app.use(tariff);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });

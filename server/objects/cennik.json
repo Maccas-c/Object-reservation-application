@@ -1,0 +1,14 @@
+{
+  "rodzaj_obiektu_sportowego": "Hala sportowa",
+  "podzial_boiska": [{
+    "name": "Cała płyta boiska",
+    "zajęcia_rekreacyjno_sportowe_treningi": "220,00",
+    "mecze_turnieje": "340,00",
+    "uczelniany_Klub_AZS_UAM": "110,00"},
+    {
+    "name": "1/3 płyty boiska",
+    "zajęcia_rekreacyjno_sportowe_treningi": "80,00",
+    "mecze_turnieje": "-",
+    "uczelniany_Klub_AZS_UAM": "40,00"
+    }]
+}
