@@ -23,7 +23,9 @@
     "oauth": "^0.9.15",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "passport-oauth1": "^1.1.0"
+    "passport-oauth1": "^1.1.0",
+    "swagger-jsdoc": "^5.0.1",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
