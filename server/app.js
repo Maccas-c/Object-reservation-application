@@ -23,8 +23,27 @@ const tariff = require('./routes/tariff');
 const connection = require('./config/database');
 const crypto = require('crypto');
 const cors = require('cors');
-
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const app = express();
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    components: {},
+    info: {
+      title: 'Develop_team',
+      description: "Api information",
+      license: {
+        name: "MIT",
+        url: "https://choosealicense.com/licenses/mit/"
+      },
+    }
+  },
+  apis: ['./swagger/users.js', './swagger/admin.js', './swagger/reservations.js']
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(
   cors({
