@@ -24,6 +24,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "passport-oauth1": "^1.1.0",
+    "querystring": "^0.2.0",
+    "request": "^2.88.2",
     "swagger-jsdoc": "^5.0.1",
     "swagger-ui-express": "^4.1.4"
   },

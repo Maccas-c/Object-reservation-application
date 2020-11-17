@@ -14,6 +14,7 @@ const usersRouter = require('./routes/users');
 const reservationRouter = require('./routes/reservations');
 const courtRouter = require('./routes/courts');
 const adminRouter = require('./routes/admin');
+const paymentRouter = require('./routes/payment');
 const loginUsosRouter = require('./routes/loginUsos');
 const forgotPassword = require('./routes/forgotPassword');
 const resetPassword = require('./routes/resetPassword');
@@ -31,14 +32,18 @@ const swaggerOptions = {
     components: {},
     info: {
       title: 'Develop_team',
-      description: "Api information",
+      description: 'Api information',
       license: {
-        name: "MIT",
-        url: "https://choosealicense.com/licenses/mit/"
+        name: 'MIT',
+        url: 'https://choosealicense.com/licenses/mit/',
       },
-    }
+    },
   },
-  apis: ['./swagger/users.js', './swagger/admin.js', './swagger/reservations.js']
+  apis: [
+    './swagger/users.js',
+    './swagger/admin.js',
+    './swagger/reservations.js',
+  ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
@@ -48,15 +53,15 @@ app.use(
   cors({
     credentials: true,
 
-    origin: 'http://localhost:3000'
-  })
+    origin: 'http://localhost:3000',
+  }),
 );
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false
-  })
+    extended: false,
+  }),
 );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -69,12 +74,12 @@ app.use(
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 5 * 60,
-      autoRemove: 'native'
+      autoRemove: 'native',
     }),
     dbName: 'DevelopTeam',
     resave: false,
-    saveUninitialized: false
-  })
+    saveUninitialized: false,
+  }),
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -89,6 +94,7 @@ app.use(adminRouter);
 app.use(forgotPassword);
 app.use(resetPassword);
 app.use(updatePasswordViaEmail);
+app.use(paymentRouter);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });
