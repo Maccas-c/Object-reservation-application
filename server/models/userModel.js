@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
   email: String,
   hash: String,
   salt: String,
-  id: String, //usos
+  idUsos: String, //usos
   student_status: String, //usos
   student_number: String, //usos
   name: String,
@@ -14,7 +14,7 @@ const userModel = mongoose.Schema({
   sex: String,
   role: {
     type: String,
-    default: "user",
+    default: 'user',
   },
   adress_street: String,
   adress_city: String,
@@ -29,7 +29,7 @@ const userModel = mongoose.Schema({
   },
   nip: String,
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
 });
 
-module.exports = mongoose.model("userModel", userModel);
+module.exports = mongoose.model('userModel', userModel);

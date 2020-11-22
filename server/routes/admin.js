@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { isAuth, authRole } = require('./authMiddleware');
+const { isAuth, authRole, range } = require('./authMiddleware');
 const { check } = require('express-validator');
 const adminController = require('./../controllers/adminController');
 router.get(
@@ -9,21 +9,22 @@ router.get(
   authRole(process.env.ROLE_ADMIN),
   (req, res) => {
     res.send('admin');
-  }
+  },
 );
 
 router.get(
-  '/api/admin/users',
-  isAuth,
-  authRole(process.env.ROLE_ADMIN),
-  adminController.usersGet
+  '/api/users',
+  range,
+  // isAuth,
+  // authRole(process.env.ROLE_ADMIN),
+  adminController.usersGet,
 );
 
 router.patch(
   '/api/admin/delete/:userId',
   // isAuth,
   // authRole(process.env.ROLE_ADMIN),
-  adminController.userDelete
+  adminController.userDelete,
 );
 
 router.patch(
@@ -42,10 +43,11 @@ router.patch(
       .optional(),
     check('nip')
       .matches(
-        /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/
+        /^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$/,
       )
-      .optional()
+      .optional(),
   ],
-  adminController.userUpdate
+  adminController.userUpdate,
 );
+
 module.exports = router;

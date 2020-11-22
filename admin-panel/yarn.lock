@@ -1293,7 +1293,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@material-ui/core@^4.3.3":
+"@material-ui/core@^4.11.0", "@material-ui/core@^4.3.3":
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.0.tgz#b69b26e4553c9e53f2bfaf1053e216a0af9be15a"
   integrity sha512-bYo9uIub8wGhZySHqLQ833zi4ZML+XCBE1XwJ8EuUVSpTWWG57Pm+YugQToJNFsEyiKFhPh8DPD0bgupz8n01g==
@@ -9355,7 +9355,7 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
   integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
-ra-core@^3.10.2:
+ra-core@^3.10.2, ra-core@^3.8.5:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.10.2.tgz#ee9178413a21eca4d4b3e38b4e075b53b0631725"
   integrity sha512-jkC/6mdL28orhBgBijieOVwzIuyw6Tnm5uYgsgriEYbMIFo8z9ehzRvW4im1ieKTD4ktgXXf7cBX9l5jNE4GDg==
@@ -9369,6 +9369,14 @@ ra-core@^3.10.2:
     prop-types "^15.6.1"
     query-string "^5.1.1"
     reselect "~3.0.0"
+
+ra-data-rest-client@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ra-data-rest-client/-/ra-data-rest-client-1.1.1.tgz#565f6e7a3741a70efea672e53b7ab16c026d84f9"
+  integrity sha512-TqyBF5hwwnkR8gLHWXt4QN6yG44XcP8oG6e3IETElTPU5w/YCk/aJCIejusnUznQhxy6z1vobYJtg0mxl88miA==
+  dependencies:
+    query-string "^5.1.1"
+    ra-core "^3.8.5"
 
 ra-i18n-polyglot@^3.10.2:
   version "3.10.2"

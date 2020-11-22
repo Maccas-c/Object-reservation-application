@@ -31,14 +31,18 @@ const swaggerOptions = {
     components: {},
     info: {
       title: 'Develop_team',
-      description: "Api information",
+      description: 'Api information',
       license: {
-        name: "MIT",
-        url: "https://choosealicense.com/licenses/mit/"
+        name: 'MIT',
+        url: 'https://choosealicense.com/licenses/mit/',
       },
-    }
+    },
   },
-  apis: ['./swagger/users.js', './swagger/admin.js', './swagger/reservations.js']
+  apis: [
+    './swagger/users.js',
+    './swagger/admin.js',
+    './swagger/reservations.js',
+  ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
@@ -47,16 +51,16 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(
   cors({
     credentials: true,
-
-    origin: 'http://localhost:3000'
-  })
+    origin: 'http://localhost:3000',
+    exposedHeaders: 'Content-Range',
+  }),
 );
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false
-  })
+    extended: false,
+  }),
 );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -69,12 +73,12 @@ app.use(
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 5 * 60,
-      autoRemove: 'native'
+      autoRemove: 'native',
     }),
     dbName: 'DevelopTeam',
     resave: false,
-    saveUninitialized: false
-  })
+    saveUninitialized: false,
+  }),
 );
 app.use(passport.initialize());
 app.use(passport.session());

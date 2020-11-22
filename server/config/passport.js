@@ -4,9 +4,7 @@ const OAuth1Strategy = require('passport-oauth1');
 const LocalStrategy = require('passport-local').Strategy;
 const userModel = require('../models/userModel');
 const mongoose = require('mongoose');
-const {
-  validPassword
-} = require('../lib/password');
+const { validPassword } = require('../lib/password');
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -27,12 +25,15 @@ const consumer = new oauth.OAuth(
   '1.0',
   'http:/localhost:3000/api/loginUsos/callback',
   'HMAC-SHA1',
-  null
+  null,
 );
-let usosClient = new OAuth1Strategy({
-    requestTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies',
+let usosClient = new OAuth1Strategy(
+  {
+    requestTokenURL:
+      'https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies',
     accessTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/access_token',
-    userAuthorizationURL: 'https://usosapps.amu.edu.pl/services/oauth/authorize',
+    userAuthorizationURL:
+      'https://usosapps.amu.edu.pl/services/oauth/authorize',
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: 'http:/localhost:3001/api/loginUsos/callback',
@@ -40,8 +41,8 @@ let usosClient = new OAuth1Strategy({
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(async function () {
-      await userModel.findOne({
-          // przemkowi zwrocilo taki sam id z usos jaki michal mial juz
+      await userModel.findOne(
+        {
           email: profile.email,
         },
         async function (err, user) {
@@ -56,7 +57,7 @@ let usosClient = new OAuth1Strategy({
             } else return cb(null, user);
           } else {
             const newUser = new userModel({
-              id: profile.id,
+              idUsos: profile.id,
               email: profile.email,
               student_status: profile.student_status,
               student_number: profile.student_number,
@@ -71,10 +72,10 @@ let usosClient = new OAuth1Strategy({
               return cb(null, newUser);
             });
           }
-        }
+        },
       );
     });
-  }
+  },
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
@@ -93,7 +94,7 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
       } catch (e) {
         return cb(e);
       }
-    }
+    },
   );
 };
 passport.use(usosClient);
@@ -110,7 +111,7 @@ const verifyCallback = (email, password, done) => {
       email: email,
       isActive: true,
     })
-    .then((user) => {
+    .then(user => {
       if (!user) {
         return done(null, false);
       }
@@ -123,7 +124,7 @@ const verifyCallback = (email, password, done) => {
         return done(null, false);
       }
     })
-    .catch((err) => {
+    .catch(err => {
       done(err);
     });
 };

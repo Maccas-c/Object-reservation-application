@@ -11,7 +11,7 @@ module.exports.isAuth = (req, res, next) => {
   }
 };
 
-module.exports.authRole = (role) => {
+module.exports.authRole = role => {
   return (req, res, next) => {
     if (req.user.role !== role) {
       res.status(401);
@@ -31,19 +31,23 @@ module.exports.checkUser = (req, res, next) => {
   }
 };
 module.exports.checkEmail = async function (req, res, next) {
-  const isExist = await userModel.findOne({
-    email: req.body.email
-  }, function (
-    err,
-    user
-  ) {
-    if (err) return res.status(404).json(err);
-    else if (user) {
-      console.log("req.body.email", req.body.email)
-      console.log("user", user)
-      console.log("req.user", req.user)
-      if (req.body.email == req.user.email) next();
-      else return res.status(422).json('The email exist');
-    } else next();
-  });
+  const isExist = await userModel.findOne(
+    {
+      email: req.body.email,
+    },
+    function (err, user) {
+      if (err) return res.status(404).json(err);
+      else if (user) {
+        console.log('req.body.email', req.body.email);
+        console.log('user', user);
+        console.log('req.user', req.user);
+        if (req.body.email == req.user.email) next();
+        else return res.status(422).json('The email exist');
+      } else next();
+    },
+  );
+};
+module.exports.range = async function (req, res, next) {
+  res.header('Content-Range', 'users 0-20/20');
+  next();
 };
