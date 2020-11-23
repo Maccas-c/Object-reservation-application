@@ -9,6 +9,10 @@ router.post('/getToken', paymentController.getPayToken);
 
 router.post('/createPayment/:bearer', paymentController.createPayments);
 
-router.post('/odp', paymentController.notify)
+router.post('/notify', paymentController.notify)
+
+router.get('/getPaymentInfo/:orderId/:bearer', paymentController.getOrderInfo)
+
+router.get('/getCos', paymentController.getCos)
 
 module.exports = router;

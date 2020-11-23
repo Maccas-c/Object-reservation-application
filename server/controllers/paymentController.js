@@ -31,15 +31,14 @@ module.exports.createPayments = function(req, res){
         Authorization: 'Bearer ' + req.params.bearer,
       },
       body:
-        '{  "notifyUrl": "https://localhost:3001/odp",  "customerIp": "127.0.0.1",  "merchantPosId": "399358",  "description": "RTV market",  "currencyCode": "PLN",  "totalAmount": "21000",  "products": [    {      "name": "Wireless mouse",      "unitPrice": "15000",      "quantity": "1"    },    {      "name": "HDMI cable",      "unitPrice": "6000",      "quantity": "1"    }  ]}',
+        '{  "notifyUrl": "http://46.186.40.98:3001/notify",  "customerIp": "127.0.0.1",  "merchantPosId": "399358",  "description": "RTV market",  "currencyCode": "PLN",  "totalAmount": "21000",  "products": [    {      "name": "Wireless mouse",      "unitPrice": "15000",      "quantity": "1"    },    {      "name": "HDMI cable",      "unitPrice": "6000",      "quantity": "1"    }  ]}',
     },
     function (error, response, body) {
       //console.log('Status:', response.statusCode);
       //console.log('Headers:', JSON.stringify(response.headers));
       console.log('Response:', body);
-      res.end()
-     
-    },
+      res.status(200).json(body)
+     },
   );
 }
 
@@ -47,3 +46,22 @@ module.exports.notify = function (req, res) {
   console.log(req.body)
   res.status(200)
 };
+
+module.exports.getOrderInfo = function(req, res){
+  request({
+    method: 'GET',
+    url: 'https://secure.snd.payu.com/api/v2_1/orders/' + req.params.orderId,
+    headers: {
+      'Authorization': 'Bearer ' + req.params.bearer ,
+    }}, function (error, response, body) {
+    console.log('Status:', response.statusCode);
+    console.log('Headers:', JSON.stringify(response.headers));
+    console.log('Response:', body);
+    res.status(200).send(body)
+  });
+}
+
+module.exports.getCos = function(req, res)
+{
+  res.send("lol");
+}
