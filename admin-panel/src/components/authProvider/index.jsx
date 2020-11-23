@@ -32,7 +32,7 @@ const authProvider = {
   checkAuth: () =>
     localStorage.getItem('user')
       ? Promise.resolve()
-      : Promise.reject({ redirectTo: '/no-access' }),
+      : Promise.reject({ redirectTo: '/login' }),
   logout: () => {
     localStorage.removeItem('user');
     return Promise.resolve();
