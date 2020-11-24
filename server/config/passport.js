@@ -107,12 +107,14 @@ const customFields = {
 };
 
 const verifyCallback = (req, email, password, done) => {
-  console.log(req.query);
+  let role = req.params.role == undefined ? 'user' : 'admin';
+  console.log(req.path);
+  console.log(role);
   userModel
     .findOne({
       email: email,
       isActive: true,
-      role: req.params.role,
+      role: role,
     })
     .then(user => {
       if (!user) {
