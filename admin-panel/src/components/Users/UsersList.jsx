@@ -6,14 +6,13 @@ import {
   Responsive,
   TextField,
   ShowButton,
-  BooleanField,
 } from 'react-admin';
 
 export const UsersList = props => {
-  return (
+    return (
     <List {...props}>
       <Responsive
-        small={<SimpleList linkType='show' primaryText={({ name }) => name} />}
+        small={<SimpleList linkType='show' primaryText={record => record.name} />}
         medium={
           <Datagrid>
             <TextField label='Imię' source='name' />
