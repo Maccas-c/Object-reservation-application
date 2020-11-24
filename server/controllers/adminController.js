@@ -77,6 +77,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
   try {
     const reservations = await reservationModel
       .find(filter)
+      .populate('userid')
       .sort({ [key]: value });
     const reservationFixed = JSON.parse(
       JSON.stringify(reservations).split('"_id":').join('"id":'),
