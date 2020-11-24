@@ -28,6 +28,7 @@ const UsersShow = props => (
           target='userid'
         >
           <Datagrid>
+            <TextField source='id' />
             <TextField source='start_time' />
             <TextField source='hour' />
             <TextField source='courtid' />

@@ -13,7 +13,9 @@ export const UsersList = props => {
   return (
     <List {...props}>
       <Responsive
-        small={<SimpleList linkType='show' primaryText={record => record.id} />}
+        small={
+          <SimpleList linkType='show' primaryText={record => record.name} />
+        }
         medium={
           <Datagrid>
             <TextField source='id' />
