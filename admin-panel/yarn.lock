@@ -9378,6 +9378,13 @@ ra-data-rest-client@^1.1.1:
     query-string "^5.1.1"
     ra-core "^3.8.5"
 
+ra-data-simple-rest@^3.10.2:
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/ra-data-simple-rest/-/ra-data-simple-rest-3.10.2.tgz#c5f10c3978fa53ef7f2fd67f82601c907dd88933"
+  integrity sha512-tETAuOdM12nYpQHmRYE2lD6UaugWHybxoLdzTfm1pYX5thJMEV/PYicuaC3Yr4viSutJ6DqDxOulA9VZQe17BA==
+  dependencies:
+    query-string "^5.1.1"
+
 ra-i18n-polyglot@^3.10.2:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.10.2.tgz#3ef89e2a64cc9f0927c4d4de747d30e52b32793b"

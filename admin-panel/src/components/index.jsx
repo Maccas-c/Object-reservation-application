@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { fetchUtils, Admin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 

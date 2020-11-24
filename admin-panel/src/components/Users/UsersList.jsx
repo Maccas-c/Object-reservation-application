@@ -14,7 +14,7 @@ export const UsersList = props => {
     <List {...props}>
       <Responsive
         small={
-          <SimpleList linkType='show' primaryText={record => record.name} />
+          <SimpleList linkType='show' primaryText={({name}) => name} />
         }
         medium={
           <Datagrid>
@@ -28,20 +28,4 @@ export const UsersList = props => {
     </List>
   );
 };
-{
-  /* <List {...props}>
-      <Datagrid>
-        <TextField source='id' />
-        <TextField source='name' />
-        <TextField source='surname' />
-        <TextField source='email' />
-        <TextField source='age' />
-        <TextField source='phone_number' />
-        <TextField source='sex' />
-        <TextField source='adress_street' />
-        <TextField source='adress_city' />
-        <TextField source='adress_postalCode' />
-        <BooleanField source='isStudent' />
-      </Datagrid>
-    </List> */
-}
+
