@@ -51,7 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(
   cors({
     credentials: true,
-    methods: 'GET,PUT,PATCH, DELETE,POST',
+    methods: 'GET,PUT,PATCH,DELETE,POST',
     origin: 'http://localhost:3000',
     exposedHeaders: 'Content-Range',
   }),

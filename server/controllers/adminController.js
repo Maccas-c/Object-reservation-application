@@ -94,11 +94,10 @@ module.exports.reservationsDelete = async function (req, res) {
     const reservation = await reservationModel.deleteOne({
       _id: req.params.id,
     });
-    console.log('reservar', reservation);
     const reservationFixed = JSON.parse(
       JSON.stringify(reservation).split('"_id":').join('"id":'),
     );
-    res.status(200).json(reservationFixed);
+    res.status(200).end();
   } catch (err) {
     console.log(err);
     res.status(404).json(err);

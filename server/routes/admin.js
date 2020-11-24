@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { isAuth, authRole, range } = require('./authMiddleware');
+const {
+  isAuth,
+  authRole,
+  range,
+  rangeUsers,
+  rangeReservations,
+} = require('./authMiddleware');
 const { check } = require('express-validator');
 const adminController = require('./../controllers/adminController');
 router.get(
@@ -14,7 +20,7 @@ router.get(
 
 router.get(
   '/api/admin/users',
-  range,
+  rangeUsers,
   // isAuth,
   // authRole(process.env.ROLE_ADMIN),
   adminController.usersGet,
@@ -22,7 +28,7 @@ router.get(
 router.get('/api/admin/users/:userId', adminController.userGet);
 router.get(
   '/api/admin/reservations',
-  range,
+  rangeReservations,
   adminController.reservationsGetByUserId,
 );
 router.delete(

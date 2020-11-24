@@ -1,4 +1,5 @@
 const userModel = require('./../models/userModel');
+const reservationModel = require('./../models/reservationModel');
 
 module.exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -47,7 +48,18 @@ module.exports.checkEmail = async function (req, res, next) {
     },
   );
 };
-module.exports.range = async function (req, res, next) {
-  res.header('Content-Range', 'users 0-20/20');
+module.exports.rangeUsers = async function (req, res, next) {
+  const usersLength = (await userModel.find()).length;
+  const path = req.path.slice(11);
+  const header = `${path} 0-${usersLength}/${usersLength}`;
+  res.header('Content-Range', header);
+  next();
+};
+
+module.exports.rangeReservations = async function (req, res, next) {
+  const reservationsLength = (await reservationModel.find()).length;
+  const path = req.path.slice(11);
+  const header = `${path} 0-${reservationsLength}/${reservationsLength}`;
+  res.header('Content-Range', header);
   next();
 };
