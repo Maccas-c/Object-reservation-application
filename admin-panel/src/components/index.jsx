@@ -7,14 +7,17 @@ import Users from './Users';
 import Reservations from './Reservations';
 import authProvider from './authProvider';
 
-// const httpClient = (url, options = {}) => {
-//   if (!options.headers) {
-//     options.headers = new Headers({ Accept: 'application/json' });
-//   }
+const httpClient = (url, options = {}) => {
+  if (!options.headers) {
+    options.headers = new Headers({ Accept: 'application/json' });
+  }
 
-//   return fetchUtils.fetchJson(url, options);
-// };
-const dataProvider = simpleRestProvider('http://localhost:3001/api/admin');
+  return fetchUtils.fetchJson(url, options);
+};
+const dataProvider = simpleRestProvider(
+  'http://localhost:3001/api/admin',
+  httpClient,
+);
 
 export const App = () => {
   return (

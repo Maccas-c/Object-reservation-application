@@ -18,7 +18,6 @@ export const UsersList = props => {
         }
         medium={
           <Datagrid>
-            <TextField source='id' />
             <TextField source='name' />
             <TextField source='surname' />
             <TextField source='email' />

@@ -4,9 +4,9 @@ const { isAuth, checkUser } = require('./../routes/authMiddleware');
 const loginController = require('./../controllers/loginController');
 
 router.post(
-  '/api/login',
+  '/api/login/:role',
   passport.authenticate('local'),
-  loginController.login
+  loginController.login,
 );
 
 router.get('/api/logout', isAuth, loginController.logout);

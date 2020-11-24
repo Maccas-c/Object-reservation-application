@@ -103,13 +103,16 @@ passport.use(usosClient);
 const customFields = {
   usernameField: 'email',
   passwordField: 'password',
+  passReqToCallback: true,
 };
 
-const verifyCallback = (email, password, done) => {
+const verifyCallback = (req, email, password, done) => {
+  console.log(req.query);
   userModel
     .findOne({
       email: email,
       isActive: true,
+      role: req.params.role,
     })
     .then(user => {
       if (!user) {
