@@ -88,3 +88,19 @@ module.exports.reservationsGetByUserId = async function (req, res) {
     res.status(404).json(err);
   }
 };
+module.exports.reservationsDelete = async function (req, res) {
+  console.log(req.params.id);
+  try {
+    const reservation = await reservationModel.deleteOne({
+      _id: req.params.id,
+    });
+    console.log('reservar', reservation);
+    const reservationFixed = JSON.parse(
+      JSON.stringify(reservation).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(reservationFixed);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json(err);
+  }
+};

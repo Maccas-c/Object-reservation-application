@@ -25,4 +25,8 @@ router.get(
   range,
   adminController.reservationsGetByUserId,
 );
+router.delete(
+  '/api/admin/reservations/:id',
+  adminController.reservationsDelete,
+);
 module.exports = router;
