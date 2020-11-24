@@ -2,21 +2,14 @@ import * as React from 'react';
 import {
     List,
     Datagrid,
-    SimpleList,
     Responsive,
     TextField,
-    ShowButton,
-    ExportButton,
-    BooleanField,
 } from 'react-admin';
 
 export const ReservationsList = props => {
     return (
         <List {...props}>
             <Responsive
-                small={
-                    <SimpleList linkType='show' primaryText={({id}) => id}/>
-                }
                 medium={
                     <Datagrid>
                         <TextField source='id'/>
@@ -25,7 +18,6 @@ export const ReservationsList = props => {
                         <TextField label='Strefa boiska' source='courtid'/>
                         <TextField label='Imię' source='userid.name'/>
                         <TextField label='Nazwisko' source='userid.name'/>
-                        <ShowButton/>
                     </Datagrid>
                 }
             />
