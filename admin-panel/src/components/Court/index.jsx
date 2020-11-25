@@ -1,5 +1,9 @@
-import {Court} from "./Court";
+import React from 'react';
 
-export default {
-    list: Court,
-};
+import { List } from 'react-admin';
+
+export const Court = ({ icon, name }) => (
+  <List {...{ icon, name }} exporter={false}>
+    <h1>Boisko</h1>
+  </List>
+);

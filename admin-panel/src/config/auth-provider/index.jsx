@@ -7,13 +7,13 @@ const authProvider = {
       headers: new Headers({ 'Content-Type': 'application/json' }),
     });
     return fetch(request)
-      .then(response => {
+      .then((response) => {
         if (response.status < 200 || response.status >= 300) {
           throw new Error(response.statusText);
         }
         return response.json();
       })
-      .then(auth => {
+      .then((auth) => {
         localStorage.setItem('user', JSON.stringify(auth));
         localStorage.setItem('permissions', JSON.stringify(auth.role));
       })
@@ -21,8 +21,8 @@ const authProvider = {
         throw new Error('You are not admin');
       });
   },
-  checkError: error => {
-    const status = error.status;
+  checkError: (error) => {
+    const { status } = error;
 
     if (status === 401 || status === 403) {
       localStorage.removeItem('user');
@@ -32,10 +32,7 @@ const authProvider = {
     // other error code (404, 500, etc): no need to log out
     return Promise.resolve();
   },
-  checkAuth: () =>
-    localStorage.getItem('user')
-      ? Promise.resolve()
-      : Promise.reject({ redirectTo: '/login' }),
+  checkAuth: () => (localStorage.getItem('user') ? Promise.resolve() : Promise.reject({ redirectTo: '/login' })),
   logout: () => {
     localStorage.removeItem('user');
     localStorage.removeItem('permissions');
