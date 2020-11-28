@@ -11,8 +11,8 @@ import {
   TextField,
 } from 'react-admin';
 
-export const UsersShow = ({ icon, name }) => (
-  <Show {...{ icon, name }}>
+export const UsersShow = ({ ...props }) => (
+  <Show {...props}>
     <TabbedShowLayout>
       <Tab label={'Użytkownik'}>
         <TextField source={'id'} />

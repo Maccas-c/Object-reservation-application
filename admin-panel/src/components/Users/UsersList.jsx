@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Datagrid, List, Responsive, ShowButton, SimpleList, TextField } from 'react-admin';
 
-export const UsersList = ({ icon, name }) => (
-  <List {...{ icon, name }}>
+export const UsersList = ({ ...props }) => (
+  <List {...props}>
     <Responsive
-      small={<SimpleList linkType={'show'} primaryText={(record) => record.name} />}
+      small={<SimpleList linkType={'show'} primaryText={(record) => record.id} />}
       medium={
         <Datagrid>
           <TextField label={'Imię'} source={'name'} />

@@ -6,6 +6,8 @@
   },
   "extends": ["airbnb", "plugin:prettier/recommended"],
   "rules": {
+    "react/jsx-props-no-spreading": 0,
+    "no-restricted-globals": ["error", "event", "fdescribe"],
     "object-shorthand": "error",
     "no-var": 2,
     "import/no-unresolved": 0,
@@ -16,6 +18,12 @@
       "error",
       {
         "ignoreDeclarationSort": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
       }
     ],
     "semi": "off",

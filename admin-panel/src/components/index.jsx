@@ -15,9 +15,8 @@ import Users from './Users';
 import authProvider from '../config/auth-provider';
 
 const httpClient = (url, options = {}) => {
-  if (!options.headers) {
-    options.headers = new Headers({ Accept: 'application/json' });
-  }
+  options.headers = new Headers({ Accept: 'application/json' });
+  options.headers = new Headers({ Accept: 'Content-Type' });
 
   return fetchUtils.fetchJson(url, options);
 };
@@ -25,10 +24,10 @@ const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpC
 
 export const App = () => (
   <Admin {...{ dataProvider, authProvider }}>
-    <Resource {...{ Users, icon: PeopleIcon, name: 'Users' }} />
-    <Resource {...{ Reservations, name: 'Reservations' }} />
-    <Resource {...{ Court, icon: DashboardIcon, name: 'court' }} />
-    <Resource {...{ PriceList, icon: AttachMoneyIcon, name: 'PriceList' }} />
-    <Resource {...{ Regulations, name: 'Regulations' }} />
+    <Resource name={'users'} icon={PeopleIcon} {...Users} />
+    <Resource name={'reservations'} icon={DashboardIcon} list={Reservations} />
+    <Resource name={'court'} list={Court} />
+    <Resource name={'priceList'} icon={AttachMoneyIcon} list={PriceList} />
+    <Resource name={'Regulations'} list={Regulations} />
   </Admin>
 );
