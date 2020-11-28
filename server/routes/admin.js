@@ -3,7 +3,6 @@ const router = express.Router();
 const {
   isAuth,
   authRole,
-  range,
   rangeUsers,
   rangeReservations,
 } = require('./authMiddleware');
@@ -25,12 +24,13 @@ router.get(
   // authRole(process.env.ROLE_ADMIN),
   adminController.usersGet,
 );
-router.get('/api/admin/users/:userId', adminController.userGet);
 router.get(
   '/api/admin/reservations',
   rangeReservations,
   adminController.reservationsGetByUserId,
 );
+router.get('/api/admin/users/:userId', adminController.userGet);
+
 router.delete(
   '/api/admin/reservations/:id',
   adminController.reservationsDelete,

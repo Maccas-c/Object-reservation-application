@@ -97,7 +97,7 @@ module.exports.reservationsDelete = async function (req, res) {
     const reservationFixed = JSON.parse(
       JSON.stringify(reservation).split('"_id":').join('"id":'),
     );
-    res.status(200).end();
+    res.status(200).json(reservation);
   } catch (err) {
     console.log(err);
     res.status(404).json(err);
