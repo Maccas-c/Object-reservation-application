@@ -13,7 +13,7 @@ const PostFilter = (reservations) => (
 );
 
 export const Reservations = ({ ...props }) => (
-  <List {...props} hasEdit filters={<PostFilter />}>
+  <List {...props} filters={<PostFilter />}>
     <Datagrid>
       <TextField source={'id'} />
       <TextField label={'Data'} source={'start_time'} />

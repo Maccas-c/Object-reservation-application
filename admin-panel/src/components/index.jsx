@@ -9,7 +9,6 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { Court } from './Court';
 import { Reservations } from './Reservations';
 import { PriceList } from './PriceList';
-import { Regulations } from './Regulations';
 import Users from './Users';
 
 import authProvider from '../config/auth-provider';
@@ -28,6 +27,5 @@ export const App = () => (
     <Resource name={'reservations'} icon={DashboardIcon} list={Reservations} />
     <Resource name={'court'} list={Court} />
     <Resource name={'priceList'} icon={AttachMoneyIcon} list={PriceList} />
-    <Resource name={'Regulations'} list={Regulations} />
   </Admin>
 );
