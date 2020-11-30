@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Datagrid, Filter, List, TextField, TextInput } from 'react-admin';
+import { Datagrid, DateInput, DateTimeInput, Filter, List, TextField, TextInput } from 'react-admin';
 
 const PostFilter = (reservations) => (
   <Filter {...reservations}>
-    <TextInput label={'Search'} source={'courtid'} alwaysOn />
-    <TextInput label={'Data'} source={'start_time'} defaultValue={'2020-12-24'} />
-    <TextInput label={'Godzina'} source={'hour'} defaultValue={'18:00'} />
-    <TextInput label={'Imię'} source={'userid.name'} defaultValue={'Przemysław'} />
-    <TextInput label={'Nazwisko'} source={'userid.surname'} defaultValue={'Owczarczyk'} />
+    <DateInput label={'Data'} source={'start_time'} alwaysOn />
+    <DateTimeInput label={'Dokladna data'} source={'hour'} defaultValue={''} />
+    <TextInput label={'Strefa'} source={'courtid'} />
+    <TextInput label={'Imię'} source={'userid.name'} defaultValue={''} />
+    <TextInput label={'Nazwisko'} source={'userid.surname'} defaultValue={''} />
   </Filter>
 );
 
