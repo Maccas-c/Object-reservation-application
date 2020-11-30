@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { Datagrid, List, Responsive, ShowButton, SimpleList, TextField } from 'react-admin';
+import { Datagrid, Filter, List, Responsive, ShowButton, SimpleList, TextField, TextInput } from 'react-admin';
 
+const PostFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label={'Imie'} source={'name'} alwaysOn />
+    <TextInput label={'Nazwisko'} source={'surname'} defaultValue={''} />
+    <TextInput label={'Email'} source={'email'} defaultValue={''} />
+  </Filter>
+);
 export const UsersList = ({ ...props }) => (
-  <List {...props}>
+  <List {...props} filters={<PostFilter />}>
     <Responsive
       small={<SimpleList linkType={'show'} primaryText={(record) => record.id} />}
       medium={
