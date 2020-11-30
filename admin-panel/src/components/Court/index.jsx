@@ -1,9 +1,11 @@
 import React from 'react';
-
-import { List } from 'react-admin';
+import { Datagrid, List, TextField } from 'react-admin';
 
 export const Court = ({ ...props }) => (
-  <List {...props} exporter={false}>
-    <h1>Boisko</h1>
+  <List {...props} exporter>
+    <Datagrid>
+      <TextField source={'id'} />
+      <TextField source={'courtid'} />
+    </Datagrid>
   </List>
 );
