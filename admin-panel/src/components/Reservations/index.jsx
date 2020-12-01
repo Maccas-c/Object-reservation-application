@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Datagrid, DateInput, DateTimeInput, Filter, List, TextField, TextInput } from 'react-admin';
+import { Datagrid, DateInput, DateTimeInput, Filter, List, Responsive, TextField, TextInput } from 'react-admin';
 
 const PostFilter = ({ ...props }) => (
   <Filter {...props}>
@@ -14,13 +14,17 @@ const PostFilter = ({ ...props }) => (
 
 export const Reservations = ({ ...props }) => (
   <List {...props} filters={<PostFilter />}>
-    <Datagrid>
-      <TextField source={'id'} />
-      <TextField label={'Data'} source={'start_time'} />
-      <TextField label={'Godzina'} source={'hour'} />
-      <TextField label={'Strefa boiska'} source={'courtid'} />
-      <TextField label={'Imię'} source={'userid.name'} />
-      <TextField label={'Nazwisko'} source={'userid.surname'} />
-    </Datagrid>
+    <Responsive
+      medium={
+        <Datagrid size={'medium'}>
+          <TextField source={'id'} />
+          <TextField label={'Data'} source={'start_time'} />
+          <TextField label={'Godzina'} source={'hour'} />
+          <TextField label={'Strefa boiska'} source={'courtid'} />
+          <TextField label={'Imię'} source={'userid.name'} />
+          <TextField label={'Nazwisko'} source={'userid.surname'} />
+        </Datagrid>
+      }
+    />
   </List>
 );
