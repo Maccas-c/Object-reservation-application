@@ -1,15 +1,6 @@
 import React from 'react';
 
-import {
-  Datagrid,
-  EditButton,
-  ReferenceManyField,
-  Show,
-  ShowButton,
-  Tab,
-  TabbedShowLayout,
-  TextField,
-} from 'react-admin';
+import { Datagrid, ReferenceManyField, Show, Tab, TabbedShowLayout, TextField } from 'react-admin';
 
 export const UsersShow = ({ ...props }) => (
   <Show {...props}>
@@ -36,8 +27,6 @@ export const UsersShow = ({ ...props }) => (
             <TextField source={'courtid'} />
             <TextField label={'Imię'} source={'userid.name'} />
             <TextField label={'Nazwisko'} source={'userid.surname'} />
-            <ShowButton />
-            <EditButton />
           </Datagrid>
         </ReferenceManyField>
       </Tab>

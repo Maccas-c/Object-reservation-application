@@ -5,8 +5,8 @@ import { Datagrid, Filter, List, Responsive, ShowButton, SimpleList, TextField, 
 const PostFilter = (props) => (
   <Filter {...props}>
     <TextInput label={'Imie'} source={'name'} alwaysOn />
-    <TextInput label={'Nazwisko'} source={'surname'} defaultValue={''} />
-    <TextInput label={'Email'} source={'email'} defaultValue={''} />
+    <TextInput label={'Nazwisko'} source={'surname'} />
+    <TextInput label={'Email'} source={'email'} />
   </Filter>
 );
 export const UsersList = ({ ...props }) => (
