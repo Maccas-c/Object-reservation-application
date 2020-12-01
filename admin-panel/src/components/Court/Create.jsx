@@ -4,9 +4,9 @@ import React from 'react';
 export const CourtCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput label={'Strefa Boiska'} source={'ids'} />
-      <TextInput label={'Strona Boiska'} source={'description'} />
-      <TextInput label={'Typ Boiska'} source={'name'} />
+      <TextInput label={'Boisko'} source={'ids'} />
+      <TextInput label={'Rozmiar Boiska'} source={'description'} />
+      <TextInput label={'Strefa'} source={'name'} />
     </SimpleForm>
   </Create>
 );

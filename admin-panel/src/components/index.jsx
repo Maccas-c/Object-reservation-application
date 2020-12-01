@@ -13,6 +13,7 @@ import Users from './Users';
 
 import authProvider from '../config/auth-provider';
 import { CourtCreate } from './Court/Create';
+import { EditPriceList } from './PriceList/EditPriceList';
 
 const httpClient = (url, options = {}) => {
   options.headers = new Headers({ Accept: 'application/json' });
@@ -27,6 +28,6 @@ export const App = () => (
     <Resource name={'users'} icon={PeopleIcon} {...Users} />
     <Resource name={'reservations'} icon={DashboardIcon} list={Reservations} />
     <Resource name={'courts'} create={CourtCreate} list={Court} />
-    <Resource name={'priceList'} icon={AttachMoneyIcon} list={PriceList} />
+    <Resource name={'priceList'} edit={EditPriceList} icon={AttachMoneyIcon} list={PriceList} />
   </Admin>
 );
