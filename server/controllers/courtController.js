@@ -1,4 +1,4 @@
-const courtModel = require("../models/courtModel");
+const courtModel = require('../models/courtModel');
 
 module.exports.courtsGet = async function (req, res) {
   try {
@@ -9,18 +9,29 @@ module.exports.courtsGet = async function (req, res) {
   }
 };
 module.exports.courtsCreate = async function (req, res) {
-  const court = new courtModel({
-    id: req.body.id,
-    name: req.body.name,
-    description: req.body.description,
-  });
-  try {
-    const savedCourt = await court.save();
-    res.status(201).json(savedCourt);
-  } catch (err) {
-    res.status(400).json(err);
-  }
+  const isExist = courtModel.findOne(
+    {
+      id: req.params.id,
+    },
+    async function (err, court) {
+      if (err) return res.status(404).json(err);
+      else {
+        const court = new courtModel({
+          id: req.params.id,
+          name: req.body.name,
+          description: req.body.description,
+        });
+        try {
+          const savedCourt = await court.save();
+          res.status(201).json(savedCourt);
+        } catch (err) {
+          res.status(400).json(err);
+        }
+      }
+    },
+  );
 };
+
 module.exports.courtsDelete = async function (req, res) {
   try {
     const deletedCourt = await courtModel.deleteOne({
@@ -43,7 +54,7 @@ module.exports.courtsUpdate = async function (req, res) {
           name: req.body.name,
           description: req.body.description,
         },
-      }
+      },
     );
     res.status(200).json(updatedCourt);
   } catch (err) {

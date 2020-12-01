@@ -1,18 +1,18 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const courtController = require("./../controllers/courtController");
-router.get("/api/court", function (req, res) {
-  res.send("respond with a resource");
+const courtController = require('./../controllers/courtController');
+router.get('/api/court', function (req, res) {
+  res.send('respond with a resource');
 });
 
-router.get("/api/courts", courtController.courtsGet);
+router.get('/api/admin/courts', courtController.courtsGet);
 
-router.post("/api/court/create", courtController.courtsCreate);
+router.post('/api/admin/courts', courtController.courtsCreate);
 
-router.delete("/api/court/delete/:courtId", courtController.courtsDelete);
+router.delete('/api/admin/courts/:courtId', courtController.courtsDelete);
 
-router.patch("/api/court/update/:courtId", courtController.courtsUpdate);
+router.patch('/api/admin/courts/:courtId', courtController.courtsUpdate);
 
-router.get("/api/court/:courtId", courtController.getCourt);
+router.get('/api/admin/courts/:courtId', courtController.getCourt);
 
 module.exports = router;

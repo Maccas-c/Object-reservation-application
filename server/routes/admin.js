@@ -8,6 +8,7 @@ const {
 } = require('./authMiddleware');
 const { check } = require('express-validator');
 const adminController = require('./../controllers/adminController');
+
 router.get(
   '/api/admin',
   isAuth,
@@ -24,15 +25,16 @@ router.get(
   // authRole(process.env.ROLE_ADMIN),
   adminController.usersGet,
 );
+router.get('/api/admin/users/:userId', adminController.userGet);
+
 router.get(
   '/api/admin/reservations',
   rangeReservations,
   adminController.reservationsGetByUserId,
 );
-router.get('/api/admin/users/:userId', adminController.userGet);
-
 router.delete(
   '/api/admin/reservations/:id',
   adminController.reservationsDelete,
 );
+
 module.exports = router;
