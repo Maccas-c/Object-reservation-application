@@ -25,7 +25,7 @@ export const App = () => (
   <Admin {...{ dataProvider, authProvider }}>
     <Resource name={'users'} icon={PeopleIcon} {...Users} />
     <Resource name={'reservations'} icon={DashboardIcon} list={Reservations} />
-    <Resource name={'court'} list={Court} />
+    <Resource name={'courts'} list={Court} />
     <Resource name={'priceList'} icon={AttachMoneyIcon} list={PriceList} />
   </Admin>
 );

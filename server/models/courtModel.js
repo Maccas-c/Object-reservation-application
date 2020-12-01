@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
 const courtModel = mongoose.Schema({
-  id: {
+  ids: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 module.exports = mongoose.model('courtModel', courtModel);

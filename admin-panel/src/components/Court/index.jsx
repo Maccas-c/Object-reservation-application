@@ -5,7 +5,8 @@ export const Court = ({ ...props }) => (
   <List {...props} actions={<CreateButton />} exporter>
     <Datagrid>
       <TextField source={'id'} />
-      <TextField source={'courtid'} />
+      <TextField source={'ids'} />
+      <TextField source={'name'} />
       <EditButton />
     </Datagrid>
   </List>

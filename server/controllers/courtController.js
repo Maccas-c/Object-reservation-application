@@ -3,7 +3,10 @@ const courtModel = require('../models/courtModel');
 module.exports.courtsGet = async function (req, res) {
   try {
     const courts = await courtModel.find();
-    res.status(200).json(courts);
+    let courtsFixed = JSON.parse(
+      JSON.stringify(courts).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(courtsFixed);
   } catch (err) {
     res.status(404).json(err);
   }
@@ -11,13 +14,13 @@ module.exports.courtsGet = async function (req, res) {
 module.exports.courtsCreate = async function (req, res) {
   const isExist = courtModel.findOne(
     {
-      id: req.params.id,
+      ids: req.params.ids,
     },
     async function (err, court) {
       if (err) return res.status(404).json(err);
       else {
         const court = new courtModel({
-          id: req.params.id,
+          ids: req.params.ids,
           name: req.body.name,
           description: req.body.description,
         });

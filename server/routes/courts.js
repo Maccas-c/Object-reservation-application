@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const { isAuth, authRole, rangeCourts } = require('./authMiddleware');
 const courtController = require('./../controllers/courtController');
 router.get('/api/court', function (req, res) {
   res.send('respond with a resource');
 });
 
-router.get('/api/admin/courts', courtController.courtsGet);
+router.get('/api/admin/courts', rangeCourts, courtController.courtsGet);
 
 router.post('/api/admin/courts', courtController.courtsCreate);
 
