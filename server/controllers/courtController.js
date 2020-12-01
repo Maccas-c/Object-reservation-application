@@ -20,7 +20,7 @@ module.exports.courtsCreate = async function (req, res) {
       if (err) return res.status(404).json(err);
       else {
         const court = new courtModel({
-          ids: req.params.ids,
+          ids: req.body.ids,
           name: req.body.name,
           description: req.body.description,
         });

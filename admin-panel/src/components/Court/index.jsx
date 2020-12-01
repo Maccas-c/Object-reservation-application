@@ -6,8 +6,8 @@ export const Court = ({ ...props }) => (
     <Responsive
       medium={
         <Datagrid>
-          <TextField source={'_id'} />
           <TextField source={'id'} />
+          <TextField source={'ids'} />
           <TextField source={'description'} />
           <TextField source={'name'} />
         </Datagrid>
