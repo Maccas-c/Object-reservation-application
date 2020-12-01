@@ -1,12 +1,17 @@
 import React from 'react';
-import { CreateButton, Datagrid, EditButton, List, TextField } from 'react-admin';
+import { CreateButton, Datagrid, List, Responsive, TextField } from 'react-admin';
 
 export const Court = ({ ...props }) => (
   <List {...props} actions={<CreateButton />} exporter>
-    <Datagrid>
-      <TextField source={'id'} />
-      <TextField source={'courtid'} />
-      <EditButton />
-    </Datagrid>
+    <Responsive
+      medium={
+        <Datagrid>
+          <TextField source={'_id'} />
+          <TextField source={'id'} />
+          <TextField source={'description'} />
+          <TextField source={'name'} />
+        </Datagrid>
+      }
+    />
   </List>
 );
