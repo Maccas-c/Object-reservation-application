@@ -1,4 +1,4 @@
-const courtModel = require("../models/courtModel");
+const courtModel = require('../models/courtModel');
 
 module.exports.courtsGet = async function (req, res) {
   try {
@@ -43,7 +43,7 @@ module.exports.courtsUpdate = async function (req, res) {
           name: req.body.name,
           description: req.body.description,
         },
-      }
+      },
     );
     res.status(200).json(updatedCourt);
   } catch (err) {

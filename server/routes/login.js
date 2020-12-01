@@ -6,7 +6,7 @@ const loginController = require('./../controllers/loginController');
 router.post(
   '/api/login',
   passport.authenticate('local'),
-  loginController.login
+  loginController.login,
 );
 
 router.get('/api/logout', isAuth, loginController.logout);
