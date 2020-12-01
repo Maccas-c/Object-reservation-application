@@ -8,12 +8,11 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import { Court } from './Court';
 import { Reservations } from './Reservations';
-import { PriceList } from './PriceList';
+import { EditPriceList, PriceList } from './PriceList';
 import Users from './Users';
 
 import authProvider from '../config/auth-provider';
 import { CourtCreate } from './Court/Create';
-import { EditPriceList } from './PriceList/EditPriceList';
 
 const httpClient = (url, options = {}) => {
   options.headers = new Headers({ Accept: 'application/json' });
@@ -28,6 +27,6 @@ export const App = () => (
     <Resource name={'users'} icon={PeopleIcon} {...Users} />
     <Resource name={'reservations'} icon={DashboardIcon} list={Reservations} />
     <Resource name={'courts'} create={CourtCreate} list={Court} />
-    <Resource name={'priceList'} edit={EditPriceList} icon={AttachMoneyIcon} list={PriceList} />
+    <Resource name={'priceLists'} icon={AttachMoneyIcon} list={PriceList} edit={EditPriceList} />
   </Admin>
 );
