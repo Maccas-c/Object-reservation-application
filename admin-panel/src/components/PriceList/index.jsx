@@ -19,8 +19,8 @@ export const PriceList = ({ ...props }) => (
         <Datagrid title={'Rodzaj obiektu sportowego '} size={'small'}>
           <TextField label={'Strefa'} source={'name'} />
           <TextField label={'Zajecia Rekrutacyjno Sportowe Treningi'} source={'classes_and_sports_training'} />
-          <TextField label={'Mecze Turniejowe'} source={'torunament_matches'} />
-          <TextField label={'Uczelniany Klub AZS UAM'} source={'uczelniany_klub'} />
+          <TextField label={'Mecze Turniejowe'} source={'tournament_matches'} />
+          <TextField label={'Uczelniany Klub AZS UAM'} source={'university_club'} />
           <EditButton />
         </Datagrid>
       }
