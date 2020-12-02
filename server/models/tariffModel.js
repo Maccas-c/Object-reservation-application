@@ -2,7 +2,7 @@ const { ObjectID, ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const courtsTariff = mongoose.Schema({
-  id: {
+  ids: {
     type: String,
     required: true,
   },
