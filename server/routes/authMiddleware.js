@@ -75,7 +75,7 @@ module.exports.rangeCourts = async function (req, res, next) {
   res.header('Content-Range', header);
   next();
 };
-module.exports.rangeCourts = async function (req, res, next) {
+module.exports.rangeCourtsTariff = async function (req, res, next) {
   const courtLength = (await courtsTariff.find()).length;
   const path = req.path.slice(11);
 
