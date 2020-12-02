@@ -23,4 +23,4 @@ const courtsTariff = mongoose.Schema({
     required: true,
   },
 });
-module.exports = mongoose.model('reservationModel', reservationModel);
+module.exports = mongoose.model('courtsTariff', courtsTariff);
