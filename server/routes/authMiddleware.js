@@ -1,6 +1,7 @@
 const userModel = require('./../models/userModel');
 const reservationModel = require('./../models/reservationModel');
 const courtModel = require('./../models/courtModel');
+const courtsTariff = require('../models/tariffModel');
 
 module.exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -66,6 +67,16 @@ module.exports.rangeReservations = async function (req, res, next) {
 };
 module.exports.rangeCourts = async function (req, res, next) {
   const courtLength = (await courtModel.find()).length;
+  const path = req.path.slice(11);
+
+  const header = `${path} 0-${courtLength}/${courtLength}`;
+  console.log(path);
+  console.log(header);
+  res.header('Content-Range', header);
+  next();
+};
+module.exports.rangeCourts = async function (req, res, next) {
+  const courtLength = (await courtsTariff.find()).length;
   const path = req.path.slice(11);
 
   const header = `${path} 0-${courtLength}/${courtLength}`;
