@@ -1,5 +1,5 @@
-const tariffModel = require('../models/tariffModel');
-const courtsTariff = require('../models/tariffModel');
+const tariffModel = require("../models/tariffModel");
+const courtsTariff = require("../models/tariffModel");
 
 module.exports.tariffCreate = async function (req, res) {
   const courts = new courtsTariff({
@@ -19,8 +19,8 @@ module.exports.tariffCreate = async function (req, res) {
 module.exports.tariffsGet = async function (req, res) {
   try {
     const tariff = await courtsTariff.find();
-    let tariffFixed = JSON.parse(
-      JSON.stringify(tariff).split('"_id":').join('"id":'),
+    const tariffFixed = JSON.parse(
+      JSON.stringify(tariff).split('"_id":').join('"id":')
     );
     res.status(200).json(tariffFixed);
   } catch (err) {
@@ -29,11 +29,9 @@ module.exports.tariffsGet = async function (req, res) {
 };
 module.exports.tariffGet = async function (req, res) {
   try {
-    const tariff = await courtsTariff.find({
-      _id: req.params.id,
-    });
-    let tariffFixed = JSON.parse(
-      JSON.stringify(tariff).split('"_id":').join('"id":'),
+    const tariff = await courtsTariff.findById(req.params.id);
+    const tariffFixed = JSON.parse(
+      JSON.stringify(tariff).split('"_id":').join('"id":')
     );
     res.status(200).json(tariffFixed);
   } catch (err) {
@@ -47,7 +45,7 @@ module.exports.tariffUpdate = async function (req, res) {
       {
         _id: req.params.id,
       },
-      req.body,
+      req.body
     );
     res.status(200).json(tariffUpdate);
   } catch (err) {
