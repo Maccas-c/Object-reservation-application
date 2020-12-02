@@ -8,7 +8,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import { Court } from './Court';
 import { Reservations } from './Reservations';
-import { PriceList } from './PriceList';
+import { PriceList } from './PriceList/PriceList';
 import Users from './Users';
 
 import authProvider from '../config/auth-provider';
