@@ -8,12 +8,13 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import { Court } from './Court';
 import { Reservations } from './Reservations';
-import { EditPriceList, PriceList } from './PriceList';
+import { PriceList } from './PriceList';
 import Users from './Users';
 
 import authProvider from '../config/auth-provider';
 import { CourtCreate } from './Court/Create';
 import { CreateReservations } from './Reservations/CreateReservations';
+import { EditPriceList } from './PriceList/EditPriceList';
 
 const httpClient = (url, options = {}) => {
   options.headers = new Headers({ Accept: 'application/json' });
