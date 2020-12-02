@@ -1,19 +1,11 @@
 import React from 'react';
 
-import { Datagrid, DateInput, DateTimeInput, Filter, List, Responsive, TextField, TextInput } from 'react-admin';
+import { Datagrid, List, Responsive, TextField } from 'react-admin';
 
-const PostFilter = ({ ...props }) => (
-  <Filter {...props}>
-    <DateInput label={'Data'} source={'start_time'} alwaysOn />
-    <DateTimeInput label={'Dokladna data'} source={'hour'} />
-    <TextInput label={'Strefa'} source={'courtid'} />
-    <TextInput label={'Imię'} source={'name'} />
-    <TextInput label={'Nazwisko'} source={'surname'} />
-  </Filter>
-);
+import { FilterReservation } from './FilterReservation';
 
 export const Reservations = ({ ...props }) => (
-  <List {...props} filters={<PostFilter />}>
+  <List {...props} filters={<FilterReservation />}>
     <Responsive
       medium={
         <Datagrid size={'medium'}>
