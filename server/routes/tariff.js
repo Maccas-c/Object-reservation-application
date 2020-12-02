@@ -8,7 +8,13 @@ router.post('/api/admin/tariff', tariffController.tariffCreate);
 router.get(
   '/api/admin/priceLists',
   rangeCourtsTariff,
-  tariffController.courtsGet,
+  tariffController.tariffsGet,
 );
+router.get(
+  '/api/admin/priceLists/:id',
+  rangeCourtsTariff,
+  tariffController.tariffGet,
+);
+router.put('/api/admin/priceLists/:id', tariffController.tariffUpdate);
 
 module.exports = router;
