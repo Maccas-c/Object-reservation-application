@@ -3,5 +3,5 @@ import { EditPriceList } from './EditPriceList';
 
 export default {
   list: PriceList,
-  show: EditPriceList,
+  edit: EditPriceList,
 };

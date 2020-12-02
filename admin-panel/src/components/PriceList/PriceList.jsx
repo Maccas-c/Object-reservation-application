@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Datagrid, EditButton, List, Responsive, SimpleList, TextField } from 'react-admin';
+import { Datagrid, EditButton, List, Responsive, TextField } from 'react-admin';
 
 export const PriceList = ({ ...props }) => (
   <List {...props} exporter>
     <Responsive
-      small={<SimpleList linkType={'show'} primaryText={(record) => record.id} />}
       medium={
         <Datagrid unselectable={'off'} title={'Rodzaj obiektu sportowego '} size={'medium'}>
           <TextField label={'Strefa'} source={'name'} />
