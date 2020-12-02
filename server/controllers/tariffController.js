@@ -17,8 +17,11 @@ module.exports.tariffCreate = async function (req, res) {
 };
 module.exports.courtsGet = async function (req, res) {
   try {
-    const courts = await courtsTariff.find();
-    res.status(200).json(courts);
+    const tariff = await courtsTariff.find();
+    let tariffFixed = JSON.parse(
+      JSON.stringify(tariff).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(tariffFixed);
   } catch (err) {
     res.status(404).json(err);
   }
