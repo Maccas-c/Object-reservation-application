@@ -23,7 +23,6 @@ import FreeRoute from '../ProtectedRoute/FreeRoute';
 import {MENU_ROUTES} from '../../constants/routes/routes';
 import * as authActions from '../../store/actions/index';
 import {useConstructor} from '../../utils/customHooks';
-import ListAdminReservations from "../../components/ListAdminReservations/ListAdminReservations";
 
 const Layout = (props) => {
     const [updatedTheme, toggleMode] = useDarkMode();
@@ -82,12 +81,6 @@ const Layout = (props) => {
                         component={ListReservationUser}
                         user={user}
                     />
-                    <ProtectedRoute
-                        path={MENU_ROUTES.LIST_ADMIN_RESERVATION}
-                        component={ListAdminReservations}
-                        user={user}
-                    />
-
                     <FreeRoute
                         path={MENU_ROUTES.REGISTER}
                         component={Register}
