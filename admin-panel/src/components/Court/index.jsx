@@ -5,7 +5,7 @@ export const Court = ({ ...props }) => (
   <List {...props} actions={<CreateButton />} exporter>
     <Responsive
       medium={
-        <Datagrid>
+        <Datagrid size={'medium'}>
           <TextField label={'Boisko'} source={'ids'} />
           <TextField label={'Rozmiar Boiska'} source={'description'} />
           <TextField label={'Strefa'} source={'name'} />
