@@ -15,6 +15,7 @@ const reservationRouter = require('./routes/reservations');
 const courtRouter = require('./routes/courts');
 const adminRouter = require('./routes/admin');
 const tariffRouter = require('./routes/tariff');
+const paymentRouter = require('./routes/payment');
 const loginUsosRouter = require('./routes/loginUsos');
 const forgotPassword = require('./routes/forgotPassword');
 const resetPassword = require('./routes/resetPassword');
@@ -96,6 +97,7 @@ app.use(forgotPassword);
 app.use(resetPassword);
 app.use(updatePasswordViaEmail);
 app.use(tariffRouter);
+app.use(paymentRouter);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });
