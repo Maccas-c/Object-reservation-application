@@ -1,7 +1,7 @@
 import { Create, DateInput, SimpleForm, TextInput } from 'react-admin';
 import React from 'react';
 
-const userId = localStorage.getItem('user').slice(8, 32);
+const { _id } = JSON.parse(localStorage.getItem('user'));
 
 export const CreateReservations = ({ ...props }) => (
   <Create {...props}>
@@ -9,7 +9,7 @@ export const CreateReservations = ({ ...props }) => (
       <DateInput label={'Dzień'} source={'start_time'} required />
       <TextInput label={'Godzina'} source={'hour'} defaultValue={'15:00'} required />
       <TextInput label={'Strefa Boiska'} source={'courtId'} required />
-      <TextInput label={'Id'} source={'userId'} defaultValue={`${userId}`} disabled />
+      <TextInput label={'Id'} source={'_id'} defaultValue={`${_id}`} disabled />
     </SimpleForm>
   </Create>
 );
