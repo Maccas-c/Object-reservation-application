@@ -5,18 +5,21 @@ const { validationResult } = require('express-validator');
 const queryString = require('query-string');
 
 module.exports.usersGet = async function (req, res) {
-  let filter = JSON.parse(req.query.filter);
-  const sorted = JSON.parse(req.query.sort);
-  const key = sorted[0];
-  const value = sorted[1] === 'ASC' ? '1' : '-1';
-
-  try {
-    const users = await userModel.find(filter).sort({ [key]: value });
-    user = JSON.parse(JSON.stringify(users).split('"_id":').join('"id":'));
-    res.status(200).json(user);
-  } catch (err) {
-    console.log(err);
-    res.status(404).json(err);
+  if (req.query.filter && req.query.sort) {
+    let filter = JSON.parse(req.query.filter);
+    const sorted = JSON.parse(req.query.sort);
+    const key = sorted[0];
+    const value = sorted[1] === 'ASC' ? '1' : '-1';
+    try {
+      const users = await userModel.find(filter).sort({ [key]: value });
+      user = JSON.parse(JSON.stringify(users).split('"_id":').join('"id":'));
+      res.status(200).json(user);
+    } catch (err) {
+      console.log(err);
+      res.status(404).json(err);
+    }
+  } else {
+    res.status(404).end('no filter and sort');
   }
 };
 module.exports.userGet = async function (req, res) {
@@ -67,43 +70,53 @@ module.exports.userUpdate = async function (req, res) {
   }
 };
 module.exports.reservationsGetByUserId = async function (req, res) {
-  let filter = JSON.parse(req.query.filter);
-  let key = Object.keys(filter).toString();
-  if (key === 'name' || key === 'surname') {
-    try {
-      const users = await userModel.find(filter);
-      let ids = [];
-      for (const user of users) {
-        ids.push(user._id);
+  if (req.query.filter && req.query.sort) {
+    let filter = JSON.parse(req.query.filter);
+    const sort = JSON.parse(req.query.sort);
+
+    let key = Object.keys(filter).toString();
+    console.log(key);
+    const keySorted = sort[0];
+    const valueSorted = keySorted[1] === 'ASC' ? '1' : '-1';
+    if (key === 'name' || key === 'surname') {
+      try {
+        const users = await userModel.find(filter);
+        let ids = [];
+        for (const user of users) {
+          ids.push(user._id);
+        }
+        const reservations = await reservationModel
+          .find({ userid: { $in: ids } })
+          .populate('userid')
+          .sort({ [keySorted]: valueSorted });
+
+        const reservationFixed = JSON.parse(
+          JSON.stringify(reservations).split('"_id":').join('"id":'),
+        );
+
+        res.status(200).send(reservationFixed);
+      } catch (err) {
+        console.log(err);
+        res.status(404).json(err);
       }
-      const reservations = await reservationModel
-        .find({ userid: { $in: ids } })
-        .populate('userid');
+    } else {
+      try {
+        const reservations = await reservationModel
+          .find(filter)
+          .populate('userid')
+          .sort({ [keySorted]: valueSorted });
+        const reservationFixed = JSON.parse(
+          JSON.stringify(reservations).split('"_id":').join('"id":'),
+        );
 
-      const reservationFixed = JSON.parse(
-        JSON.stringify(reservations).split('"_id":').join('"id":'),
-      );
-
-      res.status(200).send(reservationFixed);
-    } catch (err) {
-      console.log(err);
-      res.status(404).json(err);
+        res.status(200).send(reservationFixed);
+      } catch (err) {
+        console.log(err);
+        res.status(404).json(err);
+      }
     }
   } else {
-    try {
-      const reservations = await reservationModel
-        .find(filter)
-        .populate('userid');
-
-      const reservationFixed = JSON.parse(
-        JSON.stringify(reservations).split('"_id":').join('"id":'),
-      );
-
-      res.status(200).send(reservationFixed);
-    } catch (err) {
-      console.log(err);
-      res.status(404).json(err);
-    }
+    res.status(404).end('no query and sort');
   }
 };
 module.exports.reservationsDelete = async function (req, res) {
