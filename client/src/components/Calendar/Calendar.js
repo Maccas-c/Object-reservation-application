@@ -81,6 +81,7 @@ const Calendars = (props) => {
 
   const handleAddReservation = (reservation) => {
     const reservationData = {
+      id: reservation.id,
       start_time: date,
       hour: reservation.reservationStart,
       courtId: currentCourtId,

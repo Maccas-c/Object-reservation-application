@@ -32,9 +32,9 @@ const FewReservations = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {listReservation.map(({ hour, start_time, courtId }, index) => {
+            {listReservation.map(({ hour, start_time, courtId, id }) => {
               return (
-                <TableRow hover={true} key={index}>
+                <TableRow hover={true} key={id}>
                   <TableCell align="center">{start_time}</TableCell>
                   <TableCell align="center">{hour}</TableCell>
                   <TableCell align="center">{courtId.toUpperCase()}</TableCell>
