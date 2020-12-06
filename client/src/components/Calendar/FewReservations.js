@@ -17,9 +17,14 @@ import * as calendarActions from "../../store/actions/index";
 const FewReservations = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const listReservation = useSelector(
     ({ calendar }) => calendar.reservationList
   );
+
+  const handleDeleteReservation = (uuid) => {
+    dispatch(calendarActions.deleteReservationToList(uuid));
+  };
   return (
     <div className={classes.betweenTable}>
       <TableContainer className={classes.table} component={Paper}>
@@ -32,14 +37,21 @@ const FewReservations = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {listReservation.map(({ hour, start_time, courtId, id }) => {
+            {listReservation.map(({ hour, start_time, courtId, uuid }) => {
               return (
-                <TableRow hover={true} key={id}>
+                <TableRow hover={true} key={uuid}>
                   <TableCell align="center">{start_time}</TableCell>
                   <TableCell align="center">{hour}</TableCell>
                   <TableCell align="center">{courtId.toUpperCase()}</TableCell>
                   <TableCell align="center">
-                    <Button variant="outlined" size="small" color="primary">
+                    <Button
+                      onClick={() => {
+                        handleDeleteReservation(uuid);
+                      }}
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                    >
                       Usuń Rezerwacje!
                     </Button>
                   </TableCell>

@@ -89,3 +89,10 @@ export const addReservationToList = (reservation) => {
     reservation: reservation,
   };
 };
+
+export const deleteReservationToList = (uuid) => {
+  return {
+    type: actionTypes.DELETE_RESERVATION_LIST,
+    uuid: uuid,
+  };
+};

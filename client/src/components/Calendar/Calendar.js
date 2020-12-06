@@ -30,6 +30,7 @@ import * as calendarActions from "../../store/actions/index";
 import "./Calendar.css";
 import useStyles from "./TableStyles";
 import FewReservations from "./FewReservations";
+import { uuidv4 } from "../../utils/customFunction";
 
 const Calendars = (props) => {
   const [value, setValue] = useState(new Date());
@@ -81,7 +82,7 @@ const Calendars = (props) => {
 
   const handleAddReservation = (reservation) => {
     const reservationData = {
-      id: reservation.id,
+      uuid: uuidv4(),
       start_time: date,
       hour: reservation.reservationStart,
       courtId: currentCourtId,

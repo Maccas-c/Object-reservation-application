@@ -41,6 +41,14 @@ const sendReservationList = (state, action) => {
   };
 };
 
+const deleteReservationList = (state, action) => {
+  return {
+    ...state,
+    reservationList: state.reservationList.filter(
+      (reservation) => reservation.uuid !== action.uuid
+    ),
+  };
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
@@ -53,6 +61,8 @@ const reducer = (state = initialState, action) => {
       return addReservationToList(state, action);
     case actionTypes.SEND_RESERVATION_LIST:
       return sendReservationList(state, action);
+    case actionTypes.DELETE_RESERVATION_LIST:
+      return deleteReservationList(state, action);
     default:
       return state;
   }

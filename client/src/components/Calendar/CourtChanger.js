@@ -1,12 +1,12 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Button, ButtonGroup } from '@material-ui/core';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Button, ButtonGroup } from "@material-ui/core";
 
-import * as calendarActions from '../../store/actions/index';
+import * as calendarActions from "../../store/actions/index";
 
-import useStyles from './CourtChangerStyles';
+import useStyles from "./CourtChangerStyles";
 
-const CourtChanger = ({color}) => {
+const CourtChanger = ({ color }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -18,26 +18,26 @@ const CourtChanger = ({color}) => {
     <div className={classes.root}>
       <ButtonGroup>
         <Button
-          color={color === 'a' ? 'secondary' : null}
-          onClick={() => changeCourtHandler('a')}
+          color={color === "a" ? "secondary" : null}
+          onClick={() => changeCourtHandler("a")}
         >
           Sektor A
         </Button>
         <Button
-          color={color === 'b' ? 'secondary' : null}
-          onClick={() => changeCourtHandler('b')}
+          color={color === "b" ? "secondary" : null}
+          onClick={() => changeCourtHandler("b")}
         >
           Sektor B
         </Button>
         <Button
-          color={color === 'c' ? 'secondary' : null}
-          onClick={() => changeCourtHandler('c')}
+          color={color === "c" ? "secondary" : null}
+          onClick={() => changeCourtHandler("c")}
         >
           Sektor C
         </Button>
         <Button
-          color={color === 'd' ? 'secondary' : null}
-          onClick={() => changeCourtHandler('d')}
+          color={color === "d" ? "secondary" : null}
+          onClick={() => changeCourtHandler("d")}
         >
           Całe boisko
         </Button>

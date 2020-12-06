@@ -30,4 +30,5 @@ export {
   bookHourStart,
   addReservationToList,
   bookListReservation,
+  deleteReservationToList,
 } from "./calendar";
