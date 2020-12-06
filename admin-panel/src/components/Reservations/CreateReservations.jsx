@@ -9,7 +9,7 @@ export const CreateReservations = ({ ...props }) => (
       <DateInput label={'Dzień'} source={'start_time'} required />
       <TextInput label={'Godzina'} source={'hour'} defaultValue={'15:00'} required />
       <TextInput label={'Strefa Boiska'} source={'courtId'} required />
-      <TextInput label={'Id'} source={'_id'} defaultValue={`${_id}`} disabled />
+      <TextInput label={'Id'} source={'userId'} defaultValue={`${_id}`} disabled />
     </SimpleForm>
   </Create>
 );
