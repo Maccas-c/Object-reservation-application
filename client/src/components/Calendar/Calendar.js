@@ -1,3 +1,6 @@
+import React, {Fragment, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+
 import {
     Container,
     Table,
@@ -6,12 +9,7 @@ import {
     TableContainer,
     TableRow,
     TableHead,
-    Paper
-} from '@material-ui/core';
-import React, {Fragment, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import Calendar from 'react-calendar';
-import {
+    Paper,
     CssBaseline,
     Button,
     Dialog,
@@ -20,6 +18,8 @@ import {
     DialogContentText,
     DialogTitle
 } from '@material-ui/core';
+
+import Calendar from 'react-calendar';
 import {useConstructor} from '../../utils/customHooks';
 import CourtChanger from './CourtChanger';
 import Spinner from '../UI/Spinner/Spinner';
@@ -29,6 +29,7 @@ import * as calendarActions from '../../store/actions/index';
 
 import './Calendar.css';
 import useStyles from './TableStyles';
+import FewReservations from "./FewReservations";
 
 const Calendars = (props) => {
     const [value, setValue] = useState(new Date());
@@ -36,10 +37,10 @@ const Calendars = (props) => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const classes = useStyles();
-    const isLoading = useSelector((state) => state.utils.isLoading);
-    const currentCourtId = useSelector((state) => state.calendar.courtId);
-    const reservations = useSelector((state) => state.calendar.days);
-    const userId = useSelector((state) => state.auth.user._id)
+    const isLoading = useSelector(({utils}) => utils.isLoading);
+    const currentCourtId = useSelector(({calendar: {courtId}}) => courtId);
+    const reservations = useSelector(({calendar: {days}}) => days);
+    const userId = useSelector(({auth: {user}}) => user._id)
     const dispatch = useDispatch();
 
     const checkDay = (event) => {
@@ -104,7 +105,7 @@ const Calendars = (props) => {
         isLoading || !RESERVATIONS_TIMES ? (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
-                <Spinner></Spinner>
+                <Spinner/>
             </Container>
         ) : (
             <div>
@@ -128,6 +129,8 @@ const Calendars = (props) => {
                                                 {reservation.reservationTime}
                                             </TableCell>
                                             <TableCell align="center">
+                                                <Button style={{marginRight: '10px'}} variant="outlined" size='small'
+                                                        color='primary'>Dodaj do koszyka!</Button>
                                                 <Button
                                                     variant="outlined"
                                                     size="small"
@@ -146,10 +149,14 @@ const Calendars = (props) => {
                                                         </DialogContentText>
                                                     </DialogContent>
                                                     <DialogActions>
-                                                        <Button onClick={handleCloseBook} color="primary">
+                                                        <Button onClick={() => {
+                                                            handleCloseBook()
+                                                        }} color="primary">
                                                             TAK
                                                         </Button>
-                                                        <Button onClick={handleClose} color="primary">
+                                                        <Button onClick={() => {
+                                                            handleClose()
+                                                        }} color="primary">
                                                             NIE
                                                         </Button>
                                                     </DialogActions>
@@ -164,6 +171,7 @@ const Calendars = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+<FewReservations/>
             </div>
         );
 

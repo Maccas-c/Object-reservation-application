@@ -6,7 +6,7 @@ import * as calendarActions from '../../store/actions/index';
 
 import useStyles from './CourtChangerStyles';
 
-const CourtChanger = (props) => {
+const CourtChanger = ({color}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -18,25 +18,25 @@ const CourtChanger = (props) => {
     <div className={classes.root}>
       <ButtonGroup>
         <Button
-          color={props.color === 'a' ? 'secondary' : null}
+          color={color === 'a' ? 'secondary' : null}
           onClick={() => changeCourtHandler('a')}
         >
           Sektor A
         </Button>
         <Button
-          color={props.color === 'b' ? 'secondary' : null}
+          color={color === 'b' ? 'secondary' : null}
           onClick={() => changeCourtHandler('b')}
         >
           Sektor B
         </Button>
         <Button
-          color={props.color === 'c' ? 'secondary' : null}
+          color={color === 'c' ? 'secondary' : null}
           onClick={() => changeCourtHandler('c')}
         >
           Sektor C
         </Button>
         <Button
-          color={props.color === 'd' ? 'secondary' : null}
+          color={color === 'd' ? 'secondary' : null}
           onClick={() => changeCourtHandler('d')}
         >
           Całe boisko
