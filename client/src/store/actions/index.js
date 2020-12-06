@@ -8,7 +8,6 @@ export {
   startLoadingUser,
   updateAuthUserStart,
     fetchReservationUser,
-    fetchReservationAdminAction
 } from './auth';
 
 export { registerStart } from './register';

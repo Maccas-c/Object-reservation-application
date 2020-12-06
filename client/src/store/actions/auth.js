@@ -33,24 +33,6 @@ export const logout = () => {
     };
 };
 
-export const fetchReservationAdmin = (reservation) => {
-    return {
-        type: actionTypes.FETCH_LIST_RESERVATION_ADMIN,
-        reservation: reservation
-    }
-}
-
-export const fetchReservationAdminAction = () => {
-    return (dispatch) => {
-        axios.get(MENU_ROUTES.LIST_ADMIN_RESERVATION, {withCredentials: true})
-            .then((response) => {
-                dispatch(fetchReservationAdmin(response.data))
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
-}
 export const fetchReservationUser = (id) => {
     return (dispatch) => {
         axios.get(MENU_ROUTES.LIST_USER_RESERVATION + id, {withCredentials: true})

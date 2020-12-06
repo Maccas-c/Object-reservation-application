@@ -26,12 +26,12 @@ const FewReservations = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {RESERVATIONS_TIMES.map((reservation) => {
-                        if (reservation.isActive) {
+                    {RESERVATIONS_TIMES.map(({id, isActive, reservationTime}) => {
+                        if (isActive) {
                             return (
-                                <TableRow hover={true} key={reservation.id}>
+                                <TableRow hover={true} key={id}>
                                     <TableCell align="center">
-                                        {reservation.reservationTime}
+                                        {reservationTime}
                                     </TableCell>
                                     <TableCell align="center">
                                         <Button style={{marginRight: '10px'}} variant="outlined" size='small'
