@@ -8,7 +8,7 @@ export const Court = ({ ...props }) => (
         <Datagrid size={'medium'}>
           <TextField label={'Boisko'} source={'ids'} />
           <TextField label={'Rozmiar Boiska'} source={'description'} />
-          <TextField label={'Strefa'} source={'name'} />
+          <TextField label={'Strefa'} source={'nameCourt'} />
         </Datagrid>
       }
     />

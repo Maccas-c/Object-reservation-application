@@ -68,20 +68,15 @@ module.exports.rangeReservations = async function (req, res, next) {
 module.exports.rangeCourts = async function (req, res, next) {
   const courtLength = (await courtModel.find()).length;
   const path = req.path.slice(11);
-
   const header = `${path} 0-${courtLength}/${courtLength}`;
-  console.log(path);
-  console.log(header);
   res.header('Content-Range', header);
   next();
 };
 module.exports.rangeCourtsTariff = async function (req, res, next) {
-  const courtLength = (await courtsTariff.find()).length;
+  const TariffLength = (await courtsTariff.find()).length;
   const path = req.path.slice(11);
+  const header = `${path} 0-${TariffLength}/${TariffLength}`;
 
-  const header = `${path} 0-${courtLength}/${courtLength}`;
-  console.log(path);
-  console.log(header);
   res.header('Content-Range', header);
   next();
 };

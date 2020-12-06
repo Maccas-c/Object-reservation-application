@@ -7,9 +7,10 @@ const queryString = require('query-string');
 module.exports.usersGet = async function (req, res) {
   if (req.query.filter && req.query.sort) {
     let filter = JSON.parse(req.query.filter);
-    const sorted = JSON.parse(req.query.sort);
-    const key = sorted[0];
-    const value = sorted[1] === 'ASC' ? '1' : '-1';
+
+    const sort = JSON.parse(req.query.sort);
+    const key = sort[0];
+    const value = sort[1] === 'ASC' ? '1' : '-1';
     try {
       const users = await userModel.find(filter).sort({ [key]: value });
       user = JSON.parse(JSON.stringify(users).split('"_id":').join('"id":'));
@@ -25,8 +26,10 @@ module.exports.usersGet = async function (req, res) {
 module.exports.userGet = async function (req, res) {
   try {
     const getUser = await userModel.findById(req.params.userId);
-    user = JSON.parse(JSON.stringify(getUser).split('"_id":').join('"id":'));
-    res.status(200).json(user);
+    const userFixed = JSON.parse(
+      JSON.stringify(getUser).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(userFixed);
   } catch (err) {
     res.status(404).json(err);
   }
@@ -72,28 +75,32 @@ module.exports.userUpdate = async function (req, res) {
 module.exports.reservationsGetByUserId = async function (req, res) {
   if (req.query.filter && req.query.sort) {
     let filter = JSON.parse(req.query.filter);
-    const sort = JSON.parse(req.query.sort);
+    let keyFilters = Object.keys(filter).toString();
 
-    let key = Object.keys(filter).toString();
-    console.log(key);
-    const keySorted = sort[0];
-    const valueSorted = keySorted[1] === 'ASC' ? '1' : '-1';
-    if (key === 'name' || key === 'surname') {
+    let sort = JSON.parse(req.query.sort);
+    const keyForSort = sort[0];
+    const valueForSort = keyForSort[1] === 'ASC' ? '1' : '-1';
+
+    if ('name' in filter || 'surname' in filter) {
       try {
-        const users = await userModel.find(filter);
+        const filterUser = JSON.parse(JSON.stringify(filter));
+        delete filterUser['courtid'];
+        const users = await userModel.find(filterUser);
         let ids = [];
         for (const user of users) {
           ids.push(user._id);
         }
+
+        delete filter['name'];
+        delete filter['surname'];
         const reservations = await reservationModel
-          .find({ userid: { $in: ids } })
+          .find({ $and: [{ userid: { $in: ids } }, filter] })
           .populate('userid')
-          .sort({ [keySorted]: valueSorted });
+          .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
           JSON.stringify(reservations).split('"_id":').join('"id":'),
         );
-
         res.status(200).send(reservationFixed);
       } catch (err) {
         console.log(err);
@@ -104,11 +111,11 @@ module.exports.reservationsGetByUserId = async function (req, res) {
         const reservations = await reservationModel
           .find(filter)
           .populate('userid')
-          .sort({ [keySorted]: valueSorted });
+          .sort({ [keyForSort]: valueForSort });
+
         const reservationFixed = JSON.parse(
           JSON.stringify(reservations).split('"_id":').join('"id":'),
         );
-
         res.status(200).send(reservationFixed);
       } catch (err) {
         console.log(err);
@@ -120,11 +127,11 @@ module.exports.reservationsGetByUserId = async function (req, res) {
   }
 };
 module.exports.reservationsDelete = async function (req, res) {
-  console.log(req.params.id);
   try {
     const reservation = await reservationModel.deleteOne({
       _id: req.params.id,
     });
+
     const reservationFixed = JSON.parse(
       JSON.stringify(reservation).split('"_id":').join('"id":'),
     );

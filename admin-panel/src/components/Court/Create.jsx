@@ -6,7 +6,7 @@ export const CourtCreate = (props) => (
     <SimpleForm>
       <TextInput label={'Boisko'} source={'ids'} />
       <TextInput label={'Rozmiar Boiska'} source={'description'} />
-      <TextInput label={'Strefa'} source={'name'} />
+      <TextInput label={'Strefa'} source={'nameCourt'} />
     </SimpleForm>
   </Create>
 );

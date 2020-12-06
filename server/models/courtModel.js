@@ -5,7 +5,7 @@ const courtModel = mongoose.Schema({
     type: String,
     required: true,
   },
-  name: {
+  nameCourt: {
     type: String,
     required: true,
   },
