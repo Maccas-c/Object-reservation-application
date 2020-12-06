@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./TableStyles";
-import { RESERVATIONS_TIMES } from "../../constants/calendar/reservetionListHelper";
 import { useSelector } from "react-redux";
 
 const FewReservations = () => {
@@ -20,21 +19,24 @@ const FewReservations = () => {
   const listReservation = useSelector(
     (state) => state.calendar.reservationList
   );
-  console.log(listReservation);
   return (
     <div className={classes.betweenTable}>
       <TableContainer className={classes.table} component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell align="center">Dzień</TableCell>
               <TableCell align="center">Godzina</TableCell>
+              <TableCell align="center">Strefa</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {listReservation.map((reservation, index) => {
+            {listReservation.map(({ hour, start_time, courtId }, index) => {
               return (
                 <TableRow hover={true} key={index}>
-                  <TableCell align="center">{reservation.hour}</TableCell>
+                  <TableCell align="center">{start_time}</TableCell>
+                  <TableCell align="center">{hour}</TableCell>
+                  <TableCell align="center">{courtId}</TableCell>
                   <TableCell align="center">
                     <Button
                       style={{ marginRight: "10px" }}
@@ -51,6 +53,16 @@ const FewReservations = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      {listReservation.length > 0 ? (
+        <Button
+          className={classes.button}
+          size="large"
+          variant="outlined"
+          color="primary"
+        >
+          Rezerwuje i placę!
+        </Button>
+      ) : null}
     </div>
   );
 };
