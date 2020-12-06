@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   days: null,
-  courtId: 'a'
+  courtId: 'a',
+  reservationList:[]
 };
 
 const checkDay = (state, action) => {
@@ -26,6 +27,12 @@ const addNewReservation = (state, action) => {
   };
 };
 
+const addReservationToList = (state,action) => {
+  return {
+    ...state,
+    reservationList: [...state.reservationList,action.reservation]
+  }
+}
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
@@ -34,6 +41,8 @@ const reducer = (state = initialState, action) => {
       return changeCourt(state, action);
     case actionTypes.ADD_NEW_RESERVATION:
       return addNewReservation(state, action);
+    case actionTypes.ADD_RESERVATIONS_TO_LIST:
+      return addReservationToList(state,action)
     default:
       return state;
   }

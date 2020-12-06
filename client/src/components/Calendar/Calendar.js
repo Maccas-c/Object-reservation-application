@@ -76,6 +76,15 @@ const Calendars = (props) => {
         setOpen(false);
     };
 
+    const handleAddReservation = (reservation) =>{
+        const reservationData = {
+            start_time: date,
+            hour: reservation.reservationStart,
+            courtId: currentCourtId,
+            userId: userId
+        };
+        dispatch(calendarActions.addReservationToList(reservationData))
+    }
     useConstructor(() => {
         setValue(value);
         let dateInHook = `${value.getFullYear()}-${
@@ -129,8 +138,11 @@ const Calendars = (props) => {
                                                 {reservation.reservationTime}
                                             </TableCell>
                                             <TableCell align="center">
-                                                <Button style={{marginRight: '10px'}} variant="outlined" size='small'
-                                                        color='primary'>Dodaj do koszyka!</Button>
+                                                <Button style={{marginRight: '10px'}}
+                                                        variant="outlined"
+                                                        size='small'
+                                                        color='primary'
+                                                onClick={()=>{handleAddReservation(reservation)}}>Dodaj do koszyka!</Button>
                                                 <Button
                                                     variant="outlined"
                                                     size="small"

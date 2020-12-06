@@ -24,5 +24,5 @@ export {
   updatePasswordStart
 } from './recoveryPassword';
 
-export { checkDayStart, changeCurrentCourt, bookHourStart } from './calendar';
+export { checkDayStart, changeCurrentCourt, bookHourStart,addReservationToList } from './calendar';
 
