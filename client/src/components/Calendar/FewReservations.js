@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   Button,
@@ -10,14 +11,14 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-
 import useStyles from "./TableStyles";
-import { useSelector } from "react-redux";
 
+import * as calendarActions from "../../store/actions/index";
 const FewReservations = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const listReservation = useSelector(
-    (state) => state.calendar.reservationList
+    ({ calendar }) => calendar.reservationList
   );
   return (
     <div className={classes.betweenTable}>
@@ -36,14 +37,9 @@ const FewReservations = () => {
                 <TableRow hover={true} key={index}>
                   <TableCell align="center">{start_time}</TableCell>
                   <TableCell align="center">{hour}</TableCell>
-                  <TableCell align="center">{courtId}</TableCell>
+                  <TableCell align="center">{courtId.toUpperCase()}</TableCell>
                   <TableCell align="center">
-                    <Button
-                      style={{ marginRight: "10px" }}
-                      variant="outlined"
-                      size="small"
-                      color="primary"
-                    >
+                    <Button variant="outlined" size="small" color="primary">
                       Usuń Rezerwacje!
                     </Button>
                   </TableCell>
@@ -59,6 +55,9 @@ const FewReservations = () => {
           size="large"
           variant="outlined"
           color="primary"
+          onClick={() => {
+            dispatch(calendarActions.bookListReservation(listReservation));
+          }}
         >
           Rezerwuje i placę!
         </Button>

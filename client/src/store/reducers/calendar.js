@@ -33,6 +33,14 @@ const addReservationToList = (state, action) => {
     reservationList: [...state.reservationList, action.reservation],
   };
 };
+
+const sendReservationList = (state, action) => {
+  return {
+    ...state,
+    reservation: action.reservation,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
@@ -43,6 +51,8 @@ const reducer = (state = initialState, action) => {
       return addNewReservation(state, action);
     case actionTypes.ADD_RESERVATIONS_TO_LIST:
       return addReservationToList(state, action);
+    case actionTypes.SEND_RESERVATION_LIST:
+      return sendReservationList(state, action);
     default:
       return state;
   }
