@@ -14,7 +14,10 @@ const CourtChanger = ({ day, color }) => {
   };
 
   const isWeekDay = (daytime) => {
-    return daytime === 0 || daytime === 6;
+    if (daytime === 0 || daytime === 6) {
+      dispatch(calendarActions.setDayWeekend());
+      return true;
+    } else return false;
   };
   return (
     <div className={classes.root}>

@@ -19,7 +19,6 @@ const changeCourt = (state, action) => {
     courtId: action.courtId,
   };
 };
-
 const addNewReservation = (state, action) => {
   return {
     ...state,
@@ -56,6 +55,13 @@ const clearReservationList = (state) => {
     reservationList: [],
   };
 };
+
+const setCourtId = (state) => {
+  return {
+    ...state,
+    courtId: "d",
+  };
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
@@ -72,6 +78,8 @@ const reducer = (state = initialState, action) => {
       return deleteReservationList(state, action);
     case actionTypes.CLEAR_RESERVATION_LIST:
       return clearReservationList(state);
+    case actionTypes.SET_COURT_ID:
+      return setCourtId(state);
     default:
       return state;
   }

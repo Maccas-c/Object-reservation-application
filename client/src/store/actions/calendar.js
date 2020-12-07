@@ -103,3 +103,9 @@ export const clearReservationList = () => {
     type: actionTypes.CLEAR_RESERVATION_LIST,
   };
 };
+
+export const setDayWeekend = () => {
+  return {
+    type: actionTypes.SET_COURT_ID,
+  };
+};
