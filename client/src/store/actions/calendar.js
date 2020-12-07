@@ -48,7 +48,7 @@ export const bookHourStart = (reservation) => {
 };
 
 export const bookListReservation = (reservation) => {
-  return () => {
+  return (dispatch) => {
     axios
       .post(MENU_ROUTES.LIST_RESERVATION, reservation, {
         withCredentials: true,
@@ -57,6 +57,7 @@ export const bookListReservation = (reservation) => {
         console.log("ok");
       })
       .catch(() => {
+        dispatch(clearReservationList());
         console.log("lol");
       });
   };
@@ -94,5 +95,11 @@ export const deleteReservationToList = (uuid) => {
   return {
     type: actionTypes.DELETE_RESERVATION_LIST,
     uuid: uuid,
+  };
+};
+
+export const clearReservationList = () => {
+  return {
+    type: actionTypes.CLEAR_RESERVATION_LIST,
   };
 };

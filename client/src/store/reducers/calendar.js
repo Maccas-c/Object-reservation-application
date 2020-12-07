@@ -49,6 +49,13 @@ const deleteReservationList = (state, action) => {
     ),
   };
 };
+
+const clearReservationList = (state) => {
+  return {
+    ...state,
+    reservationList: [],
+  };
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
@@ -63,6 +70,8 @@ const reducer = (state = initialState, action) => {
       return sendReservationList(state, action);
     case actionTypes.DELETE_RESERVATION_LIST:
       return deleteReservationList(state, action);
+    case actionTypes.CLEAR_RESERVATION_LIST:
+      return clearReservationList(state);
     default:
       return state;
   }
