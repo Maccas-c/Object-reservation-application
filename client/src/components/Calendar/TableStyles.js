@@ -12,6 +12,10 @@ const useStyles = makeStyles(() => ({
     marginTop: "10px",
     marginLeft: "65%",
   },
+  title: {
+    marginLeft: "45%",
+    fontWeight: 600,
+  },
 }));
 
 export default useStyles;

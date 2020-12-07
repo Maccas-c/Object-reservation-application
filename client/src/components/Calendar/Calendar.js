@@ -32,11 +32,12 @@ import useStyles from "./TableStyles";
 import FewReservations from "./FewReservations";
 import { uuidv4 } from "../../utils/customFunction";
 
-const Calendars = (props) => {
+const Calendars = () => {
   const [value, setValue] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [day, setDay] = useState("");
   const classes = useStyles();
   const isLoading = useSelector(({ utils }) => utils.isLoading);
   const currentCourtId = useSelector(({ calendar: { courtId } }) => courtId);
@@ -52,6 +53,7 @@ const Calendars = (props) => {
       event.getMonth() + 1
     }-${event.getDate()}`;
     setDate(dateInHook);
+    setDay(event.getDay());
     dispatch(calendarActions.checkDayStart(dateInHook));
   };
 
@@ -71,11 +73,11 @@ const Calendars = (props) => {
     setTime(timeReservation);
   };
 
-  const handleClose = (event) => {
+  const handleClose = () => {
     setOpen(false);
   };
 
-  const handleCloseBook = (reservation) => {
+  const handleCloseBook = () => {
     bookHourHandler(time);
     setOpen(false);
   };
@@ -92,13 +94,13 @@ const Calendars = (props) => {
   };
   useConstructor(() => {
     setValue(value);
+    setDay(value.getDay());
     let dateInHook = `${value.getFullYear()}-${
       value.getMonth() + 1
     }-${value.getDate()}`;
     setDate(dateInHook);
     dispatch(calendarActions.checkDayStart(dateInHook));
   });
-
   let reservationsByDay = null;
   RESERVATIONS_TIMES.forEach((res) => (res.isActive = true));
   if (reservations) {
@@ -114,7 +116,7 @@ const Calendars = (props) => {
     });
   }
 
-  let reservationTable = null;
+  let reservationTable;
   reservationTable =
     isLoading || !RESERVATIONS_TIMES ? (
       <Container component="main" maxWidth="xs">
@@ -124,7 +126,7 @@ const Calendars = (props) => {
     ) : (
       <div>
         <div className={classes.court}>
-          <CourtChanger color={currentCourtId} />
+          <CourtChanger day={day} color={currentCourtId} />
         </div>
         <TableContainer className={classes.table} component={Paper}>
           <Table>
