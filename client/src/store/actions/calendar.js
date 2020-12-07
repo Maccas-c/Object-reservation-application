@@ -57,6 +57,7 @@ export const bookListReservation = (reservation) => {
         console.log("ok");
       })
       .catch(() => {
+        // TODO When we have endpoint, dispatch go after then.
         dispatch(clearReservationList());
         console.log("lol");
       });
