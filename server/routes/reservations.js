@@ -1,47 +1,53 @@
-const express = require("express");
-const { isAuth, authRole } = require("./authMiddleware");
+const express = require('express');
+const { isAuth, authRole } = require('./authMiddleware');
 
 const router = express.Router();
-const reservationController = require("../controllers/reservationController");
+const reservationController = require('../controllers/reservationController');
 
-router.get("/api/reservations", reservationController.reservationsGet);
+router.get('/api/reservations', reservationController.reservationsGet);
 
 router.get(
-  "/api/allReservations",
+  '/api/allReservations',
   isAuth,
   authRole(process.env.ROLE_ADMIN),
-  reservationController.reservationsGetAll
+  reservationController.reservationsGetAll,
 );
 
 router.post(
-  "/api/reservation/create",
+  '/api/reservation/create',
   // isAuth,
-  reservationController.reservationCreate
+  reservationController.reservationCreate,
 );
 
-router.post("/api/admin/reservations", reservationController.reservationCreate);
+router.post(
+  '/api/reservation/create/groups',
+  // isAuth,
+  reservationController.reservationCreateConstant,
+);
+
+router.post('/api/admin/reservations', reservationController.reservationCreate);
 
 router.delete(
-  "/api/reservation/delete/:reservationId",
+  '/api/reservation/delete/:reservationId',
   isAuth,
-  reservationController.reservationDelete
+  reservationController.reservationDelete,
 );
 
 router.patch(
-  "/api/reservation/update/:reservationId",
+  '/api/reservation/update/:reservationId',
   isAuth,
-  reservationController.reservationUpdate
+  reservationController.reservationUpdate,
 );
 
 router.get(
-  "/api/reservation/:reservationId",
+  '/api/reservation/:reservationId',
   // isAuth,
-  reservationController.getReservation
+  reservationController.getReservation,
 );
 
 router.get(
-  "/api/reservations/:userId",
-  reservationController.reservationsGetByUserId
+  '/api/reservations/:userId',
+  reservationController.reservationsGetByUserId,
 );
 
 module.exports = router;
