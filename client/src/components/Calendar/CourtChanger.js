@@ -13,11 +13,16 @@ const CourtChanger = ({ day, color }) => {
     dispatch(calendarActions.changeCurrentCourt(courtId));
   };
 
-  const isWeekDay = (daytime) => {
-    if (daytime === 0 || daytime === 6) {
+  const isWeekendDay = () => {
+    if (day === 0 || day === 6) {
       dispatch(calendarActions.setDayWeekend());
       return true;
-    } else return false;
+    }
+  };
+  const isWeekDay = () => {
+    if (day >= 1 && day <= 5) {
+      return true;
+    }
   };
   return (
     <div className={classes.root}>
@@ -25,28 +30,28 @@ const CourtChanger = ({ day, color }) => {
         <Button
           color={color === "a" ? "secondary" : null}
           onClick={() => changeCourtHandler("a")}
-          disabled={isWeekDay(day)}
+          disabled={!isWeekDay()}
         >
           Sektor A
         </Button>
         <Button
           color={color === "b" ? "secondary" : null}
           onClick={() => changeCourtHandler("b")}
-          disabled={isWeekDay(day)}
+          disabled={!isWeekDay()}
         >
           Sektor B
         </Button>
         <Button
           color={color === "c" ? "secondary" : null}
           onClick={() => changeCourtHandler("c")}
-          disabled={isWeekDay(day)}
+          disabled={!isWeekDay()}
         >
           Sektor C
         </Button>
         <Button
           color={color === "d" ? "secondary" : null}
           onClick={() => changeCourtHandler("d")}
-          disabled={!isWeekDay(day)}
+          disabled={!isWeekendDay()}
         >
           Całe boisko
         </Button>
