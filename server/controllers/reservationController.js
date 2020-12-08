@@ -31,7 +31,6 @@ module.exports.reservationCreate = async function (req, res) {
       start_time: req.body.start_time,
       hour: req.body.hour,
       courtId: req.body.courtId,
-      userId: req.body.userId,
     },
     async function (err, obj) {
       if (err) return res.status(404).json(err);

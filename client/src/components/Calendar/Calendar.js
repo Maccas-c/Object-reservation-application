@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Fragment, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Container,
@@ -17,38 +17,38 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import Calendar from "react-calendar";
-import { useConstructor } from "../../utils/customHooks";
-import CourtChanger from "./CourtChanger";
-import Spinner from "../UI/Spinner/Spinner";
+import Calendar from 'react-calendar';
+import { useConstructor } from '../../utils/customHooks';
+import CourtChanger from './CourtChanger';
+import Spinner from '../UI/Spinner/Spinner';
 
-import { RESERVATIONS_TIMES } from "../../constants/calendar/reservetionListHelper";
-import * as calendarActions from "../../store/actions/index";
+import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
+import * as calendarActions from '../../store/actions/index';
 
-import "./Calendar.css";
-import useStyles from "./TableStyles";
-import FewReservations from "./FewReservations";
-import { uuidv4 } from "../../utils/customFunction";
+import './Calendar.css';
+import useStyles from './TableStyles';
+import FewReservations from './FewReservations';
+import { uuidv4 } from '../../utils/customFunction';
 
 const Calendars = () => {
   const [value, setValue] = useState(new Date());
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [day, setDay] = useState("");
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [day, setDay] = useState('');
   const classes = useStyles();
   const isLoading = useSelector(({ utils }) => utils.isLoading);
   const currentCourtId = useSelector(({ calendar: { courtId } }) => courtId);
   const reservations = useSelector(({ calendar: { days } }) => days);
   const userId = useSelector(({ auth: { user } }) => user._id);
   const listReservation = useSelector(
-    ({ calendar }) => calendar.reservationList
+    ({ calendar }) => calendar.reservationList,
   );
   const dispatch = useDispatch();
 
-  const checkDay = (event) => {
+  const checkDay = event => {
     let dateInHook = `${event.getFullYear()}-${
       event.getMonth() + 1
     }-${event.getDate()}`;
@@ -57,7 +57,7 @@ const Calendars = () => {
     dispatch(calendarActions.checkDayStart(dateInHook));
   };
 
-  const bookHourHandler = (reservation) => {
+  const bookHourHandler = reservation => {
     const reservationData = {
       start_time: date,
       hour: reservation.reservationStart,
@@ -68,7 +68,7 @@ const Calendars = () => {
     dispatch(calendarActions.bookHourStart(reservationData));
   };
 
-  const handleClickOpen = (timeReservation) => {
+  const handleClickOpen = timeReservation => {
     setOpen(true);
     setTime(timeReservation);
   };
@@ -82,7 +82,7 @@ const Calendars = () => {
     setOpen(false);
   };
 
-  const handleAddReservation = (reservation) => {
+  const handleAddReservation = reservation => {
     const reservationData = {
       uuid: uuidv4(),
       start_time: date,
@@ -102,13 +102,13 @@ const Calendars = () => {
     dispatch(calendarActions.checkDayStart(dateInHook));
   });
   let reservationsByDay = null;
-  RESERVATIONS_TIMES.forEach((res) => (res.isActive = true));
+  RESERVATIONS_TIMES.forEach(res => (res.isActive = true));
   if (reservations) {
     reservationsByDay = reservations.filter(
-      (res) => res.courtid === currentCourtId
+      res => res.courtId === currentCourtId,
     );
-    RESERVATIONS_TIMES.forEach((res) => {
-      reservationsByDay.forEach((resDay) => {
+    RESERVATIONS_TIMES.forEach(res => {
+      reservationsByDay.forEach(resDay => {
         if (resDay.hour === res.reservationStart) {
           res.isActive = false;
         }
@@ -137,7 +137,7 @@ const Calendars = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {RESERVATIONS_TIMES.map((reservation) => {
+              {RESERVATIONS_TIMES.map(reservation => {
                 if (reservation.isActive) {
                   return (
                     <TableRow hover={true} key={reservation.id}>
@@ -146,7 +146,7 @@ const Calendars = () => {
                       </TableCell>
                       <TableCell align="center">
                         <Button
-                          style={{ marginRight: "10px" }}
+                          style={{ marginRight: '10px' }}
                           variant="outlined"
                           size="small"
                           color="primary"
@@ -166,7 +166,7 @@ const Calendars = () => {
                         </Button>
                         <Dialog open={open} keepMounted onClose={handleClose}>
                           <DialogTitle>
-                            {"Potwierdzenie rezerwacji"}
+                            {'Potwierdzenie rezerwacji'}
                           </DialogTitle>
                           <DialogContent>
                             <DialogContentText>
@@ -211,7 +211,7 @@ const Calendars = () => {
       <Calendar
         onChange={setValue}
         value={value}
-        onClickDay={(event) => checkDay(event)}
+        onClickDay={event => checkDay(event)}
       />
       {reservationTable}
     </Fragment>
