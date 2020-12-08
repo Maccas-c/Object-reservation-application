@@ -54,12 +54,14 @@ export const bookListReservation = (reservation) => {
         withCredentials: true,
       })
       .then(() => {
-        console.log("ok");
+        reservation.map(({ start_time }) => {
+          dispatch(checkDayStart(start_time));
+        });
+
+        dispatch(clearReservationList());
       })
       .catch(() => {
-        // TODO When we have endpoint, dispatch go after then.
-        dispatch(clearReservationList());
-        console.log("lol");
+        console.log("error");
       });
   };
 };

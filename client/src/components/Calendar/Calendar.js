@@ -101,10 +101,24 @@ const Calendars = () => {
     setDate(dateInHook);
     dispatch(calendarActions.checkDayStart(dateInHook));
   });
+
   let reservationsByDay = null;
   RESERVATIONS_TIMES.forEach((res) => (res.isActive = true));
+
   if (reservations) {
     reservationsByDay = reservations.filter(
+      (res) => res.courtId === currentCourtId
+    );
+    RESERVATIONS_TIMES.forEach((res) => {
+      reservationsByDay.forEach((resDay) => {
+        if (resDay.hour === res.reservationStart) {
+          res.isActive = false;
+        }
+      });
+    });
+  }
+  if (listReservation) {
+    reservationsByDay = listReservation.filter(
       (res) => res.courtId === currentCourtId
     );
     RESERVATIONS_TIMES.forEach((res) => {
