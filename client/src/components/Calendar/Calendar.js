@@ -43,9 +43,7 @@ const Calendars = () => {
   const currentCourtId = useSelector(({ calendar: { courtId } }) => courtId);
   const reservations = useSelector(({ calendar: { days } }) => days);
   const userId = useSelector(({ auth: { user } }) => user._id);
-  const listReservation = useSelector(
-    (state) => state.calendar.reservationList
-  );
+  const listReservation = useSelector(({ calendar }) => calendar.reservationList);
   const dispatch = useDispatch();
 
   const checkDay = (event) => {
