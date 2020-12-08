@@ -44,7 +44,7 @@ const Calendars = () => {
   const reservations = useSelector(({ calendar: { days } }) => days);
   const userId = useSelector(({ auth: { user } }) => user._id);
   const listReservation = useSelector(
-    (state) => state.calendar.reservationList
+    ({ calendar }) => calendar.reservationList
   );
   const dispatch = useDispatch();
 
