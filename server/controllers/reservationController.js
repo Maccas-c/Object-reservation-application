@@ -17,7 +17,7 @@ module.exports.reservationsGet = async function (req, res) {
 
 module.exports.reservationsGetAll = async function (req, res) {
   try {
-    const reservations = await reservationModel.find().populate('userid');
+    const reservations = await reservationModel.find().populate('userId');
     res.status(200).json(reservations);
   } catch (err) {
     console.log(err);

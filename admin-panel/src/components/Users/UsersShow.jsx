@@ -19,14 +19,14 @@ export const UsersShow = ({ ...props }) => (
         <TextField label={'Student'} source={'isStudent'} />
       </Tab>
       <Tab label={'Rezerwacje'} path={'reservations'}>
-        <ReferenceManyField addLabel={false} reference={'reservations'} target={'userid'}>
+        <ReferenceManyField addLabel={false} reference={'reservations'} target={'userId'}>
           <Datagrid>
             <TextField source={'id'} />
             <TextField source={'start_time'} />
             <TextField source={'hour'} />
             <TextField source={'courtid'} />
-            <TextField label={'Imię'} source={'userid.name'} />
-            <TextField label={'Nazwisko'} source={'userid.surname'} />
+            <TextField label={'Imię'} source={'userId.name'} />
+            <TextField label={'Nazwisko'} source={'userId.surname'} />
           </Datagrid>
         </ReferenceManyField>
       </Tab>

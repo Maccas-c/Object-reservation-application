@@ -12,9 +12,9 @@ export const ReservationList = ({ ...props }) => (
           <TextField source={'id'} />
           <TextField label={'Data'} source={'start_time'} />
           <TextField label={'Godzina'} source={'hour'} />
-          <TextField label={'Strefa boiska'} source={'courtid'} />
-          <TextField label={'Imię'} source={'userid.name'} />
-          <TextField label={'Nazwisko'} source={'userid.surname'} />
+          <TextField label={'Strefa boiska'} source={'courtId'} />
+          <TextField label={'Imię'} source={'userId.name'} />
+          <TextField label={'Nazwisko'} source={'userId.surname'} />
         </Datagrid>
       }
     />

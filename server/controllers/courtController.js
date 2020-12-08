@@ -53,7 +53,7 @@ module.exports.courtsUpdate = async function (req, res) {
       },
       {
         $set: {
-          id: req.body.id,
+          ids: req.body.id,
           name: req.body.name,
           description: req.body.description,
         },

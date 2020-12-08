@@ -84,7 +84,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
     if ('name' in filter || 'surname' in filter) {
       try {
         const filterUser = JSON.parse(JSON.stringify(filter));
-        delete filterUser['courtid'];
+        delete filterUser['courtId'];
         const users = await userModel.find(filterUser);
         let ids = [];
         for (const user of users) {
@@ -95,7 +95,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
         delete filter['surname'];
         const reservations = await reservationModel
           .find({ $and: [{ userid: { $in: ids } }, filter] })
-          .populate('userid')
+          .populate('userId')
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
@@ -110,7 +110,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
       try {
         const reservations = await reservationModel
           .find(filter)
-          .populate('userid')
+          .populate('userId')
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
