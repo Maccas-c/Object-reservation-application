@@ -88,7 +88,7 @@ module.exports.reservationUpdate = async function (req, res) {
         $set: {
           start_time: req.body.start_time,
           end_time: req.body.end_time,
-          userid: req.body.userId,
+          userId: req.body.userId,
           courtId: req.body.courtId,
         },
       },
@@ -114,7 +114,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
   const userId = req.params.userId;
   try {
     const reservations = await reservationModel.find({
-      userid: userId,
+      userId: userId,
     });
     res.status(200).json(reservations);
   } catch (err) {
