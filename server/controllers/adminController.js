@@ -94,7 +94,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
         delete filter['name'];
         delete filter['surname'];
         const reservations = await reservationModel
-          .find({ $and: [{ userid: { $in: ids } }, filter] })
+          .find({ $and: [{ userId: { $in: ids } }, filter] })
           .populate('userId')
           .sort({ [keyForSort]: valueForSort });
 
