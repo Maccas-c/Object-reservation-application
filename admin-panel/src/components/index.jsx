@@ -22,7 +22,7 @@ const httpClient = (url, options = {}) => {
 
   return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = simpleRestProvider('http://localhost:3002/api/admin', httpClient);
+const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpClient);
 
 export const App = () => (
   <Admin {...{ dataProvider, authProvider }}>
