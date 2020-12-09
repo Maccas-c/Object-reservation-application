@@ -17,4 +17,7 @@ router.get(
 );
 router.put('/api/admin/priceLists/:id', tariffController.tariffUpdate);
 
+// front
+router.get('/api/priceLists', rangeCourtsTariff, tariffController.tariffsGet);
+
 module.exports = router;
