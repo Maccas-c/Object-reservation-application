@@ -23,6 +23,7 @@ import FreeRoute from '../ProtectedRoute/FreeRoute';
 import {MENU_ROUTES} from '../../constants/routes/routes';
 import * as authActions from '../../store/actions/index';
 import {useConstructor} from '../../utils/customHooks';
+import Regulations from "../../components/Regulations";
 
 const Layout = (props) => {
     const [updatedTheme, toggleMode] = useDarkMode();
@@ -79,6 +80,11 @@ const Layout = (props) => {
                     <ProtectedRoute
                         path={MENU_ROUTES.LIST_USER_RESERVATION}
                         component={ListReservationUser}
+                        user={user}
+                    />
+                    <ProtectedRoute
+                        path={MENU_ROUTES.REGULATIONS}
+                        component={Regulations}
                         user={user}
                     />
                     <FreeRoute
