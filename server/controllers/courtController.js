@@ -21,7 +21,7 @@ module.exports.courtsCreate = async function (req, res) {
       else {
         const court = new courtModel({
           ids: req.body.ids,
-          name: req.body.name,
+          nameCourt: req.body.nameCourt,
           description: req.body.description,
         });
         try {
@@ -54,7 +54,7 @@ module.exports.courtsUpdate = async function (req, res) {
       {
         $set: {
           ids: req.body.id,
-          name: req.body.name,
+          nameCourt: req.body.nameCourt,
           description: req.body.description,
         },
       },
