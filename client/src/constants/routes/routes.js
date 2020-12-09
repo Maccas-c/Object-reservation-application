@@ -20,4 +20,5 @@ export const MENU_ROUTES = {
   BOOK_HOUR: '/reservation/create',
   LIST_USER_RESERVATION: '/reservations/',
   LIST_RESERVATION: '/reservation/create/groups',
+  PRIZE_LIST: '/priceLists'
 };

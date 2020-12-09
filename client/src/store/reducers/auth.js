@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     user: null,
     reservation: null,
+    traffic: null
 };
 
 const auth = (state, action) => {
@@ -12,7 +13,7 @@ const auth = (state, action) => {
     };
 };
 
-const logout = (state, action) => {
+const logout = (state) => {
     return {
         ...state,
         user: null
@@ -33,7 +34,7 @@ const checkUsosUserSuccess = (state, action) => {
     };
 };
 
-const checkUserFail = (state, action) => {
+const checkUserFail = (state) => {
     return {
         ...state,
         user: null
@@ -54,6 +55,12 @@ const fetchListReservationUser = (state, action) => {
     }
 }
 
+const fetchTrafficList = (state, action) => {
+    return {
+        ...state,
+        traffic: action.traffic
+    }
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -71,7 +78,8 @@ const reducer = (state = initialState, action) => {
             return updateAuthUser(state, action);
         case actionTypes.FETCH_LIST_RESERVATION_USER:
             return fetchListReservationUser(state, action)
-
+        case actionTypes.FETCH_TRAFFIC_COURT:
+            return fetchTrafficList(state, action)
         default:
             return state;
     }
