@@ -8,13 +8,14 @@ import {
     TableHead,
     TableRow,
     TableCell,
-    TableBody,
+    TableBody, Accordion, AccordionSummary, Typography,
 } from '@material-ui/core';
 
 import useStyles from './HomeStyles';
 import {useConstructor} from "../../utils/customHooks";
 import * as appActions from "../../store/actions";
 import {useDispatch,useSelector} from "react-redux";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const Home = () => {
     const classes = useStyles();
@@ -40,6 +41,14 @@ const Home = () => {
                     <Paper elevation={3}/>
                 </div>
             </Hidden>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography className={classes.title}>Cennik</Typography>
+                </AccordionSummary>
             <TableContainer className={classes.table} component={Paper}>
                 <Table>
                     <TableHead>
@@ -72,6 +81,7 @@ const Home = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </Accordion>
         </div>
     );
 };

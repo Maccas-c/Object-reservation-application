@@ -1,7 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Image_phone from '../../assets/court/Boisko_phone.png';
 import Image_main from '../../assets/court/Boisko_desktop.png';
 import Image_tablet from '../../assets/court/Boisko_tablet.png';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -25,5 +26,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5%',
         backgroundImage: `url(${Image_tablet})`,
     },
+    title: {
+        fontWeight: 700,
+        marginLeft:'48%'
+    }
 }));
 export default useStyles;
