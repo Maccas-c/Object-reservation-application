@@ -1,10 +1,10 @@
-import { MENU_ROUTES } from "../../constants/routes/routes";
-import * as actionTypes from "./actionTypes";
-import { startLoadingUser, endLoadingUser } from "./auth";
-import axios from "../../axios/axios-auth";
+import { MENU_ROUTES } from '../../constants/routes/routes';
+import * as actionTypes from './actionTypes';
+import { startLoadingUser, endLoadingUser } from './auth';
+import axios from '../../axios/axios-auth';
 
-export const checkDayStart = (date) => {
-  return (dispatch) => {
+export const checkDayStart = date => {
+  return dispatch => {
     dispatch(startLoadingUser());
     axios
       .get(
@@ -14,9 +14,9 @@ export const checkDayStart = (date) => {
             time: date,
           },
         },
-        { withCredentials: true }
+        { withCredentials: true },
       )
-      .then((response) => {
+      .then(response => {
         let reservationList = response.data;
         if (reservationList.length === 0) {
           reservationList = null;
@@ -24,15 +24,15 @@ export const checkDayStart = (date) => {
         dispatch(checkDaySuccess(reservationList));
         dispatch(endLoadingUser());
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(endLoadingUser());
         console.log(error.message);
       });
   };
 };
 
-export const bookHourStart = (reservation) => {
-  return (dispatch) => {
+export const bookHourStart = reservation => {
+  return dispatch => {
     axios
       .post(MENU_ROUTES.BOOK_HOUR, reservation, {
         withCredentials: true,
@@ -41,60 +41,60 @@ export const bookHourStart = (reservation) => {
         dispatch(checkDayStart(reservation.start_time));
       })
 
-      .catch((error) => {
+      .catch(error => {
         console.log(error.message);
       });
   };
 };
 
-export const bookListReservation = (reservation) => {
-  return (dispatch) => {
+export const bookListReservation = reservation => {
+  return dispatch => {
     axios
       .post(MENU_ROUTES.LIST_RESERVATION, reservation, {
         withCredentials: true,
       })
       .then(() => {
         reservation.map(({ start_time }) => {
-          dispatch(checkDayStart(start_time));
+          return dispatch(checkDayStart(start_time));
         });
 
-        dispatch(clearReservationList());
+        return dispatch(clearReservationList());
       })
       .catch(() => {
-        console.log("error");
+        console.log('error');
       });
   };
 };
 
-export const bookListReservations = (reservation) => {
+export const bookListReservations = reservation => {
   return {
     type: actionTypes.SEND_RESERVATION_LIST,
     reservation: reservation,
   };
 };
 
-export const checkDaySuccess = (days) => {
+export const checkDaySuccess = days => {
   return {
     type: actionTypes.CHECK_DAY,
     days: days,
   };
 };
 
-export const changeCurrentCourt = (courtId) => {
+export const changeCurrentCourt = courtId => {
   return {
     type: actionTypes.CHANGE_COURT,
     courtId: courtId,
   };
 };
 
-export const addReservationToList = (reservation) => {
+export const addReservationToList = reservation => {
   return {
     type: actionTypes.ADD_RESERVATIONS_TO_LIST,
     reservation: reservation,
   };
 };
 
-export const deleteReservationToList = (uuid) => {
+export const deleteReservationToList = uuid => {
   return {
     type: actionTypes.DELETE_RESERVATION_LIST,
     uuid: uuid,
