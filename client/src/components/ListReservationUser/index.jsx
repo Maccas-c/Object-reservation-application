@@ -23,7 +23,7 @@ const ListReservationUser = () => {
   let table = <Spinner />;
 
   if (reservations) {
-    table = !isLoading ? (
+    table = isLoading ? (
       <Container {...{ component: 'main', maxWidth: 'xs' }}>
         <Spinner />
       </Container>
