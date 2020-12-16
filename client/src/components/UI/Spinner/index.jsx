@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Spinner = () => (
     <div {...{className: classes.loader}}>
-        <CircularProgress thickness={1} size={150}/>
+        <CircularProgress thickness={1.5} size={150}/>
     </div>
 );
 
