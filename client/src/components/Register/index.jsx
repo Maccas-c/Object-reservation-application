@@ -37,16 +37,17 @@ const Register = ({history}) => {
         name: '',
         surname: '',
         sex: 'male',
-        password: ''
+        password: '',
     }
 
     const registerSchema = Yup.object().shape({
         name: Yup.string()
-            .min(3, 'Too Short!')
-            .max(50, 'Too Long!'),
+            .min(2, 'Zbyt krótkie imię')
+            .max(50, 'Nieodpowiednia długość!'),
         surname: Yup.string()
-            .min(3, 'Too Short!')
-            .max(50, 'Too Long!')
+            .min(2, 'Zbyt krótkie nazwisko!')
+            .max(50, 'Nieodpowiednia długość!!'),
+        password: Yup.string().required("This field is required"),
     });
 
 
