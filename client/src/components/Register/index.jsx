@@ -15,8 +15,6 @@ import {
     Formik,
     Form,
 } from 'formik';
-
-import {useDispatch} from 'react-redux';
 import {MENU_ROUTES} from '../../constants/routes/routes';
 
 import useStyles from './styles';
@@ -173,7 +171,7 @@ const Register = ({history}) => {
                     </Grid>
                 </form>
             </div>
-            <Box mt={5}></Box>
+            <Box mt={5}/>
         </Container>
     );
 };
