@@ -72,11 +72,6 @@ const Register = ({ history }) => {
 
   const userRegisterHandler = event => {
     event.preventDefault();
-    // eslint-disable-next-line
-    let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-    // eslint-disable-next-line
-    let mail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (password.match(passw) && email.match(mail)) {
       const userInput = {
         email: email,
         password: password,
@@ -84,18 +79,8 @@ const Register = ({ history }) => {
         surname: surname,
         sex: sex,
         check: check,
-      };
+      }
       dispatch(regActions.registerStart(userInput, history));
-    } else if (password.match(passw) && !email.match(mail)) {
-      setEmailValid(true);
-      setPasswordValid(false);
-    } else if (!password.match(passw) && email.match(mail)) {
-      setEmailValid(false);
-      setPasswordValid(true);
-    } else {
-      setPasswordValid(true);
-      setEmailValid(true);
-    }
   };
 
   return (
