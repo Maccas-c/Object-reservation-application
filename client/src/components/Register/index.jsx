@@ -24,17 +24,30 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
-
+import {useDispatch} from "react-redux";
+import * as appAction from '../../store/actions/index'
+import * as Yup from 'yup'
+import Button from "@material-ui/core/Button";
 
 const Register = ({history}) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const initialValues = {
         email: '',
         name: '',
         surname: '',
-        sex:'male',
+        sex: 'male',
         password: ''
     }
+
+    const registerSchema = Yup.object().shape({
+        name: Yup.string()
+            .min(3, 'Too Short!')
+            .max(50, 'Too Long!'),
+        surname: Yup.string()
+            .min(3, 'Too Short!')
+            .max(50, 'Too Long!')
+    });
 
 
     const loginHandler = event => {
@@ -58,104 +71,117 @@ const Register = ({history}) => {
                     Rejestracja
                 </Typography>
                 <form className={classes.form} noValidate>
-                    <Formik initialValues={initialValues}
-                            onSubmit={(values, actions) => {
-                                console.log({values, actions});
-                                alert(JSON.stringify(values, null, 2));
-                                actions.setSubmitting(false);
-                            }}
-                    render={({handleSubmit,handleChange,handleBlur}) =>(
-                        <Form onSubmit={handleSubmit}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        type={'email'}
-                                        label={'E-mail'}
-                                        name="email"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        name="name"
-                                        label="Imię"
-                                        type="name"
-                                        id="name"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        name="surname"
-                                        label="Nazwisko"
-                                        type="surname"
-                                        id="surname"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        name="password"
-                                        label="Hasło"
-                                        type="password"
-                                        id="password"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">Płeć</FormLabel>
-                                    <RadioGroup
-                                        aria-label="gender"
-                                        name="sex"
-                                        onChange={event => handleChange(event)}
-                                    >
-                                        <FormControlLabel
-                                            value="female"
-                                            control={<Radio/>}
-                                            label="Kobieta"
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={registerSchema}
+                        onSubmit={(values, actions) => {
+                            console.log({values, actions});
+                            alert(JSON.stringify(values, null, 2));
+                            dispatch(appAction.registerStart(values, history))
+                            actions.setSubmitting(false);
+                        }}
+                        render={({handleSubmit, handleChange, handleBlur,errors}) => (
+                            <Form onSubmit={handleSubmit}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="email"
+                                            type={'email'}
+                                            label={'E-mail'}
+                                            name="email"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
                                         />
-                                        <FormControlLabel
-                                            value="male"
-                                            control={<Radio/>}
-                                            label="Mężczyzna"
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            name="name"
+                                            label="Imię"
+                                            type="name"
+                                            id="name"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
                                         />
-                                    </RadioGroup>
-                                </FormControl>
-                                <Grid item xs={12}>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                style={{fontFamily: 'roboto'}}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                required
-                                                color="primary"
+                                        {errors.name}
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            name="surname"
+                                            label="Nazwisko"
+                                            type="surname"
+                                            id="surname"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                        />
+                                        {errors.surname}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            name="password"
+                                            label="Hasło"
+                                            type="password"
+                                            id="password"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+                                    <FormControl component="fieldset">
+                                        <FormLabel component="legend">Płeć</FormLabel>
+                                        <RadioGroup
+                                            aria-label="gender"
+                                            name="sex"
+                                            onChange={event => handleChange(event)}
+                                        >
+                                            <FormControlLabel
+                                                value="female"
+                                                control={<Radio/>}
+                                                label="Kobieta"
                                             />
-                                        }
-                                        label="Zapoznałem się z regulaminem aplikacji."
-                                    />
+                                            <FormControlLabel
+                                                value="male"
+                                                control={<Radio/>}
+                                                label="Mężczyzna"
+                                            />
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <Grid item xs={12}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    style={{fontFamily: 'roboto'}}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    required
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Zapoznałem się z regulaminem aplikacji."
+                                        />
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <button type="submit">Submit</button>
-                        </Form>
-                    )}
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                    type="submit"
+                                >
+                                    Załóż konto
+                                </Button>
+                            </Form>
+                        )}
                     />
 
                     <Grid container justify="flex-end">
