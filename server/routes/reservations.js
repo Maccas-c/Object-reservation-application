@@ -5,7 +5,7 @@ const router = express.Router();
 const reservationController = require('../controllers/reservationController');
 
 router.get('/api/reservations', reservationController.reservationsGet);
-
+router.get('/api/reservations/getPrice', reservationController.getPrice);
 router.get(
   '/api/allReservations',
   isAuth,
