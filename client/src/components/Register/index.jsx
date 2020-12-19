@@ -1,61 +1,42 @@
 import React from 'react';
+import {Form, Formik} from 'formik';
+import {useDispatch} from "react-redux";
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {
-    Avatar,
-    Link,
-    Grid,
-    Box,
-    Typography,
-    Container,
-    Radio
-} from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import {
-    Formik,
-    Form,
-} from 'formik';
 import {MENU_ROUTES} from '../../constants/routes/routes';
 
-import useStyles from './styles';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import {useDispatch} from "react-redux";
 import * as appAction from '../../store/actions/index'
-import * as Yup from 'yup'
-import Button from "@material-ui/core/Button";
+import initialValuesRegister from "../../constants/validation/initialValuesValidation";
+
+import registerSchema from "../../constants/validation/validationSchema";
+import useStyles from './styles';
+
+import {
+    Avatar,
+    Box,
+    Button,
+    Checkbox,
+    Container,
+    CssBaseline,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    Link,
+    Radio,
+    RadioGroup,
+    TextField,
+    Typography
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const Register = ({history}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const initialValues = {
-        email: '',
-        name: '',
-        surname: '',
-        sex: 'male',
-        password: '',
-    }
-
-    const registerSchema = Yup.object().shape({
-        name: Yup.string()
-            .min(2, 'Zbyt krótkie imię')
-            .max(50, 'Nieodpowiednia długość!'),
-        surname: Yup.string()
-            .min(2, 'Zbyt krótkie nazwisko!')
-            .max(50, 'Nieodpowiednia długość!!'),
-        password: Yup.string().required("This field is required"),
-    });
-
 
     const loginHandler = event => {
         event.preventDefault();
         history.push(MENU_ROUTES.LOGIN);
     };
-
 
     return (
         <Container component="main" maxWidth="xs">
@@ -73,15 +54,13 @@ const Register = ({history}) => {
                 </Typography>
                 <form className={classes.form} noValidate>
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={initialValuesRegister}
                         validationSchema={registerSchema}
                         onSubmit={(values, actions) => {
-                            console.log({values, actions});
-                            alert(JSON.stringify(values, null, 2));
                             dispatch(appAction.registerStart(values, history))
                             actions.setSubmitting(false);
                         }}
-                        render={({handleSubmit, handleChange, handleBlur,errors}) => (
+                        render={({handleSubmit, handleChange, handleBlur, errors}) => (
                             <Form onSubmit={handleSubmit}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
@@ -137,13 +116,16 @@ const Register = ({history}) => {
                                             onBlur={handleBlur}
                                             onChange={handleChange}
                                         />
+                                        {errors.password}
                                     </Grid>
                                     <FormControl component="fieldset">
                                         <FormLabel component="legend">Płeć</FormLabel>
                                         <RadioGroup
                                             aria-label="gender"
                                             name="sex"
-                                            onChange={event => handleChange(event)}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            defaultValue={'female'}
                                         >
                                             <FormControlLabel
                                                 value="female"
