@@ -18,6 +18,4 @@ export const userProfileTransform = apiData => ({
     adress_street: apiData.adress_street,
     sex: apiData.sex,
     nip: apiData.nip
-
-
 });

@@ -1,12 +1,21 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {Avatar, Box, Button, Container, FormControlLabel, Grid, TextField, Typography,} from '@material-ui/core';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    CssBaseline,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    Radio,
+    RadioGroup,
+    TextField,
+    Typography
+} from '@material-ui/core';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Spinner from '../UI/Spinner';
 
@@ -34,7 +43,7 @@ const UserProfile = ({history}) => {
     const [isStudent, setIsStudent] = useState(false);
     const [nip, setNIP] = useState('');
     const userProfile = useSelector(state => state.userProfile.user);
-    const isLoading = useSelector(state => state.utils.isLoading);
+    const isLoading = useSelector(({utils}) => utils.isLoading);
 
     useEffect(() => {
         if (!userProfile) {
@@ -58,7 +67,7 @@ const UserProfile = ({history}) => {
         }
     }, [dispatch, userProfile]);
 
-
+console.log(userProfile)
 
     return isLoading ? (
         <Container component="main" maxWidth="xs">
@@ -82,13 +91,11 @@ const UserProfile = ({history}) => {
                     </Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <Formik
-                            enableReinitialize
                             initialValues={userProfile ? userProfileTransform(userProfile) : null}
-                            // validationSchema={userProfileEdit}
+                            validationSchema={userProfileEdit}
                             onSubmit={(values, actions) => {
                                 dispatch(userActions.updateUserProfileStart(values, history));
                                 dispatch(userActions.updateAuthUserStart(values));
-                                alert(JSON.stringify(values, null, 2));
                                 actions.setSubmitting(false);
                             }}
                             render={({handleSubmit, handleChange, handleBlur, errors}) => (
@@ -142,10 +149,10 @@ const UserProfile = ({history}) => {
                                                 variant="outlined"
                                                 required
                                                 fullWidth
-                                                name="phoneNumber"
+                                                name="phone_number"
                                                 type='number'
                                                 label="Numer telefonu"
-                                                id="phoneNumber"
+                                                id="phone_number"
                                                 helperText={errors.phoneNumber}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
@@ -171,7 +178,7 @@ const UserProfile = ({history}) => {
                                                 variant="outlined"
                                                 required
                                                 fullWidth
-                                                name="city"
+                                                name="adress_city"
                                                 label="Miasto"
                                                 id="city"
                                                 onBlur={handleBlur}
@@ -184,11 +191,10 @@ const UserProfile = ({history}) => {
                                                 variant="outlined"
                                                 required
                                                 fullWidth
-                                                name="postalCode"
+                                                name="adress_postalCode"
                                                 helperText={errors.postalCode}
                                                 label="Kod pocztowy"
-                                                id="postalCode"
-                                                type='number'
+                                                id="adress_postalCode"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                                 value={postalCode}
@@ -199,9 +205,9 @@ const UserProfile = ({history}) => {
                                                 variant="outlined"
                                                 required
                                                 fullWidth
-                                                name="street"
+                                                name="adress_street"
                                                 label="Ulica"
-                                                id="street"
+                                                id="adress_street"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                                 value={street}
@@ -212,10 +218,9 @@ const UserProfile = ({history}) => {
                                                 variant="outlined"
                                                 required
                                                 fullWidth
-                                                name="NIP"
+                                                name="nip"
                                                 label="NIP"
-                                                id="NIP"
-                                                type={'number'}
+                                                id="nip"
                                                 helperText={errors.nip}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
