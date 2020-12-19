@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const registerSchema = Yup.object().shape({
+export const registerSchema = Yup.object().shape({
     name: Yup.string()
         .min(2, 'Zbyt krótkie imię')
         .max(50, 'Nieodpowiednia długość!'),
@@ -13,4 +13,16 @@ const registerSchema = Yup.object().shape({
     ),
 });
 
-export default registerSchema;
+
+export const userProfileEdit = Yup.object().shape({
+    nip: Yup.string()
+        .matches(/^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/,
+            'Niepoprawny format NIP'),
+    postalCode: Yup.string()
+        .matches(/^\d{2}[- ]{0,1}\d{3}$/,
+            'Kod pocztowy powinien być postaci XX-XXX'),
+    phoneNumber: Yup.string()
+        .matches(/(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/,
+            'Niepoprawny format numeru!')
+
+});
