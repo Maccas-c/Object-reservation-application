@@ -6,7 +6,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Court } from './Court';
 import { PriceList } from './PriceList/PriceList';
 import Users from './Users';
@@ -16,8 +15,6 @@ import { CourtCreate } from './Court/Create';
 import { CreateReservations } from './Reservations/CreateReservations';
 import { EditPriceList } from './PriceList/EditPriceList';
 import { ReservationList } from './Reservations/ReservationsList';
-
-import { InvoicePDF } from './InvoicePDF';
 
 const httpClient = (url, options = {}) => {
   options.headers = new Headers({ Accept: 'application/json' });
@@ -35,11 +32,5 @@ export const App = () => (
       <Resource name={'courts'} create={CourtCreate} list={Court} />
       <Resource name={'priceLists'} icon={AttachMoneyIcon} list={PriceList} edit={EditPriceList} />
     </Admin>
-    <div>
-      <PDFDownloadLink document={<InvoicePDF />} fileName={'somename.pdf'}>
-        test
-        {({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
-      </PDFDownloadLink>
-    </div>
   </>
 );
