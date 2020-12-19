@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {MENU_ROUTES} from '../../constants/routes/routes';
 
 import * as appAction from '../../store/actions/index'
-import initialValuesRegister from "../../constants/validation/initialValuesValidation";
+import {initialValuesRegister} from "../../constants/validation/initialValuesValidation";
 
 import {registerSchema} from "../../constants/validation/validationSchema";
 import useStyles from './styles';

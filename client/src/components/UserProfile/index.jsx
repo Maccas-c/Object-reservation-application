@@ -15,6 +15,7 @@ import * as userActions from '../../store/actions/index';
 import useStyles from './styles';
 import {Form, Formik} from "formik";
 import {userProfileEdit} from "../../constants/validation/validationSchema";
+import {userProfileTransform} from "../../constants/validation/initialValuesValidation";
 
 const UserProfile = ({history}) => {
     const classes = useStyles();
@@ -32,26 +33,8 @@ const UserProfile = ({history}) => {
     const [role, setRole] = useState('');
     const [isStudent, setIsStudent] = useState(false);
     const [nip, setNIP] = useState('');
-
     const userProfile = useSelector(state => state.userProfile.user);
     const isLoading = useSelector(state => state.utils.isLoading);
-
-    const updatedUser = {
-        id: '',
-        name: '',
-        surname: '',
-        phone_number: '',
-        age: '',
-        adress_city: '',
-        adress_postalCode: '',
-        adress_street: '',
-        sex: '',
-        role: '',
-        email: '',
-        isStudent: '',
-        nip: '',
-    };
-
 
     useEffect(() => {
         if (!userProfile) {
@@ -75,9 +58,6 @@ const UserProfile = ({history}) => {
         }
     }, [dispatch, userProfile]);
 
-    // const nipValid = /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/;
-    // const postcode = /^\d{2}[- ]{0,1}\d{3}$/;
-    // const phoneN = /(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/;
 
 
     return isLoading ? (
@@ -101,177 +81,180 @@ const UserProfile = ({history}) => {
                         Profil użytkownika
                     </Typography>
                     <form className={classes.form} noValidate autoComplete="off">
-                        <Formik initialValues={userProfile}
-                                validationSchema={userProfileEdit}
-                                onSubmit={(values, actions) => {
-                                    console.log({values, actions});
-                                    alert(JSON.stringify(values, null, 2));
-                                    actions.setSubmitting(false);
-                                }}
-                                render={({handleSubmit, handleChange, handleBlur, errors}) => (
-                                    <Form onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    disabled={isStudent}
-                                                    required
-                                                    fullWidth
-                                                    id="name"
-                                                    label="Imię"
-                                                    name="name"
-                                                    value={name}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    disabled={isStudent}
-                                                    required
-                                                    fullWidth
-                                                    id="surname"
-                                                    label="Nazwisko"
-                                                    name="surname"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={surname}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    disabled={isStudent}
-                                                    required
-                                                    fullWidth
-                                                    name="email"
-                                                    label="E-mail"
-                                                    id="email"
-                                                    type='email'
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={email}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    required
-                                                    fullWidth
-                                                    name="phoneNumber"
-                                                    type='number'
-                                                    label="Numer telefonu"
-                                                    id="phoneNumber"
-                                                    helperText={errors.phoneNumber}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={phoneNumber}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    required
-                                                    fullWidth
-                                                    name="age"
-                                                    label="Wiek"
-                                                    type='number'
-                                                    id="age"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={age}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    required
-                                                    fullWidth
-                                                    name="city"
-                                                    label="Miasto"
-                                                    id="city"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={city}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    required
-                                                    fullWidth
-                                                    name="postalCode"
-                                                    helperText={errors.postalCode}
-                                                    label="Kod pocztowy"
-                                                    id="postalCode"
-                                                    type='number'
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={postalCode}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    required
-                                                    fullWidth
-                                                    name="street"
-                                                    label="Ulica"
-                                                    id="street"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={street}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField
-                                                    variant="outlined"
-                                                    required
-                                                    fullWidth
-                                                    name="NIP"
-                                                    label="NIP"
-                                                    id="NIP"
-                                                    type={'number'}
-                                                    helperText={errors.nip}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={nip}
-                                                />
-                                            </Grid>
-                                            <FormControl>
-                                                <FormLabel>Płeć</FormLabel>
-                                                <RadioGroup
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={sex}
-                                                >
-                                                    <FormControlLabel
-                                                        disabled={isStudent}
-                                                        value="female"
-                                                        control={<Radio/>}
-                                                        label="Kobieta"
-                                                    />
-                                                    <FormControlLabel
-                                                        disabled={isStudent}
-                                                        value="male"
-                                                        control={<Radio/>}
-                                                        label="Mężczyzna"
-                                                    />
-                                                </RadioGroup>
-                                            </FormControl>
+                        <Formik
+                            enableReinitialize
+                            initialValues={userProfile ? userProfileTransform(userProfile) : null}
+                            // validationSchema={userProfileEdit}
+                            onSubmit={(values, actions) => {
+                                dispatch(userActions.updateUserProfileStart(values, history));
+                                dispatch(userActions.updateAuthUserStart(values));
+                                alert(JSON.stringify(values, null, 2));
+                                actions.setSubmitting(false);
+                            }}
+                            render={({handleSubmit, handleChange, handleBlur, errors}) => (
+                                <Form onSubmit={handleSubmit}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                disabled={isStudent}
+                                                required
+                                                fullWidth
+                                                id="name"
+                                                label="Imię"
+                                                name="name"
+                                                value={name}
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                            />
                                         </Grid>
-                                        <Button
-                                            fullWidth
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.submit}
-                                            type="submit"
-                                        >
-                                            Zapisz
-                                        </Button>
-                                    </Form>
-                                )}
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                disabled={isStudent}
+                                                required
+                                                fullWidth
+                                                id="surname"
+                                                label="Nazwisko"
+                                                name="surname"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={surname}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                disabled={isStudent}
+                                                required
+                                                fullWidth
+                                                name="email"
+                                                label="E-mail"
+                                                id="email"
+                                                type='email'
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={email}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                name="phoneNumber"
+                                                type='number'
+                                                label="Numer telefonu"
+                                                id="phoneNumber"
+                                                helperText={errors.phoneNumber}
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={phoneNumber}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                name="age"
+                                                label="Wiek"
+                                                type='number'
+                                                id="age"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={age}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                name="city"
+                                                label="Miasto"
+                                                id="city"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={city}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                name="postalCode"
+                                                helperText={errors.postalCode}
+                                                label="Kod pocztowy"
+                                                id="postalCode"
+                                                type='number'
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={postalCode}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                name="street"
+                                                label="Ulica"
+                                                id="street"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={street}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                name="NIP"
+                                                label="NIP"
+                                                id="NIP"
+                                                type={'number'}
+                                                helperText={errors.nip}
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={nip}
+                                            />
+                                        </Grid>
+                                        <FormControl>
+                                            <FormLabel>Płeć</FormLabel>
+                                            <RadioGroup
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={sex}
+                                            >
+                                                <FormControlLabel
+                                                    disabled={isStudent}
+                                                    value="female"
+                                                    control={<Radio/>}
+                                                    label="Kobieta"
+                                                />
+                                                <FormControlLabel
+                                                    disabled={isStudent}
+                                                    value="male"
+                                                    control={<Radio/>}
+                                                    label="Mężczyzna"
+                                                />
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        type="submit"
+                                    >
+                                        Zapisz
+                                    </Button>
+                                </Form>
+                            )}
                         />
                     </form>
                 </div>
