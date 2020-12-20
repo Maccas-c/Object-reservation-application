@@ -31,8 +31,8 @@ const UserProfile = ({history}) => {
 
     useEffect(() => {
         if (!userProfile) {
-            const user = JSON.parse(localStorage.getItem('user'));
-            dispatch(userActions.getUserProfileStart(user._id));
+            const {_id} = JSON.parse(localStorage.getItem('user'));
+            dispatch(userActions.getUserProfileStart(_id));
         }
         if (userProfile) {
             setFormValues(userProfile)
