@@ -41,8 +41,8 @@ const swaggerOptions = {
     },
   },
   apis: [
-    './swagger/users.js',
     './swagger/admin.js',
+    './swagger/users.js',
     './swagger/reservations.js',
   ],
 };

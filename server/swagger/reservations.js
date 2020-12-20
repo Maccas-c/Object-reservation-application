@@ -2,7 +2,7 @@
  * @swagger
  * /api/reservation/create:
  *  post:
- *    summary: Create new reservation
+ *    summary: Create new reservation as user
  *    parameters:
  *     - in: body
  *       name: body
@@ -19,15 +19,7 @@
  *       description: Ok
  *     '404':
  *       description: Error
- * 
- * /api/allReservations:
- *  get:
- *   summary: Get all reservations
- *   responses:
- *    '200':
- *      description: Ok
- *    '404':
- *      description: Error
+ *
  * /api/reservation/{reservationId}:
  *  get:
  *   summary: Get reservations by Id
@@ -52,7 +44,7 @@
  *      description: Ok
  *    '404':
  *      description: Error
-*/
+ */
 
 /**
  * @swagger
@@ -62,15 +54,15 @@
  *   properties:
  *    start_time:
  *     type: string
- *     example: 2020-05-12
+ *     example: "2020-05-12"
  *    hour:
  *     type: string
- *     example: 18:30
- *    courtid:
+ *     example: "16:00"
+ *    courtId:
  *     type: string
- *     example: 2
- *    userid:
- *     type: ObjectId
- *     example: asdasdas
+ *     example: A
+ *    userId:
+ *     type: string
+ *     example: "5fbbfc024397f30100824d67"
  *
  */
