@@ -7,12 +7,7 @@ import {
     Button,
     Container,
     CssBaseline,
-    FormControl,
-    FormControlLabel,
-    FormLabel,
     Grid,
-    Radio,
-    RadioGroup,
     TextField,
     Typography
 } from '@material-ui/core';
@@ -79,7 +74,7 @@ const UserProfile = ({history}) => {
                                          handleChange,
                                          handleBlur,
                                          errors: {adress_postalCode, age, nip, phone_number},
-                                         values: {adress_city, adress_postalCode: adress_postalCode1, adress_street, age: age1, email, name, nip: nip1, phone_number: phone_number1, sex, surname}
+                                         values: {adress_city, adress_postalCode: adress_postalCode1, adress_street, age: age1, email, name, nip: nip1, phone_number: phone_number1, surname}
                                      }) => (
                                 <Form onSubmit={handleSubmit}>
                                     <Grid container spacing={2}>
@@ -214,27 +209,6 @@ const UserProfile = ({history}) => {
                                                 value={nip1}
                                             />
                                         </Grid>
-                                        <FormControl>
-                                            <FormLabel>Płeć</FormLabel>
-                                            <RadioGroup
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={sex}
-                                            >
-                                                <FormControlLabel
-                                                    disabled={true}
-                                                    value="female"
-                                                    control={<Radio/>}
-                                                    label="Kobieta"
-                                                />
-                                                <FormControlLabel
-                                                    disabled={true}
-                                                    value="male"
-                                                    control={<Radio/>}
-                                                    label="Mężczyzna"
-                                                />
-                                            </RadioGroup>
-                                        </FormControl>
                                     </Grid>
                                     <Button
                                         fullWidth
