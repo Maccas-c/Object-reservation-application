@@ -19,3 +19,17 @@ export const userProfileTransform = apiData => ({
     sex: apiData.sex,
     nip: apiData.nip
 });
+
+export const initialValuesUserProfile = () => ({
+    id: '',
+    name: '',
+    surname: '',
+    email: '',
+    phone_number: '',
+    age: '',
+    adress_city: '',
+    adress_postalCode: '',
+    adress_street: '',
+    sex: '',
+    nip: ''
+});

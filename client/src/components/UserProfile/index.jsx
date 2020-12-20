@@ -29,46 +29,20 @@ import {userProfileTransform} from "../../constants/validation/initialValuesVali
 const UserProfile = ({history}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [age, setAge] = useState('');
-    const [city, setCity] = useState('');
-    const [street, setStreet] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [sex, setSex] = useState('');
-    const [id, setId] = useState('');
-    const [role, setRole] = useState('');
-    const [isStudent, setIsStudent] = useState(false);
-    const [nip, setNIP] = useState('');
+    const [formValues, setFormValues] = useState('')
+
     const userProfile = useSelector(state => state.userProfile.user);
     const isLoading = useSelector(({utils}) => utils.isLoading);
-
     useEffect(() => {
         if (!userProfile) {
-            const user = JSON.parse(localStorage.getItem('user'));
-            dispatch(userActions.getUserProfileStart(user._id));
+            const {_id} = JSON.parse(localStorage.getItem('user'));
+            dispatch(userActions.getUserProfileStart(_id));
         }
         if (userProfile) {
-            setId(userProfile._id);
-            setName(userProfile.name);
-            setSurname(userProfile.surname);
-            setEmail(userProfile.email);
-            setPhoneNumber(userProfile.phone_number);
-            setAge(userProfile.age);
-            setCity(userProfile.adress_city);
-            setStreet(userProfile.adress_street);
-            setPostalCode(userProfile.adress_postalCode);
-            setSex(userProfile.sex);
-            setRole(userProfile.role);
-            setIsStudent(userProfile.isStudent);
-            setNIP(userProfile.nip);
+            setFormValues(userProfile)
         }
     }, [dispatch, userProfile]);
-
-console.log(userProfile)
-
+    
     return isLoading ? (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -89,36 +63,47 @@ console.log(userProfile)
                     >
                         Profil użytkownika
                     </Typography>
-                    <form className={classes.form} noValidate autoComplete="off">
+                    <form className={classes.form}>
                         <Formik
-                            initialValues={userProfile ? userProfileTransform(userProfile) : null}
+                            enableReinitialize={true}
+                            initialValues={userProfileTransform(formValues)}
                             validationSchema={userProfileEdit}
                             onSubmit={(values, actions) => {
                                 dispatch(userActions.updateUserProfileStart(values, history));
                                 dispatch(userActions.updateAuthUserStart(values));
                                 actions.setSubmitting(false);
                             }}
-                            render={({handleSubmit, handleChange, handleBlur, errors}) => (
+                            render={({
+                                         handleSubmit,
+                                         handleChange,
+                                         handleBlur,
+                                         errors: {
+                                             nip,
+                                             phoneNumber,
+                                             postalCode
+                                         },
+                                         values: {adress_city, adress_postalCode, adress_street, age, email, name, nip: nip1, phone_number, sex, surname}
+                                     }) => (
                                 <Form onSubmit={handleSubmit}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                             <TextField
                                                 variant="outlined"
-                                                disabled={isStudent}
+                                                disabled={userProfile ? userProfile.isStudent : null}
                                                 required
                                                 fullWidth
                                                 id="name"
                                                 label="Imię"
                                                 name="name"
-                                                value={name}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
+                                                value={name}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
                                                 variant="outlined"
-                                                disabled={isStudent}
+                                                disabled={userProfile?.isStudent ?? null}
                                                 required
                                                 fullWidth
                                                 id="surname"
@@ -132,7 +117,7 @@ console.log(userProfile)
                                         <Grid item xs={12}>
                                             <TextField
                                                 variant="outlined"
-                                                disabled={isStudent}
+                                                disabled={userProfile?.isStudent ?? null}
                                                 required
                                                 fullWidth
                                                 name="email"
@@ -150,13 +135,13 @@ console.log(userProfile)
                                                 required
                                                 fullWidth
                                                 name="phone_number"
-                                                type='number'
                                                 label="Numer telefonu"
-                                                id="phone_number"
-                                                helperText={errors.phoneNumber}
+                                                id="phoneNumber"
+                                                helperText={phoneNumber}
+                                                error={phoneNumber}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={phoneNumber}
+                                                value={phone_number}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -183,7 +168,7 @@ console.log(userProfile)
                                                 id="city"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={city}
+                                                value={adress_city}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -192,12 +177,13 @@ console.log(userProfile)
                                                 required
                                                 fullWidth
                                                 name="adress_postalCode"
-                                                helperText={errors.postalCode}
+                                                helperText={postalCode}
+                                                error={postalCode}
                                                 label="Kod pocztowy"
-                                                id="adress_postalCode"
+                                                id="postalCode"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={postalCode}
+                                                value={adress_postalCode}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -210,7 +196,7 @@ console.log(userProfile)
                                                 id="adress_street"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={street}
+                                                value={adress_street}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -221,10 +207,11 @@ console.log(userProfile)
                                                 name="nip"
                                                 label="NIP"
                                                 id="nip"
-                                                helperText={errors.nip}
+                                                error={nip}
+                                                helperText={nip}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={nip}
+                                                value={nip1}
                                             />
                                         </Grid>
                                         <FormControl>
@@ -235,13 +222,11 @@ console.log(userProfile)
                                                 value={sex}
                                             >
                                                 <FormControlLabel
-                                                    disabled={isStudent}
                                                     value="female"
                                                     control={<Radio/>}
                                                     label="Kobieta"
                                                 />
                                                 <FormControlLabel
-                                                    disabled={isStudent}
                                                     value="male"
                                                     control={<Radio/>}
                                                     label="Mężczyzna"
