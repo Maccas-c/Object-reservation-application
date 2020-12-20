@@ -18,11 +18,13 @@ export const userProfileEdit = Yup.object().shape({
     nip: Yup.string()
         .matches(/^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/,
             'Niepoprawny format NIP'),
-    postalCode: Yup.string()
+    adress_postalCode: Yup.string()
         .matches(/^\d{2}[- ]{0,1}\d{3}$/,
             'Kod pocztowy powinien być postaci XX-XXX'),
-    phoneNumber: Yup.string()
+    phone_number: Yup.string()
         .matches(/(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/,
-            'Niepoprawny format numeru!')
+            'Niepoprawny format numeru!'),
+    age: Yup.string()
+        .max(3, 'Błąd')
 
 });

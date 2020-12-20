@@ -33,16 +33,17 @@ const UserProfile = ({history}) => {
 
     const userProfile = useSelector(state => state.userProfile.user);
     const isLoading = useSelector(({utils}) => utils.isLoading);
+
     useEffect(() => {
         if (!userProfile) {
-            const {_id} = JSON.parse(localStorage.getItem('user'));
-            dispatch(userActions.getUserProfileStart(_id));
+            const user = JSON.parse(localStorage.getItem('user'));
+            dispatch(userActions.getUserProfileStart(user._id));
         }
         if (userProfile) {
             setFormValues(userProfile)
         }
     }, [dispatch, userProfile]);
-    
+
     return isLoading ? (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -77,19 +78,15 @@ const UserProfile = ({history}) => {
                                          handleSubmit,
                                          handleChange,
                                          handleBlur,
-                                         errors: {
-                                             nip,
-                                             phoneNumber,
-                                             postalCode
-                                         },
-                                         values: {adress_city, adress_postalCode, adress_street, age, email, name, nip: nip1, phone_number, sex, surname}
+                                         errors: {adress_postalCode, age, nip, phone_number},
+                                         values: {adress_city, adress_postalCode: adress_postalCode1, adress_street, age: age1, email, name, nip: nip1, phone_number: phone_number1, sex, surname}
                                      }) => (
                                 <Form onSubmit={handleSubmit}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                             <TextField
                                                 variant="outlined"
-                                                disabled={userProfile ? userProfile.isStudent : null}
+                                                disabled={userProfile?.isStudent ?? null}
                                                 required
                                                 fullWidth
                                                 id="name"
@@ -135,13 +132,14 @@ const UserProfile = ({history}) => {
                                                 required
                                                 fullWidth
                                                 name="phone_number"
+                                                type='number'
                                                 label="Numer telefonu"
-                                                id="phoneNumber"
-                                                helperText={phoneNumber}
-                                                error={phoneNumber}
+                                                id="phone_number"
+                                                helperText={phone_number}
+                                                error={phone_number}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={phone_number}
+                                                value={phone_number1}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -152,10 +150,12 @@ const UserProfile = ({history}) => {
                                                 name="age"
                                                 label="Wiek"
                                                 type='number'
+                                                helperText={age}
+                                                error={age}
                                                 id="age"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={age}
+                                                value={age1}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -177,13 +177,13 @@ const UserProfile = ({history}) => {
                                                 required
                                                 fullWidth
                                                 name="adress_postalCode"
-                                                helperText={postalCode}
-                                                error={postalCode}
+                                                helperText={adress_postalCode}
+                                                error={adress_postalCode}
                                                 label="Kod pocztowy"
-                                                id="postalCode"
+                                                id="adress_postalCode"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
-                                                value={adress_postalCode}
+                                                value={adress_postalCode1}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -222,11 +222,13 @@ const UserProfile = ({history}) => {
                                                 value={sex}
                                             >
                                                 <FormControlLabel
+                                                    disabled={true}
                                                     value="female"
                                                     control={<Radio/>}
                                                     label="Kobieta"
                                                 />
                                                 <FormControlLabel
+                                                    disabled={true}
                                                     value="male"
                                                     control={<Radio/>}
                                                     label="Mężczyzna"
