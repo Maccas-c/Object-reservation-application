@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const InvoicePDF = (props) => {
-  console.log(props);
+export const PDFSchema = (data) => {
+  console.log(data);
 
   return (
     <Document>
