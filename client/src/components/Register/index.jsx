@@ -60,7 +60,7 @@ const Register = ({history}) => {
                             dispatch(appAction.registerStart(values, history))
                             actions.setSubmitting(false);
                         }}
-                        render={({handleSubmit, handleChange, handleBlur, errors}) => (
+                        render={({handleSubmit, handleChange, handleBlur, errors: {name, password, surname}}) => (
                             <Form onSubmit={handleSubmit}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
@@ -85,10 +85,11 @@ const Register = ({history}) => {
                                             label="Imię"
                                             type="name"
                                             id="name"
+                                            error={name}
+                                            helperText={name}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
                                         />
-                                        {errors.name}
                                     </Grid>
                                     <Grid item xs={6}>
                                         <TextField
@@ -99,10 +100,11 @@ const Register = ({history}) => {
                                             label="Nazwisko"
                                             type="surname"
                                             id="surname"
+                                            error={surname}
+                                            helperText={surname}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
                                         />
-                                        {errors.surname}
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
@@ -113,10 +115,11 @@ const Register = ({history}) => {
                                             label="Hasło"
                                             type="password"
                                             id="password"
+                                            error={password}
+                                            helperText={password}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
                                         />
-                                        {errors.password}
                                     </Grid>
                                     <FormControl component="fieldset">
                                         <FormLabel component="legend">Płeć</FormLabel>
