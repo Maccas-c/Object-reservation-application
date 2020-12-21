@@ -75,7 +75,7 @@ app.use(
     secret: process.env.OAUTH_SECRET,
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
-      ttl: 5 * 60,
+      ttl: 30 * 60,
       autoRemove: 'native',
     }),
     dbName: 'DevelopTeam',

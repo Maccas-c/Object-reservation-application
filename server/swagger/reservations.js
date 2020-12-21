@@ -16,32 +16,42 @@
  *        $ref: '#/definitions/ReservationCreate'
  *    responses:
  *     '200':
- *       description: Ok
+ *       description: Reservation has been created
  *     '404':
  *       description: Error
  *
- * /api/reservation/{reservationId}:
+ * /api/reservations/{userId}:
  *  get:
- *   summary: Get reservations by Id
+ *   summary: Get reservations booked by specific user
  *   parameters:
  *    - in: path
- *      name: reservationId
+ *      name: userId
  *      schema: string
  *   responses:
  *    '200':
- *      description: Ok
+ *     description: Specific user`s list of reservations
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/ReservationCreate'
  *    '404':
- *      description: Error
+ *      description: Not found
  * /api/reservations:
  *  get:
- *   summary: Get all reservations in 1 day
+ *   summary: Get all busy reservations for the specific day
  *   parameters:
  *    - in: query
  *      name: time
- *      schema: string
+ *      schema:
+ *       type: string
+ *      description: "2020-12-21"
  *   responses:
  *    '200':
- *      description: Ok
+ *     description: All busy reservations for the specific day
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/ReservationCreate'
  *    '404':
  *      description: Error
  */

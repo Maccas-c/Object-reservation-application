@@ -113,7 +113,7 @@
  *    '404':
  *      description: Not found
  *  post:
- *   summary: Create new reservation
+ *   summary: Create new reservation as admin
  *   parameters:
  *    - in: body
  *      name: body

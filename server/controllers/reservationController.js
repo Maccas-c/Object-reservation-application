@@ -58,7 +58,6 @@ module.exports.getPrice = async function (req, res) {
   console.log(price);
 };
 module.exports.reservationsGet = async function (req, res) {
-  // 2020-05-12
   const date = req.query.time;
   try {
     const reservations = await reservationModel.find({
