@@ -15,13 +15,14 @@ const styles = StyleSheet.create({
 });
 
 export const PDFSchema = (data) => {
-  console.log(data);
+  const getObjectOfReservations = data[Object.keys(data)[0]];
+  const getSingleReservation = getObjectOfReservations[Object.keys(getObjectOfReservations)[0]];
 
   return (
     <Document>
       <Page size={'A4'} style={styles.page}>
         <View style={styles.section}>
-          <Text>Section #2</Text>
+          <Text>{`Jebane id rezerwacji: ${getSingleReservation.id}`}</Text>
         </View>
       </Page>
     </Document>
