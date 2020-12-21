@@ -1,44 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
 import { BrowserRouter } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import { store } from './store/config';
 
-import * as serviceWorker from './serviceWorker';
-import auth from './store/reducers/auth';
-import register from './store/reducers/register';
-import utils from './store/reducers/utils';
-import usersList from './store/reducers/usersList';
-import userProfile from './store/reducers/userProfile';
-import recoveryPassword from './store/reducers/recoveryPassword';
-import calendar from './store/reducers/calendar';
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const rootReducer = combineReducers({
-  auth: auth,
-  register: register,
-  utils: utils,
-  usersList: usersList,
-  userProfile: userProfile,
-  recoveryPassword: recoveryPassword,
-  calendar: calendar
-});
-
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+import App from './App';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider {...{ store }}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
-
-serviceWorker.unregister();
