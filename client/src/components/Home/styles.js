@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: '5%',
     backgroundImage: `url(${Image_tablet})`,
   },
+  title: {
+    fontWeight: 700,
+    display:'flex',
+
+  }
 }));
 
 export default useStyles;

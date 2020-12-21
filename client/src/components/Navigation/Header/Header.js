@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import * as authActions from '../../../store/actions/index';
 
 import makeStyles from './HeaderStyles';
+import Regulations from "../../Regulations/Regulations";
 
 const Header = (props) => {
   const classes = makeStyles();
@@ -100,6 +101,7 @@ const Header = (props) => {
           onChange={(event) => switchTheme(event)}
           name="checkedA"
         />
+        <Regulations/>
         {logoutBtn}
       </Toolbar>
     </AppBar>
