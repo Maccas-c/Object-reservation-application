@@ -3,5 +3,4 @@ export const MENU_ITEMS = {
     USER_PROFILE: 'Profil użytkownika',
     CALENDAR: 'Kalendarz',
     LIST_USER_RESERVATION: 'Historia Rezerwacji',
-    REGULATIONS: 'Regulamin'
 };
