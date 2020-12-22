@@ -30,7 +30,7 @@ export const UsersShow = ({ ...props }) => {
               <TextField source={'id'} />
               <TextField source={'start_time'} />
               <TextField source={'hour'} />
-              <TextField source={'courtid'} />
+              <TextField source={'courtId'} />
               <TextField label={'Imię'} source={'userId.name'} />
               <TextField label={'Nazwisko'} source={'userId.surname'} />
             </Datagrid>

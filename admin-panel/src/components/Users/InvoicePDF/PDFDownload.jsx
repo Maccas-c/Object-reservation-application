@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import { PDFSchema } from './PDFSchema';
+import _ from 'lodash';
 
-export const PDFDownload = ({ data }) =>
-  data ? (
-    <PDFDownloadLink document={<PDFSchema {...{ data }} />} fileName={'somename.pdf'}>
-      {({ loading }) => (loading ? 'Generowanie PDF...' : 'Pobierz PDF!')}
-    </PDFDownloadLink>
-  ) : null;
+import { PDFDownloadService } from './service';
+
+export const PDFDownload = ({ data }) => {
+  const { print } = PDFDownloadService();
+
+  const content = !_.isEmpty(data) ? <button {...{ onClick: () => print(data), type: 'button' }}>PDF</button> : null;
+
+  return content;
+};
