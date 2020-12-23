@@ -19,6 +19,7 @@ import { ReservationList } from './Reservations/ReservationsList';
 const httpClient = (url, options = {}) => {
   options.headers = new Headers({ Accept: 'application/json' });
   options.headers = new Headers({ Accept: 'Content-Type' });
+  options.headers.set('Cache-Control', 'no-cache');
 
   return fetchUtils.fetchJson(url, options);
 };

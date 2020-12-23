@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {
-  isAuth,
-  authRole,
-  rangeUsers,
-  rangeReservations,
-} = require('./authMiddleware');
+const { isAuth, authRole } = require('./authMiddleware');
 const { check } = require('express-validator');
 const adminController = require('./../controllers/adminController');
 const { reservationCreate } = require('./../controllers/reservationController');
+const {
+  rangeReservations,
+  rangeUsers,
+} = require('./../controllers/paginationAdmin');
 router.get(
   '/api/admin',
   isAuth,
