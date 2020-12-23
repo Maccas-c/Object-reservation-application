@@ -25,10 +25,12 @@ const httpClient = (url, options = {}) => {
 const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpClient);
 
 export const App = () => (
-  <Admin {...{ dataProvider, authProvider }}>
-    <Resource name={'users'} icon={PeopleIcon} {...Users} />
-    <Resource name={'reservations'} icon={DashboardIcon} create={CreateReservations} list={ReservationList} />
-    <Resource name={'courts'} create={CourtCreate} list={Court} />
-    <Resource name={'priceLists'} icon={AttachMoneyIcon} list={PriceList} edit={EditPriceList} />
-  </Admin>
+  <>
+    <Admin {...{ dataProvider, authProvider }}>
+      <Resource name={'users'} icon={PeopleIcon} {...Users} />
+      <Resource name={'reservations'} icon={DashboardIcon} create={CreateReservations} list={ReservationList} />
+      <Resource name={'courts'} create={CourtCreate} list={Court} />
+      <Resource name={'priceLists'} icon={AttachMoneyIcon} list={PriceList} edit={EditPriceList} />
+    </Admin>
+  </>
 );
