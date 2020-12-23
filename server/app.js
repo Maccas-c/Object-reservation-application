@@ -70,6 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(logger('dev'));
 app.use(express.json());
+
 app.use(
   session({
     secret: process.env.OAUTH_SECRET,
@@ -98,6 +99,7 @@ app.use(resetPassword);
 app.use(updatePasswordViaEmail);
 app.use(tariffRouter);
 app.use(paymentRouter);
+
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '../client/build/index.html'));
 // });
