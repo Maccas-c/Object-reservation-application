@@ -141,3 +141,31 @@ module.exports.reservationsDelete = async function (req, res) {
     res.status(404).json(err);
   }
 };
+
+module.exports.reservationCreate = async function (req, res) {
+  const isExist = reservationModel.findOne(
+    {
+      start_time: req.body.start_time,
+      hour: req.body.hour,
+      courtId: req.body.courtId,
+    },
+    async function (err, obj) {
+      if (err) return res.status(404).json(err);
+      if (obj) return res.status(422).json('The hour is taken');
+      else {
+        const reservation = new reservationModel({
+          start_time: req.body.start_time,
+          hour: req.body.hour,
+          courtId: req.body.courtId,
+          userId: req.body.userId,
+        });
+        try {
+          const savedReservation = await reservation.save();
+          res.status(201).json(savedReservation);
+        } catch (err) {
+          res.status(400).json(err);
+        }
+      }
+    },
+  );
+};

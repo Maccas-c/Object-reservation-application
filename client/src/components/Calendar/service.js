@@ -9,7 +9,7 @@ import { uuidv4 } from '../../utils/customFunction';
 
 import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
 
-import useStyles from './tableStyles';
+import useStyles from './tableStyles'
 import './styles.css';
 
 export const useCalendarService = () => {
