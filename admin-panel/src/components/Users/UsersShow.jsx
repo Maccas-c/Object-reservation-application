@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Datagrid, ReferenceManyField, Show, Tab, TabbedShowLayout, TextField } from 'react-admin';
 
-import { PDFDownload } from './InvoicePDF/PDFDownload';
-
 export const UsersShow = ({ ...props }) => {
   return (
     <Show {...props}>
@@ -22,9 +20,6 @@ export const UsersShow = ({ ...props }) => {
           <TextField label={'Student'} source={'isStudent'} />
         </Tab>
         <Tab label={'Rezerwacje'} path={'reservations'}>
-          <ReferenceManyField addLabel={false} reference={'reservations'} target={'userId'}>
-            <PDFDownload />
-          </ReferenceManyField>
           <ReferenceManyField addLabel={false} reference={'reservations'} target={'userId'}>
             <Datagrid>
               <TextField source={'id'} />
