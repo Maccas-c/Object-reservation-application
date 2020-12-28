@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { Drawer, Hidden } from '@material-ui/core';
 
 import MenuList from './MenuList';
 
-import { MENU_ROUTES } from '../../../constants/routes';
+import { MENU_ROUTES } from '@routes';
 
 import { useSideDrawerService } from './service';
 
