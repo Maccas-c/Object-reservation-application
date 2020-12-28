@@ -3,7 +3,6 @@
  * /api/user/create:
  *  post:
  *   summary: Create user
- *   description: Create user
  *   parameters:
  *    - in: body
  *      name: body
@@ -17,13 +16,12 @@
  *       $ref: '#/definitions/UserCreate'
  *   responses:
  *    '200':
- *      description: Ok
+ *      description: User has been created
  *    '404':
  *      description: Error
  * /api/user/update:
  *  patch:
  *   summary: Update user
- *   description: Update user
  *   parameters:
  *    - in: body
  *      name: body
@@ -37,9 +35,9 @@
  *       $ref: '#/definitions/UserUpdate'
  *   responses:
  *    '200':
- *      description: Ok
+ *      description: User has been updated
  *    '404':
- *      description: Error
+ *      description: User not found
  *
  * /api/user/{userId}:
  *  get:
@@ -50,9 +48,15 @@
  *      schema: string
  *   responses:
  *    '200':
- *      description: Ok
+ *     description: User`s data
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/UserUpdate'
  *    '404':
  *      description: Error
+ *    '401':
+ *      description: Not authorized
  * */
 
 /**

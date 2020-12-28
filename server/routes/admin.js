@@ -8,7 +8,7 @@ const {
 } = require('./authMiddleware');
 const { check } = require('express-validator');
 const adminController = require('./../controllers/adminController');
-
+const { reservationCreate } = require('./../controllers/reservationController');
 router.get(
   '/api/admin',
   isAuth,
@@ -36,5 +36,5 @@ router.delete(
   '/api/admin/reservations/:id',
   adminController.reservationsDelete,
 );
-
+router.post('/api/admin/reservations', reservationCreate);
 module.exports = router;

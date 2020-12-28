@@ -2,7 +2,7 @@
  * @swagger
  * /api/reservation/create:
  *  post:
- *    summary: Create new reservation
+ *    summary: Create new reservation as user
  *    parameters:
  *     - in: body
  *       name: body
@@ -16,43 +16,45 @@
  *        $ref: '#/definitions/ReservationCreate'
  *    responses:
  *     '200':
- *       description: Ok
+ *       description: Reservation has been created
  *     '404':
  *       description: Error
- * 
- * /api/allReservations:
+ *
+ * /api/reservations/{userId}:
  *  get:
- *   summary: Get all reservations
- *   responses:
- *    '200':
- *      description: Ok
- *    '404':
- *      description: Error
- * /api/reservation/{reservationId}:
- *  get:
- *   summary: Get reservations by Id
+ *   summary: Get reservations booked by specific user
  *   parameters:
  *    - in: path
- *      name: reservationId
+ *      name: userId
  *      schema: string
  *   responses:
  *    '200':
- *      description: Ok
+ *     description: Specific user`s list of reservations
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/ReservationCreate'
  *    '404':
- *      description: Error
+ *      description: Not found
  * /api/reservations:
  *  get:
- *   summary: Get all reservations in 1 day
+ *   summary: Get all busy reservations for the specific day
  *   parameters:
  *    - in: query
  *      name: time
- *      schema: string
+ *      schema:
+ *       type: string
+ *      description: "2020-12-21"
  *   responses:
  *    '200':
- *      description: Ok
+ *     description: All busy reservations for the specific day
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/ReservationCreate'
  *    '404':
  *      description: Error
-*/
+ */
 
 /**
  * @swagger
@@ -62,15 +64,15 @@
  *   properties:
  *    start_time:
  *     type: string
- *     example: 2020-05-12
+ *     example: "2020-05-12"
  *    hour:
  *     type: string
- *     example: 18:30
- *    courtid:
+ *     example: "16:00"
+ *    courtId:
  *     type: string
- *     example: 2
- *    userid:
- *     type: ObjectId
- *     example: asdasdas
+ *     example: A
+ *    userId:
+ *     type: string
+ *     example: "5fbbfc024397f30100824d67"
  *
  */

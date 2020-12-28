@@ -8,6 +8,7 @@ export {
   startLoadingUser,
   updateAuthUserStart,
   fetchReservationUser,
+  fetchTrafficCourtPrize
 } from "./auth";
 
 export { registerStart } from "./register";

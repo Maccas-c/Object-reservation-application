@@ -25,8 +25,6 @@ router.post(
   reservationController.reservationCreateConstant,
 );
 
-router.post('/api/admin/reservations', reservationController.reservationCreate);
-
 router.delete(
   '/api/reservation/delete/:reservationId',
   isAuth,
