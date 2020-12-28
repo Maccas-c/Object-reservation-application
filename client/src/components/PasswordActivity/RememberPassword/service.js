@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import * as recoveryActions from '../../../store/actions/index';
 
-import { MENU_ROUTES } from '../../../constants/routes/routes';
+import { MENU_ROUTES } from '../../../constants/routes';
 
 import useStyles from './styles';
 

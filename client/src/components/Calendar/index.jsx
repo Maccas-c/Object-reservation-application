@@ -27,7 +27,7 @@ import * as calendarActions from '../../store/actions/index';
 
 import { useCalendarService } from './service';
 
-import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
+import { RESERVATIONS_TIMES } from '../../constants/calendar';
 
 import './styles.css';
 

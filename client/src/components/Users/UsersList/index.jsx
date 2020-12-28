@@ -18,7 +18,7 @@ import Spinner from '../../UI/Spinner';
 
 import { useUsersListService } from './service';
 
-import { TABLE_ROWS } from '../../../constants/usersList/usersList';
+import { TABLE_ROWS } from '../../../constants/usersList';
 
 const UserLists = ({ history }) => {
   const {

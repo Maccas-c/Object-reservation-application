@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Switch } from 'react-router-dom';
 
-import Content from '../../components/Navigation/SideDrawer/SideDrawer';
+import Navigation from '../../components/Navigation';
 
 import ProtectedRoute from '../custom-routes/protected';
 import FreeRoute from '../custom-routes/free';
@@ -18,7 +18,7 @@ const Layout = () => {
 
   return (
     <ThemeProvider {...{ theme }}>
-      <Content {...{ user, switch: toggleMode, value }}>
+      <Navigation {...{ user, toggleMode, value }}>
         <Switch>
           {ROUTES.map(route =>
             route.isProtected ? (
@@ -42,7 +42,7 @@ const Layout = () => {
             ),
           )}
         </Switch>
-      </Content>
+      </Navigation>
     </ThemeProvider>
   );
 };

@@ -3,11 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    overflow: 'hidden',
-    fontFamily: 'Roboto',
-  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -18,21 +13,6 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    display: 'compact',
-    overflow: 'hidden',
-    bottom: 0,
-  },
-  closeMenuButton: {
-    marginRight: 'auto',
-    marginLeft: 0,
-  },
-  drawerList: {
-    borderTop: '1px solid rgba(0,0,0,0.3)',
-    fontFamily: 'Roboto',
   },
   userProfile: {
     textAlign: 'center',

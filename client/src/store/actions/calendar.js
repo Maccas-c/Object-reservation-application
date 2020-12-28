@@ -1,4 +1,4 @@
-import { MENU_ROUTES } from '../../constants/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes';
 import * as actionTypes from './actionTypes';
 import { startLoadingUser, endLoadingUser } from './auth';
 import axios from '../../axios/axios-auth';

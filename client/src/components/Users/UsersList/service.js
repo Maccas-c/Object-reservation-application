@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { MENU_ROUTES } from '../../../constants/routes/routes';
+import { MENU_ROUTES } from '../../../constants/routes';
 import * as userActions from '../../../store/actions/index';
 
 import useStyles from './styles';
