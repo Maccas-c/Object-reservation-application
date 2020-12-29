@@ -8,6 +8,7 @@ import usersList from '@reducers/usersList';
 import userProfile from '@reducers/userProfile';
 import recoveryPassword from '@reducers/recoveryPassword';
 import calendar from '@reducers/calendar';
+import priceList from '@reducers/prices';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   userProfile: userProfile,
   recoveryPassword: recoveryPassword,
   calendar: calendar,
+  prices: priceList,
 });
 
 export const store = createStore(
