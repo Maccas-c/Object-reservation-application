@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   main: {
-    margin: '32px 300px !important',
+    marginTop: '4px !important',
   },
   title: {
     fontWeight: 700,

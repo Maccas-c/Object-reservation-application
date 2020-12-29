@@ -1,16 +1,20 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-
 import TileItem from '@components/Home/TileItem';
 
-export default function SimpleCard() {
+import { useTilesListService } from './service';
+
+const TilesList = () => {
+  const { classes } = useTilesListService();
+
   return (
-    <Grid container>
+    <div {...{ className: classes.main }}>
       <TileItem />
       <TileItem />
       <TileItem />
       <TileItem />
-    </Grid>
+    </div>
   );
-}
+};
+
+export default TilesList;

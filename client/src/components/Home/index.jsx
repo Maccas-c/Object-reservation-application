@@ -1,7 +1,9 @@
 import React from 'react';
 
+import Container from '@material-ui/core/Container';
+
 import PriceList from './PriceList';
-import UnitTileItem from './TilesList';
+import TilesList from './TilesList';
 
 import { useHomeService } from './service';
 
@@ -9,10 +11,10 @@ const Home = () => {
   const { classes } = useHomeService();
 
   return (
-    <div {...{ className: classes.main }}>
-      <UnitTileItem />
+    <Container component="main" maxWidth="lg" {...{ className: classes.main }}>
+      <TilesList />
       <PriceList />
-    </div>
+    </Container>
   );
 };
 

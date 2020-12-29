@@ -25,14 +25,14 @@ const PriceList = () => {
   } = usePriceListService();
 
   return (
-    <Accordion {...{ expanded: isExpanded }}>
+    <Accordion {...{ className: classes.main, expanded: isExpanded }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         {...{ onClick: clickExpandHandler }}
       >
         <Typography className={classes.title}>Cennik</Typography>
       </AccordionSummary>
-      <TableContainer className={classes.tablet}>
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
