@@ -12,10 +12,10 @@ export const usePriceListService = () => {
   const [isExpanded, setIsExpaned] = useState(false);
 
   const dispatch = useDispatch();
-  const priceList = useSelector(({ prices }) => prices.priceList);
+  const priceList = useSelector(({ home }) => home.priceList);
 
   useEffect(() => {
-    dispatch(appActions.fetchPriceListCourtPrize());
+    dispatch(appActions.getPriceList());
   }, [dispatch]);
 
   const clickExpandHandler = () => setIsExpaned(!isExpanded);

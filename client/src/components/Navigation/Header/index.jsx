@@ -2,6 +2,8 @@ import React from 'react';
 
 import { AppBar, Toolbar, Switch } from '@material-ui/core';
 
+import Regulations from '@components/Regulations';
+
 import { useHeaderContainer } from './container';
 import { useHeaderService } from './service';
 
@@ -38,6 +40,7 @@ const Header = ({ open, user, toggleMode, value }) => {
             name: 'checkedA',
           }}
         />
+        <Regulations />
         {logoutButton}
       </Toolbar>
     </AppBar>

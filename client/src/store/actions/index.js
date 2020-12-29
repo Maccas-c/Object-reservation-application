@@ -34,4 +34,4 @@ export {
   setDayWeekend,
 } from './calendar';
 
-export { fetchPriceListCourtPrize } from './prices';
+export { getPriceList, getCourts } from './home';

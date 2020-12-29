@@ -21,5 +21,6 @@ export const MENU_ROUTES = {
   LIST_USER_RESERVATION: '/reservations/',
   LIST_RESERVATION: '/reservation/create/groups',
   PRIZE_LIST: '/priceLists',
-  REGULATIONS: '/regulations'
+  REGULATIONS: '/regulations',
+  COURTS: '/courts',
 };

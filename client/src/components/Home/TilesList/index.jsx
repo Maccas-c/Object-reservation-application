@@ -5,14 +5,11 @@ import TileItem from '@components/Home/TileItem';
 import { useTilesListService } from './service';
 
 const TilesList = () => {
-  const { classes } = useTilesListService();
+  const { classes, courts } = useTilesListService();
 
   return (
     <div {...{ className: classes.main }}>
-      <TileItem />
-      <TileItem />
-      <TileItem />
-      <TileItem />
+      {courts && courts.map(court => <TileItem {...{ court }} />)}
     </div>
   );
 };
