@@ -1,28 +1,28 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '@actionTypes';
 
 const initialState = {
   modeId: '0',
-  isLoading: false
+  isLoading: false,
 };
 
 const startLoadingUser = (state, action) => {
   return {
     ...state,
-    isLoading: true
+    isLoading: true,
   };
 };
 
 const endLoadingUser = (state, action) => {
   return {
     ...state,
-    isLoading: false
+    isLoading: false,
   };
 };
 
 const switchModeTheme = (state, action) => {
   return {
     ...state,
-    modeId: action.modeId
+    modeId: action.modeId,
   };
 };
 

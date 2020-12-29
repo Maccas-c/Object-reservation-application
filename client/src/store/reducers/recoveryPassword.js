@@ -1,35 +1,35 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '@actionTypes';
 
 const initialState = {
   email: null,
-  isValidToken: false
+  isValidToken: false,
 };
 
 const recoveryPassword = (state, action) => {
   return {
     ...state,
     email: null,
-    isValidToken: false
+    isValidToken: false,
   };
 };
 const resetPasswordSuccess = (state, action) => {
   return {
     ...state,
     email: action.email,
-    isValidToken: true
+    isValidToken: true,
   };
 };
 const resetPasswordFail = (state, action) => {
   return {
     ...state,
     email: null,
-    isValidToken: false
+    isValidToken: false,
   };
 };
 const updatePasswordSuccess = (state, action) => {
   return {
     ...state,
-    email: null
+    email: null,
   };
 };
 

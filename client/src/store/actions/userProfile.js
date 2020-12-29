@@ -1,8 +1,10 @@
-import axios from '../../axios/axios-auth';
+import axios from '@axios/axios-auth';
 
-import { MENU_ROUTES } from '../../constants/routes';
-import * as actionTypes from './actionTypes';
 import { startLoadingUser } from './auth';
+
+import * as actionTypes from './actionTypes';
+
+import { MENU_ROUTES } from '@routes';
 
 export const getUserProfileStart = userId => {
   return dispatch => {

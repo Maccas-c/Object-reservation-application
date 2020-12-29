@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Switch } from 'react-router-dom';
 
-import Navigation from '../../components/Navigation';
-
-import ProtectedRoute from '../custom-routes/protected';
-import FreeRoute from '../custom-routes/free';
-
 import { ThemeProvider } from '@material-ui/core/styles';
+
+import Navigation from '@components/Navigation';
+
+import ProtectedRoute from '@hoc/custom-routes/protected';
+import FreeRoute from '@hoc/custom-routes/free';
 
 import { useLayoutService } from './service';
 

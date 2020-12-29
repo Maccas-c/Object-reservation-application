@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import * as authActions from '../../../store/actions/index';
+import * as authActions from '@actions/index';
 
 import useStyles from './styles';
 

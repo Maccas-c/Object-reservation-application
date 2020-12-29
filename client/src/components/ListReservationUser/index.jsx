@@ -11,11 +11,11 @@ import {
   TableRow,
 } from '@material-ui/core';
 
-import Spinner from '../UI/Spinner';
+import Spinner from '@UI/Spinner';
 
 import { useListReservationUser } from './service';
 
-import { TABLE_RESERVATION_USER_ROWS } from '../../constants/usersList';
+import { TABLE_RESERVATION_USER_ROWS } from '@constants/usersList';
 
 const ListReservationUser = () => {
   const { classes, reservations, isLoading } = useListReservationUser();

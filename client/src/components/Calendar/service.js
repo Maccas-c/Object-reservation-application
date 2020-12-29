@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import * as calendarActions from '../../store/actions/index';
+import * as calendarActions from '@actions/index';
 
-import { useConstructor } from '../../utils/customHooks';
-import { uuidv4 } from '../../utils/customFunction';
+import { useConstructor } from '@utils/customHooks';
+import { uuidv4 } from '@utils/customFunction';
 
-import { RESERVATIONS_TIMES } from '../../constants/calendar';
+import { RESERVATIONS_TIMES } from '@constants/calendar';
 
 import useStyles from './tableStyles';
 

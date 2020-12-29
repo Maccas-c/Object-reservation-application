@@ -21,12 +21,12 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import * as appAction from '../../store/actions/index';
+import * as appAction from '@actions/index';
 
 import { useRegisterService } from './service';
 
-import { initialValuesRegister } from '../../constants/validation/initialValuesValidation';
-import { registerSchema } from '../../constants/validation/validationSchema';
+import { initialValuesRegister } from '@constants/validation/initialValuesValidation';
+import { registerSchema } from '@constants/validation/validationSchema';
 
 const Register = ({ history }) => {
   const { classes, loginHandler, dispatch } = useRegisterService();

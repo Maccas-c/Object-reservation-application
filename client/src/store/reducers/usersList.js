@@ -1,37 +1,37 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '@actionTypes';
 
 const initialState = {
   users: null,
-  user: null
+  user: null,
 };
 
 const getUsers = (state, action) => {
   return {
     ...state,
-    users: action.users
+    users: action.users,
   };
 };
 const getUser = (state, action) => {
   return {
     ...state,
-    user: action.user
+    user: action.user,
   };
 };
 const clearUsers = (state, action) => {
   return {
     ...state,
     users: null,
-    user: null
+    user: null,
   };
 };
 
 const deleteUser = (state, action) => {
   const newUsers = Object.assign([], state.users);
-  const updatedUsers = newUsers.filter((user) => user._id !== action.id);
+  const updatedUsers = newUsers.filter(user => user._id !== action.id);
   return {
     ...state,
     users: updatedUsers,
-    user: null
+    user: null,
   };
 };
 

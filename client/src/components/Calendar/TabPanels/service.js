@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import * as calendarActions from '../../../store/actions/index';
+import * as calendarActions from '@actions/index';
 
 import useStyles from './styles';
 

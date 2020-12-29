@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { MENU_ROUTES } from '../../constants/routes';
+import { MENU_ROUTES } from '@routes';
 
 import useStyles from './styles';
 

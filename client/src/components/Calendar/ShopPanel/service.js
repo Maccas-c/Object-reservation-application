@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import useStyles from '../tableStyles';
 
-import * as calendarActions from '../../../store/actions/index';
+import * as calendarActions from '@actions/index';
 
 export const useShopPanelService = () => {
   const classes = useStyles();

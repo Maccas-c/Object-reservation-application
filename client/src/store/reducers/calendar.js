@@ -1,8 +1,8 @@
-import * as actionTypes from "../actions/actionTypes";
+import * as actionTypes from '@actionTypes';
 
 const initialState = {
   days: null,
-  courtId: "a",
+  courtId: 'a',
   reservationList: [],
 };
 
@@ -44,22 +44,22 @@ const deleteReservationList = (state, action) => {
   return {
     ...state,
     reservationList: state.reservationList.filter(
-      (reservation) => reservation.uuid !== action.uuid
+      reservation => reservation.uuid !== action.uuid,
     ),
   };
 };
 
-const clearReservationList = (state) => {
+const clearReservationList = state => {
   return {
     ...state,
     reservationList: [],
   };
 };
 
-const setCourtId = (state) => {
+const setCourtId = state => {
   return {
     ...state,
-    courtId: "d",
+    courtId: 'd',
   };
 };
 const reducer = (state = initialState, action) => {

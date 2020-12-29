@@ -1,7 +1,8 @@
-import axios from '../../axios/axios-auth';
+import axios from '@axios/axios-auth';
 
 import * as actionTypes from './actionTypes';
-import { MENU_ROUTES } from '../../constants/routes';
+
+import { MENU_ROUTES } from '@routes';
 
 export const loginSuccess = user => {
   return {
@@ -200,20 +201,21 @@ export const clearUsersList = () => {
   };
 };
 export const fetchTrafficCourtPrize = () => {
-    return (dispatch) => {
-        axios.get(MENU_ROUTES.PRIZE_LIST, {withCredentials: true})
-            .then((response) => {
-                dispatch(fetchTrafficCourt(response.data))
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
-}
+  return dispatch => {
+    axios
+      .get(MENU_ROUTES.PRIZE_LIST, { withCredentials: true })
+      .then(response => {
+        dispatch(fetchTrafficCourt(response.data));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 
-export const fetchTrafficCourt = (traffic) =>{
-    return {
-        type:actionTypes.FETCH_TRAFFIC_COURT,
-        traffic:traffic
-    }
-}
+export const fetchTrafficCourt = traffic => {
+  return {
+    type: actionTypes.FETCH_TRAFFIC_COURT,
+    traffic: traffic,
+  };
+};

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { List } from '@material-ui/core';
 
-import { MENU_ITEMS } from '../../../../constants/menuList';
-
 import MenuItem from '../MenuItem';
+
+import { MENU_ITEMS } from '@constants/menuList';
 
 import { useMenuListService } from './service';
 

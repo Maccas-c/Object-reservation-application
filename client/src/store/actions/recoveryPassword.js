@@ -1,7 +1,10 @@
-import { MENU_ROUTES } from '../../constants/routes';
+import axios from '@axios/axios-auth';
+
 import * as actionTypes from './actionTypes';
+
 import { startLoadingUser, endLoadingUser } from './auth';
-import axios from '../../axios/axios-auth';
+
+import { MENU_ROUTES } from '@routes';
 
 export const resetPasswordStart = token => {
   return dispatch => {

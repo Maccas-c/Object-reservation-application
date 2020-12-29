@@ -1,8 +1,8 @@
 import { useHistory, useLocation } from 'react-router-dom';
 
-import AvatarMale from '../../../assets/avatar/male.png';
-import AvatarFemale from '../../../assets/avatar/female.png';
-import { MENU_ROUTES } from '../../../constants/routes';
+import AvatarMale from '@assets/avatar/male.png';
+import AvatarFemale from '@assets/avatar/female.png';
+import { MENU_ROUTES } from '@constants/routes';
 
 import useStyles from './styles';
 

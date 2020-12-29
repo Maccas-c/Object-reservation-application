@@ -6,9 +6,9 @@ import { Drawer, Hidden } from '@material-ui/core';
 
 import MenuList from './MenuList';
 
-import { MENU_ROUTES } from '@routes';
-
 import { useSideDrawerService } from './service';
+
+import { MENU_ROUTES } from '@routes';
 
 const SideDrawer = ({ user, mobileOpen, handleDrawerToggle }) => {
   let {
