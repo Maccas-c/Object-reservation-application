@@ -8,22 +8,21 @@ export {
   startLoadingUser,
   updateAuthUserStart,
   fetchReservationUser,
-  fetchTrafficCourtPrize
-} from "./auth";
+} from './auth';
 
-export { registerStart } from "./register";
+export { registerStart } from './register';
 
-export { loadUsersStart, deleteUserStart, getUserStart } from "./usersList";
+export { loadUsersStart, deleteUserStart, getUserStart } from './usersList';
 
-export { switchModeTheme } from "./utils";
+export { switchModeTheme } from './utils';
 
-export { getUserProfileStart, updateUserProfileStart } from "./userProfile";
+export { getUserProfileStart, updateUserProfileStart } from './userProfile';
 
 export {
   recoveryPasswordStart,
   resetPasswordStart,
   updatePasswordStart,
-} from "./recoveryPassword";
+} from './recoveryPassword';
 
 export {
   checkDayStart,
@@ -33,4 +32,6 @@ export {
   bookListReservation,
   deleteReservationToList,
   setDayWeekend,
-} from "./calendar";
+} from './calendar';
+
+export { getPriceList, getCourts } from './home';

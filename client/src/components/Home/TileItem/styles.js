@@ -1,8 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  main: {
+  root: {
     marginTop: '50px',
+    minWidth: 258,
+  },
+  title: {
+    fontSize: 14,
   },
 }));
 

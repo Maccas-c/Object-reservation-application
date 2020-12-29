@@ -4,7 +4,7 @@ import { IconButton } from '@material-ui/core';
 
 import PDF from '@assets/regulations/regulations.pdf';
 
-import { useRegulationsService } from './styles';
+import { useRegulationsService } from './service';
 
 const Regulations = () => {
   const { classes } = useRegulationsService();

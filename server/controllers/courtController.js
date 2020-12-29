@@ -23,6 +23,12 @@ module.exports.courtsCreate = async function (req, res) {
           ids: req.body.ids,
           nameCourt: req.body.nameCourt,
           description: req.body.description,
+          date: req.body.date.map(date => {
+            return {
+              nameOfDay: date.nameOfDay,
+              value: date.value,
+            };
+          }),
         });
         try {
           const savedCourt = await court.save();
@@ -56,6 +62,12 @@ module.exports.courtsUpdate = async function (req, res) {
           ids: req.body.id,
           nameCourt: req.body.nameCourt,
           description: req.body.description,
+          date: req.body.date.map(date => {
+            return {
+              nameOfDay: date.nameOfDay,
+              value: date.value,
+            };
+          }),
         },
       },
     );

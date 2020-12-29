@@ -200,22 +200,3 @@ export const clearUsersList = () => {
     type: actionTypes.CLEAR_USERS_LIST,
   };
 };
-export const fetchTrafficCourtPrize = () => {
-  return dispatch => {
-    axios
-      .get(MENU_ROUTES.PRIZE_LIST, { withCredentials: true })
-      .then(response => {
-        dispatch(fetchTrafficCourt(response.data));
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-};
-
-export const fetchTrafficCourt = traffic => {
-  return {
-    type: actionTypes.FETCH_TRAFFIC_COURT,
-    traffic: traffic,
-  };
-};
