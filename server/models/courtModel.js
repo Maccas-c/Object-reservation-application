@@ -13,5 +13,11 @@ const courtModel = mongoose.Schema({
     type: String,
     required: true,
   },
+  date: [
+    {
+      nameOfDay: String,
+      value: Boolean,
+    },
+  ],
 });
 module.exports = mongoose.model('courtModel', courtModel);
