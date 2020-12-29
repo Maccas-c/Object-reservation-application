@@ -1,20 +1,20 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '@actionTypes';
 
 const initialState = {
-  user: null
+  user: null,
 };
 
 const getUserProfile = (state, action) => {
   return {
     ...state,
-    user: action.user
+    user: action.user,
   };
 };
 
 const updateUserProfile = (state, action) => {
   return {
     ...state,
-    user: null
+    user: null,
   };
 };
 

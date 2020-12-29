@@ -19,15 +19,16 @@ import {
 } from '@material-ui/core';
 
 import Calendar from 'react-calendar';
+
+import Spinner from '@UI/Spinner';
 import CourtChanger from './TabPanels';
-import Spinner from '../UI/Spinner';
 import FewReservations from './ShopPanel';
 
-import * as calendarActions from '../../store/actions/index';
+import * as calendarActions from '@actions/index';
 
 import { useCalendarService } from './service';
 
-import { RESERVATIONS_TIMES } from '../../constants/calendar/reservetionListHelper';
+import { RESERVATIONS_TIMES } from '@constants/calendar';
 
 import './styles.css';
 

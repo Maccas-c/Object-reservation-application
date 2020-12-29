@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { useDarkMode } from './styles';
 
-import * as authActions from '../../store/actions/index';
-import { useConstructor } from '../../utils/customHooks';
+import * as authActions from '@actions/index';
+import { useConstructor } from '@utils/customHooks';
 
 export const useLayoutService = () => {
   const [updatedTheme, toggleMode] = useDarkMode();

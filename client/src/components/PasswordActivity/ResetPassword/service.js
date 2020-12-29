@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useConstructor } from '../../../utils/customHooks';
-import * as recoveryActions from '../../../store/actions/index';
+import { useConstructor } from '@utils/customHooks';
+import * as recoveryActions from '@actions/index';
 
 import useStyles from './styles';
 

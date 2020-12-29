@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Switch } from 'react-router-dom';
 
-import Content from '../../components/Navigation/SideDrawer/SideDrawer';
-
-import ProtectedRoute from '../custom-routes/protected';
-import FreeRoute from '../custom-routes/free';
-
 import { ThemeProvider } from '@material-ui/core/styles';
+
+import Navigation from '@components/Navigation';
+
+import ProtectedRoute from '@hoc/custom-routes/protected';
+import FreeRoute from '@hoc/custom-routes/free';
 
 import { useLayoutService } from './service';
 
@@ -18,7 +18,7 @@ const Layout = () => {
 
   return (
     <ThemeProvider {...{ theme }}>
-      <Content {...{ user, switch: toggleMode, value }}>
+      <Navigation {...{ user, toggleMode, value }}>
         <Switch>
           {ROUTES.map(route =>
             route.isProtected ? (
@@ -42,7 +42,7 @@ const Layout = () => {
             ),
           )}
         </Switch>
-      </Content>
+      </Navigation>
     </ThemeProvider>
   );
 };

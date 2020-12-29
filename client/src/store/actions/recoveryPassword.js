@@ -1,26 +1,29 @@
-import { MENU_ROUTES } from '../../constants/routes/routes';
-import * as actionTypes from './actionTypes';
-import { startLoadingUser, endLoadingUser } from './auth';
-import axios from '../../axios/axios-auth';
+import axios from '@axios/axios-auth';
 
-export const resetPasswordStart = (token) => {
-  return (dispatch) => {
+import * as actionTypes from './actionTypes';
+
+import { startLoadingUser, endLoadingUser } from './auth';
+
+import { MENU_ROUTES } from '@routes';
+
+export const resetPasswordStart = token => {
+  return dispatch => {
     dispatch(startLoadingUser());
     axios
       .get(
         MENU_ROUTES.RESET_PASSWORD,
         {
           params: {
-            resetPasswordToken: token
-          }
+            resetPasswordToken: token,
+          },
         },
-        { withCredentials: true }
+        { withCredentials: true },
       )
-      .then((response) => {
+      .then(response => {
         dispatch(resetPasswordSuccess(response.data));
         dispatch(endLoadingUser());
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(resetPasswordFail());
         dispatch(endLoadingUser());
         console.log(error.message);
@@ -29,16 +32,16 @@ export const resetPasswordStart = (token) => {
 };
 
 export const recoveryPasswordStart = (email, route) => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(startLoadingUser());
     axios
       .post(MENU_ROUTES.RECOVERY_PASSWORD, email, { withCredentials: true })
-      .then((response) => {
+      .then(response => {
         dispatch(recoveryPasswordSuccess());
         dispatch(endLoadingUser());
         route.push(MENU_ROUTES.HOME);
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(endLoadingUser());
         console.log(error.message);
       });
@@ -47,16 +50,16 @@ export const recoveryPasswordStart = (email, route) => {
 
 export const updatePasswordStart = (email, token, password, route) => {
   const data = { email: email, resetPasswordToken: token, password: password };
-  return (dispatch) => {
+  return dispatch => {
     dispatch(startLoadingUser());
     axios
       .patch(MENU_ROUTES.UPDATE_PASSWORD, data, { withCredentials: true })
-      .then((response) => {
+      .then(response => {
         dispatch(updatePasswordSuccess());
         dispatch(endLoadingUser());
         route.push(MENU_ROUTES.HOME);
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(endLoadingUser());
         console.log(error.message);
       });
@@ -65,23 +68,23 @@ export const updatePasswordStart = (email, token, password, route) => {
 
 export const recoveryPasswordSuccess = () => {
   return {
-    type: actionTypes.RECOVERY_PASSWORD_SUCCESS
+    type: actionTypes.RECOVERY_PASSWORD_SUCCESS,
   };
 };
-export const resetPasswordSuccess = (email) => {
+export const resetPasswordSuccess = email => {
   return {
     type: actionTypes.RESET_PASSWORD_SUCCESS,
-    email: email
+    email: email,
   };
 };
 export const resetPasswordFail = () => {
   return {
-    type: actionTypes.RESET_PASSWORD_FAIL
+    type: actionTypes.RESET_PASSWORD_FAIL,
   };
 };
-export const updatePasswordSuccess = (email) => {
+export const updatePasswordSuccess = email => {
   return {
     type: actionTypes.UPDATE_PASSWORD_SUCCESS,
-    email: email
+    email: email,
   };
 };

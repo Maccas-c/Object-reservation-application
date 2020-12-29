@@ -1,7 +1,10 @@
-import { MENU_ROUTES } from '../../constants/routes/routes';
-import * as actionTypes from './actionTypes';
+import axios from '@axios/axios-auth';
+
 import { startLoadingUser, endLoadingUser } from './auth';
-import axios from '../../axios/axios-auth';
+
+import * as actionTypes from './actionTypes';
+
+import { MENU_ROUTES } from '@routes';
 
 export const checkDayStart = date => {
   return dispatch => {

@@ -1,13 +1,13 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import auth from '../reducers/auth';
-import register from '../reducers/register';
-import utils from '../reducers/utils';
-import usersList from '../reducers/usersList';
-import userProfile from '../reducers/userProfile';
-import recoveryPassword from '../reducers/recoveryPassword';
-import calendar from '../reducers/calendar';
+import auth from '@reducers/auth';
+import register from '@reducers/register';
+import utils from '@reducers/utils';
+import usersList from '@reducers/usersList';
+import userProfile from '@reducers/userProfile';
+import recoveryPassword from '@reducers/recoveryPassword';
+import calendar from '@reducers/calendar';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

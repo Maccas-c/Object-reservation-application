@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 
-import Spinner from '../../UI/Spinner';
+import Spinner from '@UI/Spinner';
 
 import { useUserProfileService } from './service';
 

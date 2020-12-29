@@ -1,6 +1,8 @@
-import axios from '../../axios/axios-auth';
+import axios from '@axios/axios-auth';
+
 import * as actionTypes from './actionTypes';
-import { MENU_ROUTES } from '../../constants/routes/routes';
+
+import { MENU_ROUTES } from '@routes';
 
 export const registerFailure = () => {
   return {

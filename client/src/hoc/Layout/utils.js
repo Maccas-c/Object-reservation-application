@@ -1,6 +1,6 @@
 import Home from '../../components/Home';
 
-import { MENU_ROUTES } from '../../constants/routes/routes';
+import { MENU_ROUTES } from '../../constants/routes';
 import Login from '../../components/Login';
 import UserProfile from '../../components/UserProfile';
 import UsersList from '../../components/Users/UsersList';

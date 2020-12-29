@@ -4,8 +4,9 @@ import { useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { MENU_ROUTES } from '../../constants/routes/routes';
-import * as authActions from '../../store/actions/index';
+import * as authActions from '@actions/index';
+
+import { MENU_ROUTES } from '@routes';
 
 import useStyles from './styles';
 

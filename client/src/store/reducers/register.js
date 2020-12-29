@@ -1,14 +1,14 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '@actionTypes';
 
 const initialState = {
   isExistEmail: false,
-  users: null
+  users: null,
 };
 
 const isExistEmail = (state, action) => {
   return {
     ...state,
-    isExistEmail: true
+    isExistEmail: true,
   };
 };
 

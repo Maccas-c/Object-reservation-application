@@ -14,11 +14,11 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import Spinner from '../../UI/Spinner';
+import Spinner from '@UI/Spinner';
 
 import { useUsersListService } from './service';
 
-import { TABLE_ROWS } from '../../../constants/usersList/usersList';
+import { TABLE_ROWS } from '@constants/usersList';
 
 const UserLists = ({ history }) => {
   const {

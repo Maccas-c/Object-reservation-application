@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
-import useStyles from './styles';
+
 import { useDispatch, useSelector } from 'react-redux';
-import * as userActions from '../../store/actions';
+
+import * as userActions from '@actions';
+
+import useStyles from './styles';
 
 export const useListReservationUser = () => {
   const classes = useStyles();

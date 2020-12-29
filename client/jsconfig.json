@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "jsx": "react",
+    "paths": {
+      "@routes": ["src/constants/routes"],
+      "@components": ["src/components"],
+      "@constants": ["src/constants"],
+      "@actions": ["src/store/actions"],
+      "@reducers": ["src/store/reducers"],
+      "@actionTypes": ["src/store/actions/actionTypes"],
+      "@utils": ["src/utils"],
+      "@assets": ["src/assets"],
+      "@UI": ["src/components/UI"],
+      "@hoc": ["src/hoc"],
+      "@axios": ["src/axios"]
+    }
+  }
+}
