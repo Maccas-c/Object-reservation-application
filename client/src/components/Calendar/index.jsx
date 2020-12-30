@@ -5,8 +5,6 @@ import Calendar from 'react-calendar';
 import CourtChanger from './TabPanels';
 import ShopPanel from './ShopPanel';
 
-import * as calendarActions from '@actions/index';
-
 import { useCalendarContainer } from './container';
 import { useCalendarService } from './service';
 
@@ -20,7 +18,6 @@ const Calendars = () => {
     currentCourtId,
     setValue,
     value,
-    dispatch,
     date,
     sectionData,
   } = useCalendarService();
@@ -35,9 +32,6 @@ const Calendars = () => {
           value: value,
           onClickDay: event => {
             checkDay(event);
-            if (event.getDay() !== 6 && event.getDay() !== 0) {
-              dispatch(calendarActions.changeCurrentCourt('a'));
-            }
           },
         }}
       />

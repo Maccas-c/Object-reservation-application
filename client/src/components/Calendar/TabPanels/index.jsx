@@ -5,12 +5,10 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import { useTabPanelsService } from './service';
 
 const CourtChanger = ({ day, color, sectionData }) => {
-  const {
-    classes,
-    changeCourtHandler,
-    isWeekendDay,
-    isWeekDay,
-  } = useTabPanelsService(day);
+  const { classes, changeCourtHandler, isActive } = useTabPanelsService(
+    day,
+    sectionData,
+  );
 
   return (
     <div {...{ className: classes.root }}>
@@ -18,9 +16,9 @@ const CourtChanger = ({ day, color, sectionData }) => {
         {sectionData.map(section => (
           <Button
             {...{
-              color: color === 'a' ? 'secondary' : null,
-              onClick: () => changeCourtHandler('a'),
-              disabled: !isWeekDay(),
+              color: color === section.nameCourt ? 'secondary' : null,
+              onClick: () => changeCourtHandler(section.nameCourt),
+              disabled: !isActive(section),
             }}
           >
             {section.nameCourt}
