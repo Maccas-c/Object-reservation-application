@@ -21,7 +21,7 @@ module.exports.courtsCreate = async function (req, res) {
       else {
         const court = new courtModel({
           ids: req.body.ids,
-          nameCourt: req.body.nameCourt,
+          nameCourt: req.body.nameCourtt,
           description: req.body.description,
           date: req.body.date.map(date => {
             return {
