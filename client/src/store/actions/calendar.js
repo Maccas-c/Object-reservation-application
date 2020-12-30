@@ -83,13 +83,6 @@ export const checkDaySuccess = days => {
   };
 };
 
-export const changeCurrentCourt = courtId => {
-  return {
-    type: actionTypes.CHANGE_COURT,
-    courtId: courtId,
-  };
-};
-
 export const addReservationToList = reservation => {
   return {
     type: actionTypes.ADD_RESERVATIONS_TO_LIST,
@@ -110,8 +103,9 @@ export const clearReservationList = () => {
   };
 };
 
-export const setDayWeekend = () => {
+export const setCourtId = courtId => {
   return {
     type: actionTypes.SET_COURT_ID,
+    courtId: courtId,
   };
 };

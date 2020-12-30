@@ -2,7 +2,7 @@ import * as actionTypes from '@actionTypes';
 
 const initialState = {
   days: null,
-  courtId: 'a',
+  courtId: 1,
   reservationList: [],
 };
 
@@ -13,12 +13,6 @@ const checkDay = (state, action) => {
   };
 };
 
-const changeCourt = (state, action) => {
-  return {
-    ...state,
-    courtId: action.courtId,
-  };
-};
 const addNewReservation = (state, action) => {
   return {
     ...state,
@@ -56,18 +50,16 @@ const clearReservationList = state => {
   };
 };
 
-const setCourtId = state => {
+const setCourtId = (state, action) => {
   return {
     ...state,
-    courtId: 'd',
+    courtId: action.courtId,
   };
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
       return checkDay(state, action);
-    case actionTypes.CHANGE_COURT:
-      return changeCourt(state, action);
     case actionTypes.ADD_NEW_RESERVATION:
       return addNewReservation(state, action);
     case actionTypes.ADD_RESERVATIONS_TO_LIST:
@@ -79,7 +71,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CLEAR_RESERVATION_LIST:
       return clearReservationList(state);
     case actionTypes.SET_COURT_ID:
-      return setCourtId(state);
+      return setCourtId(state, action);
     default:
       return state;
   }
