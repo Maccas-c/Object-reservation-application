@@ -29,6 +29,7 @@ module.exports.courtsCreate = async function (req, res) {
               value: date.value,
             };
           }),
+          key: req.body.key,
         });
         try {
           const savedCourt = await court.save();
@@ -68,6 +69,7 @@ module.exports.courtsUpdate = async function (req, res) {
               value: date.value,
             };
           }),
+          key: req.body.key,
         },
       },
     );

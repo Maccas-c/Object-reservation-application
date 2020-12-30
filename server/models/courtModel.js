@@ -19,5 +19,6 @@ const courtModel = mongoose.Schema({
       value: Boolean,
     },
   ],
+  key: Number,
 });
 module.exports = mongoose.model('courtModel', courtModel);
