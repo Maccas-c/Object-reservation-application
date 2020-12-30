@@ -31,6 +31,7 @@ export {
   addReservationToList,
   bookListReservation,
   deleteReservationToList,
+  clearReservationList,
   setDayWeekend,
 } from './calendar';
 
