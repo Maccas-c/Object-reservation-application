@@ -12,6 +12,7 @@ module.exports.courtsGet = async function (req, res) {
   }
 };
 module.exports.courtsCreate = async function (req, res) {
+  console.log(req.body.date);
   const isExist = courtModel.findOne(
     {
       ids: req.params.ids,
@@ -21,14 +22,9 @@ module.exports.courtsCreate = async function (req, res) {
       else {
         const court = new courtModel({
           ids: req.body.ids,
-          nameCourt: req.body.nameCourtt,
+          nameCourt: req.body.nameCourt,
           description: req.body.description,
-          date: req.body.date.map(date => {
-            return {
-              nameOfDay: date.nameOfDay,
-              value: date.value,
-            };
-          }),
+          date: req.body.date,
         });
         try {
           const savedCourt = await court.save();
