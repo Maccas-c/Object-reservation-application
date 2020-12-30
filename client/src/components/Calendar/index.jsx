@@ -22,6 +22,7 @@ const Calendars = () => {
     value,
     dispatch,
     date,
+    sectionData,
   } = useCalendarService();
 
   const { reservationTable } = useCalendarContainer(isLoading, date);
@@ -40,7 +41,7 @@ const Calendars = () => {
           },
         }}
       />
-      <CourtChanger {...{ color: currentCourtId, day }} />
+      <CourtChanger {...{ color: currentCourtId, day, sectionData }} />
       {reservationTable}
       <ShopPanel />
     </div>

@@ -13,8 +13,9 @@ export const useCalendarService = () => {
   const [date, setDate] = useState('');
   const [day, setDay] = useState('');
 
-  const isLoading = useSelector(({ utils }) => utils.isLoading);
+  const isLoading = useSelector(({ utils: { isLoading } }) => isLoading);
   const currentCourtId = useSelector(({ calendar: { courtId } }) => courtId);
+  const sectionData = useSelector(({ home: { courts } }) => courts);
   const dispatch = useDispatch();
 
   const checkDay = event => {
@@ -45,5 +46,6 @@ export const useCalendarService = () => {
     value,
     dispatch,
     date,
+    sectionData,
   };
 };
