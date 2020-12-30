@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   Button,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -14,6 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { useShopPanelService } from './service';
 
@@ -23,27 +23,33 @@ const ShopPanel = () => {
     listReservation,
     handleDeleteReservation,
     handleSubmitReservation,
+    handleCancelReservations,
+    expandHandler,
+    isExpanded,
   } = useShopPanelService();
 
   return (
-    <div {...{ className: classes.betweenTable }}>
-      <Accordion {...{ className: classes.accordion }}>
+    <>
+      <Accordion {...{ className: classes.main, expanded: isExpanded }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
+          children={'Moje Rezerwacje'}
           aria-controls="panel1a-content"
-          {...{ id: 'panel1a-header' }}
+          {...{
+            id: 'panel1a-header',
+            onClick: expandHandler,
+          }}
         >
-          <Typography {...{ className: classes.title }}>
-            Moje rezerwacje
-          </Typography>
+          <Typography className={classes.title}>Moje rezerwacje</Typography>
         </AccordionSummary>
-        <TableContainer {...{ className: classes.table, component: Paper }}>
+        <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell align="center">Dzień</TableCell>
                 <TableCell align="center">Godzina</TableCell>
                 <TableCell align="center">Strefa</TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -57,14 +63,16 @@ const ShopPanel = () => {
                     </TableCell>
                     <TableCell {...{ align: 'center' }}>
                       <Button
+                        startIcon={<DeleteIcon />}
                         {...{
                           onClick: () => handleDeleteReservation(uuid),
-                          variant: 'outlined',
+                          variant: 'contained',
                           size: 'small',
-                          color: 'primary',
+                          color: 'default',
+                          style: { marginRight: '10px' },
                         }}
                       >
-                        Usuń Rezerwacje!
+                        Usuń
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -73,21 +81,33 @@ const ShopPanel = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        {listReservation.length > 0 ? (
-          <Button
-            {...{
-              className: classes.button,
-              onClick: () => handleSubmitReservation(listReservation),
-              variant: 'outlined',
-              size: 'large',
-              color: 'primary',
-            }}
-          >
-            Rezerwuje i placę!
-          </Button>
-        ) : null}
       </Accordion>
-    </div>
+      <div {...{ className: classes.buttonsContainer }}>
+        <Button
+          {...{
+            className: classes.buttonCancel,
+            onClick: () => handleCancelReservations(),
+            variant: 'contained',
+            size: 'large',
+            color: 'primary',
+            disabled: !listReservation.length > 0,
+          }}
+        >
+          Anuluj
+        </Button>
+        <Button
+          {...{
+            onClick: () => handleSubmitReservation(listReservation),
+            variant: 'contained',
+            size: 'large',
+            color: 'primary',
+            disabled: !listReservation.length > 0,
+          }}
+        >
+          Zapłać
+        </Button>
+      </div>
+    </>
   );
 };
 export default ShopPanel;

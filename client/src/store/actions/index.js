@@ -26,12 +26,12 @@ export {
 
 export {
   checkDayStart,
-  changeCurrentCourt,
   bookHourStart,
   addReservationToList,
   bookListReservation,
   deleteReservationToList,
-  setDayWeekend,
+  clearReservationList,
+  setCourtId,
 } from './calendar';
 
 export { getPriceList, getCourts } from './home';

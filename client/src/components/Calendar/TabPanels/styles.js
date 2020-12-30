@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: '10px'
-  }
+    margin: '50px 0 10px 0',
+  },
 });
 export default useStyles;
