@@ -5,28 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as calendarActions from '@actions/index';
 
 import { useConstructor } from '@utils/customHooks';
-import { uuidv4 } from '@utils/customFunction';
-
-import { RESERVATIONS_TIMES } from '@constants/calendar';
-
-import useStyles from './tableStyles';
 
 import './styles.css';
 
 export const useCalendarService = () => {
   const [value, setValue] = useState(new Date());
-  const [open, setOpen] = useState(false);
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
   const [day, setDay] = useState('');
-  const classes = useStyles();
-  const isLoading = useSelector(({ utils }) => utils.isLoading);
+
+  const isLoading = useSelector(({ utils: { isLoading } }) => isLoading);
   const currentCourtId = useSelector(({ calendar: { courtId } }) => courtId);
-  const reservations = useSelector(({ calendar: { days } }) => days);
-  const userId = useSelector(({ auth: { user } }) => user._id);
-  const listReservation = useSelector(
-    ({ calendar }) => calendar.reservationList,
-  );
+  const sectionData = useSelector(({ home: { courts } }) => courts);
   const dispatch = useDispatch();
 
   const checkDay = event => {
@@ -38,41 +27,6 @@ export const useCalendarService = () => {
     dispatch(calendarActions.checkDayStart(dateInHook));
   };
 
-  const bookHourHandler = reservation => {
-    const reservationData = {
-      start_time: date,
-      hour: reservation.reservationStart,
-      courtId: currentCourtId,
-      userId: userId,
-    };
-
-    dispatch(calendarActions.bookHourStart(reservationData));
-  };
-
-  const handleClickOpen = timeReservation => {
-    setOpen(true);
-    setTime(timeReservation);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleCloseBook = () => {
-    bookHourHandler(time);
-    setOpen(false);
-  };
-
-  const handleAddReservation = reservation => {
-    const reservationData = {
-      uuid: uuidv4(),
-      start_time: date,
-      hour: reservation.reservationStart,
-      courtId: currentCourtId,
-      userId: userId,
-    };
-    dispatch(calendarActions.addReservationToList(reservationData));
-  };
   useConstructor(() => {
     setValue(value);
     setDay(value.getDay());
@@ -83,48 +37,15 @@ export const useCalendarService = () => {
     dispatch(calendarActions.checkDayStart(dateInHook));
   });
 
-  let reservationsByDay = null;
-  RESERVATIONS_TIMES.forEach(res => (res.isActive = true));
-
-  if (reservations) {
-    reservationsByDay = reservations.filter(
-      res => res.courtId === currentCourtId,
-    );
-    RESERVATIONS_TIMES.forEach(res => {
-      reservationsByDay.forEach(resDay => {
-        if (resDay.hour === res.reservationStart) {
-          res.isActive = false;
-        }
-      });
-    });
-  }
-  if (listReservation) {
-    reservationsByDay = listReservation.filter(
-      res => res.courtId === currentCourtId,
-    );
-    RESERVATIONS_TIMES.forEach(res => {
-      reservationsByDay.forEach(resDay => {
-        if (resDay.hour === res.reservationStart) {
-          res.isActive = false;
-        }
-      });
-    });
-  }
-
   return {
-    open,
     day,
-    classes,
     isLoading,
     checkDay,
-    handleClickOpen,
-    handleClose,
-    handleCloseBook,
-    handleAddReservation,
     currentCourtId,
-    listReservation,
     setValue,
     value,
     dispatch,
+    date,
+    sectionData,
   };
 };

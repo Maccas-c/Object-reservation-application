@@ -1,7 +1,11 @@
+import { useHistory } from 'react-router-dom';
+
 import useStyles from './styles';
 
 export const useMenuListService = MENU_ITEMS => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   const menuList = Object.values(MENU_ITEMS);
 
@@ -11,6 +15,7 @@ export const useMenuListService = MENU_ITEMS => {
   return {
     classes,
     menuList,
+    history,
     getKeyByValue,
   };
 };

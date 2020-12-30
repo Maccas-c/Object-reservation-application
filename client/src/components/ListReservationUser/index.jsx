@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  Container,
   Paper,
   Table,
   TableBody,
@@ -24,11 +23,9 @@ const ListReservationUser = () => {
 
   if (reservations) {
     table = isLoading ? (
-      <Container {...{ component: 'main', maxWidth: 'xs' }}>
-        <Spinner />
-      </Container>
+      <Spinner />
     ) : (
-      <TableContainer {...{ component: Paper }}>
+      <TableContainer {...{ className: classes.container, component: Paper }}>
         <Table {...{ className: classes.table }} aria-label="caption table">
           <TableHead>
             <TableRow>

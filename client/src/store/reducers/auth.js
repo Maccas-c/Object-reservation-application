@@ -2,7 +2,6 @@ import * as actionTypes from '@actionTypes';
 
 const initialState = {
   user: null,
-  reservation: null,
 };
 
 const auth = (state, action) => {
