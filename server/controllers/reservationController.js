@@ -178,3 +178,44 @@ module.exports.reservationsGetByUserId = async function (req, res) {
     res.status(404).json(err);
   }
 };
+
+module.exports.getPriceFront = async function (req, res) {
+  let body = req.body;
+  let price = 0;
+  let isStudent = false;
+  try {
+    const user = await userModel.findById(body[0].userId);
+    const tariffdoc = await courtsTariff.find();
+
+    body.forEach(element => {
+      delete element['uuid'];
+    });
+
+    const userParsed = JSON.parse(JSON.stringify(user));
+    if (userParsed.isStudent == true) {
+      isStudent = true;
+    }
+
+    let grouped = groupBy(body, 'courtId');
+    console.log('keys', Object.keys(grouped));
+    const wholeCourt = ifundefined(grouped['D']);
+    const partsCourt =
+      ifundefined(grouped['A']) +
+      ifundefined(grouped['B']) +
+      ifundefined(grouped['C']);
+    let cennik = JSON.parse(JSON.stringify(tariffdoc));
+    if (isStudent) {
+      price =
+        wholeCourt * cennik[0].university_club +
+        partsCourt * cennik[1].university_club;
+    } else {
+      price =
+        wholeCourt * cennik[0].tournament_matches +
+        partsCourt * cennik[1].tournament_matches;
+    }
+    res.status(200).send(price);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send(err);
+  }
+};
