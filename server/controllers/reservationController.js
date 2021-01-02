@@ -16,8 +16,8 @@ const ifundefined = court => {
   else return court.length;
 };
 
-module.exports.getPrice = async function (req, res) {
-  const body = await req.body;
+module.exports.getPrice = async function (req, res, next) {
+  let body = req.body;
   let price = 0;
   let isStudent = false;
   try {
@@ -34,14 +34,13 @@ module.exports.getPrice = async function (req, res) {
     }
 
     let grouped = groupBy(body, 'courtId');
-    const wholeCourt = grouped.d.length;
+    console.log('keys', Object.keys(grouped));
+    const wholeCourt = ifundefined(grouped['D']);
     const partsCourt =
-      ifundefined(grouped.a) + ifundefined(grouped.b) + ifundefined(grouped.c);
-
+      ifundefined(grouped['A']) +
+      ifundefined(grouped['B']) +
+      ifundefined(grouped['C']);
     let cennik = JSON.parse(JSON.stringify(tariffdoc));
-    console.log(cennik);
-    console.log(cennik[0].university_club);
-    console.log(cennik[1].tournament_matches);
     if (isStudent) {
       price =
         wholeCourt * cennik[0].university_club +
@@ -51,11 +50,13 @@ module.exports.getPrice = async function (req, res) {
         wholeCourt * cennik[0].tournament_matches +
         partsCourt * cennik[1].tournament_matches;
     }
-    res.status(200).send(price);
+    res.locals.price = price;
+    console.log(price);
+    next();
   } catch (err) {
+    console.log(err);
     res.status(404).send(err);
   }
-  console.log(price);
 };
 module.exports.reservationsGet = async function (req, res) {
   const date = req.query.time;

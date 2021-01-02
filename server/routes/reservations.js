@@ -21,7 +21,7 @@ router.post(
 
 router.post(
   '/api/reservation/create/groups',
-  // isAuth,
+  reservationController.getPrice,
   reservationController.reservationCreateConstant,
 );
 
