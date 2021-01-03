@@ -47,7 +47,10 @@ export const useReservationTableService = date => {
     );
     RESERVATIONS_TIMES.forEach(res => {
       reservationsByDay.forEach(resDay => {
-        if (resDay.hour === res.reservationStart) {
+        if (
+          resDay.hour === res.reservationStart &&
+          resDay.start_time === date
+        ) {
           res.isActive = false;
         }
       });
