@@ -6,7 +6,7 @@ const reservationController = require('../controllers/reservationController');
 
 router.get('/api/reservations', reservationController.reservationsGet);
 
-router.get('/api/reservations/getPrice', reservationController.getPriceFront);
+router.post('/api/reservations/getPrice', reservationController.getPriceFront);
 
 router.get(
   '/api/allReservations',

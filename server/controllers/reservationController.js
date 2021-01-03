@@ -213,7 +213,7 @@ module.exports.getPriceFront = async function (req, res) {
         wholeCourt * cennik[0].tournament_matches +
         partsCourt * cennik[1].tournament_matches;
     }
-    res.status(200).send(price);
+    res.status(200).send(JSON.stringify(price));
   } catch (err) {
     console.log(err);
     res.status(404).send(err);
