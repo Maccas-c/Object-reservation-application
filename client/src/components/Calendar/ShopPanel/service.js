@@ -23,7 +23,7 @@ export const useShopPanelService = () => {
   const handleDeleteReservation = uuid =>
     dispatch(calendarActions.deleteReservationToList(uuid));
 
-  const handleSubmitReservation = listReservation => {
+  const handleSubmitReservation = () => {
     dispatch(calendarActions.bookListReservation(listReservation));
     dispatch(calendarActions.setPrice(0));
     setOpen(false);

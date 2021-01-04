@@ -78,11 +78,10 @@ export const bookListReservation = reservation => {
         reservation.map(({ start_time }) => {
           return dispatch(checkDayStart(start_time));
         });
-
         return dispatch(clearReservationList());
       })
-      .catch(() => {
-        console.log('error');
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
