@@ -46,7 +46,7 @@ module.exports.createPayments = function (req, res) {
         products: [
           {
             name: req.body.nameOfReservation,
-            unitPrice: '15000',
+            unitPrice: req.body.price,
             quantity: '1',
           },
         ],
