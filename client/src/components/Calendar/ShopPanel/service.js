@@ -10,14 +10,14 @@ export const useShopPanelService = () => {
   const classes = useStyles();
 
   const [isExpanded, setIsExpanded] = useState(true);
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const listReservation = useSelector(
     ({ calendar }) => calendar.reservationList,
   );
 
-  const price = useSelector(({calendar})=>calendar.price)
+  const price = useSelector(({ calendar }) => calendar.price);
 
   const handleDeleteReservation = uuid =>
     dispatch(calendarActions.deleteReservationToList(uuid));
@@ -25,7 +25,7 @@ export const useShopPanelService = () => {
   const handleSubmitReservation = listReservation => {
     dispatch(calendarActions.bookListReservation(listReservation));
     dispatch(calendarActions.setPrice(0));
-    setOpen(false)
+    setOpen(false);
   };
 
   const handleCancelReservations = () => {
@@ -38,10 +38,13 @@ export const useShopPanelService = () => {
   const getButtonContent = price => (price ? `Zapłać: ${price}` : 'Zapłać');
 
   const handleClickOpen = () => {
-    setOpen(true)
+    setOpen(true);
     dispatch(calendarActions.getPrice(listReservation));
-  }
-  const handleClickClose = () => setOpen(false)
+    dispatch(calendarActions.getPayuToken());
+  };
+
+  const handleClickClose = () => setOpen(false);
+
   return {
     classes,
     listReservation,
@@ -54,6 +57,6 @@ export const useShopPanelService = () => {
     open,
     handleClickOpen,
     handleClickClose,
-    price
+    price,
   };
 };

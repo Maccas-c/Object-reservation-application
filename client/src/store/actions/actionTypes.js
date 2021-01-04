@@ -47,3 +47,5 @@ export const SET_COURT_ID = 'SET_COURT_ID';
 export const GET_PRICE_LIST = 'GET_PRICE_LIST';
 export const GET_COURTS = 'GET_COURTS';
 export const GET_PRICE = 'GET_PRICE';
+
+export const GET_PAYU_TOKEN = 'GET_PAYU_TOKEN';

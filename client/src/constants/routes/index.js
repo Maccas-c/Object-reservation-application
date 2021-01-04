@@ -24,4 +24,6 @@ export const MENU_ROUTES = {
   REGULATIONS: '/regulations',
   COURTS: '/courts',
   GET_PRICE: '/reservations/getPrice',
+  GET_TOKEN: '/getToken',
+  CREATE_PAYMENT: '/createPayment',
 };

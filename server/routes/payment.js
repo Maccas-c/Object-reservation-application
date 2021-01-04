@@ -5,9 +5,9 @@ const paymentController = require('./../controllers/paymentController');
 var qs = require('querystring');
 const { nextTick } = require('process');
 let bodyObject = {};
-router.post('/getToken', paymentController.getPayToken);
+router.post('api/getToken', paymentController.getPayToken);
 
-router.post('/createPayment', paymentController.createPayments);
+router.post('api/createPayment', paymentController.createPayments);
 
 router.post('/notify', paymentController.notify);
 

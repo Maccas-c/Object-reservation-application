@@ -8,6 +8,7 @@ export {
   startLoadingUser,
   updateAuthUserStart,
   fetchReservationUser,
+  getPayuToken,
 } from './auth';
 
 export { registerStart } from './register';
