@@ -18,8 +18,7 @@ module.exports.getPayToken = async function (req, res) {
     function (error, response, body) {
       try {
         let jsonBody = JSON.parse(body);
-        res.set('bearer', jsonBody.access_token);
-        res.status(200).end();
+        res.status(response.statusCode).send(jsonBody.access_token);
       } catch {
         if (error) return res.status(404).json(error);
       }
