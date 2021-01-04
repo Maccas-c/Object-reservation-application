@@ -10,7 +10,7 @@ export const useShopPanelService = () => {
   const classes = useStyles();
 
   const [isExpanded, setIsExpanded] = useState(true);
-
+  const [open,setOpen] = useState(false)
   const dispatch = useDispatch();
 
   const listReservation = useSelector(
@@ -33,6 +33,8 @@ export const useShopPanelService = () => {
 
   const getButtonContent = price => (price ? `Zapłać: ${price}` : 'Zapłać');
 
+  const handleClickOpen = () => setOpen(true)
+  const handleClickClose = () => setOpen(true)
   return {
     classes,
     listReservation,
@@ -42,5 +44,8 @@ export const useShopPanelService = () => {
     expandHandler,
     isExpanded,
     getButtonContent,
+    open,
+    handleClickOpen,
+    handleClickClose
   };
 };
