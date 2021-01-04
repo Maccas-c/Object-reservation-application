@@ -42,7 +42,6 @@ export const useShopPanelService = () => {
   const handleClickOpen = () => {
     setOpen(true);
     dispatch(calendarActions.getPrice(listReservation));
-    dispatch(calendarActions.getPayuToken());
   };
 
   const handleClickClose = () => setOpen(false);

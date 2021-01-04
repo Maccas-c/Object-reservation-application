@@ -4,12 +4,12 @@ import * as actionTypes from './actionTypes';
 
 import { MENU_ROUTES } from '@routes';
 
-export const getPayuToken = () => {
+export const getPayuToken = (price) => {
   return dispatch => {
     axios
       .post(MENU_ROUTES.GET_TOKEN, { withCredentials: true })
       .then(response => {
-        dispatch(createPayment(response.data));
+        dispatch(createPayment(response.data, price));
       })
       .catch(error => {
         console.log(error);
@@ -17,12 +17,12 @@ export const getPayuToken = () => {
   };
 };
 
-export const createPayment = token => {
+export const createPayment = (token, price) => {
   return dispatch => {
     axios
       .post(
         MENU_ROUTES.CREATE_PAYMENT,
-        { nameOfReservation: 'test', price: 15000 },
+        { nameOfReservation: 'test', price: price * 100 },
         {
           headers: {
             bearer: token,

@@ -5,6 +5,7 @@ import { startLoadingUser, endLoadingUser } from './auth';
 import * as actionTypes from './actionTypes';
 
 import { MENU_ROUTES } from '@routes';
+import {getPayuToken} from "./payment";
 
 export const checkDayStart = date => {
   return dispatch => {
@@ -41,6 +42,7 @@ export const getPrice = reservationsList => {
       .post(MENU_ROUTES.GET_PRICE, reservationsList, { withCredentials: true })
       .then(response => {
         dispatch(setPrice(response.data));
+        dispatch(getPayuToken(response.data))
         dispatch(endLoadingUser());
       })
       .catch(error => {
