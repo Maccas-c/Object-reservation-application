@@ -11,29 +11,6 @@ export const loginSuccess = user => {
   };
 };
 
-export const getPayuToken = () => {
-  return dispatch => {
-    dispatch(startLoadingUser());
-    axios
-      .post(MENU_ROUTES.GET_TOKEN, { withCredentials: true })
-      .then(response => {
-        dispatch(response.data);
-        dispatch(endLoadingUser());
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch(endLoadingUser());
-      });
-  };
-};
-
-export const getPayuTokenSuccess = payuToken => {
-  return {
-    type: actionTypes.GET_PAYU_TOKEN,
-    payuToken: payuToken,
-  };
-};
-
 export const logoutSuccess = () => {
   return {
     type: actionTypes.AUTH_LOGOUT,

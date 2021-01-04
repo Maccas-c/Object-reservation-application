@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Summary from '../Summary/Summary';
+import Summary from '../Summary';
 import { useShopPanelService } from './service';
 
 const ShopPanel = () => {

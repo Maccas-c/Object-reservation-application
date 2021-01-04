@@ -2,20 +2,12 @@ import * as actionTypes from '@actionTypes';
 
 const initialState = {
   user: null,
-  payuToken: null,
 };
 
 const auth = (state, action) => {
   return {
     ...state,
     user: action.user,
-  };
-};
-
-const payuToken = (state, action) => {
-  return {
-    ...state,
-    payuToken: action.payuToken,
   };
 };
 
@@ -77,8 +69,6 @@ const reducer = (state = initialState, action) => {
       return updateAuthUser(state, action);
     case actionTypes.FETCH_LIST_RESERVATION_USER:
       return fetchListReservationUser(state, action);
-    case actionTypes.GET_PAYU_TOKEN:
-      return payuToken(state, action);
     default:
       return state;
   }

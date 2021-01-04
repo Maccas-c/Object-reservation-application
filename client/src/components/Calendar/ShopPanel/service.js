@@ -17,6 +17,8 @@ export const useShopPanelService = () => {
     ({ calendar }) => calendar.reservationList,
   );
 
+  const token = useSelector(({ auth }) => auth.payuToken);
+
   const price = useSelector(({ calendar }) => calendar.price);
 
   const handleDeleteReservation = uuid =>
