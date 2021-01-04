@@ -27,7 +27,9 @@ const ShopPanel = () => {
         isExpanded,
         open,
         handleClickOpen,
-        handleClickClose
+        handleClickClose,
+        price,
+        handleSubmitReservation
     } = useShopPanelService();
 
     return (
@@ -51,7 +53,7 @@ const ShopPanel = () => {
                                 <TableCell align="center">Dzień</TableCell>
                                 <TableCell align="center">Godzina</TableCell>
                                 <TableCell align="center">Strefa</TableCell>
-                                <TableCell align="center"></TableCell>
+                                <TableCell align="center"/>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -107,8 +109,9 @@ const ShopPanel = () => {
                         disabled: !listReservation.length > 0,
                     }}
                 >
+                    Zapłać
                 </Button>
-                <Summary open={open} handleClickClose={handleClickClose} listReservation={listReservation}/>
+                <Summary open={open} handleClickClose={handleClickClose} listReservation={listReservation} price={price} handleSubmitReservation={handleSubmitReservation}/>
 
             </div>
         </>

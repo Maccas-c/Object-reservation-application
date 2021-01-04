@@ -16,12 +16,16 @@ export const useShopPanelService = () => {
   const listReservation = useSelector(
     ({ calendar }) => calendar.reservationList,
   );
+
+  const price = useSelector(({calendar})=>calendar.price)
+
   const handleDeleteReservation = uuid =>
     dispatch(calendarActions.deleteReservationToList(uuid));
 
   const handleSubmitReservation = listReservation => {
     dispatch(calendarActions.bookListReservation(listReservation));
     dispatch(calendarActions.setPrice(0));
+    setOpen(false)
   };
 
   const handleCancelReservations = () => {
@@ -33,8 +37,11 @@ export const useShopPanelService = () => {
 
   const getButtonContent = price => (price ? `Zapłać: ${price}` : 'Zapłać');
 
-  const handleClickOpen = () => setOpen(true)
-  const handleClickClose = () => setOpen(true)
+  const handleClickOpen = () => {
+    setOpen(true)
+    dispatch(calendarActions.getPrice(listReservation));
+  }
+  const handleClickClose = () => setOpen(false)
   return {
     classes,
     listReservation,
@@ -46,6 +53,7 @@ export const useShopPanelService = () => {
     getButtonContent,
     open,
     handleClickOpen,
-    handleClickClose
+    handleClickClose,
+    price
   };
 };
