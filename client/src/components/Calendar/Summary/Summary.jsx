@@ -32,12 +32,14 @@ const Summary = ({open, handleClickClose, listReservation, price,handleSubmitRes
                 <h1 className={classes.summary}>{'Podsumowanie'}</h1> :
                 <DialogContent>
                     <h2>Cena: {price ? `${price} zł` : 'Czekaj...'}</h2>
-                    <h2>Ilość Rezerwacji:{listReservation.length}</h2>
+                    <h2>Ilość Rezerwacji: {listReservation.length}</h2>
                 </DialogContent>
                 <div className={classes.confirm}>
                     <Button
                         color='primary'
-                        variant='outlined'>
+                        variant='outlined'
+                        onClick = {()=>{handleClickClose()}}
+                    >
                         Anuluj
                     </Button>
                     <Button

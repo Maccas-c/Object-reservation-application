@@ -10,7 +10,8 @@ const useStyles = makeStyles({
     },
     confirm: {
         display: 'flex',
-        justifyContent: 'space-evenly '
+        justifyContent: 'space-evenly',
+        margin:10
     }
 });
 export default useStyles;
