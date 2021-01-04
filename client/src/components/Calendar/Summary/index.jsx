@@ -13,7 +13,7 @@ const Summary = ({
   price,
   handleSubmitReservation,
 }) => {
-  const { classes, link, maxWidth, fullWidth } = useSummaryService();
+  const { classes, maxWidth, fullWidth } = useSummaryService();
   return (
     <Dialog
       maxWidth={maxWidth}
@@ -51,7 +51,7 @@ const Summary = ({
           <Button
             color="primary"
             variant="contained"
-            onClick={() => (window.location.href = link)}
+            onClick={() => (handleSubmitReservation())}
           >
             Potwierdź
           </Button>

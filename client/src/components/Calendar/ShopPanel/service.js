@@ -17,8 +17,7 @@ export const useShopPanelService = () => {
     ({ calendar }) => calendar.reservationList,
   );
 
-  const token = useSelector(({ auth }) => auth.payuToken);
-
+  const link = useSelector(({ payment: { link } }) => link);
   const price = useSelector(({ calendar }) => calendar.price);
 
   const handleDeleteReservation = uuid =>
@@ -28,6 +27,7 @@ export const useShopPanelService = () => {
     dispatch(calendarActions.bookListReservation(listReservation));
     dispatch(calendarActions.setPrice(0));
     setOpen(false);
+    window.location.href = link
   };
 
   const handleCancelReservations = () => {
