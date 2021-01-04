@@ -17,7 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { useShopPanelService } from './service';
 
-const ShopPanel = () => {
+const ShopPanel = ({ price }) => {
   const {
     classes,
     listReservation,
@@ -26,6 +26,7 @@ const ShopPanel = () => {
     handleCancelReservations,
     expandHandler,
     isExpanded,
+    getButtonContent,
   } = useShopPanelService();
 
   return (
@@ -97,6 +98,7 @@ const ShopPanel = () => {
         </Button>
         <Button
           {...{
+            className: classes.buttonAccept,
             onClick: () => handleSubmitReservation(listReservation),
             variant: 'contained',
             size: 'large',
@@ -104,7 +106,7 @@ const ShopPanel = () => {
             disabled: !listReservation.length > 0,
           }}
         >
-          Zapłać
+          {getButtonContent(price)}
         </Button>
       </div>
     </>

@@ -24,6 +24,7 @@ export const useReservationTableService = date => {
       userId: userId,
     };
     dispatch(calendarActions.addReservationToList(reservationData));
+    dispatch(calendarActions.getPrice(listReservation));
   };
 
   let reservationsByDay = null;

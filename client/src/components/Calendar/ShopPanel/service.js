@@ -16,17 +16,22 @@ export const useShopPanelService = () => {
   const listReservation = useSelector(
     ({ calendar }) => calendar.reservationList,
   );
-
   const handleDeleteReservation = uuid =>
     dispatch(calendarActions.deleteReservationToList(uuid));
 
-  const handleSubmitReservation = listReservation =>
+  const handleSubmitReservation = listReservation => {
     dispatch(calendarActions.bookListReservation(listReservation));
+    dispatch(calendarActions.setPrice(0));
+  };
 
-  const handleCancelReservations = () =>
+  const handleCancelReservations = () => {
     dispatch(calendarActions.clearReservationList());
+    dispatch(calendarActions.setPrice(0));
+  };
 
   const expandHandler = () => setIsExpanded(!isExpanded);
+
+  const getButtonContent = price => (price ? `Zapłać: ${price}` : 'Zapłać');
 
   return {
     classes,
@@ -36,5 +41,6 @@ export const useShopPanelService = () => {
     handleCancelReservations,
     expandHandler,
     isExpanded,
+    getButtonContent,
   };
 };

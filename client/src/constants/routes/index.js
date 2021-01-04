@@ -23,4 +23,5 @@ export const MENU_ROUTES = {
   PRIZE_LIST: '/priceLists',
   REGULATIONS: '/regulations',
   COURTS: '/courts',
+  GET_PRICE: '/reservations/getPrice',
 };

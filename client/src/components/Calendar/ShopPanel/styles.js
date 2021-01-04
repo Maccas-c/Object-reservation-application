@@ -13,6 +13,9 @@ const useStyles = makeStyles(() => ({
   buttonCancel: {
     marginRight: '10px',
   },
+  buttonAccept: {
+    marginRight: '10px',
+  },
   title: {
     fontWeight: 700,
     display: 'flex',

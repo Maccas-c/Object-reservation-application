@@ -34,6 +34,22 @@ export const checkDayStart = date => {
   };
 };
 
+export const getPrice = reservationsList => {
+  return dispatch => {
+    dispatch(startLoadingUser());
+    axios
+      .post(MENU_ROUTES.GET_PRICE, reservationsList, { withCredentials: true })
+      .then(response => {
+        dispatch(setPrice(response.data));
+        dispatch(endLoadingUser());
+      })
+      .catch(error => {
+        console.log(error.message);
+        dispatch(endLoadingUser());
+      });
+  };
+};
+
 export const bookHourStart = reservation => {
   return dispatch => {
     axios
@@ -107,5 +123,12 @@ export const setCourtId = courtId => {
   return {
     type: actionTypes.SET_COURT_ID,
     courtId: courtId,
+  };
+};
+
+export const setPrice = price => {
+  return {
+    type: actionTypes.GET_PRICE,
+    price: price,
   };
 };
