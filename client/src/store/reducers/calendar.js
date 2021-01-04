@@ -4,12 +4,20 @@ const initialState = {
   days: null,
   courtId: 1,
   reservationList: [],
+  price: null,
 };
 
 const checkDay = (state, action) => {
   return {
     ...state,
     days: action.days,
+  };
+};
+
+const getPrice = (state, action) => {
+  return {
+    ...state,
+    price: action.price,
   };
 };
 
@@ -60,6 +68,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_DAY:
       return checkDay(state, action);
+    case actionTypes.GET_PRICE:
+      return getPrice(state, action);
     case actionTypes.ADD_NEW_RESERVATION:
       return addNewReservation(state, action);
     case actionTypes.ADD_RESERVATIONS_TO_LIST:

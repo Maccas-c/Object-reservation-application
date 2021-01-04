@@ -20,9 +20,10 @@ const Calendars = () => {
     value,
     date,
     sectionData,
+    price,
   } = useCalendarService();
 
-  const { reservationTable } = useCalendarContainer(isLoading, date);
+  const { reservationTable } = useCalendarContainer(isLoading, date, price);
 
   return (
     <div className={'container'}>
@@ -37,7 +38,7 @@ const Calendars = () => {
       />
       <CourtChanger {...{ color: currentCourtId, day, sectionData }} />
       {reservationTable}
-      <ShopPanel />
+      <ShopPanel {...{ price }} />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {
+  Accordion,
+  AccordionSummary,
   Button,
   Table,
   TableBody,
@@ -8,13 +10,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  AccordionSummary,
-  Accordion,
   Typography,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import Summary from '../Summary';
 import { useShopPanelService } from './service';
 
 const ShopPanel = () => {
@@ -22,10 +22,14 @@ const ShopPanel = () => {
     classes,
     listReservation,
     handleDeleteReservation,
-    handleSubmitReservation,
     handleCancelReservations,
     expandHandler,
     isExpanded,
+    open,
+    handleClickOpen,
+    handleClickClose,
+    price,
+    handleSubmitReservation,
   } = useShopPanelService();
 
   return (
@@ -49,7 +53,7 @@ const ShopPanel = () => {
                 <TableCell align="center">Dzień</TableCell>
                 <TableCell align="center">Godzina</TableCell>
                 <TableCell align="center">Strefa</TableCell>
-                <TableCell align="center"></TableCell>
+                <TableCell align="center" />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -97,7 +101,8 @@ const ShopPanel = () => {
         </Button>
         <Button
           {...{
-            onClick: () => handleSubmitReservation(listReservation),
+            className: classes.buttonAccept,
+            onClick: () => handleClickOpen(),
             variant: 'contained',
             size: 'large',
             color: 'primary',
@@ -106,6 +111,13 @@ const ShopPanel = () => {
         >
           Zapłać
         </Button>
+        <Summary
+          open={open}
+          handleClickClose={handleClickClose}
+          listReservation={listReservation}
+          price={price}
+          handleSubmitReservation={handleSubmitReservation}
+        />
       </div>
     </>
   );

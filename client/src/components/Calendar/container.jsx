@@ -7,7 +7,7 @@ import ReservationTable from './ReservationTable';
 
 import { RESERVATIONS_TIMES } from '@constants/calendar';
 
-export const useCalendarContainer = (isLoading, date) => {
+export const useCalendarContainer = (isLoading, date, price) => {
   const reservationTable =
     isLoading || !RESERVATIONS_TIMES ? (
       <Container {...{ component: 'main', maxWidth: 'xs' }}>
@@ -15,7 +15,7 @@ export const useCalendarContainer = (isLoading, date) => {
         <Spinner />
       </Container>
     ) : (
-      <ReservationTable {...{ date }} />
+      <ReservationTable {...{ date, price }} />
     );
 
   return { reservationTable };

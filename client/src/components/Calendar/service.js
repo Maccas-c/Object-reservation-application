@@ -15,6 +15,7 @@ export const useCalendarService = () => {
 
   const isLoading = useSelector(({ utils: { isLoading } }) => isLoading);
   const currentCourtId = useSelector(({ calendar: { courtId } }) => courtId);
+  const price = useSelector(({ calendar: { price } }) => price);
   const sectionData = useSelector(({ home: { courts } }) => courts);
   const dispatch = useDispatch();
 
@@ -47,5 +48,6 @@ export const useCalendarService = () => {
     dispatch,
     date,
     sectionData,
+    price,
   };
 };
