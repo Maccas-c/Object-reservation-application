@@ -23,7 +23,6 @@ router.post(
 
 router.post(
   '/api/reservation/create/groups',
-  reservationController.getPrice,
   reservationController.reservationCreateConstant,
 );
 

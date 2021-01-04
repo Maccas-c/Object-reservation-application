@@ -39,10 +39,11 @@ module.exports.createPayments = function (req, res) {
       },
       body: JSON.stringify({
         customerIp: '127.0.0.1',
-        merchantPosId: '399358',
+        merchantPosId: process.env.PAYU_CLIENT_ID,
         description: 'DEV',
         currencyCode: 'PLN',
         totalAmount: req.body.price,
+        continueUrl: 'http://localhost:3000/',
         products: [
           {
             name: req.body.nameOfReservation,
