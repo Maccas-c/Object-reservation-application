@@ -9,7 +9,7 @@ const { nextTick } = require('process');
 let bodyObject = {};
 router.post('/api/getToken', paymentController.getPayToken);
 
-router.post('/api/createPayment', getPrice, paymentController.createPayments);
+router.post('/api/createPayment', paymentController.createPayments);
 
 router.post('/notify', paymentController.notify);
 
