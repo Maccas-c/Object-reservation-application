@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Datagrid, Filter, List, ReferenceManyField, Responsive, ShowButton, TextField, TextInput } from 'react-admin';
+import { Datagrid, Filter, List, Responsive, ShowButton, TextField, TextInput } from 'react-admin';
 
-import { PDFDownload } from './InvoicePDF/PDFDownload';
+// import { PDFDownload } from './InvoicePDF/PDFDownload';
 
 const PostFilter = (props) => (
   <Filter {...props}>
@@ -20,9 +20,9 @@ export const UsersList = ({ ...props }) => (
           <TextField label={'Nazwisko'} source={'surname'} />
           <TextField source={'email'} />
           <ShowButton />
-          <ReferenceManyField sortable={false} label={''} reference={'reservations'} target={'userId'}>
+          {/* <ReferenceManyField sortable={false} label={''} reference={'reservations'} target={'userId'}>
             <PDFDownload />
-          </ReferenceManyField>
+          </ReferenceManyField> */}
         </Datagrid>
       }
     />

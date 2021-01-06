@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Datagrid, List, Responsive, TextField } from 'react-admin';
+import { BooleanField, Datagrid, List, Responsive, TextField } from 'react-admin';
 
 import { FilterReservation } from './FilterReservation';
 
@@ -15,6 +15,8 @@ export const ReservationList = ({ ...props }) => (
           <TextField label={'Strefa boiska'} source={'courtId'} />
           <TextField label={'Imię'} source={'userId.name'} />
           <TextField label={'Nazwisko'} source={'userId.surname'} />
+          <BooleanField label={'Vat'} source={'vat'} />
+          <BooleanField label={'Faktura obsłużona'} source={'isServedVat'} />
         </Datagrid>
       }
     />
