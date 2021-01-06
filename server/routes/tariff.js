@@ -10,11 +10,7 @@ router.get(
   rangeCourtsTariff,
   tariffController.tariffsGet,
 );
-router.get(
-  '/api/admin/priceLists/:id',
-  rangeCourtsTariff,
-  tariffController.tariffGet,
-);
+router.get('/api/admin/priceLists/:id', tariffController.tariffGet);
 router.put('/api/admin/priceLists/:id', tariffController.tariffUpdate);
 
 // front

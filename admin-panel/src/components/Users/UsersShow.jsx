@@ -35,6 +35,9 @@ export const UsersShow = ({ ...props }) => {
               <PDFDownload />
             </Datagrid>
           </ReferenceManyField>
+          <ReferenceManyField sortable={false} label={''} reference={'reservations'} target={'userId'}>
+            <PDFDownload />
+          </ReferenceManyField>
         </Tab>
       </TabbedShowLayout>
     </Show>

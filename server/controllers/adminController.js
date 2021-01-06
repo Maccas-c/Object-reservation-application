@@ -118,3 +118,41 @@ module.exports.reservationCreate = async function (req, res) {
     },
   );
 };
+
+module.exports.reservationsEdit = async function (req, res) {
+  try {
+    const resposneData = req.body;
+
+    const tariffUpdate = await reservationModel.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          start_time: req.body.start_time,
+          hour: req.body.hour,
+          courtId: req.body.courtId,
+          userId: req.body.userId,
+          vat: req.body.vat,
+          isServedVat: req.body.isServedVat,
+        },
+      },
+    );
+    res.status(200).send(resposneData);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+module.exports.reservationGet = async function (req, res) {
+  try {
+    const reservation = await reservationModel
+      .findById(req.params.id)
+      .populate('userId');
+    const reservationFixed = JSON.parse(
+      JSON.stringify(reservation).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(reservationFixed);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};

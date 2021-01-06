@@ -45,6 +45,7 @@ module.exports.rangeReservations = async function (req, res, next) {
     } else if ('userId' in filter) {
       filter['isServedVat'] = false;
       filter['vat'] = true;
+      console.log('lol');
       try {
         const reservations = await reservationModel
           .find(filter)

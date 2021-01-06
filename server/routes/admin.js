@@ -31,9 +31,13 @@ router.get(
   rangeReservations,
   adminController.reservationsGetByUserId,
 );
+
+router.post('/api/admin/reservations', reservationCreate);
+
+router.put('/api/admin/reservations/:id', adminController.reservationsEdit);
+router.get('/api/admin/reservations/:id', adminController.reservationGet);
 router.delete(
   '/api/admin/reservations/:id',
   adminController.reservationsDelete,
 );
-router.post('/api/admin/reservations', reservationCreate);
 module.exports = router;

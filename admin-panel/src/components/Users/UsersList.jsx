@@ -20,9 +20,6 @@ export const UsersList = ({ ...props }) => (
           <TextField label={'Nazwisko'} source={'surname'} />
           <TextField source={'email'} />
           <ShowButton />
-          {/* <ReferenceManyField sortable={false} label={''} reference={'reservations'} target={'userId'}>
-            <PDFDownload />
-          </ReferenceManyField> */}
         </Datagrid>
       }
     />

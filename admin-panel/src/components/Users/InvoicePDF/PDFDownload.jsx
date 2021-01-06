@@ -8,7 +8,6 @@ import { PDFDownloadService } from './service';
 
 export const PDFDownload = ({ data }) => {
   const { print } = PDFDownloadService();
-  console.log(data);
   const content = !_.isEmpty(data) ? (
     <Button {...{ onClick: () => print(data), type: 'button', variant: 'contained', color: 'primary', size: 'small' }}>
       PDF
