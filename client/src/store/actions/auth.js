@@ -57,7 +57,8 @@ export const logoutUsos = () => {
   return dispatch => {
     localStorage.removeItem('user');
     dispatch(logoutSuccess());
-    window.location.href = 'http://localhost:3001/api/loginUsos/logout';
+    window.location.href =
+      'https://devcourt.projektstudencki.pl/api/loginUsos/logout';
     dispatch(clearUserProfile());
     dispatch(endLoadingUser());
     dispatch(clearUsersList());
