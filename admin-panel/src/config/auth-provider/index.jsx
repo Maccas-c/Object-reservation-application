@@ -1,7 +1,7 @@
 const authProvider = {
   login: ({ username, password }) => {
     const email = username;
-    const request = new Request('http://localhost:3001/api/login/admin', {
+    const request = new Request('http://devcourt.projektstudencki.pl/api/login/admin', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: new Headers({ 'Content-Type': 'application/json' }),
