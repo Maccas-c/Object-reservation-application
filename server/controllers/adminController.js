@@ -131,8 +131,6 @@ module.exports.reservationsEdit = async function (req, res) {
         $set: {
           start_time: req.body.start_time,
           hour: req.body.hour,
-          courtId: req.body.courtId,
-          userId: req.body.userId,
           vat: req.body.vat,
           isServedVat: req.body.isServedVat,
         },

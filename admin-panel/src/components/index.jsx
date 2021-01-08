@@ -29,10 +29,16 @@ const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpC
 export const App = () => (
   <>
     <Admin {...{ dataProvider, authProvider }}>
-      <Resource name={'users'} icon={PeopleIcon} {...Users} />
-      <Resource name={'reservations'} list={ReservationList} />
-      <Resource name={'courts'} create={CourtCreate} list={Court} />
-      <Resource name={'priceLists'} icon={AttachMoneyIcon} list={PriceList} edit={EditPriceList} />
+      <Resource options={{ label: 'Użytkownicy' }} name={'users'} icon={PeopleIcon} {...Users} />
+      <Resource options={{ label: 'Rezerwacje' }} name={'reservations'} list={ReservationList} />
+      <Resource options={{ label: 'Boiska' }} name={'courts'} create={CourtCreate} list={Court} />
+      <Resource
+        options={{ label: 'Cennik' }}
+        name={'priceLists'}
+        icon={AttachMoneyIcon}
+        list={PriceList}
+        edit={EditPriceList}
+      />
     </Admin>
   </>
 );

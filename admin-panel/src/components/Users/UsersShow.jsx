@@ -6,10 +6,9 @@ import { PDFDownload } from './InvoicePDF/PDFDownload';
 
 export const UsersShow = ({ ...props }) => {
   return (
-    <Show {...props}>
+    <Show title={'Dane szczegółowe'} {...props}>
       <TabbedShowLayout>
         <Tab label={'Użytkownik'}>
-          <TextField source={'id'} />
           <TextField label={'Imię'} source={'name'} />
           <TextField label={'Nazwisko'} source={'surname'} />
           <TextField label={'Płeć'} source={'sex'} />
@@ -24,7 +23,6 @@ export const UsersShow = ({ ...props }) => {
         <Tab label={'Rezerwacje do faktury'} path={'reservations'}>
           <ReferenceManyField addLabel={false} reference={'reservations'} target={'userId'}>
             <Datagrid>
-              <TextField source={'id'} />
               <TextField source={'start_time'} />
               <TextField source={'hour'} />
               <TextField source={'courtId'} />

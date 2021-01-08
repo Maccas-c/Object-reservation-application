@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrayField, BooleanField, CreateButton, Datagrid, List, Responsive, TextField } from 'react-admin';
 
 export const Court = ({ ...props }) => (
-  <List {...props} actions={<CreateButton />} exporter>
+  <List {...props} title={'Boiska'} actions={<CreateButton label={'Stwórz nowe boisko'} />} exporter>
     <Responsive
       medium={
         <Datagrid size={'medium'}>

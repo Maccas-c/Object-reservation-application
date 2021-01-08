@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { push } from 'react-router-redux';
 import { Drawer, withStyles } from '@material-ui/core';
 
-import { BooleanField, CardActions, CreateButton, Datagrid, EditButton, List, TextField } from 'react-admin';
+import {
+  BooleanField,
+  CreateButton,
+  Datagrid,
+  EditButton,
+  List,
+  TextField,
+  TopToolbar,
+  sanitizeListRestProps,
+  useListContext,
+} from 'react-admin';
 import { Route } from 'react-router';
 import { FilterReservation } from './FilterReservation';
 import { EditReservations } from './EditReservations';
@@ -25,12 +35,30 @@ import { CreateReservations } from './CreateReservations';
 //   </Datagrid>
 // </List>
 // );
-const TagListActions = ({ basePath }) => (
-  <CardActions>
-    <CreateButton basePath={basePath} />
-    {/* <Button onClick={<FilterReservation />}> cos </Button> */}
-  </CardActions>
-);
+// const TagListActions = ({ basePath }) => (
+//   <CreateButton basePath={basePath} />
+
+//   <Button label={'Add filters'} onClick={<FilterReservation {...props} />} />
+// );
+
+const ListActions = (props) => {
+  const { exporter, filters, maxResults, ...rest } = props;
+
+  const { resource, displayedFilters, filterValues, basePath, showFilter } = useListContext();
+  return (
+    <TopToolbar {...sanitizeListRestProps(rest)}>
+      {filters &&
+        cloneElement(filters, {
+          resource,
+          showFilter,
+          displayedFilters,
+          filterValues,
+          context: 'button',
+        })}
+      <CreateButton basePath={basePath} label={'Stwórz nową rezerwację'} />
+    </TopToolbar>
+  );
+};
 const styles = {
   drawerContent: {
     width: 300,
@@ -47,9 +75,8 @@ class ReservationList extends React.Component {
 
     return (
       <>
-        <List actions={<TagListActions />} filters={<FilterReservation />} {...props}>
+        <List actions={<ListActions />} filters={<FilterReservation />} title={'Rezerwacje'} {...props}>
           <Datagrid size={'medium'}>
-            <TextField source={'id'} />
             <TextField label={'Data'} source={'start_time'} />
             <TextField label={'Godzina'} source={'hour'} />
             <TextField label={'Strefa boiska'} source={'courtId'} />
@@ -57,7 +84,7 @@ class ReservationList extends React.Component {
             <TextField label={'Nazwisko'} source={'userId.surname'} />
             <BooleanField label={'Vat'} source={'vat'} />
             <BooleanField label={'Faktura obsłużona'} source={'isServedVat'} />
-            <EditButton />
+            <EditButton label={'Edytuj'} />
           </Datagrid>
         </List>
         <Route path={'/reservations/create'}>
