@@ -8,6 +8,9 @@ router.post(
   passport.authenticate('local'),
   loginController.login,
 );
+
+router.post('/api/checkUser', loginController.login);
+
 router.post(
   '/api/login/:role',
   passport.authenticate('local'),
