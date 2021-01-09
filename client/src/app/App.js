@@ -31,11 +31,11 @@ const App = () => {
 				routes
 			}}
 		>
-			<StylesProvider jss={jss} generateClassName={generateClassName}>
-				<Provider store={store}>
-					<MuiPickersUtilsProvider utils={MomentUtils}>
+			<StylesProvider {...{ jss, generateClassName }}>
+				<Provider {...{ store }}>
+					<MuiPickersUtilsProvider {...{ utils: MomentUtils }}>
 						<Auth>
-							<Router history={history}>
+							<Router {...{ history }}>
 								<FuseAuthorization>
 									<FuseTheme>
 										<FuseLayout />

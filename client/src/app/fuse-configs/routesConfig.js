@@ -1,15 +1,21 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import FuseUtils from '@fuse/utils';
-import ExampleConfig from 'app/main/example/ExampleConfig';
 
-const routeConfigs = [ExampleConfig];
+import pagesConfigs from 'app/main/pages/pagesConfigs';
+
+import FuseUtils from '@fuse/utils';
+
+const routeConfigs = [...pagesConfigs];
 
 const routes = [
 	...FuseUtils.generateRoutesFromConfigs(routeConfigs),
 	{
 		path: '/',
+		exact: true,
 		component: () => <Redirect to="/example" />
+	},
+	{
+		component: () => <Redirect to="/not-found" />
 	}
 ];
 
