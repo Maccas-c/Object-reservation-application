@@ -1,7 +1,7 @@
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import auth0Service from 'app/services/auth0Service';
 import firebaseService from 'app/services/firebaseService';
-import jwtService from 'app/services/jwtService';
+import LoginService from 'app/services/loginService';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
@@ -19,7 +19,7 @@ class Auth extends Component {
 			// Comment the lines which you do not use
 			// this.firebaseCheck(),
 			// this.auth0Check(),
-			// this.jwtCheck()
+			this.jwtCheck()
 		]).then(() => {
 			this.setState({ waitAuthCheck: false });
 		});
@@ -27,14 +27,13 @@ class Auth extends Component {
 
 	jwtCheck = () =>
 		new Promise(resolve => {
-			jwtService.on('onAutoLogin', () => {
+			LoginService.on('onAutoLogin', () => {
 				this.props.showMessage({ message: 'Logging in with JWT' });
 
 				/**
 				 * Sign in and retrieve user data from Api
 				 */
-				jwtService
-					.signInWithToken()
+				LoginService.signInWithToken()
 					.then(user => {
 						this.props.setUserData(user);
 
@@ -49,7 +48,7 @@ class Auth extends Component {
 					});
 			});
 
-			jwtService.on('onAutoLogout', message => {
+			LoginService.on('onAutoLogout', message => {
 				if (message) {
 					this.props.showMessage({ message });
 				}
@@ -59,11 +58,11 @@ class Auth extends Component {
 				resolve();
 			});
 
-			jwtService.on('onNoAccessToken', () => {
+			LoginService.on('onNoAccessToken', () => {
 				resolve();
 			});
 
-			jwtService.init();
+			LoginService.init();
 
 			return Promise.resolve();
 		});

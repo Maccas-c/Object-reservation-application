@@ -1,4 +1,3 @@
-import FuseShortcuts from '@fuse/core/FuseShortcuts';
 import AppBar from '@material-ui/core/AppBar';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -36,11 +35,7 @@ function ToolbarLayout1(props) {
 						</Hidden>
 					)}
 
-					<div className="flex flex-1">
-						<Hidden mdDown>
-							<FuseShortcuts className="px-16" />
-						</Hidden>
-					</div>
+					<div className="flex flex-1" />
 
 					<div className="flex items-center px-16">
 						<LanguageSwitcher />

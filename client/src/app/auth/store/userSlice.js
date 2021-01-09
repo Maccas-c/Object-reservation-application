@@ -7,7 +7,7 @@ import { setInitialSettings, setDefaultSettings } from 'app/store/fuse/settingsS
 import { showMessage } from 'app/store/fuse/messageSlice';
 import auth0Service from 'app/services/auth0Service';
 import firebaseService from 'app/services/firebaseService';
-import jwtService from 'app/services/jwtService';
+import jwtService from 'app/services/loginService';
 
 export const setUserDataAuth0 = tokenData => async dispatch => {
 	const user = {
@@ -81,7 +81,7 @@ export const setUserData = user => async (dispatch, getState) => {
 	/*
     Set User Settings
      */
-	dispatch(setDefaultSettings(user.data.settings));
+	console.log(user);
 
 	dispatch(setUser(user));
 };
@@ -100,8 +100,7 @@ export const updateUserShortcuts = shortcuts => async (dispatch, getState) => {
 	const newUser = {
 		...user,
 		data: {
-			...user.data,
-			shortcuts
+			...user.data
 		}
 	};
 
@@ -191,8 +190,7 @@ const initialState = {
 	data: {
 		displayName: 'Piotr Ulanicki',
 		photoURL: 'assets/images/avatars/profile.jpg',
-		email: 'piotr.ulanicki4@gmail.com',
-		shortcuts: ['calendar', 'mail', 'contacts', 'todo']
+		email: 'piotr.ulanicki4@gmail.com'
 	}
 };
 

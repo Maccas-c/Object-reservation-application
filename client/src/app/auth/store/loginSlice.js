@@ -1,27 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import firebaseService from 'app/services/firebaseService';
-import jwtService from 'app/services/jwtService';
+
+import LoginService from '../../services/loginService/loginService';
 import { setUserData } from './userSlice';
 
-import axios from 'axios/axios-auth';
-
 export const submitLogin = ({ email, password }) => async dispatch => {
-	axios
-		.post(
-			'/api/login',
-			{
-				email,
-				password
-			},
-			{
-				withCredentials: true
-			}
-		)
-		.then(response => {
-			console.log(response);
+	return LoginService.signInWithEmailAndPassword(email, password)
+		.then(user => {
+			dispatch(setUserData(user));
+			return dispatch(loginSuccess());
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+			console.log(err);
+			return dispatch(loginError(err));
+		});
 };
 
 export const submitLoginWithFireBase = ({ username, password }) => async dispatch => {

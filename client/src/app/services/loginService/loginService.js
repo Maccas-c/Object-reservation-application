@@ -1,9 +1,7 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-/* eslint-disable camelcase */
+import axios from 'axios/axios-auth';
 
-class JwtService extends FuseUtils.EventEmitter {
+class LoginService extends FuseUtils.EventEmitter {
 	init() {
 		this.setInterceptors();
 		this.handleAuthentication();
@@ -28,21 +26,40 @@ class JwtService extends FuseUtils.EventEmitter {
 	};
 
 	handleAuthentication = () => {
-		const access_token = this.getAccessToken();
-
-		if (!access_token) {
+		const user = this.getUser();
+		if (!user) {
 			this.emit('onNoAccessToken');
-
 			return;
 		}
-
-		if (this.isAuthTokenValid(access_token)) {
-			this.setSession(access_token);
+		if (this.isUserValid(user)) {
+			this.setSession(user);
 			this.emit('onAutoLogin', true);
 		} else {
 			this.setSession(null);
 			this.emit('onAutoLogout', 'access_token expired');
 		}
+	};
+
+	signInWithToken = () => {
+		return new Promise((resolve, reject) => {
+			const id = this.getUser()._id;
+			axios
+				.get(`/api/checkUser/${id}`)
+				.then(response => {
+					if (response.data) {
+						this.setSession(response.data);
+						resolve(response.data);
+					} else {
+						this.logout();
+						reject(new Error('Failed to login with token.'));
+					}
+				})
+				.catch(error => {
+					console.log('halo chu');
+					this.logout();
+					reject(new Error('Failed to login with token.'));
+				});
+		});
 	};
 
 	createUser = data => {
@@ -72,36 +89,12 @@ class JwtService extends FuseUtils.EventEmitter {
 					}
 				)
 				.then(response => {
-					if (response.data.user) {
-						this.setSession(response.data.access_token);
-						resolve(response.data.user);
+					if (response.data) {
+						this.setSession(response.data);
+						resolve(response.data);
 					} else {
 						reject(response.data.error);
 					}
-				});
-		});
-	};
-
-	signInWithToken = () => {
-		return new Promise((resolve, reject) => {
-			axios
-				.get('/api/auth/access-token', {
-					data: {
-						access_token: this.getAccessToken()
-					}
-				})
-				.then(response => {
-					if (response.data.user) {
-						this.setSession(response.data.access_token);
-						resolve(response.data.user);
-					} else {
-						this.logout();
-						reject(new Error('Failed to login with token.'));
-					}
-				})
-				.catch(error => {
-					this.logout();
-					reject(new Error('Failed to login with token.'));
 				});
 		});
 	};
@@ -112,12 +105,11 @@ class JwtService extends FuseUtils.EventEmitter {
 		});
 	};
 
-	setSession = access_token => {
-		if (access_token) {
-			localStorage.setItem('jwt_access_token', access_token);
-			axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
+	setSession = user => {
+		if (user) {
+			localStorage.setItem('user', user);
 		} else {
-			localStorage.removeItem('jwt_access_token');
+			localStorage.removeItem('user');
 			delete axios.defaults.headers.common.Authorization;
 		}
 	};
@@ -126,25 +118,20 @@ class JwtService extends FuseUtils.EventEmitter {
 		this.setSession(null);
 	};
 
-	isAuthTokenValid = access_token => {
-		if (!access_token) {
-			return false;
-		}
-		const decoded = jwtDecode(access_token);
-		const currentTime = Date.now() / 1000;
-		if (decoded.exp < currentTime) {
-			console.warn('access token expired');
+	isUserValid = user => {
+		if (!user) {
+			console.warn('User is not login');
 			return false;
 		}
 
 		return true;
 	};
 
-	getAccessToken = () => {
-		return window.localStorage.getItem('jwt_access_token');
+	getUser = () => {
+		return window.localStorage.getItem('user');
 	};
 }
 
-const instance = new JwtService();
+const instance = new LoginService();
 
 export default instance;
