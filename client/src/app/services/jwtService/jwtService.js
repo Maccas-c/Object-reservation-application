@@ -61,12 +61,16 @@ class JwtService extends FuseUtils.EventEmitter {
 	signInWithEmailAndPassword = (email, password) => {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('/api/auth', {
-					data: {
+				.post(
+					'http://localhost:3001/api/login',
+					{
 						email,
 						password
+					},
+					{
+						withCredentials: true
 					}
-				})
+				)
 				.then(response => {
 					if (response.data.user) {
 						this.setSession(response.data.access_token);

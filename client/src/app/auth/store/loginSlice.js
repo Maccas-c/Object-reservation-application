@@ -4,17 +4,24 @@ import firebaseService from 'app/services/firebaseService';
 import jwtService from 'app/services/jwtService';
 import { setUserData } from './userSlice';
 
-export const submitLogin = ({ email, password }) => async dispatch => {
-	return jwtService
-		.signInWithEmailAndPassword(email, password)
-		.then(user => {
-			dispatch(setUserData(user));
+import axios from 'axios/axios-auth';
 
-			return dispatch(loginSuccess());
+export const submitLogin = ({ email, password }) => async dispatch => {
+	axios
+		.post(
+			'/api/login',
+			{
+				email,
+				password
+			},
+			{
+				withCredentials: true
+			}
+		)
+		.then(response => {
+			console.log(response);
 		})
-		.catch(error => {
-			return dispatch(loginError(error));
-		});
+		.catch(err => console.log(err));
 };
 
 export const submitLoginWithFireBase = ({ username, password }) => async dispatch => {
