@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserSettings } from 'app/auth/store/userSlice';
 import { setDefaultSettings } from 'app/store/fuse/settingsSlice';
 
 const useStyles = makeStyles(theme => ({
@@ -71,8 +70,6 @@ function FuseSettings(props) {
 
 		if (user.role === 'guest') {
 			dispatch(setDefaultSettings(newSettings));
-		} else {
-			dispatch(updateUserSettings(newSettings));
 		}
 	}
 

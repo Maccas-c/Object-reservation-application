@@ -4,7 +4,6 @@ import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import FuseSuspense from '@fuse/core/FuseSuspense';
 import { makeStyles } from '@material-ui/core/styles';
 import AppContext from 'app/AppContext';
-import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import clsx from 'clsx';
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
@@ -121,8 +120,6 @@ function Layout1(props) {
 									</div>
 
 									{config.footer.display && config.footer.position === 'below' && <FooterLayout1 />}
-
-									<SettingsPanel />
 								</div>
 
 								{config.navbar.display && config.navbar.position === 'right' && (
@@ -180,8 +177,6 @@ function Layout1(props) {
 								{config.footer.display &&
 									config.footer.position === 'below' &&
 									config.footer.style === 'fixed' && <FooterLayout1 />}
-
-								<SettingsPanel />
 							</div>
 
 							{config.navbar.display && config.navbar.position === 'right' && <NavbarWrapperLayout1 />}

@@ -66,7 +66,7 @@ export const defaultThemes = {
 			type: 'light',
 			primary: fuseDark,
 			secondary: {
-				light: lightBlue[400],
+				light: lightBlue[500],
 				main: lightBlue[600],
 				dark: lightBlue[700]
 			},

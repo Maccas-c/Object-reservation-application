@@ -22,11 +22,6 @@ function ExamplePage(props) {
 					<h4>{t('TITLE')}</h4>
 				</div>
 			}
-			contentToolbar={
-				<div className="px-24">
-					<h4>Content Toolbar</h4>
-				</div>
-			}
 			content={
 				<div className="p-24">
 					<h4>Content</h4>

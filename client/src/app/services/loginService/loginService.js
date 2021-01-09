@@ -42,9 +42,9 @@ class LoginService extends FuseUtils.EventEmitter {
 
 	signInWithToken = () => {
 		return new Promise((resolve, reject) => {
-			const id = this.getUser()._id;
+			const user = this.getUser();
 			axios
-				.get(`/api/checkUser/${id}`)
+				.post(`/api/checkUser`, user)
 				.then(response => {
 					if (response.data) {
 						this.setSession(response.data);
@@ -55,7 +55,6 @@ class LoginService extends FuseUtils.EventEmitter {
 					}
 				})
 				.catch(error => {
-					console.log('halo chu');
 					this.logout();
 					reject(new Error('Failed to login with token.'));
 				});
@@ -99,15 +98,9 @@ class LoginService extends FuseUtils.EventEmitter {
 		});
 	};
 
-	updateUserData = user => {
-		return axios.post('/api/auth/user/update', {
-			user
-		});
-	};
-
 	setSession = user => {
 		if (user) {
-			localStorage.setItem('user', user);
+			localStorage.setItem('user', JSON.stringify(user));
 		} else {
 			localStorage.removeItem('user');
 			delete axios.defaults.headers.common.Authorization;
@@ -128,7 +121,7 @@ class LoginService extends FuseUtils.EventEmitter {
 	};
 
 	getUser = () => {
-		return window.localStorage.getItem('user');
+		return JSON.parse(localStorage.getItem('user'));
 	};
 }
 
