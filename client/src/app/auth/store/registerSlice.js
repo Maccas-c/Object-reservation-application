@@ -43,6 +43,16 @@ export const resetPasswordStart = token => {
 			});
 	};
 };
+
+export const updatePasswordStart = (email, token, password, route) => {
+	const data = { email, resetPasswordToken: token, password };
+	return dispatch => {
+		axios
+			.patch('/updatePasswordViaEmail', data, { withCredentials: true })
+			.then(response => {})
+			.catch(error => {});
+	};
+};
 const initialState = {
 	success: false,
 	error: {

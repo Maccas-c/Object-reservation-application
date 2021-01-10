@@ -1,21 +1,18 @@
-import { RadioGroupFormsy, TextFieldFormsy } from '@fuse/core/formsy';
+import { TextFieldFormsy } from '@fuse/core/formsy';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Formsy from 'formsy-react';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { registerError, submitRegister } from 'app/auth/store/registerSlice';
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { rememberPassword } from '../../../auth/store/registerSlice';
+import { updatePasswordStart } from '../../../auth/store/registerSlice';
 
-function ResetPasswordPanel({ match }) {
+function ResetPasswordPanel() {
 	const dispatch = useDispatch();
 
 	const [isFormValid, setIsFormValid] = useState(false);
 	const formRef = useRef(null);
-	const { token } = match.params;
-	console.log(token);
 	const history = useHistory();
 
 	function disableButton() {
@@ -27,7 +24,7 @@ function ResetPasswordPanel({ match }) {
 	}
 
 	function handleSubmit(model) {
-		dispatch(rememberPassword(model));
+		dispatch(updatePasswordStart(model));
 		history.push('/login');
 	}
 
@@ -43,8 +40,8 @@ function ResetPasswordPanel({ match }) {
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="password"
-					label="password"
+					name="Hasło"
+					label="Hasło"
 					validations={{ minLength: 6 }}
 					validationErrors={{
 						isEmail: 'Hasło musi mieć minimum 6 znaków'
