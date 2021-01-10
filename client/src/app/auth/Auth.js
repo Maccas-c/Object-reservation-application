@@ -21,8 +21,6 @@ class Auth extends Component {
 	userCheck = () =>
 		new Promise(resolve => {
 			LoginService.on('onAutoLogin', () => {
-				this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
-
 				/**
 				 * Sign in and retrieve user data from Api
 				 */
@@ -32,10 +30,10 @@ class Auth extends Component {
 
 						resolve();
 
-						this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
+						// this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
 					})
 					.catch(error => {
-						this.props.showMessage({ message: error.message });
+						// this.props.showMessage({ message: error.message });
 
 						resolve();
 					});
