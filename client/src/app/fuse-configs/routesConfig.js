@@ -5,8 +5,9 @@ import LoginConfig from 'app/main/login/LoginConfig';
 import pagesConfigs from 'app/main/pages/pagesConfigs';
 
 import FuseUtils from '@fuse/utils';
+import RegisterConfig from '../main/register/RegisterConfig';
 
-const routeConfigs = [...pagesConfigs, LoginConfig];
+const routeConfigs = [...pagesConfigs, LoginConfig, RegisterConfig];
 
 const routes = [
 	...FuseUtils.generateRoutesFromConfigs(routeConfigs),
