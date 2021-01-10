@@ -18,9 +18,8 @@ function RegisterPanel(props) {
 	const formRef = useRef(null);
 
 	const history = useHistory();
-	addValidationRule('isPassword', (values, value) => {
-		const { password } = values;
-		if (values.password) {
+	addValidationRule('isPassword', ({ password }) => {
+		if (password) {
 			return password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
 		}
 		return null;
