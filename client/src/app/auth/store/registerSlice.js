@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import jwtService from 'app/services/login';
+import axios from 'axios/axios-auth';
 
 export const submitRegister = ({ name, surname, password, email, sex }) => async dispatch => {
 	return jwtService
@@ -16,6 +17,12 @@ export const submitRegister = ({ name, surname, password, email, sex }) => async
 		.catch(error => {
 			return dispatch(registerError(error));
 		});
+};
+export const rememberPassword = ({ email }) => async dispatch => {
+	axios
+		.post('/forgotPassword', { email }, { withCredentials: true })
+		.then(() => {})
+		.catch(error => {});
 };
 
 const initialState = {
