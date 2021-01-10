@@ -9,7 +9,6 @@ import { registerError, submitRegister } from 'app/auth/store/registerSlice';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import { useHistory } from 'react-router';
-import ValidationSchema from './ValidationSchema';
 
 function RegisterPanel(props) {
 	const dispatch = useDispatch();
@@ -108,7 +107,7 @@ function RegisterPanel(props) {
 					label="Email"
 					validations="isEmail"
 					validationErrors={{
-						isEmail: 'Wpisz poprawny email !'
+						isEmail: 'Wpisz poprawny email!'
 					}}
 					InputProps={{
 						endAdornment: (
@@ -128,7 +127,7 @@ function RegisterPanel(props) {
 					type="password"
 					name="password"
 					label="Hasło"
-					validations={ValidationSchema}
+					validations="equalsField:password-confirm"
 					validationErrors={{
 						password:
 							"    'Hasło musi się składać z co najmniej 6 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jeden znak specjalny oraz jedną cyfrę.',\n",
