@@ -18,8 +18,6 @@ router.get(
   adminController.reservationsGetByUserId,
 );
 
-router.post('/api/admin/reservations', isAdmin, reservationCreate);
-
 router.put(
   '/api/admin/reservations/:id',
   isAdmin,
