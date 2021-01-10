@@ -60,9 +60,9 @@ class LoginService extends FuseUtils.EventEmitter {
 
 	createUser = data => {
 		return new Promise((resolve, reject) => {
-			axios.post('/auth/register', data).then(response => {
-				if (response.data.user) {
-					resolve(response.data.user);
+			axios.post('/user/create', data).then(response => {
+				if (response.data) {
+					resolve(response.data);
 				} else {
 					reject(response.data.error);
 				}

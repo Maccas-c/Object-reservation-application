@@ -1,23 +1,58 @@
 import { createSlice } from '@reduxjs/toolkit';
 import jwtService from 'app/services/login';
-import { setUserData } from './userSlice';
+import axios from 'axios/axios-auth';
 
-export const submitRegister = ({ displayName, password, email }) => async dispatch => {
+export const submitRegister = ({ name, surname, password, email, sex }) => async dispatch => {
 	return jwtService
 		.createUser({
-			displayName,
+			name,
+			surname,
 			password,
-			email
+			email,
+			sex
 		})
-		.then(user => {
-			dispatch(setUserData(user));
+		.then(() => {
 			return dispatch(registerSuccess());
 		})
 		.catch(error => {
 			return dispatch(registerError(error));
 		});
 };
+export const rememberPassword = ({ email }) => async dispatch => {
+	axios
+		.post('/forgotPassword', { email }, { withCredentials: true })
+		.then(() => {})
+		.catch(error => {});
+};
 
+export const resetPasswordStart = token => {
+	return dispatch => {
+		axios
+			.get(
+				'/reset',
+				{
+					params: {
+						resetPasswordToken: token
+					}
+				},
+				{ withCredentials: true }
+			)
+			.then(response => {})
+			.catch(error => {
+				console.log(error.message);
+			});
+	};
+};
+
+export const updatePasswordStart = (email, token, password, route) => {
+	const data = { email, resetPasswordToken: token, password };
+	return dispatch => {
+		axios
+			.patch('/updatePasswordViaEmail', data, { withCredentials: true })
+			.then(response => {})
+			.catch(error => {});
+	};
+};
 const initialState = {
 	success: false,
 	error: {

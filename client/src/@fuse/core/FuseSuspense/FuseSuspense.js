@@ -1,6 +1,7 @@
 import FuseLoading from '@fuse/core/FuseLoading';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button } from '@material-ui/core';
 
 /**
  * React Suspense defaults

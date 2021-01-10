@@ -3,14 +3,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LoginPanelUSOS from './tabs/LoginPanelUSOS';
-import LoginPanel from './tabs/LoginPanel';
+import RememberPanel from './tabs/RememberPanel';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -22,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	leftSection: {},
 	rightSection: {
-		background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
+		background: `linear-gradient(to left, ${theme.palette.primary.dark} 0%, ${darken(
 			theme.palette.primary.dark,
 			0.5
 		)} 100%)`,
@@ -30,13 +27,8 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function Login() {
+function Register() {
 	const classes = useStyles();
-	const [selectedTab, setSelectedTab] = useState(0);
-
-	function handleTabChange(event, value) {
-		setSelectedTab(value);
-	}
 
 	return (
 		<div
@@ -56,7 +48,7 @@ function Login() {
 					>
 						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
-								<div className="flex items-center mb-32">
+								<div className="flex items-center justif-center mb-32">
 									<img className="logo-icon w-48" src="assets/images/logos/logo.svg" alt="logo" />
 									<div className="border-l-1 mr-4 w-1 h-40" />
 									<div>
@@ -72,46 +64,19 @@ function Login() {
 									</div>
 								</div>
 							</FuseAnimate>
-
-							<Tabs
-								value={selectedTab}
-								onChange={handleTabChange}
-								variant="fullWidth"
-								className="w-full mb-32"
-							>
-								<Tab
-									icon={<img className="h-40" src="assets/images/logos/app.svg" alt="aplikacja" />}
-									className="min-w-0"
-									label="Aplikacja"
-								/>
-								<Tab
-									icon={<img className="h-40" src="assets/images/logos/usos.svg" alt="usos" />}
-									className="min-w-0"
-									label="USOS"
-								/>
-							</Tabs>
-
-							{selectedTab === 0 && <LoginPanel />}
-							{selectedTab === 1 && <LoginPanelUSOS />}
+							<RememberPanel />
 						</CardContent>
 
 						<div className="flex flex-col items-center justify-center pb-32">
 							<div>
-								<span className="font-medium mr-8">Nie masz konta?</span>
-								<Link className="font-medium" to="/register">
-									Zarejestruj się.
-								</Link>
-							</div>
-						</div>
-						<div className="flex flex-col items-center justify-center pb-32">
-							<div>
-								<span className="font-medium mr-8">Nie pamietasz hasła?</span>
-								<Link className="font-medium" to="/rememberPassword">
-									Przypomnij hasło!
+								<span className="font-medium mr-8">Masz już konto?</span>
+								<Link className="font-medium" to="/login">
+									Zaloguj się.
 								</Link>
 							</div>
 						</div>
 					</Card>
+
 					<div
 						className={clsx(classes.rightSection, 'hidden md:flex flex-1 items-center justify-center p-64')}
 					>
@@ -138,4 +103,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default Register;
