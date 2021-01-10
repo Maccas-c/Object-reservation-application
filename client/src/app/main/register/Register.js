@@ -71,9 +71,9 @@ function Register() {
 
 						<div className="flex flex-col items-center justify-center pb-32">
 							<div>
-								<span className="font-medium mr-8">Already have an account?</span>
+								<span className="font-medium mr-8">Masz już konto?</span>
 								<Link className="font-medium" to="/login">
-									Zaloguj!
+									Zaloguj się.
 								</Link>
 							</div>
 						</div>
