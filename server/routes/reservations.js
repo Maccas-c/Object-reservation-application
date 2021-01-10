@@ -8,40 +8,9 @@ router.get('/api/reservations', reservationController.reservationsGet);
 
 router.post('/api/reservations/getPrice', reservationController.getPriceFront);
 
-router.get(
-  '/api/allReservations',
-  isAuth,
-  authRole(process.env.ROLE_ADMIN),
-  reservationController.reservationsGetAll,
-);
-
-router.post(
-  '/api/reservation/create',
-  // isAuth,
-  reservationController.reservationCreate,
-);
-
 router.post(
   '/api/reservation/create/groups',
   reservationController.reservationCreateConstant,
-);
-
-router.delete(
-  '/api/reservation/delete/:reservationId',
-  isAuth,
-  reservationController.reservationDelete,
-);
-
-router.patch(
-  '/api/reservation/update/:reservationId',
-  isAuth,
-  reservationController.reservationUpdate,
-);
-
-router.get(
-  '/api/reservation/:reservationId',
-  // isAuth,
-  reservationController.getReservation,
 );
 
 router.get(

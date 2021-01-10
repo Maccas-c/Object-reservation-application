@@ -3,7 +3,6 @@ const router = express.Router();
 const { isAuth, authRole } = require('./authMiddleware');
 const { check } = require('express-validator');
 const adminController = require('./../controllers/adminController');
-const { reservationCreate } = require('./../controllers/reservationController');
 const {
   rangeReservations,
   rangeUsers,
@@ -35,5 +34,5 @@ router.delete(
   '/api/admin/reservations/:id',
   adminController.reservationsDelete,
 );
-router.post('/api/admin/reservations', reservationCreate);
+router.post('/api/admin/reservations', adminController.reservationCreate);
 module.exports = router;
