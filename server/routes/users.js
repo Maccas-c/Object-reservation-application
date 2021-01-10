@@ -23,12 +23,6 @@ router.post(
   userController.userCreate,
 );
 
-// router.patch(
-//   '/api/user/delete/:userId',
-//   isAuth,
-//   checkUser,
-//   userController.userDelete
-// );
 router.patch(
   '/api/user/update',
   [
