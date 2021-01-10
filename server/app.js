@@ -55,7 +55,7 @@ app.use(
     credentials: true,
     methods: 'GET,PUT,PATCH,DELETE,POST',
     origin: ['http://localhost:3000', 'http://localhost:3002'],
-    exposedHeaders: 'Content-Range',
+    exposedHeaders: 'Content-Range, React-Admin',
   }),
 );
 app.use(logger('dev'));

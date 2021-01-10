@@ -1,5 +1,5 @@
 const express = require('express');
-const { isAuth, authRole } = require('./authMiddleware');
+const { isAuth } = require('./authMiddleware');
 
 const router = express.Router();
 const reservationController = require('../controllers/reservationController');
@@ -11,7 +11,6 @@ router.post('/api/reservations/getPrice', reservationController.getPriceFront);
 router.get(
   '/api/allReservations',
   isAuth,
-  authRole(process.env.ROLE_ADMIN),
   reservationController.reservationsGetAll,
 );
 

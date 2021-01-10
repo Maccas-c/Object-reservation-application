@@ -4582,7 +4582,7 @@ dotenv-expand@5.1.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
 
-dotenv@8.2.0:
+dotenv@8.2.0, dotenv@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
@@ -9930,6 +9930,21 @@ ra-core@^3.10.2, ra-core@^3.8.5:
     query-string "^5.1.1"
     reselect "~3.0.0"
 
+ra-core@^3.11.2:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.11.2.tgz#22a6b93e093ddcbbb45f04904f74020c6c4d8fde"
+  integrity sha512-1oYCnXER5iSmEwHi3Hy2CkAuJXkC/6AjkJlVf0trnhzvUxkzusMOV9dm4ONyyrPDwGFc7oStNA793F7qNZbXog==
+  dependencies:
+    "@testing-library/react" "^8.0.7"
+    classnames "~2.2.5"
+    date-fns "^1.29.0"
+    eventemitter3 "^3.0.0"
+    inflection "~1.12.0"
+    lodash "~4.17.5"
+    prop-types "^15.6.1"
+    query-string "^5.1.1"
+    reselect "~3.0.0"
+
 ra-data-rest-client@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ra-data-rest-client/-/ra-data-rest-client-1.1.1.tgz#565f6e7a3741a70efea672e53b7ab16c026d84f9"
@@ -9953,12 +9968,25 @@ ra-i18n-polyglot@^3.10.2:
     node-polyglot "^2.2.2"
     ra-core "^3.10.2"
 
+ra-i18n-polyglot@^3.11.2:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.11.2.tgz#b0d4e00c371f927bd082f5ac9f2bc2af02ad2967"
+  integrity sha512-hTZuWzuFydopFMobVYmohuXauu+2RIv0Wceg6QUtrvYFkBnTlg5qRwFvoqCy3Oq5ZGqiMQDbu05ldo42BuWbgQ==
+  dependencies:
+    node-polyglot "^2.2.2"
+    ra-core "^3.11.2"
+
 ra-language-english@^3.10.2:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.10.2.tgz#dfdf153e9afd63130351524779f8465f3a8f3544"
   integrity sha512-gtPrLqem9Li2f858OLgW8CJbg+4twvLMpZlkFlgJwIkb+d/SaD4WDtPVfEyIjZrGSGKdX8GD5y/tx6XOCZq6RA==
   dependencies:
     ra-core "^3.10.2"
+
+ra-language-polish@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ra-language-polish/-/ra-language-polish-1.2.0.tgz#43f6dc0a8df1abd8d5a2a29f5b9ea6733136a4b6"
+  integrity sha512-MMv0I6nT+CbtdyB4mVqaDWdFKOCYcEmPPp6/ExaK7lqkhrHI0MTASqjGYz5rhO9ZaIJys8s6mcdhqNQLczCEpg==
 
 ra-ui-materialui@^3.10.2:
   version "3.10.2"

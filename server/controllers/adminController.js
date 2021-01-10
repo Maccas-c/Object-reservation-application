@@ -99,7 +99,7 @@ module.exports.reservationCreate = async function (req, res) {
       courtId: req.body.courtId,
     },
     async function (err, obj) {
-      if (err) return res.status(404).json(err);
+      if (err) return res.status(404).json('err');
       if (obj) return res.status(422).json('The hour is taken');
       else {
         const reservation = new reservationModel({
