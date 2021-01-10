@@ -16,7 +16,6 @@ export const setUserData = user => async (dispatch, getState) => {
 	/*
     Set User Settings
      */
-	console.log(user);
 
 	dispatch(setUser(user));
 };
@@ -42,9 +41,9 @@ export const logoutUser = () => async (dispatch, getState) => {
 const initialState = {
 	role: [], // guest
 	data: {
-		displayName: 'Piotr Ulanicki',
+		displayName: '',
 		photoURL: 'assets/images/avatars/profile.jpg',
-		email: 'piotr.ulanicki4@gmail.com'
+		email: ''
 	}
 };
 

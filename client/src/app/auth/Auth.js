@@ -26,7 +26,7 @@ class Auth extends Component {
 				/**
 				 * Sign in and retrieve user data from Api
 				 */
-				LoginService.signInWithToken()
+				LoginService.signWithSession()
 					.then(user => {
 						this.props.setUserData(user);
 
@@ -51,7 +51,7 @@ class Auth extends Component {
 				resolve();
 			});
 
-			LoginService.on('onNoAccessToken', () => {
+			LoginService.on('onNoUserId', () => {
 				resolve();
 			});
 

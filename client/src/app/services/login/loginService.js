@@ -28,30 +28,36 @@ class LoginService extends FuseUtils.EventEmitter {
 
 	handleAuthentication = () => {
 		const id = this.getUserId();
-		if (!id) {
-			this.emit('onNoAccessToken');
-			return;
-		}
-		if (this.isUserValid(id)) {
-			this.setUser(id);
-			this.emit('onAutoLogin', true);
-		} else {
-			this.setUser(null);
-			this.emit('onAutoLogout', 'Sesja wygasła, zostałeś wylogowany.');
-		}
+
+		this.setUser(id);
+		this.emit('onAutoLogin', true);
 	};
 
-	signInWithToken = () => {
+	checkUserUSOS = () => {
+		return new Promise((resolve, reject) => {
+			axios.get('/loginUsos').then(response => {
+				if (response.data) {
+					console.log(response.data);
+					this.setUser(response.data._id);
+					resolve(response.data);
+				} else {
+					this.logout();
+					reject(new Error('Błąd autoryzacji, zostałeś wylogowany.'));
+				}
+			});
+		});
+	};
+
+	signWithSession = () => {
 		return new Promise((resolve, reject) => {
 			axios
 				.get(`/checkUser`)
 				.then(response => {
-					if (response.data) {
+					if (response.data._id) {
 						this.setUser(response.data._id);
 						resolve(response.data);
 					} else {
-						this.logout();
-						reject(new Error('Błąd autoryzacji, zostałeś wylogowany.'));
+						this.checkUserUSOS();
 					}
 				})
 				.catch(error => {
@@ -96,6 +102,10 @@ class LoginService extends FuseUtils.EventEmitter {
 					}
 				});
 		});
+	};
+
+	signInWithUSOS = () => {
+		window.location.href = 'http://localhost:3001/api/loginUsos/connect';
 	};
 
 	setUser = id => {

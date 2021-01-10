@@ -15,6 +15,8 @@ export const submitLogin = ({ email, password }) => async dispatch => {
 		});
 };
 
+export const loginUSOS = () => LoginService.signInWithUSOS();
+
 const initialState = {
 	success: false,
 	error: {
