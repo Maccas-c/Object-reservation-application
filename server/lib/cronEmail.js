@@ -1,8 +1,9 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
-const { getMaxListeners } = require('../config/database');
+const { getMaxListeners, get } = require('../config/database');
+const reservationModel = require('../models/reservationModel');
 
-const sendEmail = function () {
+const sendEmail = function (email) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -13,13 +14,9 @@ const sendEmail = function () {
 
   const mailOptions = {
     from: `${process.env.EMAIL_ADDRESS}`,
-    to: `${'michalkubiak37@gmail.com'}`,
+    to: `${email}`,
     subject: 'Link To Reset Password',
-    text:
-      'Otrzymujesz to, ponieważ Ty (lub ktoś inny) poprosiłeś o zresetowanie hasła do swojego konta.\n\n' +
-      'Kliknij następujący link lub wklej go do przeglądarki, aby zakończyć proces w ciągu godziny od jego otrzymania:\n\n' +
-      `http://localhost:3000/reset/` +
-      'Jeśli nie poprosiłeś o to, zignoruj ​​ten e-mail, a twoje hasło pozostanie niezmienione.\n',
+    text: 'wiadomosć',
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -33,7 +30,34 @@ const sendEmail = function () {
 
 module.exports.task = function () {
   cron.schedule('00 * * * * *', () => {
-    console.log('wysłano');
-    //sendEmail();
+    console.log('scheduled');
+    reservationModel
+      .find({ email_sent: false })
+      .populate('userId')
+      .then(allReservation => {
+        for (let result of allReservation) {
+          console.log(result);
+          let date = new Date(result.start_time);
+          console.log(Date.now() < date - 24 * 60 * 60 * 1000 * 7);
+          if (Date.now() < date - 24 * 60 * 60 * 1000 * 7) {
+            console.log('send');
+            sendEmail(result.userId.email);
+            const getUser = reservationModel.findOne(
+              {
+                _id: result._id,
+              },
+              async function (err, reservation) {
+                if (reservation) {
+                  await reservation.updateOne({
+                    $set: {
+                      email_sent: true,
+                    },
+                  });
+                }
+              },
+            );
+          }
+        }
+      });
   });
 };

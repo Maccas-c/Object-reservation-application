@@ -6,6 +6,11 @@ const reservationModel = mongoose.Schema({
     type: String,
     required: true,
   },
+  email_sent: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   hour: {
     type: String,
     required: true,

@@ -1,4 +1,5 @@
 module.exports.login = function (req, res) {
+  console.log(req.session);
   if (req.user) {
     res.status(200).json({
       _id: req.user._id,
