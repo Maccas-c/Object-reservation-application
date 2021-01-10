@@ -78,7 +78,7 @@ class LoginService extends FuseUtils.EventEmitter {
 		return new Promise((resolve, reject) => {
 			axios
 				.post(
-					'http://localhost:3001/api/login',
+					'https://devcourt.projektstudencki.pl/api/login',
 					{
 						email,
 						password

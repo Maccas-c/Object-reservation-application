@@ -9,7 +9,7 @@ router.post(
   loginController.login,
 );
 
-router.post('/api/checkUser', loginController.login);
+router.get('/api/checkUser', loginController.login);
 
 router.post(
   '/api/login/:role',
