@@ -24,7 +24,7 @@ const httpClient = (url, options = {}) => {
   options.headers.set('React-Admin', process.env.REACT_APP_SECRET);
   return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpClient);
+const dataProvider = simpleRestProvider('https://devcourt.projektstudencki.pl/api/admin', httpClient);
 
 const i18nProvider = polyglotI18nProvider(() => polishMessages, 'pl');
 export const App = () => (

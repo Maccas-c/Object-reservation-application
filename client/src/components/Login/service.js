@@ -27,7 +27,8 @@ export const useLoginService = () => {
   };
   const userUsosLoginHandler = event => {
     event.preventDefault();
-    window.location.href = 'http://localhost:3001/api/loginUsos/connect';
+    window.location.href =
+      'https://devcourt.projektstudencki.pl/api/loginUsos/connect';
   };
 
   const registerHandler = event => {

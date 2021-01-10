@@ -43,7 +43,7 @@ module.exports.createPayments = function (req, res) {
         description: 'DEV',
         currencyCode: 'PLN',
         totalAmount: req.body.price,
-        continueUrl: 'http://localhost:3000/',
+        continueUrl: 'https://devcourt.projektstudencki.pl/',
         products: [
           {
             name: req.body.nameOfReservation,

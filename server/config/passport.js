@@ -23,7 +23,7 @@ const consumer = new oauth.OAuth(
   process.env.USOS_CONSUMER_KEY,
   process.env.USOS_CONSUMER_SECRET,
   '1.0',
-  'http:/localhost:3000/api/loginUsos/callback',
+  'https://devcourt.projektstudencki.pl/api/loginUsos/callback',
   'HMAC-SHA1',
   null,
 );
@@ -36,7 +36,7 @@ let usosClient = new OAuth1Strategy(
       'https://usosapps.amu.edu.pl/services/oauth/authorize',
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
-    callbackURL: 'http:/localhost:3001/api/loginUsos/callback',
+    callbackURL: 'https://devcourt.projektstudencki.pl/api/loginUsos/callback',
     signatureMethod: 'HMAC-SHA1',
   },
   function (accessToken, tokenSecret, profile, cb) {
