@@ -1,5 +1,5 @@
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
-import LoginService from 'app/services/loginService';
+import LoginService from 'app/services/login';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
@@ -21,7 +21,7 @@ class Auth extends Component {
 	userCheck = () =>
 		new Promise(resolve => {
 			LoginService.on('onAutoLogin', () => {
-				this.props.showMessage({ message: 'Logging in with JWT' });
+				this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
 
 				/**
 				 * Sign in and retrieve user data from Api
@@ -32,7 +32,7 @@ class Auth extends Component {
 
 						resolve();
 
-						this.props.showMessage({ message: 'Logged in with JWT' });
+						this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
 					})
 					.catch(error => {
 						this.props.showMessage({ message: error.message });

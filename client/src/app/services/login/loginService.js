@@ -1,4 +1,5 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
+
 import axios from 'axios/axios-auth';
 
 class LoginService extends FuseUtils.EventEmitter {
@@ -16,8 +17,8 @@ class LoginService extends FuseUtils.EventEmitter {
 				return new Promise((resolve, reject) => {
 					if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
 						// if you ever get an unauthorized response, logout the user
-						this.emit('onAutoLogout', 'Invalid access_token');
-						this.setSession(null);
+						this.emit('onAutoLogout', 'Błąd autoryzacji, zostałeś wylogowany.');
+						this.setUser(null);
 					}
 					throw err;
 				});
@@ -26,46 +27,45 @@ class LoginService extends FuseUtils.EventEmitter {
 	};
 
 	handleAuthentication = () => {
-		const user = this.getUser();
-		if (!user) {
+		const id = this.getUserId();
+		if (!id) {
 			this.emit('onNoAccessToken');
 			return;
 		}
-		if (this.isUserValid(user)) {
-			this.setSession(user);
+		if (this.isUserValid(id)) {
+			this.setUser(id);
 			this.emit('onAutoLogin', true);
 		} else {
-			this.setSession(null);
-			this.emit('onAutoLogout', 'access_token expired');
+			this.setUser(null);
+			this.emit('onAutoLogout', 'Sesja wygasła, zostałeś wylogowany.');
 		}
 	};
 
 	signInWithToken = () => {
 		return new Promise((resolve, reject) => {
-			const user = this.getUser();
 			axios
-				.post(`/api/checkUser`, user)
+				.get(`/checkUser`)
 				.then(response => {
 					if (response.data) {
-						this.setSession(response.data);
+						this.setUser(response.data._id);
 						resolve(response.data);
 					} else {
 						this.logout();
-						reject(new Error('Failed to login with token.'));
+						reject(new Error('Błąd autoryzacji, zostałeś wylogowany.'));
 					}
 				})
 				.catch(error => {
 					this.logout();
-					reject(new Error('Failed to login with token.'));
+					reject(new Error('Błąd autoryzacji, zostałeś wylogowany.'));
 				});
 		});
 	};
 
 	createUser = data => {
 		return new Promise((resolve, reject) => {
-			axios.post('/api/auth/register', data).then(response => {
+			axios.post('/auth/register', data).then(response => {
 				if (response.data.user) {
-					this.setSession(response.data.access_token);
+					this.setUser(response.data.access_token);
 					resolve(response.data.user);
 				} else {
 					reject(response.data.error);
@@ -78,7 +78,7 @@ class LoginService extends FuseUtils.EventEmitter {
 		return new Promise((resolve, reject) => {
 			axios
 				.post(
-					'https://devcourt.projektstudencki.pl/api/login',
+					'/login',
 					{
 						email,
 						password
@@ -89,7 +89,7 @@ class LoginService extends FuseUtils.EventEmitter {
 				)
 				.then(response => {
 					if (response.data) {
-						this.setSession(response.data);
+						this.setUser(response.data._id);
 						resolve(response.data);
 					} else {
 						reject(response.data.error);
@@ -98,30 +98,30 @@ class LoginService extends FuseUtils.EventEmitter {
 		});
 	};
 
-	setSession = user => {
-		if (user) {
-			localStorage.setItem('user', JSON.stringify(user));
+	setUser = id => {
+		if (id) {
+			localStorage.setItem('userId', JSON.stringify(id));
 		} else {
-			localStorage.removeItem('user');
+			localStorage.removeItem('userId');
 			delete axios.defaults.headers.common.Authorization;
 		}
 	};
 
 	logout = () => {
-		this.setSession(null);
+		this.setUser(null);
 	};
 
-	isUserValid = user => {
-		if (!user) {
-			console.warn('User is not login');
+	isUserValid = id => {
+		if (!id) {
+			console.warn('Użytkownik nie jest zalogowany.');
 			return false;
 		}
 
 		return true;
 	};
 
-	getUser = () => {
-		return JSON.parse(localStorage.getItem('user'));
+	getUserId = () => {
+		return JSON.parse(localStorage.getItem('userId'));
 	};
 }
 

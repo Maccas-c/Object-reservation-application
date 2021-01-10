@@ -102,9 +102,6 @@ function Login() {
 									Zarejestruj
 								</Link>
 							</div>
-							<Link className="font-medium mt-8" to="/">
-								Wróć do strony głównej
-							</Link>
 						</div>
 					</Card>
 

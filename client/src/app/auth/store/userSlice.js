@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import 'firebase/auth';
 import history from '@history';
 import { setInitialSettings } from 'app/store/fuse/settingsSlice';
-import LoginService from 'app/services/loginService';
+import LoginService from 'app/services/login';
 
 export const setUserData = user => async (dispatch, getState) => {
 	/*

@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { showMessage } from 'app/store/fuse/messageSlice';
-import firebaseService from 'app/services/firebaseService';
 
-import LoginService from '../../services/loginService/loginService';
+import LoginService from 'app/services/login';
 import { setUserData } from './userSlice';
 
 export const submitLogin = ({ email, password }) => async dispatch => {
@@ -14,40 +12,6 @@ export const submitLogin = ({ email, password }) => async dispatch => {
 		.catch(err => {
 			console.log(err);
 			return dispatch(loginError(err));
-		});
-};
-
-export const submitLoginWithFireBase = ({ username, password }) => async dispatch => {
-	if (!firebaseService.auth) {
-		console.warn("Firebase Service didn't initialize, check your configuration");
-
-		return () => false;
-	}
-	return firebaseService.auth
-		.signInWithEmailAndPassword(username, password)
-		.then(() => {
-			return dispatch(loginSuccess());
-		})
-		.catch(error => {
-			const usernameErrorCodes = [
-				'auth/email-already-in-use',
-				'auth/invalid-email',
-				'auth/operation-not-allowed',
-				'auth/user-not-found',
-				'auth/user-disabled'
-			];
-			const passwordErrorCodes = ['auth/weak-password', 'auth/wrong-password'];
-
-			const response = {
-				username: usernameErrorCodes.includes(error.code) ? error.message : null,
-				password: passwordErrorCodes.includes(error.code) ? error.message : null
-			};
-
-			if (error.code === 'auth/invalid-api-key') {
-				dispatch(showMessage({ message: error.message }));
-			}
-
-			return dispatch(loginError(response));
 		});
 };
 
