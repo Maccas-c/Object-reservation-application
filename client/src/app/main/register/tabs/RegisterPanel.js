@@ -2,7 +2,7 @@ import { RadioGroupFormsy, TextFieldFormsy } from '@fuse/core/formsy';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Formsy from 'formsy-react';
+import Formsy, { addValidationRule } from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerError, submitRegister } from 'app/auth/store/registerSlice';
@@ -18,7 +18,13 @@ function RegisterPanel(props) {
 	const formRef = useRef(null);
 
 	const history = useHistory();
-
+	addValidationRule('isPassword', (values, value) => {
+		const { password } = values;
+		if (values.password) {
+			return password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
+		}
+		return null;
+	});
 	useEffect(() => {
 		if (register.error && (register.error.username || register.error.password || register.error.email)) {
 			formRef.current.updateInputsWithError({
@@ -127,9 +133,9 @@ function RegisterPanel(props) {
 					type="password"
 					name="password"
 					label="Hasło"
-					validations="equalsField:password-confirm"
+					validations="isPassword:password"
 					validationErrors={{
-						password:
+						isPassword:
 							"    'Hasło musi się składać z co najmniej 6 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jeden znak specjalny oraz jedną cyfrę.',\n",
 						equalsField: 'Hasło nie jest takie samo.'
 					}}
@@ -145,29 +151,7 @@ function RegisterPanel(props) {
 					variant="outlined"
 					required
 				/>
-
-				<TextFieldFormsy
-					className="mb-16"
-					type="password"
-					name="password-confirm"
-					label="Potwierdzenie hasła"
-					validations="equalsField:password"
-					validationErrors={{
-						equalsField: 'Hasło nie jest takie samo.'
-					}}
-					InputProps={{
-						endAdornment: (
-							<InputAdornment position="end">
-								<Icon className="text-20" color="action">
-									vpn_key
-								</Icon>
-							</InputAdornment>
-						)
-					}}
-					variant="outlined"
-					required
-				/>
-				<RadioGroupFormsy aria-label="gender" name="sex" defaultValue="female">
+				<RadioGroupFormsy required aria-label="gender" name="sex" defaultValue="female">
 					<FormControlLabel value="female" name="female" control={<Radio />} label="Kobieta" />
 					<FormControlLabel value="male" name="male" control={<Radio />} label="Mężczyzna" />
 				</RadioGroupFormsy>

@@ -112,7 +112,6 @@ function Login() {
 							</div>
 						</div>
 					</Card>
-
 					<div
 						className={clsx(classes.rightSection, 'hidden md:flex flex-1 items-center justify-center p-64')}
 					>
