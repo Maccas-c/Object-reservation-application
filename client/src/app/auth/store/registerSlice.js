@@ -25,6 +25,24 @@ export const rememberPassword = ({ email }) => async dispatch => {
 		.catch(error => {});
 };
 
+export const resetPasswordStart = token => {
+	return dispatch => {
+		axios
+			.get(
+				'/reset',
+				{
+					params: {
+						resetPasswordToken: token
+					}
+				},
+				{ withCredentials: true }
+			)
+			.then(response => {})
+			.catch(error => {
+				console.log(error.message);
+			});
+	};
+};
 const initialState = {
 	success: false,
 	error: {
