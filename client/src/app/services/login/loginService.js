@@ -18,7 +18,6 @@ class LoginService extends FuseUtils.EventEmitter {
 					if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
 						// if you ever get an unauthorized response, logout the user
 						this.emit('onAutoLogout', 'Błąd autoryzacji, zostałeś wylogowany.');
-						this.setUser(null);
 					}
 					throw err;
 				});
@@ -27,36 +26,34 @@ class LoginService extends FuseUtils.EventEmitter {
 	};
 
 	handleAuthentication = () => {
-		const id = this.getUserId();
-		if (!id) {
-			this.emit('onNoAccessToken');
-			return;
-		}
-		if (this.isUserValid(id)) {
-			this.setUser(id);
-			this.emit('onAutoLogin', true);
-		} else {
-			this.setUser(null);
-			this.emit('onAutoLogout', 'Sesja wygasła, zostałeś wylogowany.');
-		}
+		this.emit('onAutoLogin', true);
 	};
 
-	signInWithToken = () => {
+	checkUserUSOS = () => {
+		return new Promise((resolve, reject) => {
+			axios.get('/loginUsos').then(response => {
+				if (response.data) {
+					resolve(response.data);
+				} else {
+					reject();
+				}
+			});
+		});
+	};
+
+	signWithSession = () => {
 		return new Promise((resolve, reject) => {
 			axios
 				.get(`/checkUser`)
 				.then(response => {
-					if (response.data) {
-						this.setUser(response.data._id);
+					if (response.data._id) {
 						resolve(response.data);
 					} else {
-						this.logout();
-						reject(new Error('Błąd autoryzacji, zostałeś wylogowany.'));
+						reject();
 					}
 				})
 				.catch(error => {
-					this.logout();
-					reject(new Error('Błąd autoryzacji, zostałeś wylogowany.'));
+					reject();
 				});
 		});
 	};
@@ -88,7 +85,6 @@ class LoginService extends FuseUtils.EventEmitter {
 				)
 				.then(response => {
 					if (response.data) {
-						this.setUser(response.data._id);
 						resolve(response.data);
 					} else {
 						reject(response.data.error);
@@ -97,30 +93,8 @@ class LoginService extends FuseUtils.EventEmitter {
 		});
 	};
 
-	setUser = id => {
-		if (id) {
-			localStorage.setItem('userId', JSON.stringify(id));
-		} else {
-			localStorage.removeItem('userId');
-			delete axios.defaults.headers.common.Authorization;
-		}
-	};
-
-	logout = () => {
-		this.setUser(null);
-	};
-
-	isUserValid = id => {
-		if (!id) {
-			console.warn('Użytkownik nie jest zalogowany.');
-			return false;
-		}
-
-		return true;
-	};
-
-	getUserId = () => {
-		return JSON.parse(localStorage.getItem('userId'));
+	signInWithUSOS = () => {
+		window.location.href = 'http://localhost:3001/api/loginUsos/connect';
 	};
 }
 
