@@ -11,7 +11,6 @@ export const submitLogin = ({ email, password }) => async dispatch => {
 			return dispatch(loginSuccess());
 		})
 		.catch(err => {
-			console.log(err);
 			return dispatch(loginError(err));
 		});
 };

@@ -37,16 +37,6 @@ class Auth extends Component {
 					});
 			});
 
-			LoginService.on('onAutoLogout', message => {
-				if (message) {
-					this.props.showMessage({ message });
-				}
-
-				this.props.logout();
-
-				resolve();
-			});
-
 			LoginService.on('onLogout', message => {
 				if (message) {
 					this.props.showMessage({ message: message.message });
