@@ -39,7 +39,7 @@ export const resetPasswordStart = token => {
 				}
 			})
 			.then(response => {
-				dispatch(showMessage({ message: response.data }));
+				dispatch(showMessage({ message: response.data.message }));
 			})
 			.catch(error => {
 				dispatch(showMessage({ message: error.response.data }));
@@ -54,7 +54,7 @@ export const updatePasswordStart = ({ email, password }, id) => {
 			.patch('/updatePasswordViaEmail', data, { withCredentials: true })
 			.then(response => {
 				if (response.data) {
-					dispatch(showMessage({ message: response.data }));
+					dispatch(showMessage({ message: response.data.message }));
 				}
 			})
 			.catch(error => {
