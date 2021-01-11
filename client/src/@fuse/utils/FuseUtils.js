@@ -154,9 +154,11 @@ class FuseUtils {
 
 	static generateRoutesFromConfigs(configs, defaultAuth) {
 		let allRoutes = [];
+
 		configs.forEach(config => {
 			allRoutes = [...allRoutes, ...this.setRoutes(config, defaultAuth)];
 		});
+		console.log(allRoutes);
 		return allRoutes;
 	}
 

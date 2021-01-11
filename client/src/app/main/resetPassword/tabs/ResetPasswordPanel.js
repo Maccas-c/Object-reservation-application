@@ -2,19 +2,25 @@ import { TextFieldFormsy } from '@fuse/core/formsy';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Formsy from 'formsy-react';
+import Formsy, { addValidationRule } from 'formsy-react';
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { updatePasswordStart } from '../../../auth/store/registerSlice';
 
 function ResetPasswordPanel() {
 	const dispatch = useDispatch();
 
+	addValidationRule('isPassword', ({ password }) => {
+		if (password) {
+			return password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
+		}
+		return null;
+	});
 	const [isFormValid, setIsFormValid] = useState(false);
 	const formRef = useRef(null);
 	const history = useHistory();
-
+	const { id } = useParams();
 	function disableButton() {
 		setIsFormValid(false);
 	}
@@ -24,7 +30,8 @@ function ResetPasswordPanel() {
 	}
 
 	function handleSubmit(model) {
-		dispatch(updatePasswordStart(model));
+		dispatch(updatePasswordStart(model, id));
+		console.log(model);
 		history.push('/login');
 	}
 
@@ -40,17 +47,40 @@ function ResetPasswordPanel() {
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="Hasło"
-					label="Hasło"
-					validations={{ minLength: 6 }}
+					name="email"
+					label="Email"
+					validations="isEmail"
 					validationErrors={{
-						isEmail: 'Hasło musi mieć minimum 6 znaków'
+						isEmail: 'Wpisz poprawny email!'
 					}}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
 								<Icon className="text-20" color="action">
 									email
+								</Icon>
+							</InputAdornment>
+						)
+					}}
+					variant="outlined"
+					required
+				/>
+				<TextFieldFormsy
+					className="mb-16"
+					type="password"
+					name="password"
+					label="Hasło"
+					validations="isPassword:password"
+					validationErrors={{
+						isPassword:
+							'    Hasło musi się składać z co najmniej 6 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jeden znak specjalny oraz jedną cyfrę.\n',
+						equalsField: 'Hasło nie jest takie samo.'
+					}}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<Icon className="text-20" color="action">
+									vpn_key
 								</Icon>
 							</InputAdornment>
 						)

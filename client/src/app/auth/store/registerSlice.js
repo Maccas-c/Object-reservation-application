@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import jwtService from 'app/services/login';
 import axios from 'axios/axios-auth';
+import { showMessage } from '../../store/fuse/messageSlice';
 
 export const submitRegister = ({ name, surname, password, email, sex }) => async dispatch => {
 	return jwtService
@@ -21,8 +22,12 @@ export const submitRegister = ({ name, surname, password, email, sex }) => async
 export const rememberPassword = ({ email }) => async dispatch => {
 	axios
 		.post('/forgotPassword', { email }, { withCredentials: true })
-		.then(() => {})
-		.catch(error => {});
+		.then(response => {
+			dispatch(showMessage({ message: response.data }));
+		})
+		.catch(error => {
+			dispatch(showMessage({ message: error.response.data }));
+		});
 };
 
 export const resetPasswordStart = token => {
@@ -37,20 +42,27 @@ export const resetPasswordStart = token => {
 				},
 				{ withCredentials: true }
 			)
-			.then(response => {})
+			.then(response => {
+				dispatch(showMessage({ message: response.data }));
+			})
 			.catch(error => {
-				console.log(error.message);
+				dispatch(showMessage({ message: error.response.data }));
 			});
 	};
 };
 
-export const updatePasswordStart = (email, token, password, route) => {
-	const data = { email, resetPasswordToken: token, password };
+export const updatePasswordStart = ({ email, password }, id) => {
+	console.log(id);
+	const data = { email, resetPasswordToken: id, password };
 	return dispatch => {
 		axios
 			.patch('/updatePasswordViaEmail', data, { withCredentials: true })
-			.then(response => {})
-			.catch(error => {});
+			.then(() => {
+				dispatch(showMessage({ message: 'Poprawnie zmieniono hasło !' }));
+			})
+			.catch(() => {
+				dispatch(showMessage({ message: 'Niepoprawnie zmieniono hasło !' }));
+			});
 	};
 };
 const initialState = {
@@ -65,7 +77,7 @@ const registerSlice = createSlice({
 	name: 'auth/register',
 	initialState,
 	reducers: {
-		registerSuccess: (state, action) => {
+		registerSuccess: state => {
 			state.success = true;
 		},
 		registerError: (state, action) => {

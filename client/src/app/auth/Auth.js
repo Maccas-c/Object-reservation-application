@@ -27,13 +27,11 @@ class Auth extends Component {
 				LoginService.signWithSession()
 					.then(user => {
 						this.props.setUserData(user);
-
 						resolve();
-
-						// this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
+						this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
 					})
-					.catch(error => {
-						// this.props.showMessage({ message: error.message });
+					.catch(() => {
+						// this.props.showMessage({ message: 'Błąd autoryzacji' });
 
 						resolve();
 					});
@@ -46,10 +44,6 @@ class Auth extends Component {
 
 				this.props.logout();
 
-				resolve();
-			});
-
-			LoginService.on('onNoUserId', () => {
 				resolve();
 			});
 

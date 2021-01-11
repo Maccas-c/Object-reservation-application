@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Formsy from 'formsy-react';
+import Formsy, { addValidationRule } from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitLogin } from 'app/auth/store/loginSlice';
@@ -17,6 +17,12 @@ const LoginPanel = () => {
 
 	const formRef = useRef(null);
 
+	addValidationRule('isPassword', ({ password }) => {
+		if (password) {
+			return password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
+		}
+		return null;
+	});
 	useEffect(() => {
 		if (login.error && (login.error.email || login.error.password)) {
 			formRef.current.updateInputsWithError({
@@ -53,11 +59,9 @@ const LoginPanel = () => {
 					name="email"
 					label="Email"
 					value=""
-					validations={{
-						minLength: 4
-					}}
+					validations="isEmail"
 					validationErrors={{
-						minLength: 'Minimum 4 znaki'
+						isEmail: 'Wpisz poprawny email!'
 					}}
 					InputProps={{
 						endAdornment: (
@@ -79,10 +83,10 @@ const LoginPanel = () => {
 					label="Hasło"
 					value=""
 					validations={{
-						minLength: 4
+						minLength: 6
 					}}
 					validationErrors={{
-						minLength: 'Minimum 4 znaki'
+						minLength: 'Minimum 6 znaków'
 					}}
 					InputProps={{
 						className: 'pr-2',

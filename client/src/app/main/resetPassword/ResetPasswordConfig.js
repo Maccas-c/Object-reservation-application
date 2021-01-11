@@ -26,7 +26,7 @@ const ResetPasswordConfig = {
 	auth: authRoles.onlyGuest,
 	routes: [
 		{
-			path: '/reset',
+			path: `/reset/:id`,
 			component: ResetPassword
 		}
 	]

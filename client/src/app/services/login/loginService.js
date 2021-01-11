@@ -14,10 +14,14 @@ class LoginService extends FuseUtils.EventEmitter {
 				return response;
 			},
 			err => {
-				return new Promise((resolve, reject) => {
+				return new Promise(() => {
 					if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
 						// if you ever get an unauthorized response, logout the user
-						this.emit('onAutoLogout', 'Błąd autoryzacji, zostałeś wylogowany.');
+						this.emit('onAutoLogout', err.response.data);
+					}
+					if (err.response.status === 422) {
+						// if you ever get an unauthorized response, logout the user
+						this.emit('onAutoLogout', err.response.data);
 					}
 					throw err;
 				});
@@ -53,7 +57,7 @@ class LoginService extends FuseUtils.EventEmitter {
 					}
 				})
 				.catch(error => {
-					reject();
+					reject(error);
 				});
 		});
 	};

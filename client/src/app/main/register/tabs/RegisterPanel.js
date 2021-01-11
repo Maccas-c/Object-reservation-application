@@ -10,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import { useHistory } from 'react-router';
 
-function RegisterPanel(props) {
+function RegisterPanel() {
 	const dispatch = useDispatch();
 	const register = useSelector(({ auth }) => auth.register);
 
@@ -67,7 +67,7 @@ function RegisterPanel(props) {
 						minLength: 4
 					}}
 					validationErrors={{
-						minLength: 'Min character length is 4'
+						minLength: 'Minimum 4 znaki.'
 					}}
 					InputProps={{
 						endAdornment: (
@@ -90,7 +90,7 @@ function RegisterPanel(props) {
 						minLength: 4
 					}}
 					validationErrors={{
-						minLength: 'Min character length is 4'
+						minLength: 'Minimum 4 znaki.'
 					}}
 					InputProps={{
 						endAdornment: (
@@ -135,7 +135,7 @@ function RegisterPanel(props) {
 					validations="isPassword:password"
 					validationErrors={{
 						isPassword:
-							"    'Hasło musi się składać z co najmniej 6 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jeden znak specjalny oraz jedną cyfrę.',\n",
+							'    Hasło musi się składać z co najmniej 6 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jeden znak specjalny oraz jedną cyfrę.\n',
 						equalsField: 'Hasło nie jest takie samo.'
 					}}
 					InputProps={{
