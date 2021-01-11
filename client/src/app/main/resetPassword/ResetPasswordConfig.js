@@ -1,5 +1,6 @@
-import { authRoles } from 'app/auth';
 import ResetPassword from './ResetPassword';
+
+import { authRoles } from 'app/auth';
 
 const ResetPasswordConfig = {
 	settings: {

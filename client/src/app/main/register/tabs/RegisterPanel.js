@@ -35,7 +35,7 @@ function RegisterPanel() {
 			dispatch(registerError());
 			history.push('/login');
 		}
-	}, [register]);
+	}, [register, dispatch, history]);
 
 	function disableButton() {
 		setIsFormValid(false);

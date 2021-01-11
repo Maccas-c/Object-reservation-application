@@ -49,7 +49,7 @@ function ResetPassword() {
 						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
 								<div className="flex items-center justify-center mb-32">
-									{/* <Logo /> */}
+									<img className="logo-icon w-48" src="/assets/images/logos/logo.svg" alt="logo" />
 									<div className="border-l-1 mr-4 w-1 h-40" />
 									<div>
 										<Typography className="text-24 font-800 logo-text" color="inherit">

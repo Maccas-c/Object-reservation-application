@@ -1,15 +1,15 @@
-import { RadioGroupFormsy, TextFieldFormsy } from '@fuse/core/formsy';
+import { TextFieldFormsy } from '@fuse/core/formsy';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Formsy from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerError, submitRegister } from 'app/auth/store/registerSlice';
+import { registerError } from 'app/auth/store/registerSlice';
 import { useHistory } from 'react-router';
 import { rememberPassword } from '../../../auth/store/registerSlice';
 
-function RememberPanel(props) {
+function RememberPanel() {
 	const dispatch = useDispatch();
 	const register = useSelector(({ auth }) => auth.register);
 
@@ -29,7 +29,7 @@ function RememberPanel(props) {
 			dispatch(registerError());
 			history.push('/login');
 		}
-	}, [register]);
+	}, [register, dispatch, history]);
 
 	function disableButton() {
 		setIsFormValid(false);

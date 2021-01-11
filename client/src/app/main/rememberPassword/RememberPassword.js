@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import RememberPanel from './tabs/RememberPanel';
 
@@ -49,7 +49,7 @@ function Register() {
 						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
 								<div className="flex items-center justif-center mb-32">
-									<img className="logo-icon w-48" src="assets/images/logos/logo.svg" alt="logo" />
+									<img className="logo-icon w-48" src="/assets/images/logos/logo.svg" alt="logo" />
 									<div className="border-l-1 mr-4 w-1 h-40" />
 									<div>
 										<Typography className="text-24 font-800 logo-text" color="inherit">
