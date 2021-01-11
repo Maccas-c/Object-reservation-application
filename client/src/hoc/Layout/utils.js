@@ -29,11 +29,11 @@ export const ROUTES = [
   },
   { path: MENU_ROUTES.CALENDAR, isProtected: true, component: Calendar },
   { path: MENU_ROUTES.USERS_LIST, isProtected: true, component: UsersList },
-  {
-    path: MENU_ROUTES.RESET_PASSWORD + '/:token',
-    isProtected: false,
-    component: ResetPassword,
-  },
+  // {
+  //   path: MENU_ROUTES.RESET_PASSWORD + '/:token',
+  //   isProtected: false,
+  //   component: ResetPassword,
+  // },
   {
     path: MENU_ROUTES.LIST_USER_RESERVATION,
     isProtected: true,

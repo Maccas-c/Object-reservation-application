@@ -124,17 +124,6 @@ const Login = () => {
             >
               Nie posiadasz konta? Zarejestruj się!
             </Link>
-            <Grid item>
-              <Link
-                {...{
-                  variant: 'body2',
-                  onClick: event => rememberPasswordHandler(event),
-                  href: '',
-                }}
-              >
-                Nie pamiętasz hasła? Przypomnij hasło!
-              </Link>
-            </Grid>
           </Grid>
         </form>
       </div>
