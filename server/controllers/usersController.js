@@ -1,11 +1,7 @@
-const {
-  ObjectId
-} = require('mongodb');
+const { ObjectId } = require('mongodb');
 const userModel = require('./../models/userModel');
 const genPassword = require('./../lib/password').genPassword;
-const {
-  validationResult
-} = require('express-validator');
+const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 
 module.exports.userCreate = async function (req, res) {
@@ -15,13 +11,14 @@ module.exports.userCreate = async function (req, res) {
       errors: errors.array(),
     });
   }
-  const isExist = userModel.findOne({
+  const isExist = userModel.findOne(
+    {
       email: req.body.email,
     },
     async function (err, user) {
       if (err) return res.status(404).json(err);
       if (user) {
-        if ((user.isActive == true)) {
+        if (user.isActive == true) {
           return res.status(422).json('The email exist');
         } else {
           try {
@@ -38,6 +35,7 @@ module.exports.userCreate = async function (req, res) {
                 surname: req.body.surname,
                 sex: req.body.sex,
                 isActive: true,
+                createDate: Date.now(),
               },
             });
             user.save();
@@ -58,6 +56,7 @@ module.exports.userCreate = async function (req, res) {
           name: req.body.name,
           surname: req.body.surname,
           sex: req.body.sex,
+          createDate: Date.now(),
         });
 
         const transporter = nodemailer.createTransport({
@@ -67,14 +66,15 @@ module.exports.userCreate = async function (req, res) {
             pass: `${process.env.EMAIL_PASSWORD}`,
           },
         });
-  
+
         const mailOptions = {
           from: `${process.env.EMAIL_ADDRESS}`,
           to: `${user.email}`,
           subject: 'Create account',
-          text: 'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.'
+          text:
+            'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.',
         };
-  
+
         transporter.sendMail(mailOptions, (err, response) => {
           if (err) {
             return res.status(422).send(err);
@@ -90,19 +90,22 @@ module.exports.userCreate = async function (req, res) {
           res.status(400).res.json(err);
         }
       }
-    }
+    },
   );
 };
 
 module.exports.userDelete = async function (req, res) {
   try {
-    const deletedUser = await userModel.updateOne({
-      _id: req.params.userId,
-    }, {
-      $set: {
-        isActive: false,
+    const deletedUser = await userModel.updateOne(
+      {
+        _id: req.params.userId,
       },
-    });
+      {
+        $set: {
+          isActive: false,
+        },
+      },
+    );
     res.status(200).json(deletedUser);
   } catch (err) {
     res.status(404).json(err);
@@ -113,16 +116,17 @@ module.exports.userUpdate = async function (req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    console.log(errors)
+    console.log(errors);
     return res.status(422).json({
       errors: errors.array(),
     });
   }
   try {
-    const updatedUser = await userModel.updateOne({
+    const updatedUser = await userModel.updateOne(
+      {
         _id: ObjectId(req.body.id),
       },
-      req.body
+      req.body,
     );
     res.status(200).json(updatedUser);
   } catch (err) {

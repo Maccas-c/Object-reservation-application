@@ -7,6 +7,7 @@ module.exports.login = function (req, res) {
       surname: req.user.surname,
       sex: req.user.sex,
       role: req.user.role,
+      createDate: req.user.createDate,
     });
   } else {
     res.status(404).end();

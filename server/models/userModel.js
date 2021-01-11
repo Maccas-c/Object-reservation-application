@@ -28,6 +28,7 @@ const userModel = mongoose.Schema({
     default: true,
   },
   nip: String,
+  createDate: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });

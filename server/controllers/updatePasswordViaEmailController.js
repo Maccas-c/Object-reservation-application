@@ -15,9 +15,7 @@ module.exports.updatePasswordViaEmail_Patch = async function (req, res) {
     async function (err, user) {
       if (err) return res.status(404).json(err);
       if (user == null)
-        return res
-          .status(403)
-          .json('password reset link is invalid or has expired');
+        return res.status(403).json('E-mail lub hasło niepoprawne');
       else if (user != null) {
         try {
           const saltHash = await genPassword(req.body.password);
@@ -32,13 +30,13 @@ module.exports.updatePasswordViaEmail_Patch = async function (req, res) {
             },
           });
           user.save();
-          res.status(200).json(user);
+          return res.status(200).json('Hasło zostało zmienione');
         } catch (err) {
           res.status(404).json(err);
         }
       } else {
-        res.status(401).json('no user exists in db to update');
+        res.status(401).json('Użytkownik nie istnieje');
       }
-    }
+    },
   );
 };
