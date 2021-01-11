@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { showMessage } from 'app/store/fuse/messageSlice';
 import LoginService from 'app/services/login';
 import { setUserData } from './userSlice';
 
@@ -7,6 +7,7 @@ export const submitLogin = ({ email, password }) => async dispatch => {
 	return LoginService.signInWithEmailAndPassword(email, password)
 		.then(user => {
 			dispatch(setUserData(user));
+			dispatch(showMessage({ message: 'Zalogowano' }));
 			return dispatch(loginSuccess());
 		})
 		.catch(err => {

@@ -28,7 +28,7 @@ class Auth extends Component {
 					.then(user => {
 						this.props.setUserData(user);
 						resolve();
-						// this.props.showMessage({ message: 'Jesteś wciąż zalogowany' });
+						this.props.showMessage({ message: 'Zalogowano' });
 					})
 					.catch(() => {
 						// this.props.showMessage({ message: 'Błąd autoryzacji' });
