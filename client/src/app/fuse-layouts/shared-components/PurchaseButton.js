@@ -6,9 +6,6 @@ import React from 'react';
 function PurchaseButton({ className }) {
 	return (
 		<Button
-			component="a"
-			href="https://1.envato.market/zDGL6"
-			target="_blank"
 			rel="noreferrer noopener"
 			role="button"
 			className={clsx('normal-case', className)}
@@ -16,7 +13,7 @@ function PurchaseButton({ className }) {
 			color="secondary"
 		>
 			<Icon className="text-16">shopping_cart</Icon>
-			<span className="mx-4">Purchase FUSE React</span>
+			<span className="mx-4">Koszyk</span>
 		</Button>
 	);
 }
