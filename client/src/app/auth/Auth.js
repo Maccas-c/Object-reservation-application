@@ -41,7 +41,6 @@ class Auth extends Component {
 				if (message) {
 					this.props.showMessage({ message: message.message });
 				}
-
 				resolve();
 			});
 

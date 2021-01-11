@@ -82,6 +82,9 @@ class LoginService extends FuseUtils.EventEmitter {
 					} else {
 						reject(response.data.error);
 					}
+				})
+				.catch(err => {
+					reject(err);
 				});
 		});
 	};

@@ -158,7 +158,6 @@ class FuseUtils {
 		configs.forEach(config => {
 			allRoutes = [...allRoutes, ...this.setRoutes(config, defaultAuth)];
 		});
-		console.table(allRoutes);
 		return allRoutes;
 	}
 

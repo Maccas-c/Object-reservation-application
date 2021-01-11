@@ -10,8 +10,9 @@ export const submitLogin = ({ email, password }) => async dispatch => {
 			dispatch(showMessage({ message: 'Zalogowano' }));
 			return dispatch(loginSuccess());
 		})
-		.catch(err => {
-			return dispatch(loginError(err));
+		.catch(() => {
+			dispatch(showMessage({ message: 'Niepoprawny e-mail lub hasło' }));
+			return dispatch(loginError());
 		});
 };
 
