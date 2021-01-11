@@ -8,13 +8,11 @@ module.exports.resetPassword = async function (req, res) {
     resetPasswordExpires: {
       $gt: Date.now(),
     },
-  }).then((user) => {
+  }).then(user => {
     if (user == null) {
-      res.status(403).send('password reset link is invalid or has expired');
+      res.status(403).send('E-mail lub hasło niepoprawne');
     } else {
-      res.status(200).send({
-        email: user.email,
-      });
+      res.status(200).json('Hasło zostało zmienione');
     }
   });
 };
