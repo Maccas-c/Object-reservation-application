@@ -66,6 +66,7 @@ let usosClient = new OAuth1Strategy(
               sex: profile.sex,
               isStudent: true,
               isActive: true,
+              createDate: Date.now(),
             });
             await newUser.save(function (err) {
               if (err) throw err;

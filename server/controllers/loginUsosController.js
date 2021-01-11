@@ -8,6 +8,7 @@ module.exports.login = function (req, res) {
       email: req.user.email,
       student_number: req.user.student_number,
       role: req.user.role,
+      createDate: req.user.createDate,
     });
   } else {
     res.status(404).end();
@@ -23,7 +24,7 @@ module.exports.logout = function (req, res) {
     res
       .status(200)
       .redirect(
-        'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj'
+        'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj',
       );
   });
 };
