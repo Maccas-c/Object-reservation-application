@@ -31,7 +31,6 @@ function ResetPasswordPanel() {
 
 	function handleSubmit(model) {
 		dispatch(updatePasswordStart(model, id));
-		console.log(model);
 		history.push('/login');
 	}
 

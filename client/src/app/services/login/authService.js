@@ -1,5 +1,4 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
-
 import axios from 'axios/axios-auth';
 
 class LoginService extends FuseUtils.EventEmitter {
@@ -99,6 +98,17 @@ class LoginService extends FuseUtils.EventEmitter {
 
 	signInWithUSOS = () => {
 		window.location.href = 'http://localhost:3001/api/loginUsos/connect';
+	};
+
+	logout = () => {
+		return new Promise((resolve, reject) => {
+			axios
+				.get('/logout')
+				.then(response => {
+					this.emit('onLogout', response.data);
+				})
+				.catch(() => {});
+		});
 	};
 }
 

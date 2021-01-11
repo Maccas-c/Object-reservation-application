@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import 'firebase/auth';
 import history from '@history';
 import { setInitialSettings } from 'app/store/fuse/settingsSlice';
-import LoginService from 'app/services/login';
+import authService from 'app/services/login';
 
 export const setUserData = user => async (dispatch, getState) => {
 	/*
@@ -21,18 +21,11 @@ export const setUserData = user => async (dispatch, getState) => {
 };
 
 export const logoutUser = () => async (dispatch, getState) => {
-	const { user } = getState().auth;
-
-	if (!user.role || user.role.length === 0) {
-		// is guest
-		return null;
-	}
-
+	authService.logout();
 	history.push({
-		pathname: '/'
+		pathname: '/login'
 	});
 
-	LoginService.logout();
 	dispatch(setInitialSettings());
 
 	return dispatch(userLoggedOut());

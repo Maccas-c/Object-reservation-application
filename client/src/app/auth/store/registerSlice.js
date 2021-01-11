@@ -52,11 +52,15 @@ export const updatePasswordStart = ({ email, password }, id) => {
 	return dispatch => {
 		axios
 			.patch('/updatePasswordViaEmail', data, { withCredentials: true })
-			.then(() => {
-				dispatch(showMessage({ message: 'Poprawnie zmieniono hasło !' }));
+			.then(response => {
+				if (response.data) {
+					dispatch(showMessage({ message: response.data }));
+				}
 			})
-			.catch(() => {
-				dispatch(showMessage({ message: 'Niepoprawnie zmieniono hasło !' }));
+			.catch(error => {
+				if (error.response.data) {
+					dispatch(showMessage({ message: error.response.data }));
+				}
 			});
 	};
 };

@@ -47,6 +47,14 @@ class Auth extends Component {
 				resolve();
 			});
 
+			LoginService.on('onLogout', message => {
+				if (message) {
+					this.props.showMessage({ message: message.message });
+				}
+
+				resolve();
+			});
+
 			LoginService.init();
 
 			return Promise.resolve();
