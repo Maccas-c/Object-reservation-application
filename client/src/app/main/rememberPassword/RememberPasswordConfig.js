@@ -1,7 +1,7 @@
 import { authRoles } from 'app/auth';
 import RememberPassword from './RememberPassword';
 
-const RememberConfig = {
+const RememberPasswordConfig = {
 	settings: {
 		layout: {
 			config: {
@@ -32,4 +32,4 @@ const RememberConfig = {
 	]
 };
 
-export default RememberConfig;
+export default RememberPasswordConfig;

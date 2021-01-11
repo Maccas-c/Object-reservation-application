@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import jwtService from 'app/services/login';
+import loginService from 'app/services/login';
 import axios from 'axios/axios-auth';
-import { showMessage } from '../../store/fuse/messageSlice';
+import { showMessage } from 'app/store/fuse/messageSlice';
 
 export const submitRegister = ({ name, surname, password, email, sex }) => async dispatch => {
-	return jwtService
+	return loginService
 		.createUser({
 			name,
 			surname,
