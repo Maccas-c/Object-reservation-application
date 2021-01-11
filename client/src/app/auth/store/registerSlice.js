@@ -33,15 +33,11 @@ export const rememberPassword = ({ email }) => async dispatch => {
 export const resetPasswordStart = token => {
 	return dispatch => {
 		axios
-			.get(
-				'/reset',
-				{
-					params: {
-						resetPasswordToken: token
-					}
-				},
-				{ withCredentials: true }
-			)
+			.get('/reset', {
+				params: {
+					resetPasswordToken: token
+				}
+			})
 			.then(response => {
 				dispatch(showMessage({ message: response.data }));
 			})
@@ -52,7 +48,6 @@ export const resetPasswordStart = token => {
 };
 
 export const updatePasswordStart = ({ email, password }, id) => {
-	console.log(id);
 	const data = { email, resetPasswordToken: id, password };
 	return dispatch => {
 		axios
