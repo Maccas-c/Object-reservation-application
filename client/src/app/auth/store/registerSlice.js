@@ -12,11 +12,13 @@ export const submitRegister = ({ name, surname, password, email, sex }) => async
 			email,
 			sex
 		})
-		.then(() => {
+		.then(response => {
+			dispatch(showMessage({ message: response }));
 			return dispatch(registerSuccess());
 		})
 		.catch(error => {
-			return dispatch(registerError(error));
+			dispatch(showMessage({ message: error }));
+			return dispatch(registerError());
 		});
 };
 export const rememberPassword = ({ email }) => async dispatch => {

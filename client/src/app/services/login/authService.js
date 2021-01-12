@@ -53,13 +53,18 @@ class LoginService extends FuseUtils.EventEmitter {
 
 	createUser = data => {
 		return new Promise((resolve, reject) => {
-			axios.post('/user/create', data).then(response => {
-				if (response.data) {
-					resolve(response.data);
-				} else {
-					reject(response.data.error);
-				}
-			});
+			axios
+				.post('/user/create', data)
+				.then(response => {
+					if (response.data) {
+						resolve(response.statusText);
+					} else {
+						reject(response.data.error);
+					}
+				})
+				.catch(err => {
+					reject(err.response.data);
+				});
 		});
 	};
 
@@ -94,7 +99,7 @@ class LoginService extends FuseUtils.EventEmitter {
 	};
 
 	logout = () => {
-		return new Promise((resolve, reject) => {
+		return new Promise(() => {
 			axios
 				.get('/logout')
 				.then(response => {
