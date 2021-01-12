@@ -8,8 +8,16 @@ import FuseUtils from '@fuse/utils';
 import RegisterConfig from 'app/main/register/RegisterConfig';
 import RememberPasswordConfig from 'app/main/rememberPassword/RememberPasswordConfig';
 import ResetPasswordConfig from 'app/main/resetPassword/ResetPasswordConfig';
+import MailConfirmConfig from 'app/main/mailConfirm/MailConfirmConfig';
 
-const routeConfigs = [...pagesConfigs, LoginConfig, RegisterConfig, RememberPasswordConfig, ResetPasswordConfig];
+const routeConfigs = [
+	...pagesConfigs,
+	LoginConfig,
+	RegisterConfig,
+	RememberPasswordConfig,
+	ResetPasswordConfig,
+	MailConfirmConfig
+];
 
 const routes = [
 	...FuseUtils.generateRoutesFromConfigs(routeConfigs),

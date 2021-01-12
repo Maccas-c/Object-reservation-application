@@ -33,7 +33,7 @@ function RegisterPanel() {
 		}
 		if (register.success) {
 			dispatch(registerError());
-			history.push('/login');
+			history.push('/mailConfirm');
 		}
 	}, [register, dispatch, history]);
 

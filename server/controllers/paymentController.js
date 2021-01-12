@@ -44,6 +44,16 @@ module.exports.createPayments = function (req, res) {
         currencyCode: 'PLN',
         totalAmount: req.body.price,
         continueUrl: 'http://localhost:3000/',
+        buyer: {
+          email: req.user.email,
+          firstnName: req.user.name,
+          phone: req.user.phone_number,
+          lastName: req.user.surname,
+        },
+        buyerDelivery: {
+          postalCode: req.user.adress_postalCode,
+          city: req.user.adress_city,
+        },
         products: [
           {
             name: req.body.nameOfReservation,
