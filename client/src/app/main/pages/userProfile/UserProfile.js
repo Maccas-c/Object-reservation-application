@@ -45,7 +45,10 @@ function UserProfile() {
 				<FuseAnimate animation="transition.expandIn">
 					<Card className="w-full max-w-sm">
 						<CardContent className="flex flex-col items-center justify-center p-32">
-							<div className="min-w-full flex flex-col items-center justify-center sm:flex-row sm:justify-start sm:items-center -mx-8">
+							<div
+								style={{ marginBottom: '10px' }}
+								className="min-w-full flex flex-col items-center justify-center sm:flex-row sm:justify-start sm:items-center -mx-8"
+							>
 								<div className="relative mx-8">
 									<AnalogClock {...options} />
 								</div>

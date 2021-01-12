@@ -13,7 +13,7 @@ export const submitRegister = ({ name, surname, password, email, sex }) => async
 			sex
 		})
 		.then(response => {
-			dispatch(showMessage({ message: response }));
+			dispatch(showMessage({ message: 'Konto zostało utworzone' }));
 			return dispatch(registerSuccess());
 		})
 		.catch(error => {
