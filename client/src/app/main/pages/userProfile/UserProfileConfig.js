@@ -11,8 +11,8 @@ const UserProfileConfig = {
 	auth: authRoles.user,
 	routes: [
 		{
-			path: '/example',
-			component: React.lazy(() => import('./Example'))
+			path: '/profile',
+			component: React.lazy(() => import('./UserProfile'))
 		}
 	]
 };

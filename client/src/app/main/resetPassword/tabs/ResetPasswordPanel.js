@@ -97,7 +97,7 @@ function ResetPasswordPanel() {
 					disabled={!isFormValid}
 					value="legacy"
 				>
-					Przypomnij hasło!
+					Zmień hasło!
 				</Button>
 			</Formsy>
 		</div>

@@ -20,6 +20,14 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'whatshot',
 				url: '/example'
+			},
+			{
+				id: 'profile-component',
+				title: 'Profile',
+				translate: 'PROFILE',
+				type: 'item',
+				icon: 'person',
+				url: '/profile'
 			}
 		]
 	}
