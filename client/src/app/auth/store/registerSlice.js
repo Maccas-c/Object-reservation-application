@@ -55,9 +55,7 @@ export const updatePasswordStart = ({ email, password }, id) => {
 		axios
 			.patch('/updatePasswordViaEmail', data, { withCredentials: true })
 			.then(response => {
-				if (response.data) {
-					dispatch(showMessage({ message: response.data.message }));
-				}
+				dispatch(showMessage({ message: response.data }));
 			})
 			.catch(error => {
 				if (error.response.data) {
