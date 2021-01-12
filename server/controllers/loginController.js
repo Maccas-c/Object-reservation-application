@@ -25,7 +25,7 @@ module.exports.logout = function (req, res) {
   req.session.destroy(function (err) {
     if (err) return res.status(404);
     res.status(200).send({
-      message: 'Successfully logged out',
+      message: 'Wylogowano',
     });
   });
 };

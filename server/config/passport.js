@@ -5,6 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const userModel = require('../models/userModel');
 const mongoose = require('mongoose');
 const { validPassword } = require('../lib/password');
+const nodemailer = require('nodemailer');
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -72,6 +73,26 @@ let usosClient = new OAuth1Strategy(
               if (err) throw err;
               return cb(null, newUser);
             });
+
+            let transporter = nodemailer.createTransport({
+              host: 'smtp.gmail.com',
+              port: 465,
+              secure: true,
+              auth: {
+                user: `${process.env.EMAIL_ADDRESS}`,
+                pass: `${process.env.EMAIL_PASSWORD}`,
+              },
+            });
+
+            const mailOptions = {
+              from: `${process.env.EMAIL_ADDRESS}`,
+              to: `${profile.email}`,
+              subject: 'Rejestracja w serwisie do Devcourt',
+              text:
+                'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.',
+            };
+
+            transporter.sendMail(mailOptions);
           }
         },
       );

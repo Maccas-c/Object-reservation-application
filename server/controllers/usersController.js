@@ -19,7 +19,7 @@ module.exports.userCreate = async function (req, res) {
       if (err) return res.status(404).json(err);
       if (user) {
         if (user.isActive == true) {
-          return res.status(422).json('E-mail istnieje');
+          return res.status(422).json('Podany e-mail istnieje');
         } else {
           try {
             const saltHash = await genPassword(req.body.password);
@@ -71,7 +71,7 @@ module.exports.userCreate = async function (req, res) {
         const mailOptions = {
           from: `${process.env.EMAIL_ADDRESS}`,
           to: `${user.email}`,
-          subject: 'Create account',
+          subject: 'Rejestracja w serwisie do Devcourt',
           text:
             'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.',
         };
