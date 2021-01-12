@@ -1,6 +1,7 @@
 const locale = {
-	APPLICATIONS: 'Applications',
-	EXAMPLE: 'Example'
+	MENU: 'Menu',
+	PROFILE: 'User Profile',
+	CALENDAR: 'Calendar'
 };
 
 export default locale;

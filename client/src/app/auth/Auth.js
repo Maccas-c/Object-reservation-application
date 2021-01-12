@@ -44,11 +44,9 @@ class Auth extends Component {
 				resolve();
 			});
 
-			LoginService.on('onAutoLogout', message => {
-				if (message) {
-					this.props.showMessage({ message: message.message });
-					this.props.logoutUser();
-				}
+			LoginService.on('onAutoLogout', () => {
+				this.props.showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany' });
+				this.props.logoutUser();
 				resolve();
 			});
 

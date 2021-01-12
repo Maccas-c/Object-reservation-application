@@ -7,20 +7,12 @@ i18next.addResourceBundle('en', 'navigation', en);
 
 const navigationConfig = [
 	{
-		id: 'applications',
-		title: 'Applications',
-		translate: 'APPLICATIONS',
+		id: 'menu',
+		title: 'Menu',
+		translate: 'MENU',
 		type: 'group',
 		icon: 'apps',
 		children: [
-			{
-				id: 'example-component',
-				title: 'Example',
-				translate: 'EXAMPLE',
-				type: 'item',
-				icon: 'whatshot',
-				url: '/example'
-			},
 			{
 				id: 'profile-component',
 				title: 'Profile',
@@ -28,6 +20,14 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'person',
 				url: '/profile'
+			},
+			{
+				id: 'calendar-component',
+				title: 'Calendar',
+				translate: 'CALENDAR',
+				type: 'item',
+				icon: 'date_range',
+				url: '/calendar'
 			}
 		]
 	}

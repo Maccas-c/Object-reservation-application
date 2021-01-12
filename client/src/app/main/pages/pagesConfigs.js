@@ -1,7 +1,7 @@
-import ExampleConfig from 'app/main/pages/example/ExampleConfig';
-import Error404PageConfig from 'app/main/pages/not-found/NotFoundConfig';
+import Error404PageConfig from './not-found/NotFoundConfig';
 import UserProfileConfig from './userProfile/UserProfileConfig';
+import CalendarApp from './calendar/CalendarAppConfig';
 
-const pagesConfigs = [ExampleConfig, Error404PageConfig, UserProfileConfig];
+const pagesConfigs = [Error404PageConfig, UserProfileConfig, CalendarApp];
 
 export default pagesConfigs;
