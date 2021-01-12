@@ -26,7 +26,7 @@ module.exports.forgotPassword = async function (req, res) {
         res.status(401).end('Błąd');
       }
       if (!user)
-        return res.status(401).json('Użytkownik o podanym e-mail nie istniej');
+        return res.status(401).json('Użytkownik o podanym e-mail nie istnieje');
 
       const transporter = nodemailer.createTransport({
         service: 'gmail',

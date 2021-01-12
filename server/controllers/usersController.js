@@ -39,9 +39,9 @@ module.exports.userCreate = async function (req, res) {
               },
             });
             user.save();
-            res.status(200).json(user);
+            return res.status(200).json(user);
           } catch (err) {
-            res.status(404).json(err);
+            return res.status(404).json(err);
           }
         }
       } else {
@@ -58,9 +58,10 @@ module.exports.userCreate = async function (req, res) {
           sex: req.body.sex,
           createDate: Date.now(),
         });
-
-        const transporter = nodemailer.createTransport({
-          service: 'gmail',
+        let transporter = nodeMailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
           auth: {
             user: `${process.env.EMAIL_ADDRESS}`,
             pass: `${process.env.EMAIL_PASSWORD}`,
@@ -75,19 +76,12 @@ module.exports.userCreate = async function (req, res) {
             'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.',
         };
 
-        transporter.sendMail(mailOptions, (err, response) => {
-          if (err) {
-            return res.status(422).send(err);
-          } else {
-            res.status(200).json('recovery email sent');
-          }
-        });
-
+        transporter.sendMail(mailOptions);
         try {
           const savedUser = await user.save();
-          res.status(201).json(savedUser);
+          return res.status(201).json(savedUser);
         } catch (err) {
-          res.status(400).res.json(err);
+          return res.status(400).res.json(err);
         }
       }
     },
@@ -106,9 +100,9 @@ module.exports.userDelete = async function (req, res) {
         },
       },
     );
-    res.status(200).json(deletedUser);
+    return res.status(200).json(deletedUser);
   } catch (err) {
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -116,7 +110,6 @@ module.exports.userUpdate = async function (req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    console.log(errors);
     return res.status(422).json({
       errors: errors.array(),
     });
@@ -134,9 +127,9 @@ module.exports.userUpdate = async function (req, res) {
         new: true,
       },
     );
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -144,8 +137,8 @@ module.exports.userGet = async function (req, res) {
   try {
     const getUser = await userModel.findById(req.params.userId);
 
-    res.status(200).json(getUser);
+    return res.status(200).json(getUser);
   } catch (err) {
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
