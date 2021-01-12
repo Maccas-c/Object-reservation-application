@@ -19,7 +19,7 @@ module.exports.userCreate = async function (req, res) {
       if (err) return res.status(404).json(err);
       if (user) {
         if (user.isActive == true) {
-          return res.status(422).json('The email exist');
+          return res.status(422).json('E-mail istnieje');
         } else {
           try {
             const saltHash = await genPassword(req.body.password);
