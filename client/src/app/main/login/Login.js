@@ -87,7 +87,7 @@ function Login() {
 								<Tab
 									icon={<img className="h-40" src="/assets/images/logos/usos.svg" alt="usos" />}
 									className="min-w-0"
-									label="USOS"
+									label="USOS UAM"
 								/>
 							</Tabs>
 
