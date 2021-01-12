@@ -33,7 +33,10 @@ const authProvider = {
     // other error code (404, 500, etc): no need to log out
     return Promise.resolve();
   },
-  checkAuth: () => (localStorage.getItem('admin') ? Promise.resolve() : Promise.reject({ redirectTo: '/login' })),
+  checkAuth: () => {
+    if (localStorage.getItem('token') == process.env.REACT_APP_SECRET) return Promise.resolve();
+    else return Promise.reject({ redirectTo: '/login' });
+  },
   logout: () => {
     localStorage.removeItem('admin');
     localStorage.removeItem('token');
@@ -46,8 +49,10 @@ const authProvider = {
   },
   getIdentity: () => {
     try {
-      const { id, name, surname } = JSON.parse(localStorage.getItem('admin'));
-      return Promise.resolve({ id, name });
+      if (localStorage.getItem('admin')) {
+        const { id, name, surname } = JSON.parse(localStorage.getItem('admin'));
+        return Promise.resolve({ id, name });
+      }
     } catch (error) {
       return Promise.reject(error);
     }
