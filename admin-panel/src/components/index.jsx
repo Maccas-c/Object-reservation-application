@@ -21,7 +21,9 @@ const httpClient = (url, options = {}) => {
   options.headers = new Headers({ Accept: 'application/json' });
   options.headers = new Headers({ Accept: 'Content-Type' });
   options.headers.set('Cache-Control', 'no-cache');
-  options.headers.set('React-Admin', process.env.REACT_APP_SECRET);
+
+  const token = localStorage.getItem('token');
+  options.headers.set('react-admin', token);
   return fetchUtils.fetchJson(url, options);
 };
 const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpClient);

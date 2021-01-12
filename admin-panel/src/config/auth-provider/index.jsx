@@ -14,8 +14,9 @@ const authProvider = {
         return response.json();
       })
       .then((auth) => {
-        localStorage.setItem('user', JSON.stringify(auth));
+        localStorage.setItem('admin', JSON.stringify(auth));
         localStorage.setItem('permissions', JSON.stringify(auth.role));
+        localStorage.setItem('token', process.env.REACT_APP_SECRET);
       })
       .catch(() => {
         throw new Error('You are not admin');
@@ -25,16 +26,17 @@ const authProvider = {
     const { status } = error;
 
     if (status === 401 || status === 403) {
-      localStorage.removeItem('user');
+      localStorage.removeItem('admin');
       localStorage.removeItem('permissions');
       return Promise.reject({ redirectTo: '/credentials-required' });
     }
     // other error code (404, 500, etc): no need to log out
     return Promise.resolve();
   },
-  checkAuth: () => (localStorage.getItem('user') ? Promise.resolve() : Promise.reject({ redirectTo: '/login' })),
+  checkAuth: () => (localStorage.getItem('admin') ? Promise.resolve() : Promise.reject({ redirectTo: '/login' })),
   logout: () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('admin');
+    localStorage.removeItem('token');
     localStorage.removeItem('permissions');
     return Promise.resolve();
   },
@@ -44,7 +46,7 @@ const authProvider = {
   },
   getIdentity: () => {
     try {
-      const { id, name, surname } = JSON.parse(localStorage.getItem('user'));
+      const { id, name, surname } = JSON.parse(localStorage.getItem('admin'));
       return Promise.resolve({ id, name });
     } catch (error) {
       return Promise.reject(error);
