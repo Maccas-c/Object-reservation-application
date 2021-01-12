@@ -122,11 +122,17 @@ module.exports.userUpdate = async function (req, res) {
     });
   }
   try {
-    const updatedUser = await userModel.updateOne(
+    const updatedUser = await userModel.findOneAndUpdate(
       {
         _id: ObjectId(req.body.id),
       },
-      req.body,
+      {
+        $set: req.body,
+      },
+      {
+        useFindAndModify: false,
+        new: true,
+      },
     );
     res.status(200).json(updatedUser);
   } catch (err) {
