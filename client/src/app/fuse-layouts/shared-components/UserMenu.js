@@ -37,7 +37,7 @@ function UserMenu(props) {
 						{(!user.role || (Array.isArray(user.role) && user.role.length === 0)) && 'Admin'}
 					</Typography>
 				</div>
-				<Avatar className="md:mx-4" alt="user photo" src={'/assets/images/avatars/profile.jpg'} />
+				<Avatar className="md:mx-4" alt="user photo" src="/assets/images/avatars/profile.jpg" />
 			</Button>
 
 			<Popover
@@ -73,7 +73,7 @@ function UserMenu(props) {
 					</>
 				) : (
 					<>
-						<MenuItem component={Link} to="/pages/profile" onClick={userMenuClose} role="button">
+						<MenuItem component={Link} to="/profile" onClick={userMenuClose} role="button">
 							<ListItemIcon className="min-w-40">
 								<Icon>account_circle</Icon>
 							</ListItemIcon>

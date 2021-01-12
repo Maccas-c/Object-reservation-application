@@ -7,6 +7,20 @@ const useStyles = makeStyles(theme => ({
 	layoutRoot: {}
 }));
 
+// <div className={clsx(classes.seller, 'flex items-center p-16')}>
+// 	<img className="w-80" src="assets/images/logos/fuse.svg" alt="logo" />
+//
+// 	<div className={clsx(classes.divider, 'w-px mx-8 h-96 opacity-50')} />
+//
+// 	<div className="px-8">
+// 		<Typography color="inherit">'invoice.from.title'</Typography>
+//
+// 		<Typography color="inherit">'invoice.from.address'</Typography>
+// 		<Typography color="inherit">'invoice.from.phone'</Typography>
+// 		<Typography color="inherit">'invoice.from.email'</Typography>
+// 		<Typography color="inherit">'invoice.from.website'</Typography>
+// 	</div>
+// </div>
 function ExamplePage(props) {
 	const classes = useStyles(props);
 
