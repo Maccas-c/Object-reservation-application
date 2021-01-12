@@ -1,49 +1,26 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import { useForm } from '@fuse/hooks';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { makeStyles } from '@material-ui/core/styles';
-import { darken } from '@material-ui/core/styles/colorManipulator';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import AnalogClock from 'analog-clock-react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Form, Formik } from 'formik';
+import useStyles, { options } from './styles';
 import { updateUserProfileStart } from '../../../../store/actions/userProfile';
-
-const options = {
-	width: '100px',
-	border: true,
-	borderColor: '#2e2e2e',
-	baseColor: '#ffffff',
-	centerColor: '#101E2A',
-	centerBorderColor: '#fff',
-	handColors: {
-		second: '#101E2A',
-		minute: '#101E2A',
-		hour: '#101E2A'
-	}
-};
-const useStyles = makeStyles(theme => ({
-	root: {
-		background: `radial-gradient(${darken(theme.palette.primary.dark, 0.5)} 0%, ${theme.palette.primary.dark} 80%)`,
-		color: theme.palette.primary.contrastText
-	}
-}));
+import { userProfileTransform } from '../../../services/validation/initialValuesValidation';
+import { userProfileEdit } from '../../../services/validation/validationSchema';
 
 function UserProfile() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const createDate = useSelector(({ auth: { user } }) => user.createDate);
-	const { adress_city, adress_postalCode, adress_street, age, email, name, nip, phone_number, surname } = useSelector(
-		({ auth: { user } }) => user
-	);
-	const { form, handleChange, resetForm } = useForm({
-		password: ''
-	});
+	const userProfile = useSelector(({ auth: { user } }) => user);
 	const [results, setResults] = useState(0);
+	const [formValues, setFormValues] = useState('');
 
 	useEffect(() => {
 		const oneDay = 24 * 60 * 60 * 1000;
@@ -52,18 +29,13 @@ function UserProfile() {
 			diffDays = 1;
 		}
 		setResults(diffDays);
-	}, []);
+	}, [createDate]);
 
-	const user = {
-		id: '5ffcd6b6786f59191c52c6a0',
-		email: 'piotr69@gmail.com',
-		name: 'Maciej',
-		surname: 'Tromba'
-	};
-	function handleSubmit(ev) {
-		ev.preventDefault();
-		dispatch(updateUserProfileStart(user));
-	}
+	useEffect(() => {
+		if (userProfile) {
+			setFormValues(userProfile);
+		}
+	}, [dispatch, userProfile]);
 
 	const formatDayString = day => (day !== 1 ? 'dni' : 'dzień');
 
@@ -87,115 +59,163 @@ function UserProfile() {
 									)} :)`}</Typography>
 								</div>
 							</div>
-							<form
-								name="lockForm"
-								noValidate
-								className="flex flex-col justify-center w-full mt-32"
-								onSubmit={handleSubmit}
-							>
-								<TextField
-									className="mb-16"
-									label="Imię"
-									name="name"
-									value={name}
-									variant="outlined"
-									fullWidth
-									required
-								/>
+							<Formik
+								enableReinitialize
+								initialValues={userProfileTransform(formValues)}
+								validationSchema={userProfileEdit}
+								onSubmit={(values, actions) => {
+									dispatch(updateUserProfileStart(values));
+									actions.setSubmitting(false);
+								}}
+								render={({
+									handleSubmit,
+									handleChange,
+									handleBlur,
+									errors: { adress_postalCode, age, nip, phone_number, email },
+									values: {
+										adress_city,
+										adress_postalCode: adress_postalCode1,
+										adress_street,
+										age: age1,
+										email: email1,
+										name,
+										nip: nip1,
+										phone_number: phone_number1,
+										surname
+									}
+								}) => (
+									<Form onSubmit={handleSubmit}>
+										<TextField
+											className="mb-16"
+											label="Imię"
+											name="name"
+											disabled={userProfile?.isStudent ?? null}
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={name}
+											variant="outlined"
+											fullWidth
+											required
+										/>
 
-								<TextField
-									className="mb-16"
-									label="Nazwisko"
-									type="surname"
-									name="surname"
-									value={surname}
-									onChange={handleChange}
-									variant="outlined"
-									required
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="E-mail"
-									type="email"
-									name="email"
-									value={email}
-									onChange={handleChange}
-									variant="outlined"
-									required
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="Numer telefonu"
-									type="phoneNumber"
-									name="phone_number"
-									value={phone_number}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="Wiek"
-									type="number"
-									name="age"
-									value={age}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="Miasto"
-									type="string"
-									name="adress_city"
-									value={adress_city}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="Kod pocztowy"
-									type="string"
-									name="adress_postalCode"
-									value={adress_postalCode}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="Ulica"
-									type="string"
-									name="adress_street"
-									value={adress_street}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-								<TextField
-									className="mb-16"
-									label="NIP"
-									type="string"
-									name="nip"
-									value={nip}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
+										<TextField
+											className="mb-16"
+											label="Nazwisko"
+											type="surname"
+											name="surname"
+											disabled={userProfile?.isStudent ?? null}
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={surname}
+											variant="outlined"
+											required
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											label="E-mail"
+											disabled={userProfile?.isStudent ?? null}
+											type="email"
+											name="email"
+											variant="outlined"
+											required
+											onBlur={handleBlur}
+											onChange={handleChange}
+											error={email}
+											value={email1}
+											helperText={email}
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											name="phone_number"
+											type="number"
+											label="Numer telefonu"
+											id="phone_number"
+											helperText={phone_number}
+											error={phone_number}
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={phone_number1}
+											variant="outlined"
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											name="age"
+											label="Wiek"
+											type="number"
+											helperText={age}
+											error={age}
+											id="age"
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={age1}
+											variant="outlined"
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											name="adress_city"
+											label="Miasto"
+											id="city"
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={adress_city}
+											variant="outlined"
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											name="adress_postalCode"
+											helperText={adress_postalCode}
+											error={adress_postalCode}
+											label="Kod pocztowy"
+											id="adress_postalCode"
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={adress_postalCode1}
+											variant="outlined"
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											name="adress_street"
+											label="Ulica"
+											id="adress_street"
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={adress_street}
+											variant="outlined"
+											fullWidth
+										/>
+										<TextField
+											className="mb-16"
+											name="nip"
+											label="NIP"
+											id="nip"
+											error={nip}
+											helperText={nip}
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={nip1}
+											variant="outlined"
+											fullWidth
+										/>
 
-								<Button
-									variant="contained"
-									color="primary"
-									className="w-224 mx-auto mt-16"
-									aria-label="Reset"
-									type="submit"
-								>
-									Zapisz
-								</Button>
-							</form>
+										<Button
+											variant="contained"
+											color="primary"
+											style={{ display: 'flex', justifyContent: 'center' }}
+											className="w-224 mx-auto mt-16"
+											aria-label="Reset"
+											type="submit"
+										>
+											Zapisz
+										</Button>
+									</Form>
+								)}
+							/>
 						</CardContent>
 					</Card>
 				</FuseAnimate>
@@ -203,5 +223,4 @@ function UserProfile() {
 		</div>
 	);
 }
-
 export default UserProfile;
