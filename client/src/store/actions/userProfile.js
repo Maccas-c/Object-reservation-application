@@ -14,7 +14,7 @@ export const updateUserProfileStart = user => {
 			})
 			.catch(error => {
 				console.log(error.response);
-				dispatch(showMessage({ message: error.response.data.msg }));
+				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
 			});
 	};
 };
