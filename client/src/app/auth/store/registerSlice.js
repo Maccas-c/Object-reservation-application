@@ -12,7 +12,7 @@ export const submitRegister = ({ name, surname, password, email, sex }) => async
 			email,
 			sex
 		})
-		.then(response => {
+		.then(() => {
 			dispatch(showMessage({ message: 'Konto zostało utworzone' }));
 			return dispatch(registerSuccess());
 		})
@@ -25,12 +25,10 @@ export const rememberPassword = ({ email }) => async dispatch => {
 	axios
 		.post('/forgotPassword', { email }, { withCredentials: true })
 		.then(response => {
-			console.log(response)
 			dispatch(showMessage({ message: response.data }));
 		})
-		.catch(error => {
-			console.log(error)
-			dispatch(showMessage({ message: error.response.data }));
+		.catch(() => {
+			dispatch(showMessage({ message: 'Użytkownik o podanym e-mail nie istnieje' }));
 		});
 };
 
