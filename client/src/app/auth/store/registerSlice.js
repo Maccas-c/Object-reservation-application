@@ -25,9 +25,11 @@ export const rememberPassword = ({ email }) => async dispatch => {
 	axios
 		.post('/forgotPassword', { email }, { withCredentials: true })
 		.then(response => {
+			console.log(response)
 			dispatch(showMessage({ message: response.data }));
 		})
 		.catch(error => {
+			console.log(error)
 			dispatch(showMessage({ message: error.response.data }));
 		});
 };

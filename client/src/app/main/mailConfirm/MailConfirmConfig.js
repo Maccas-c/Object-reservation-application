@@ -1,4 +1,3 @@
-import React from 'react';
 import { authRoles } from '../../auth';
 import MailConfirm from './MailConfirm';
 
