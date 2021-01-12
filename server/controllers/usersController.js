@@ -58,7 +58,7 @@ module.exports.userCreate = async function (req, res) {
           sex: req.body.sex,
           createDate: Date.now(),
         });
-        let transporter = nodeMailer.createTransport({
+        let transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 465,
           secure: true,
