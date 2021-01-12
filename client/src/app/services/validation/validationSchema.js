@@ -19,7 +19,7 @@ export const userProfileEdit = Yup.object().shape({
 		/(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/,
 		'Niepoprawny format numeru!'
 	),
-	age: Yup.string().max(3, 'Błąd'),
+	age: Yup.string().matches(/^([1-9][0-9]?){0,1}$/, 'Niepoprawny wiek'),
 	email: Yup.string().matches(
 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 		'Niepoprawny mail'

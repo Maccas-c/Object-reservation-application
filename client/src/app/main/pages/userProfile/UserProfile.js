@@ -71,6 +71,7 @@ function UserProfile() {
 									actions.setSubmitting(false);
 								}}
 								render={({
+									isValid,
 									handleSubmit,
 									handleChange,
 									handleBlur,
