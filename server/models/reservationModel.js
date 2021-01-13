@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const reservationModel = mongoose.Schema({
   start_time: {
-    type: String,
+    type: Date,
     required: true,
   },
   hour: {

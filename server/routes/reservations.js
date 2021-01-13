@@ -49,4 +49,9 @@ router.get(
   reservationController.reservationsGetByUserId,
 );
 
+router.get(
+  '/api/reservationsDate',
+  reservationController.reservationsGetByDate,
+);
+
 module.exports = router;

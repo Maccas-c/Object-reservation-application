@@ -3,6 +3,7 @@ const { db } = require('../models/reservationModel');
 const reservationModel = require('../models/reservationModel');
 const userModel = require('./../models/userModel');
 const courtsTariff = require('../models/tariffModel');
+const courtModel = require('../models/courtModel');
 const groupBy = (list, key) =>
   list.reduce(
     (hash, obj) => ({
@@ -99,7 +100,8 @@ module.exports.reservationCreate = async function (req, res) {
         });
         try {
           const savedReservation = await reservation.save();
-          res.status(201).json(savedReservation);
+          const result = [{ reservation, msg: 'Pomyślnie dodano rezerwacje' }];
+          res.status(201).json(result);
         } catch (err) {
           res.status(400).json(err);
         }
@@ -174,6 +176,51 @@ module.exports.reservationsGetByUserId = async function (req, res) {
       userId: userId,
     });
     res.status(200).json(reservations);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
+module.exports.reservationsGetByDate = async function (req, res) {
+  let dates = [
+    {
+      hour: '15:00',
+      free: true,
+    },
+    {
+      hour: '16:30',
+      free: true,
+    },
+    {
+      hour: '18:00',
+      free: true,
+    },
+    {
+      hour: '19:30',
+      free: true,
+    },
+    {
+      hour: '21:00',
+      free: true,
+    },
+  ];
+  const date = req.body.date;
+  try {
+    const court = await courtModel.findById(req.body.courtId);
+    //console.log(court);
+    const reservations = await reservationModel.find({
+      start_time: date,
+      courtId: court.nameCourt,
+    });
+    dates.forEach(item =>
+      reservations.forEach(rs => {
+        if (item.hour == rs.hour && rs.courtId == court.nameCourt) {
+          console.log('lol');
+          item.free = false;
+        }
+      }),
+    );
+    res.status(200).json(dates);
   } catch (err) {
     res.status(404).json(err);
   }
