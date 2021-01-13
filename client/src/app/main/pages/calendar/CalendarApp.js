@@ -6,7 +6,7 @@ import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import moment from 'moment';
 import React, { useEffect, useRef } from 'react';
-import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -23,12 +23,11 @@ import {
 	updateEvent,
 	getEvents
 } from './store/eventsSlice';
+import 'moment/locale/pl';
 
 const localizer = momentLocalizer(moment);
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
-
-const allViews = Object.keys(Views).map(k => Views[k]);
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -229,15 +228,13 @@ function CalendarApp(props) {
 				onEventDrop={moveEvent}
 				resizable
 				onEventResize={resizeEvent}
-				defaultView={Views.MONTH}
 				defaultDate={new Date()}
 				startAccessor="start"
 				endAccessor="end"
-				views={allViews}
 				step={60}
-				showMultiDayTimes
 				components={{
 					toolbar: _props => {
+						console.log(_props);
 						return headerEl.current
 							? ReactDOM.createPortal(<CalendarHeader {..._props} />, headerEl.current)
 							: null;

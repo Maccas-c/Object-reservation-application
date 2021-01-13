@@ -31,51 +31,51 @@ const styles = theme => ({
 			zIndex: 1,
 			background: 'rgba(0, 0, 0, 0.45)'
 		},
-		'&.Jan': {
+		'&.sty': {
 			backgroundImage: "url('/assets/images/calendar/winter.jpg')",
 			backgroundPosition: '0 85%'
 		},
-		'&.Feb': {
+		'&.lut': {
 			backgroundImage: "url('/assets/images/calendar/winter.jpg')",
 			backgroundPosition: '0 85%'
 		},
-		'&.Mar': {
+		'&.mar': {
 			backgroundImage: "url('/assets/images/calendar/spring.jpg')",
 			backgroundPosition: '0 40%'
 		},
-		'&.Apr': {
+		'&.kwi': {
 			backgroundImage: "url('/assets/images/calendar/spring.jpg')",
 			backgroundPosition: '0 40%'
 		},
-		'&.May': {
+		'&.maj': {
 			backgroundImage: "url('/assets/images/calendar/spring.jpg')",
 			backgroundPosition: '0 40%'
 		},
-		'&.Jun': {
+		'&.cze': {
 			backgroundImage: "url('/assets/images/calendar/summer.jpg')",
 			backgroundPosition: '0 80%'
 		},
-		'&.Jul': {
+		'&.lip': {
 			backgroundImage: "url('/assets/images/calendar/summer.jpg')",
 			backgroundPosition: '0 80%'
 		},
-		'&.Aug': {
+		'&.sie': {
 			backgroundImage: "url('/assets/images/calendar/summer.jpg')",
 			backgroundPosition: '0 80%'
 		},
-		'&.Sep': {
+		'&.wrz': {
 			backgroundImage: "url('/assets/images/calendar/autumn.jpg')",
 			backgroundPosition: '0 40%'
 		},
-		'&.Oct': {
+		'&.paź': {
 			backgroundImage: "url('/assets/images/calendar/autumn.jpg')",
 			backgroundPosition: '0 40%'
 		},
-		'&.Nov': {
+		'&.lis': {
 			backgroundImage: "url('/assets/images/calendar/autumn.jpg')",
 			backgroundPosition: '0 40%'
 		},
-		'&.Dec': {
+		'&.gru': {
 			backgroundImage: "url('/assets/images/calendar/winter.jpg')",
 			backgroundPosition: '0 85%'
 		}
@@ -98,6 +98,20 @@ class CalendarHeader extends Toolbar {
 								<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 									<Typography variant="h6">Kalendarz</Typography>
 								</FuseAnimate>
+							</div>
+							<div className="flex items-center">
+								<Tooltip title="Dzisiaj">
+									<div>
+										<FuseAnimate animation="transition.expandIn" delay={500}>
+											<IconButton
+												aria-label="today"
+												onClick={this.navigate.bind(null, navigate.TODAY)}
+											>
+												<Icon>today</Icon>
+											</IconButton>
+										</FuseAnimate>
+									</div>
+								</Tooltip>
 							</div>
 						</div>
 
