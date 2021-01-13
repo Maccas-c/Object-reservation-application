@@ -16,6 +16,16 @@ export const submitLogin = ({ email, password }) => async dispatch => {
 		});
 };
 
+export const getUserProfile = id => async dispatch => {
+	return LoginService.getUser(id)
+		.then(user => {
+			dispatch(setUserData(user));
+		})
+		.catch(err => {
+			console.log(err);
+		});
+};
+
 export const loginUSOS = () => LoginService.signInWithUSOS();
 
 const initialState = {
@@ -30,7 +40,7 @@ const loginSlice = createSlice({
 	name: 'auth/login',
 	initialState,
 	reducers: {
-		loginSuccess: (state, action) => {
+		loginSuccess: state => {
 			state.success = true;
 		},
 		loginError: (state, action) => {

@@ -100,6 +100,29 @@ class LoginService extends FuseUtils.EventEmitter {
 		});
 	};
 
+	getUser = userId => {
+		return new Promise((resolve, reject) => {
+			axios
+				.get(
+					`/user/${userId}`,
+
+					{
+						withCredentials: true
+					}
+				)
+				.then(response => {
+					if (response.data) {
+						resolve(response.data);
+					} else {
+						reject(response.data.error);
+					}
+				})
+				.catch(err => {
+					reject(err);
+				});
+		});
+	};
+
 	signInWithUSOS = () => {
 		window.location.href = 'http://localhost:3001/api/loginUsos/connect';
 	};

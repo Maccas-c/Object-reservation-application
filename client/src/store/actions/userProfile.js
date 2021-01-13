@@ -1,6 +1,7 @@
 import axios from 'axios/axios-auth';
 import { showMessage } from '../../app/store/fuse/messageSlice';
 import { setUserData } from '../../app/auth/store/userSlice';
+import * as action from './actionTypes';
 
 export const updateUserProfileStart = user => {
 	return dispatch => {
@@ -12,9 +13,28 @@ export const updateUserProfileStart = user => {
 				dispatch(showMessage({ message: 'Pomyślnie zmieniono dane' }));
 				dispatch(setUserData(response.data));
 			})
-			.catch(error => {
-				console.log(error.response);
+			.catch(() => {
 				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
 			});
+	};
+};
+
+export const fetchReservationUser = id => {
+	return dispatch => {
+		axios
+			.get(`/reservations/${id}`, { withCredentials: true })
+			.then(response => {
+				dispatch(fetchReservationUserList(response.data));
+				dispatch(showMessage({ message: 'Pomyślnie pobrano dane' }));
+			})
+			.catch(() => {
+				dispatch(showMessage({ message: 'Błąd podczas pobierania danych.' }));
+			});
+	};
+};
+export const fetchReservationUserList = reservation => {
+	return {
+		type: action.GET_USER_RESERVATIONS,
+		reservation
 	};
 };

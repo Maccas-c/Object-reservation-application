@@ -14,6 +14,14 @@ const navigationConfig = [
 		icon: 'apps',
 		children: [
 			{
+				id: 'home-component',
+				title: 'Home',
+				translate: 'HOME',
+				type: 'item',
+				icon: 'web',
+				url: '/home'
+			},
+			{
 				id: 'profile-component',
 				title: 'Profile',
 				translate: 'PROFILE',
@@ -28,6 +36,14 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'date_range',
 				url: '/calendar'
+			},
+			{
+				id: 'userListReservation-component',
+				title: 'Historia rezerwacji',
+				translate: 'RESERVATION',
+				type: 'item',
+				icon: 'list',
+				url: '/reservation'
 			}
 		]
 	}

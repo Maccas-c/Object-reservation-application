@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import { selectFooterTheme } from 'app/store/fuse/settingsSlice';
 import RegulationButton from 'app/fuse-layouts/shared-components/regulations/RegulationButton';
 import PurchaseButton from 'app/fuse-layouts/shared-components/PurchaseButton';
+import KnowledgeBaseButton from '../../shared-components/knowLedgeBase/KnowledgeBaseButton';
 
-function FooterLayout1(props) {
+function FooterLayout1() {
 	const footerTheme = useSelector(selectFooterTheme);
 
 	return (
@@ -18,9 +19,13 @@ function FooterLayout1(props) {
 				color="default"
 				style={{ backgroundColor: footerTheme.palette.background.paper }}
 			>
-				<Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
+				<Toolbar
+					style={{ justifyContent: 'flex-end' }}
+					className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto"
+				>
 					<PurchaseButton className="mx-4" />
 					<RegulationButton className="mx-4" />
+					<KnowledgeBaseButton className="mx-4" />
 				</Toolbar>
 			</AppBar>
 		</ThemeProvider>

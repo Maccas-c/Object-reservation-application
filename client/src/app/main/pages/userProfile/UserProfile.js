@@ -13,6 +13,8 @@ import useStyles, { options } from './styles';
 import { updateUserProfileStart } from '../../../../store/actions/userProfile';
 import { userProfileTransform } from '../../../services/validation/initialValuesValidation';
 import { userProfileEdit } from '../../../services/validation/validationSchema';
+import { getUserProfile } from '../../../auth/store/loginSlice';
+import { useConstructor } from '../../../../utils/customHooks';
 
 function UserProfile() {
 	const classes = useStyles();
@@ -29,13 +31,12 @@ function UserProfile() {
 			diffDays = 1;
 		}
 		setResults(diffDays);
-	}, [createDate]);
+		setFormValues(userProfile);
+	}, [dispatch, userProfile, createDate]);
 
-	useEffect(() => {
-		if (userProfile) {
-			setFormValues(userProfile);
-		}
-	}, [dispatch, userProfile]);
+	useConstructor(() => {
+		dispatch(getUserProfile(userProfile._id));
+	});
 
 	const formatDayString = day => (day !== 1 ? 'dni' : 'dzień');
 
@@ -71,7 +72,6 @@ function UserProfile() {
 									actions.setSubmitting(false);
 								}}
 								render={({
-									isValid,
 									handleSubmit,
 									handleChange,
 									handleBlur,
@@ -140,7 +140,7 @@ function UserProfile() {
 											error={phone_number}
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={phone_number1}
+											value={phone_number1 || ''}
 											variant="outlined"
 											fullWidth
 										/>
@@ -154,7 +154,7 @@ function UserProfile() {
 											id="age"
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={age1}
+											value={age1 || ''}
 											variant="outlined"
 											fullWidth
 										/>
@@ -165,7 +165,7 @@ function UserProfile() {
 											id="city"
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={adress_city}
+											value={adress_city || ''}
 											variant="outlined"
 											fullWidth
 										/>
@@ -178,7 +178,7 @@ function UserProfile() {
 											id="adress_postalCode"
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={adress_postalCode1}
+											value={adress_postalCode1 || ''}
 											variant="outlined"
 											fullWidth
 										/>
@@ -189,7 +189,7 @@ function UserProfile() {
 											id="adress_street"
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={adress_street}
+											value={adress_street || ''}
 											variant="outlined"
 											fullWidth
 										/>
@@ -202,7 +202,7 @@ function UserProfile() {
 											helperText={nip}
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={nip1}
+											value={nip1 || ''}
 											variant="outlined"
 											fullWidth
 										/>
