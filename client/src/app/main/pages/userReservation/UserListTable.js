@@ -48,7 +48,7 @@ function UserListTable({ reservations }) {
 								.map(({ _id, courtId, hour, start_time: startTime }) => {
 									return (
 										<TableRow className="h-64" hover role="checkbox" tabIndex={-1} key={_id}>
-											<TableCell className="p-4 md:p-16" component="th" scope="row">
+											<TableCell padding="10" className="p-4 md:p-16" component="th" scope="row">
 												{startTime}
 											</TableCell>
 
@@ -56,7 +56,13 @@ function UserListTable({ reservations }) {
 												{hour}
 											</TableCell>
 
-											<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
+											<TableCell
+												padding="10"
+												className="p-4 md:p-16"
+												component="th"
+												scope="row"
+												align="right"
+											>
 												{courtId}
 											</TableCell>
 										</TableRow>
