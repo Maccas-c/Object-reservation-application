@@ -40,28 +40,22 @@ const knowledgeBaseDB = [
 		featuredArticles: [
 			{
 				id: '1',
-				title: 'Jak zresetować hasło?',
-				content: 'Tak'
+				content:
+					'<p>1.Po wejściu na stronie z panelem logowania klikamy na przycisk „Przypomnij hasło!”\n</p>' +
+					'<p>2.Wpisujemy nasz email i klikamy „przypomnij hasło!”\n</p>' +
+					'<p>3.Idziemy do naszej skrzynki pocztowej e-mailu, który podaliśmy wyżej\n</p>' +
+					'<p>4.Klikamy w link, który przeniesie nas do strony, gdzie podajemy wymagane pole. \n</p>' +
+					'<p>5.Klikamy „Zmień hasło” \n</p>' +
+					'<p>6.Logujemy się nowym hasłem\n</p>',
+				title: 'Jak zresetować hasło?'
 			},
 			{
 				id: '2',
-				title: 'Gdzie uzupełnić dane do faktury?',
-				content: 'Tak'
-			},
-			{
-				id: '3',
-				title: 'Jak zresetować hasło?',
-				content: 'Tak'
-			},
-			{
-				id: '4',
-				title: 'Gdzie uzupełnić dane do faktury?',
-				content: 'Tak'
-			},
-			{
-				id: '5',
-				title: 'Jak zresetować hasło',
-				content: 'Tak'
+				title: 'Jak uzupełnić dane użytkownika?',
+				content:
+					'<p>1.Klikamy w prawym górnym logu \n</p>' +
+					'<p>2.Uzupełniamy podstawowe dane\n</p>' +
+					'<p>Są one wymagane przed pierwszą rezerwację!\n'
 			}
 		]
 	},
@@ -74,27 +68,18 @@ const knowledgeBaseDB = [
 			{
 				id: '1',
 				title: 'Jak przebiega płatność?',
-				content: 'Tak'
+				content:
+					'<p>1. Jeśli posiadamy rezerwacje w koszyku to klikamy w niego\n</p>' +
+					'<p>2. Zostanie nam wyświetlona strona z naszymi rezerwacjami oraz ceną za nie naliczoną\n</p>' +
+					'<p>3. Jeśli wszystko to zgadza się to klikamy zapłać\n</p>' +
+					'<p>4. Przenosi Nas na stronę płatności, gdzie wymieramy interesujący Nas sposób płatności\n</p>'
 			},
 			{
 				id: '2',
-				title: 'Czy dostanę potwierdzenie płatności?',
-				content: 'Tak'
-			},
-			{
-				id: '3',
-				title: 'Jak przebiega płatność?',
-				content: 'Tak'
-			},
-			{
-				id: '4',
-				title: 'Czy dostanę potwierdzenie płatności?',
-				content: 'Tak'
-			},
-			{
-				id: '5',
-				title: "Jak przebiega płatność?",
-				content: 'Tak'
+				title: 'Czy możliwy jest zwrot pieniędzy ?',
+				content:
+					'<p>Devcourt nie zapewnia zwrotów pieniędzy \n</p>' +
+					'<p>W razie takiej konieczności prosimy o kontakt z administratorem obiektu </p>'
 			}
 		]
 	},
@@ -106,28 +91,16 @@ const knowledgeBaseDB = [
 		featuredArticles: [
 			{
 				id: '1',
-				title: 'Jak wygląda boisko?',
-				content: 'Tak'
+				title: 'Jak wygląda podział boiska?',
+				content:
+					'<p>Boisko jest podzielone na 3 strefy:</p> <p>A – Lewa strona </p> <p>B\n - Środek </p> <p>C – Prawa strona\n</p> <p> D - Całe boisko\n</p>' +
+					'<p>W dni powszednie możemy zamawiać „małe” części boiska lub jeśli jest taka możliwość to całe boisko (inne strony muszą być wolne od rezerwacji o podanej godzinie)\n</p>' +
+					'W weekendy jest możliwość rezerwacji tylko całego obiektu – strefa D\n'
 			},
 			{
 				id: '2',
-				title: 'Jaki jest podział boiska?',
-				content: 'Tak'
-			},
-			{
-				id: '3',
-				title: 'Gdzie znajduję się boisko?',
-				content: 'Tak'
-			},
-			{
-				id: '4',
-				title: 'Czy boisko można rezerwować w każdy dzień?',
-				content: 'Tak'
-			},
-			{
-				id: '5',
-				title: 'Jak wygląda boisko?',
-				content: 'Tak'
+				title: 'Gdzie znajduje się boisko?',
+				content: 'Boisko znajduje się przy Studium Wychowania Fizycznego i Sportu UAM na ulicy Zagajnikowa 9.'
 			}
 		]
 	}

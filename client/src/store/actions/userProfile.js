@@ -25,11 +25,8 @@ export const fetchReservationUser = id => {
 			.get(`/reservations/${id}`, { withCredentials: true })
 			.then(response => {
 				dispatch(fetchReservationUserList(response.data));
-				dispatch(showMessage({ message: 'Pomyślnie pobrano dane' }));
 			})
-			.catch(() => {
-				dispatch(showMessage({ message: 'Błąd podczas pobierania danych.' }));
-			});
+			.catch(() => {});
 	};
 };
 export const fetchReservationUserList = reservation => {

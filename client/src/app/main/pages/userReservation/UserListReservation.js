@@ -1,11 +1,12 @@
-import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
+import FusePageCarded from '@fuse/core/FusePageCarded';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Widget from './widget/Widget';
+import UserListHeader from './UserListHeader';
+import UserListTable from './UserListTable';
 import { useConstructor } from '../../../../utils/customHooks';
 import { fetchReservationUser } from '../../../../store/actions/userProfile';
 
-const UserListReservation = () => {
+function UserListReservation() {
 	const dispatch = useDispatch();
 	const id = useSelector(({ auth: { user } }) => user._id);
 	const reservations = useSelector(({ userProfileReducer: { reservation } }) => reservation);
@@ -14,16 +15,17 @@ const UserListReservation = () => {
 		dispatch(fetchReservationUser(id));
 	});
 	return (
-		<FuseAnimateGroup
-			className="flex flex-wrap"
-			enter={{
-				animation: 'transition.slideUpBigIn'
+		<FusePageCarded
+			classes={{
+				content: 'flex',
+				contentCard: 'overflow-hidden',
+				header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
 			}}
-		>
-			<div className="widget flex w-full p-12">
-				<Widget reservations={reservations} />
-			</div>
-		</FuseAnimateGroup>
+			header={<UserListHeader reservations={reservations} />}
+			content={<UserListTable reservations={reservations} />}
+			innerScroll
+		/>
 	);
-};
+}
+
 export default UserListReservation;
