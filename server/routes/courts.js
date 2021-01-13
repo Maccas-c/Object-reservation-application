@@ -8,7 +8,9 @@ router.get('/api/court', function (req, res) {
 
 router.get('/api/admin/courts', rangeCourts, courtController.courtsGet);
 
-router.get('/api/courts', isAuth, rangeCourts, courtController.courtsGet);
+router.get('/api/courts', courtController.courtsGetFront);
+
+//router.get('/api/courts', isAuth, rangeCourts, courtController.courtsGet);
 
 router.post('/api/admin/courts', courtController.courtsCreate);
 

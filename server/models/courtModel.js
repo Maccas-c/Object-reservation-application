@@ -19,5 +19,8 @@ const courtModel = mongoose.Schema({
       value: Boolean,
     },
   ],
+  sessionTime: {
+    type: Date,
+  },
 });
 module.exports = mongoose.model('courtModel', courtModel);
