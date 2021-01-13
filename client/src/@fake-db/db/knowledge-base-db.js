@@ -27,8 +27,9 @@ const knowledgeBaseDB = [
 			},
 			{
 				id: '5',
-				title: 'Gdzie znajdę koszyk z rezerwacjami?',
-				content: 'Tak'
+				title: 'Czy dostanę powiadomienie po dokonanej rezerwacji?',
+				content:
+					'<p>Serwis DevCourt wysyła twoje dokonane rezerwacje mijające okresie terminie do 24 godzin. </p>'
 			}
 		]
 	},

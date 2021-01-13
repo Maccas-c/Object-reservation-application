@@ -120,7 +120,7 @@ function KnowledgeBase() {
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={handleCloseDialog} color="primary">
-								CLOSE
+								Zamknij
 							</Button>
 						</DialogActions>
 					</Dialog>
