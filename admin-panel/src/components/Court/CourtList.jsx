@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrayField, BooleanField, CreateButton, Datagrid, List, Responsive, TextField } from 'react-admin';
 
-export const Court = ({ ...props }) => (
+export const CourtList = ({ ...props }) => (
   <List {...props} title={'Boiska'} actions={<CreateButton label={'Stwórz nowe boisko'} />} exporter>
     <Responsive
       medium={

@@ -64,7 +64,7 @@ const styles = {
     width: 300,
   },
 };
-class ReservationList extends React.Component {
+class ReservationsList extends React.Component {
   handleClose = () => {
     const { push } = this.props;
     push('/reservations');
@@ -119,4 +119,4 @@ class ReservationList extends React.Component {
   }
 }
 
-export default compose(connect(undefined, { push }), withStyles(styles))(ReservationList);
+export default compose(connect(undefined, { push }), withStyles(styles))(ReservationsList);

@@ -7,7 +7,7 @@ const EditToolbar = translate(({ translate, ...props }) => (
   </Toolbar>
 ));
 
-export const EditPriceList = ({ ...props }) => (
+export const EditPrice = ({ ...props }) => (
   <Edit title={' '} {...props}>
     <SimpleForm toolbar={<EditToolbar />}>
       <TextInput label={'Strefa'} source={'name'} />
