@@ -81,9 +81,9 @@ function Home({ history }, props) {
 										<Typography className="font-medium truncate" color="inherit" />
 										<div className="flex items-center justify-center opacity-75">
 											<Icon className="text-20 mx-8" color="inherit">
-												{sessionTime}
+												access_time
 											</Icon>
-											<div className="text-16 whitespace-nowrap">Sektor</div>
+											<div className="text-16 whitespace-nowrap">{sessionTime} min</div>
 										</div>
 									</div>
 									<CardContent className="flex flex-col flex-auto items-center justify-center">
