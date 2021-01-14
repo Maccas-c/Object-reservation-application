@@ -11,7 +11,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React from 'react';
-import { academyDB } from '../../../../@fake-db/db/academy-db';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
+import { useConstructor } from '../../../../utils/customHooks';
+import { fetchCourt, setCourt } from '../../../../store/actions/courts';
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -30,19 +33,18 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function Home(props) {
+function Home({ history }, props) {
 	const classes = useStyles(props);
+	const dispatch = useDispatch();
+	const court = useSelector(state => state.courtReducer.court);
+	useConstructor(() => {
+		dispatch(fetchCourt());
+	});
 
-	function buttonStatus(course) {
-		switch (course.activeStep) {
-			case course.totalSteps:
-				return 'COMPLETED';
-			case 0:
-				return 'START';
-			default:
-				return 'CONTINUE';
-		}
-	}
+	const handleSetCourt = sector => {
+		dispatch(setCourt(sector));
+		history.push('/calendar');
+	};
 
 	return (
 		<div className="flex flex-col flex-auto flex-shrink-0 w-full">
@@ -71,37 +73,51 @@ function Home(props) {
 					}}
 					className="flex flex-wrap py-24"
 				>
-					{academyDB.categories.map(course => {
+					{court.map(({ date, description, id, nameCourt, sessionTime }) => {
 						return (
-							<div className="w-full pb-24 sm:w-1/2 lg:w-1/3 sm:p-16" key={course.id}>
+							<div className="w-full pb-24 sm:w-1/2 lg:w-1/3 sm:p-16" key={id}>
 								<Card className="flex flex-col h-256 rounded-8 shadow">
 									<div className="flex flex-shrink-0 items-center justify-between px-24 h-64">
 										<Typography className="font-medium truncate" color="inherit" />
 										<div className="flex items-center justify-center opacity-75">
 											<Icon className="text-20 mx-8" color="inherit">
-												access_time
+												{sessionTime}
 											</Icon>
-											<div className="text-16 whitespace-nowrap" />
+											<div className="text-16 whitespace-nowrap">Sektor</div>
 										</div>
 									</div>
 									<CardContent className="flex flex-col flex-auto items-center justify-center">
-										<Typography className="text-center text-16 font-400">course.title</Typography>
+										<Typography className="text-center text-16 font-400">{nameCourt}</Typography>
 										<Typography className="text-center text-13 font-600 mt-4" color="textSecondary">
-											course.updated
+											{description}
 										</Typography>
+										<CardContent className="flex row flex-auto items-center justify-center">
+											{date.map(({ _id, nameOfDay }) => {
+												return (
+													<span
+														key={_id}
+														className="text-center text-13 font-600 mt-4"
+														color="textSecondary"
+													>
+														{nameOfDay}
+													</span>
+												);
+											})}
+										</CardContent>
 									</CardContent>
 									<Divider />
 									<CardActions className="justify-center">
-										<Button className="justify-start px-32" color="secondary">
-											{buttonStatus(course)}
+										<Button
+											onClick={() => {
+												handleSetCourt(nameCourt);
+											}}
+											className="justify-start px-32"
+											color="secondary"
+										>
+											Rezerwuj!
 										</Button>
 									</CardActions>
-									<LinearProgress
-										className="w-full"
-										variant="determinate"
-										value={(course.activeStep * 100) / course.totalSteps}
-										color="secondary"
-									/>
+									<LinearProgress className="w-full" variant="determinate" color="secondary" />
 								</Card>
 							</div>
 						);
@@ -112,4 +128,4 @@ function Home(props) {
 	);
 }
 
-export default Home;
+export default withRouter(Home);

@@ -1,2 +1,4 @@
 export const GET_USER_PROFILE = 'GET_USER_PROFILE';
 export const GET_USER_RESERVATIONS = 'GET_USER_RESERVATION';
+export const GET_COURTS = 'GET_COURTS';
+export const SET_COURT = 'SET_COURT';
