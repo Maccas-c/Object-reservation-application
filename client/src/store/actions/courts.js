@@ -4,10 +4,21 @@ import * as action from './actionTypes';
 export const fetchCourt = () => {
 	return dispatch => {
 		axios
-			.get(`/courts`, { withCredentials: true })
+			.get(`/courts`)
 			.then(response => {
 				dispatch(fetchCourts(response.data));
 				dispatch(setCourtSuccess(response.data));
+			})
+			.catch(() => {});
+	};
+};
+
+export const getFreeTimes = (courtId, date) => {
+	return dispatch => {
+		axios
+			.post(`/reservationsDate`, { courtId, date })
+			.then(response => {
+				dispatch(setFreeTiems(response.data));
 			})
 			.catch(() => {});
 	};
@@ -24,6 +35,20 @@ export const setDialogCourt = (courts, calendarDay) => {
 				}
 			});
 		});
+	};
+};
+
+export const setCourt = court => {
+	return {
+		type: action.SET_COURT_SELECT,
+		court
+	};
+};
+
+export const setFreeTiems = freeTimes => {
+	return {
+		type: action.SET_FREE_TIMES,
+		freeTimes
 	};
 };
 

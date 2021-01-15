@@ -16,13 +16,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addEvent, closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { Form, Formik } from 'formik';
 import { getDay } from './utils';
-import { setDialogCourt } from '../../../../store/actions/courts';
+import { setCourt } from '../../../../store/actions/courts';
 
 function EventDialog(props) {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
 	const courts = useSelector(({ courtReducer }) => courtReducer.court);
 	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
+
+	useEffect(() => {}, []);
 
 	function closeComposeDialog() {
 		return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
@@ -49,12 +51,12 @@ function EventDialog(props) {
 
 			<Formik
 				enableReinitialize
-				initialValues={''}
+				initialValues={{ courtId: defaultCourt }}
 				onSubmit={(values, actions) => {
 					console.log(values);
 					closeComposeDialog();
 				}}
-				render={({ handleSubmit, handleChange, handleBlur }) => (
+				render={({ handleSubmit, handleChange, handleBlur, values }) => (
 					<Form onSubmit={handleSubmit}>
 						<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
 							<TextField
@@ -63,8 +65,11 @@ function EventDialog(props) {
 								label="Sektor"
 								select
 								name="court"
-								value={defaultCourt}
-								onChange={handleChange}
+								value={values.courtId}
+								onChange={({ target }) => {
+									console.log(target);
+									dispatch(setCourt(target.value));
+								}}
 								rows={5}
 								variant="outlined"
 								disabled={eventDialog.type !== 'new'}
