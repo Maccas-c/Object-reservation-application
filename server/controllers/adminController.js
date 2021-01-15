@@ -122,13 +122,13 @@ module.exports.reservationsEdit = async function (req, res) {
   try {
     const resposneData = req.body;
 
-    const tariffUpdate = await reservationModel.updateOne(
+    const reservationUpdate = await reservationModel.updateOne(
       {
         _id: req.params.id,
       },
       {
         $set: {
-          dayString: req.body.dayString,
+          start: req.body.start,
           title: req.body.title,
           vat: req.body.vat,
           isServedVat: req.body.isServedVat,
