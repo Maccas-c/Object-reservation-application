@@ -14,7 +14,10 @@ class LoginService extends FuseUtils.EventEmitter {
 			},
 			err => {
 				return new Promise(() => {
-					if (err.response.status === 401 && err.response.config.url !== '/logout') {
+					if (
+						(err.response.status === 401 || err.response.status === 404) &&
+						err.response.config.url !== '/logout'
+					) {
 						// if you ever get an unauthorized response, logout the user
 						this.emit('onAutoLogout');
 					}

@@ -188,14 +188,14 @@ function CalendarApp(props) {
 		start: moment(event.start, dateFormat).toDate(),
 		end: moment(event.end, dateFormat).toDate()
 	}));
+	const id = useSelector(({ auth: { user } }) => user._id);
 
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
 
 	useEffect(() => {
-		dispatch(getEvents());
+		dispatch(getEvents(id));
 	}, [dispatch]);
-
 	function moveEvent({ event, start, end }) {
 		dispatch(
 			updateEvent({
@@ -234,7 +234,6 @@ function CalendarApp(props) {
 				step={60}
 				components={{
 					toolbar: _props => {
-						console.log(_props);
 						return headerEl.current
 							? ReactDOM.createPortal(<CalendarHeader {..._props} />, headerEl.current)
 							: null;
@@ -244,21 +243,23 @@ function CalendarApp(props) {
 				onSelectEvent={event => {
 					dispatch(openEditEventDialog(event));
 				}}
-				onSelectSlot={slotInfo => dispatch(openNewEventDialog(slotInfo))}
+				onSelectSlot={slotInfo => {
+					dispatch(openNewEventDialog(slotInfo));
+				}}
 			/>
 			<FuseAnimate animation="transition.expandIn" delay={500}>
 				<Fab
 					color="secondary"
 					aria-label="add"
 					className={classes.addButton}
-					onClick={() =>
+					onClick={() => {
 						dispatch(
 							openNewEventDialog({
 								start: new Date(),
 								end: new Date()
 							})
-						)
-					}
+						);
+					}}
 				>
 					<Icon>add</Icon>
 				</Fab>

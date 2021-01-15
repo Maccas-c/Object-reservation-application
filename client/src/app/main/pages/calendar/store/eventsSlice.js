@@ -1,11 +1,11 @@
 import { createEntityAdapter, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from 'axios/axios-auth';
 import moment from 'moment';
 
 export const dateFormat = 'YYYY-MM-DDTHH:mm:ss.sssZ';
 
-export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async () => {
-	const response = await axios.get('/api/calendar-app/events');
+export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async id => {
+	const response = await axios.get(`reservations/${id}`);
 	const data = await response.data;
 
 	return data;

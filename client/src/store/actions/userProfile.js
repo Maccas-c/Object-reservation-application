@@ -22,7 +22,7 @@ export const updateUserProfileStart = user => {
 export const fetchReservationUser = id => {
 	return dispatch => {
 		axios
-			.get(`/reservations/${id}`, { withCredentials: true })
+			.get(`/reservations/${id}`)
 			.then(response => {
 				dispatch(fetchReservationUserList(response.data));
 			})

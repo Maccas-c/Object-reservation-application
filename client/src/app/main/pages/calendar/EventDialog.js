@@ -21,7 +21,6 @@ import { removeEvent, updateEvent, addEvent, closeNewEventDialog, closeEditEvent
 const defaultFormState = {
 	id: FuseUtils.generateGUID(),
 	title: '',
-	allDay: true,
 	start: moment(new Date(), 'MM/DD/YYYY'),
 	end: moment(new Date(), 'MM/DD/YYYY'),
 	desc: ''
@@ -70,6 +69,7 @@ function EventDialog(props) {
 	}
 
 	function handleSubmit(event) {
+		console.log(form);
 		event.preventDefault();
 
 		if (eventDialog.type === 'new') {
@@ -99,7 +99,7 @@ function EventDialog(props) {
 			<AppBar position="static">
 				<Toolbar className="flex w-full">
 					<Typography variant="subtitle1" color="inherit">
-						{eventDialog.type === 'new' ? 'New Event' : 'Edit Event'}
+						Nowa rezerwacja
 					</Typography>
 				</Toolbar>
 			</AppBar>
@@ -121,31 +121,28 @@ function EventDialog(props) {
 						required
 						fullWidth
 					/>
-
-					<FormControlLabel
-						className="mt-8 mb-16"
-						label="All Day"
-						control={<Switch checked={form.allDay} id="allDay" name="allDay" onChange={handleChange} />}
-					/>
-
 					<DateTimePicker
 						label="Start"
 						inputVariant="outlined"
 						value={form.start}
-						onChange={date => setInForm('start', date)}
+						onChange={date => {
+							console.log(date);
+							setInForm('start', date);
+						}}
 						className="mt-8 mb-16 w-full"
 						maxDate={form.end}
 					/>
-
 					<DateTimePicker
 						label="End"
 						inputVariant="outlined"
 						value={form.end}
-						onChange={date => setInForm('end', date)}
+						onChange={date => {
+							console.log(date);
+							setInForm('end', date);
+						}}
 						className="mt-8 mb-16 w-full"
 						minDate={form.start}
 					/>
-
 					<TextField
 						className="mt-8 mb-16"
 						id="desc"

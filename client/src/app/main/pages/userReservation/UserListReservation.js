@@ -14,6 +14,7 @@ function UserListReservation() {
 	useConstructor(() => {
 		dispatch(fetchReservationUser(id));
 	});
+
 	return (
 		<FusePageCarded
 			classes={{
