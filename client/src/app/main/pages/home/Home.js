@@ -41,7 +41,7 @@ function Home({ history }, props) {
 		dispatch(fetchCourt());
 	});
 
-	const handleSetCourt = sector => {
+	const handleSetCourt = () => {
 		history.push('/calendar');
 	};
 
@@ -74,8 +74,8 @@ function Home({ history }, props) {
 				>
 					{court.map(({ date, description, _id, nameCourt, sessionTime }) => {
 						return (
-							<div className="w-full h-auto pb-24 sm:w-1/2 lg:w-1/2 sm:p-16" key={_id}>
-								<Card className="flex flex-col h-256 rounded-8 shadow">
+							<div className="w-full h-auto pb-24 sm:w-1/2 lg:w-9/20 sm:p-16" key={_id}>
+								<Card className="flex  flex-col h-256 rounded-8 shadow">
 									<div className="flex flex-shrink-0 items-center justify-between px-24 h-64">
 										<Typography className="font-medium truncate" color="inherit">
 											Sektor {nameCourt} {description}
@@ -88,14 +88,19 @@ function Home({ history }, props) {
 										</div>
 									</div>
 									<CardContent
-										style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+										style={{
+											justifyContent: 'space-between',
+											flexWrap: 'wrap',
+											paddingLeft: 0,
+											paddingRight: 0
+										}}
 										className="flex flex-col flex-auto items-center justify-center"
 									>
 										<Typography className="text-center text-13 font-900 mt-4" color="textSecondary">
 											Dostępność:
 										</Typography>
 										<CardContent
-											style={{ paddingBottom: 0, flexDirection: 'column' }}
+											style={{ flexWrap: 'wrap', paddingLeft: 0, paddingRight: 0 }}
 											className="flex flex col flex-auto items-center justify-center"
 										>
 											{date.map(({ _id: id, nameOfDay, value }) => {
@@ -104,6 +109,7 @@ function Home({ history }, props) {
 														key={id}
 														className="text-center text-13 font-600 mt-4"
 														color="textSecondary"
+														style={{ height: 'auto' }}
 													>
 														{`${getDay(nameOfDay)}`}{' '}
 														{value ? (
@@ -120,7 +126,7 @@ function Home({ history }, props) {
 									<CardActions className="justify-center">
 										<Button
 											onClick={() => {
-												handleSetCourt(nameCourt);
+												handleSetCourt();
 											}}
 											className="justify-start px-32"
 											color="secondary"
