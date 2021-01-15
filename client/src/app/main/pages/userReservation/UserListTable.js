@@ -45,15 +45,15 @@ function UserListTable({ reservations }) {
 						{reservations ? (
 							reservations
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map(({ _id, courtId, hour, start_time: startTime }) => {
+								.map(({ _id, title, dayString, courtName }) => {
 									return (
 										<TableRow className="h-64" hover role="checkbox" tabIndex={-1} key={_id}>
 											<TableCell padding="10" className="p-4 md:p-16" component="th" scope="row">
-												{startTime}
+												{dayString}
 											</TableCell>
 
 											<TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
-												{hour}
+												{title}
 											</TableCell>
 
 											<TableCell
@@ -63,7 +63,7 @@ function UserListTable({ reservations }) {
 												scope="row"
 												align="right"
 											>
-												{courtId}
+												{courtName}
 											</TableCell>
 										</TableRow>
 									);

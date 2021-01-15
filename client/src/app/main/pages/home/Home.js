@@ -6,7 +6,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
@@ -15,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useConstructor } from '../../../../utils/customHooks';
 import { fetchCourt, setCourt } from '../../../../store/actions/courts';
+import { getDay } from './utils/utils';
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -64,7 +64,7 @@ function Home({ history }, props) {
 						<span className="opacity-75">Nasz serwis umożliwia rezerwacji boiska sportowego!</span>
 					</Typography>
 				</FuseAnimate>
-				<Icon className={classes.headerIcon}> school </Icon>
+				<Icon className={classes.headerIcon}> book </Icon>
 			</div>
 			<div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-24">
 				<FuseAnimateGroup
@@ -73,12 +73,14 @@ function Home({ history }, props) {
 					}}
 					className="flex flex-wrap py-24"
 				>
-					{court.map(({ date, description, id, nameCourt, sessionTime }) => {
+					{court.map(({ date, description, _id, nameCourt, sessionTime }) => {
 						return (
-							<div className="w-full pb-24 sm:w-1/2 lg:w-1/3 sm:p-16" key={id}>
+							<div className="w-full h-auto pb-24 sm:w-1/2 lg:w-1/2 sm:p-16" key={_id}>
 								<Card className="flex flex-col h-256 rounded-8 shadow">
 									<div className="flex flex-shrink-0 items-center justify-between px-24 h-64">
-										<Typography className="font-medium truncate" color="inherit" />
+										<Typography className="font-medium truncate" color="inherit">
+											Sektor {nameCourt} {description}
+										</Typography>
 										<div className="flex items-center justify-center opacity-75">
 											<Icon className="text-20 mx-8" color="inherit">
 												access_time
@@ -86,20 +88,30 @@ function Home({ history }, props) {
 											<div className="text-16 whitespace-nowrap">{sessionTime} min</div>
 										</div>
 									</div>
-									<CardContent className="flex flex-col flex-auto items-center justify-center">
-										<Typography className="text-center text-16 font-400">{nameCourt}</Typography>
-										<Typography className="text-center text-13 font-600 mt-4" color="textSecondary">
-											{description}
+									<CardContent
+										style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+										className="flex flex-col flex-auto items-center justify-center"
+									>
+										<Typography className="text-center text-13 font-900 mt-4" color="textSecondary">
+											Dostępność:
 										</Typography>
-										<CardContent className="flex row flex-auto items-center justify-center">
-											{date.map(({ _id, nameOfDay }) => {
+										<CardContent
+											style={{ paddingBottom: 0, flexDirection: 'column' }}
+											className="flex flex col flex-auto items-center justify-center"
+										>
+											{date.map(({ _id: id, nameOfDay, value }) => {
 												return (
 													<span
-														key={_id}
+														key={id}
 														className="text-center text-13 font-600 mt-4"
 														color="textSecondary"
 													>
-														{nameOfDay}
+														{`${getDay(nameOfDay)}`}{' '}
+														{value ? (
+															<Icon className="text-green text-20">check_circle</Icon>
+														) : (
+															<Icon className="text-red text-20">remove_circle</Icon>
+														)}
 													</span>
 												);
 											})}
@@ -117,7 +129,6 @@ function Home({ history }, props) {
 											Rezerwuj!
 										</Button>
 									</CardActions>
-									<LinearProgress className="w-full" variant="determinate" color="secondary" />
 								</Card>
 							</div>
 						);
