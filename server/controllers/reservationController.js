@@ -240,14 +240,13 @@ module.exports.reservationsGetByDate = async function (req, res) {
         dayString: dayString,
       })
       .populate('courtId');
-    console.log(reservations);
     dates.forEach(item =>
       reservations.forEach(rs => {
+        item.duration = rs.courtId.sessionTime;
         if (
           item.hour == rs.title &&
           rs.courtId.nameCourt == req.body.nameCourt
         ) {
-          console.log('lol');
           item.free = false;
         }
       }),
