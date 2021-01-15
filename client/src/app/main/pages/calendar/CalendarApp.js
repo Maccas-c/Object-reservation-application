@@ -15,14 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from './store';
-import {
-	dateFormat,
-	selectEvents,
-	openNewEventDialog,
-	openEditEventDialog,
-	updateEvent,
-	getEvents
-} from './store/eventsSlice';
+import { dateFormat, selectEvents, openNewEventDialog, openEditEventDialog, getEvents } from './store/eventsSlice';
+import { fetchCourt } from '../../../../store/actions/courts';
 import 'moment/locale/pl';
 
 const localizer = momentLocalizer(moment);
@@ -195,27 +189,8 @@ function CalendarApp(props) {
 
 	useEffect(() => {
 		dispatch(getEvents(id));
+		dispatch(fetchCourt());
 	}, [dispatch]);
-	function moveEvent({ event, start, end }) {
-		dispatch(
-			updateEvent({
-				...event,
-				start,
-				end
-			})
-		);
-	}
-
-	function resizeEvent({ event, start, end }) {
-		delete event.type;
-		dispatch(
-			updateEvent({
-				...event,
-				start,
-				end
-			})
-		);
-	}
 
 	return (
 		<div className={clsx(classes.root, 'flex flex-col flex-auto relative')}>
@@ -225,9 +200,7 @@ function CalendarApp(props) {
 				selectable
 				localizer={localizer}
 				events={events}
-				onEventDrop={moveEvent}
 				resizable
-				onEventResize={resizeEvent}
 				defaultDate={new Date()}
 				startAccessor="start"
 				endAccessor="end"

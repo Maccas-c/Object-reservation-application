@@ -7,6 +7,9 @@ export const dateFormat = 'YYYY-MM-DDTHH:mm:ss.sssZ';
 export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async id => {
 	const response = await axios.get(`reservations/${id}`);
 	const data = await response.data;
+	data.forEach(res => {
+		res.title = `${res.courtId.nameCourt}: ${res.title}`;
+	});
 
 	return data;
 });
@@ -18,20 +21,6 @@ export const addEvent = createAsyncThunk('calendarApp/events/addEvent', async (n
 	const data = await response.data;
 
 	return data;
-});
-
-export const updateEvent = createAsyncThunk('calendarApp/events/updateEvent', async (event, { dispatch }) => {
-	const response = await axios.post('/api/calendar-app/update-event', { event });
-	const data = await response.data;
-
-	return data;
-});
-
-export const removeEvent = createAsyncThunk('calendarApp/events/remove-event', async (eventId, { dispatch }) => {
-	const response = await axios.post('/api/calendar-app/remove-event', { eventId });
-	const data = await response.data;
-
-	return data.id;
 });
 
 const eventsAdapter = createEntityAdapter({});
@@ -112,9 +101,7 @@ const eventsSlice = createSlice({
 	},
 	extraReducers: {
 		[getEvents.fulfilled]: eventsAdapter.setAll,
-		[addEvent.fulfilled]: eventsAdapter.addOne,
-		[updateEvent.fulfilled]: eventsAdapter.upsertOne,
-		[removeEvent.fulfilled]: eventsAdapter.removeOne
+		[addEvent.fulfilled]: eventsAdapter.addOne
 	}
 });
 
