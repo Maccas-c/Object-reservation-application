@@ -213,23 +213,23 @@ module.exports.reservationsGetByDate = async function (req, res) {
   //console.log(dayString);
   let dates = [
     {
-      hour: '15:00',
+      hour: '15:00-16:30',
       free: true,
     },
     {
-      hour: '16:30',
+      hour: '16:30-18:00',
       free: true,
     },
     {
-      hour: '18:00',
+      hour: '18:00-19:30',
       free: true,
     },
     {
-      hour: '19:30',
+      hour: '19:30-21:00',
       free: true,
     },
     {
-      hour: '21:00',
+      hour: '21:00-22:30',
       free: true,
     },
   ];
@@ -242,7 +242,6 @@ module.exports.reservationsGetByDate = async function (req, res) {
       .populate('courtId');
     dates.forEach(item =>
       reservations.forEach(rs => {
-        item.duration = rs.courtId.sessionTime;
         if (
           item.hour == rs.title &&
           rs.courtId.nameCourt == req.body.nameCourt
