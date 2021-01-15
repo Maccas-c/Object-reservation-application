@@ -14,15 +14,6 @@ export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async 
 	return data;
 });
 
-export const addEvent = createAsyncThunk('calendarApp/events/addEvent', async (newEvent, { dispatch }) => {
-	const response = await axios.post('/api/calendar-app/add-event', {
-		newEvent
-	});
-	const data = await response.data;
-
-	return data;
-});
-
 const eventsAdapter = createEntityAdapter({});
 
 export const {
@@ -100,8 +91,7 @@ const eventsSlice = createSlice({
 		}
 	},
 	extraReducers: {
-		[getEvents.fulfilled]: eventsAdapter.setAll,
-		[addEvent.fulfilled]: eventsAdapter.addOne
+		[getEvents.fulfilled]: eventsAdapter.setAll
 	}
 });
 

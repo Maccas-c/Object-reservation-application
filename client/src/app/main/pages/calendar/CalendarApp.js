@@ -16,7 +16,7 @@ import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from './store';
 import { dateFormat, selectEvents, openNewEventDialog, openEditEventDialog, getEvents } from './store/eventsSlice';
-import { fetchCourt, setDialogCourt, getFreeTimes } from '../../../../store/actions/courts';
+import { fetchCourt, setDialogCourt } from '../../../../store/actions/courts';
 import 'moment/locale/pl';
 import { getDay } from './utils';
 
@@ -185,7 +185,6 @@ function CalendarApp(props) {
 	}));
 	const id = useSelector(({ auth: { user } }) => user._id);
 	const courts = useSelector(({ courtReducer }) => courtReducer.court);
-	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
 
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
@@ -193,7 +192,7 @@ function CalendarApp(props) {
 	useEffect(() => {
 		dispatch(getEvents(id));
 		dispatch(fetchCourt());
-	}, [dispatch]);
+	}, [dispatch, id]);
 
 	return (
 		<div className={clsx(classes.root, 'flex flex-col flex-auto relative')}>

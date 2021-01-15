@@ -13,7 +13,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useConstructor } from '../../../../utils/customHooks';
-import { fetchCourt, setCourt } from '../../../../store/actions/courts';
+import { fetchCourt } from '../../../../store/actions/courts';
 import { getDay } from './utils/utils';
 
 const useStyles = makeStyles(theme => ({

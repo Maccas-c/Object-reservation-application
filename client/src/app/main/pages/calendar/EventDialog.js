@@ -1,5 +1,3 @@
-import { useForm } from '@fuse/hooks';
-import FuseUtils from '@fuse/utils/FuseUtils';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,19 +7,19 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { DateTimePicker } from '@material-ui/pickers';
-import moment from 'moment';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEvent, closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
+import { closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { Form, Formik } from 'formik';
-import { getDay } from './utils';
+import { getDay, getId } from './utils';
 import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
+import { addReservation } from '../../../../store/actions/calendar';
 
 function EventDialog(props) {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
 	const courts = useSelector(({ courtReducer }) => courtReducer.court);
+	const userId = useSelector(({ auth }) => auth.user._id);
 	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
 	const freeTimes = useSelector(({ courtReducer }) => courtReducer.freeTimes);
 
@@ -41,6 +39,8 @@ function EventDialog(props) {
 			}
 		});
 	}
+
+	const id = getId(courts, defaultCourt);
 
 	return (
 		<Dialog
@@ -65,8 +65,8 @@ function EventDialog(props) {
 				enableReinitialize
 				initialValues={{ courtId: defaultCourt, time: selectedTime }}
 				onSubmit={(values, actions) => {
-					console.log(values);
-					closeComposeDialog();
+					dispatch(addReservation(values.time, id, userId, eventDialog.data.start));
+					dispatch(closeNewEventDialog());
 				}}
 				render={({ handleSubmit, handleChange, handleBlur, values }) => (
 					<Form onSubmit={handleSubmit}>
@@ -101,6 +101,7 @@ function EventDialog(props) {
 												);
 											}
 										}
+										return null;
 									})
 								)}
 							</TextField>
@@ -127,6 +128,7 @@ function EventDialog(props) {
 											</MenuItem>
 										);
 									}
+									return null;
 								})}
 							</TextField>
 							<TextField

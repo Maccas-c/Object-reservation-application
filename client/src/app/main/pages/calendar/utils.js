@@ -12,3 +12,13 @@ export const getDay = number =>
 		: number === 6
 		? 'Sat'
 		: 'Sun';
+
+export const getId = (courts, nameCourt) => {
+	let id = '';
+	courts.forEach(court => {
+		if (court.nameCourt === nameCourt) {
+			id = court._id;
+		}
+	});
+	return id;
+};
