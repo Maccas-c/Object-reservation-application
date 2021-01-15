@@ -16,8 +16,9 @@ import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from './store';
 import { dateFormat, selectEvents, openNewEventDialog, openEditEventDialog, getEvents } from './store/eventsSlice';
-import { fetchCourt } from '../../../../store/actions/courts';
+import { fetchCourt, setDialogCourt } from '../../../../store/actions/courts';
 import 'moment/locale/pl';
+import { getDay } from './utils';
 
 const localizer = momentLocalizer(moment);
 
@@ -183,6 +184,7 @@ function CalendarApp(props) {
 		end: moment(event.end, dateFormat).toDate()
 	}));
 	const id = useSelector(({ auth: { user } }) => user._id);
+	const courts = useSelector(({ courtReducer }) => courtReducer.court);
 
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
@@ -214,9 +216,11 @@ function CalendarApp(props) {
 				}}
 				// onNavigate={handleNavigate}
 				onSelectEvent={event => {
+					dispatch(setDialogCourt(courts, getDay(event.start.getDay())));
 					dispatch(openEditEventDialog(event));
 				}}
 				onSelectSlot={slotInfo => {
+					dispatch(setDialogCourt(courts, getDay(slotInfo.start.getDay())));
 					dispatch(openNewEventDialog(slotInfo));
 				}}
 			/>

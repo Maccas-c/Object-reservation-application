@@ -42,7 +42,6 @@ function Home({ history }, props) {
 	});
 
 	const handleSetCourt = sector => {
-		dispatch(setCourt(sector));
 		history.push('/calendar');
 	};
 
