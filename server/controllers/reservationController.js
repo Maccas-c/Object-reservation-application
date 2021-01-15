@@ -235,14 +235,18 @@ module.exports.reservationsGetByDate = async function (req, res) {
   ];
   const date = req.body.date;
   try {
-    const reservations = await reservationModel.find({
-      dayString: dayString,
-      courtId: req.body.courtId,
-    });
-    //console.log(reservations);
+    const reservations = await reservationModel
+      .find({
+        dayString: dayString,
+      })
+      .populate('courtId');
+    console.log(reservations);
     dates.forEach(item =>
       reservations.forEach(rs => {
-        if (item.hour == rs.title) {
+        if (
+          item.hour == rs.title &&
+          rs.courtId.nameCourt == req.body.nameCourt
+        ) {
           console.log('lol');
           item.free = false;
         }

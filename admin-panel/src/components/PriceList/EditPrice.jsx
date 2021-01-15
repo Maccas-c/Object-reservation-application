@@ -1,10 +1,15 @@
-import { Edit, SimpleForm, TextInput } from 'react-admin';
+import { Edit, SaveButton, SimpleForm, TextInput, Toolbar, translate } from 'react-admin';
 import React from 'react';
 
-export const EditPriceList = ({ ...props }) => (
-  <Edit {...props}>
-    <SimpleForm>
-      <TextInput disabled label={'Id'} source={'id'} />
+const EditToolbar = translate(({ translate, ...props }) => (
+  <Toolbar {...props}>
+    <SaveButton label={'Zapisz'} />
+  </Toolbar>
+));
+
+export const EditPrice = ({ ...props }) => (
+  <Edit title={' '} {...props}>
+    <SimpleForm toolbar={<EditToolbar />}>
       <TextInput label={'Strefa'} source={'name'} />
       <TextInput label={'Zajecia Sportowe Treningi'} source={'classes_and_sports_training'} />
       <TextInput label={'Mecze Turniejowe'} source={'tournament_matches'} />

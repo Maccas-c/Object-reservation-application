@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Datagrid, ReferenceManyField, Show, Tab, TabbedShowLayout, TextField } from 'react-admin';
+import { BooleanField, Datagrid, ReferenceManyField, Show, Tab, TabbedShowLayout, TextField } from 'react-admin';
+
+import { PDFDownload } from './InvoicePDF/PDFDownload';
 
 export const UsersShow = ({ ...props }) => {
   return (
-    <Show {...props}>
+    <Show title={'Dane szczegółowe'} {...props}>
       <TabbedShowLayout>
         <Tab label={'Użytkownik'}>
-          <TextField source={'id'} />
           <TextField label={'Imię'} source={'name'} />
           <TextField label={'Nazwisko'} source={'surname'} />
           <TextField label={'Płeć'} source={'sex'} />
@@ -19,16 +20,21 @@ export const UsersShow = ({ ...props }) => {
           <TextField label={'Kod pocztowy'} source={'adress_postalCode'} />
           <TextField label={'Student'} source={'isStudent'} />
         </Tab>
-        <Tab label={'Rezerwacje'} path={'reservations'}>
+        <Tab label={'Rezerwacje do faktury'} path={'reservations'}>
           <ReferenceManyField addLabel={false} reference={'reservations'} target={'userId'}>
             <Datagrid>
-              <TextField source={'id'} />
-              <TextField source={'start_time'} />
-              <TextField source={'hour'} />
-              <TextField source={'courtId'} />
+              <TextField label={'Data początkowa'} source={'dayString'} />
+              <TextField label={'Godzina'} source={'title'} />
               <TextField label={'Imię'} source={'userId.name'} />
               <TextField label={'Nazwisko'} source={'userId.surname'} />
+              <BooleanField label={'Vat'} source={'vat'} />
+              <BooleanField label={'Faktura obsłużona'} source={'isServedVat'} />
+              <TextField label={'Sektor'} source={'courtId.nameCourt'} />
+              <PDFDownload />
             </Datagrid>
+          </ReferenceManyField>
+          <ReferenceManyField sortable={false} label={''} reference={'reservations'} target={'userId'}>
+            <PDFDownload />
           </ReferenceManyField>
         </Tab>
       </TabbedShowLayout>

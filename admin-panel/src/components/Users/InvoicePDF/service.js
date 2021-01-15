@@ -19,7 +19,7 @@ export const PDFDownloadService = () => {
     pdf.text(20, lineHelper, `Rezerwacje:`);
     Object.entries(data).forEach(([, value]) => {
       lineHelper += 7;
-      pdf.text(20, lineHelper, `${value.start_time}, ${value.hour}, sektor: ${value.courtId.toUpperCase()}`);
+      pdf.text(20, lineHelper, `${value.dayString}, ${value.title}, sektor: ${value.courtId.nameCourt}`);
       if (lineHelper > 270) {
         lineHelper = 20;
         pdf.addPage();
