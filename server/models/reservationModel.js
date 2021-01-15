@@ -2,16 +2,22 @@ const { ObjectID, ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const reservationModel = mongoose.Schema({
-  start_time: {
+  title: {
+    type: String,
+  },
+  start: {
     type: Date,
     required: true,
   },
-  hour: {
+  dayString: {
     type: String,
-    required: true,
+  },
+  end: {
+    type: Date,
   },
   courtId: {
-    type: String,
+    type: ObjectId,
+    ref: 'courtModel',
     required: true,
   },
   userId: {

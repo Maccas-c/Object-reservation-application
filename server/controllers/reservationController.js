@@ -4,6 +4,7 @@ const reservationModel = require('../models/reservationModel');
 const userModel = require('./../models/userModel');
 const courtsTariff = require('../models/tariffModel');
 const courtModel = require('../models/courtModel');
+const moment = require('moment');
 const groupBy = (list, key) =>
   list.reduce(
     (hash, obj) => ({
@@ -74,6 +75,7 @@ module.exports.reservationsGet = async function (req, res) {
 module.exports.reservationsGetAll = async function (req, res) {
   try {
     const reservations = await reservationModel.find().populate('userId');
+
     res.status(200).json(reservations);
   } catch (err) {
     console.log(err);
@@ -84,17 +86,30 @@ module.exports.reservationsGetAll = async function (req, res) {
 module.exports.reservationCreate = async function (req, res) {
   const isExist = reservationModel.findOne(
     {
-      start_time: req.body.start_time,
-      hour: req.body.hour,
+      start: moment(req.body.start).add(1, 'hours'),
       courtId: req.body.courtId,
     },
     async function (err, obj) {
       if (err) return res.status(404).json(err);
-      if (obj) return res.status(422).json('The hour is taken');
+      if (obj) return res.status(422).json('Godzina zajęta');
       else {
+        let start = moment(req.body.start);
+
+        let titleDate = start.format('HH:mm');
+
+        let day = start.format('DD');
+        let year = start.format('YYYY');
+        let month = start.format('MM');
+        const dayString = year + '-' + month + '-' + day;
+
+        console.log(dayString);
         const reservation = new reservationModel({
-          start_time: req.body.start_time,
-          hour: req.body.hour,
+          title: titleDate,
+          start: moment(req.body.start).add(1, 'hours'),
+          dayString: dayString,
+          end: moment(req.body.start)
+            .add(1, 'hours')
+            .add(req.body.duration, 'm'),
           courtId: req.body.courtId,
           userId: req.body.userId,
         });
@@ -145,8 +160,8 @@ module.exports.reservationUpdate = async function (req, res) {
       },
       {
         $set: {
-          start_time: req.body.start_time,
-          end_time: req.body.end_time,
+          start: req.body.start,
+          end: req.body.end,
           userId: req.body.userId,
           courtId: req.body.courtId,
         },
@@ -170,18 +185,32 @@ module.exports.getReservation = async function (req, res) {
 };
 
 module.exports.reservationsGetByUserId = async function (req, res) {
+  console.log('byłem tu');
   const userId = req.params.userId;
   try {
-    const reservations = await reservationModel.find({
-      userId: userId,
-    });
-    res.status(200).json(reservations);
+    const reservations = await reservationModel
+      .find({
+        userId: userId,
+      })
+      .populate('courtId');
+    const reservationsFixed = JSON.parse(
+      JSON.stringify(reservations).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(reservationsFixed);
   } catch (err) {
     res.status(404).json(err);
   }
 };
 
 module.exports.reservationsGetByDate = async function (req, res) {
+  const start = moment(req.body.date);
+
+  let day = start.format('DD');
+  let year = start.format('YYYY');
+  let month = start.format('MM');
+  const dayString = year + '-' + month + '-' + day;
+
+  //console.log(dayString);
   let dates = [
     {
       hour: '15:00',
@@ -206,15 +235,14 @@ module.exports.reservationsGetByDate = async function (req, res) {
   ];
   const date = req.body.date;
   try {
-    const court = await courtModel.findById(req.body.courtId);
-    //console.log(court);
     const reservations = await reservationModel.find({
-      start_time: date,
-      courtId: court.nameCourt,
+      dayString: dayString,
+      courtId: req.body.courtId,
     });
+    //console.log(reservations);
     dates.forEach(item =>
       reservations.forEach(rs => {
-        if (item.hour == rs.hour && rs.courtId == court.nameCourt) {
+        if (item.hour == rs.title) {
           console.log('lol');
           item.free = false;
         }

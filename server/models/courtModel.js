@@ -20,7 +20,7 @@ const courtModel = mongoose.Schema({
     },
   ],
   sessionTime: {
-    type: Date,
+    type: String,
   },
 });
 module.exports = mongoose.model('courtModel', courtModel);
