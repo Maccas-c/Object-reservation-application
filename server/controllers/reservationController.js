@@ -63,10 +63,12 @@ module.exports.reservationAddBasket2 = async function (req, res) {
         });
         try {
           const savedReservation = await reservation.save();
-          const result = [{ reservation, msg: 'Pomyślnie dodano rezerwacje' }];
+          const result = [{ reservation, msg: 'Dodano rezerwację' }];
           res.status(201).json(result);
         } catch (err) {
-          res.status(400).json(err);
+          res
+            .status(400)
+            .json({ msg: 'Wystąpił błąd przy dodawaniu rezerwacji' });
         }
       }
     },
