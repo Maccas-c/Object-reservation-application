@@ -23,7 +23,7 @@ const TagCreateToolbar = translate(({ onCancel, translate, ...props }) => (
 export const CreateReservations = ({ onCancel, ...props }) => (
   <Create title={' '} {...props}>
     <SimpleForm toolbar={<TagCreateToolbar onCancel={onCancel} />}>
-      <DateInput label={'Dzień'} source={'start'} required />
+      <DateInput label={'Dzień'} source={'dayString'} required />
       <DateInput label={'Dzień'} source={'end'} required />
       <SelectInput label={'Godzina'} source={'title'} defaultValue={'15:00'} choices={hours} required />
       {/*  do poprawienia courtId */}

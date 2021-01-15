@@ -48,7 +48,7 @@ router.get(
   reservationController.reservationsGetByUserId,
 );
 
-router.get(
+router.post(
   '/api/reservationsDate',
   reservationController.reservationsGetByDate,
 );

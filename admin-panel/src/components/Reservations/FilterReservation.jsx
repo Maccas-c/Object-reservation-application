@@ -3,7 +3,7 @@ import React from 'react';
 
 export const FilterReservation = ({ ...props }) => (
   <Filter {...props}>
-    <DateInput label={'Data'} source={'start'} />
+    <DateInput label={'Data'} source={'dayString'} />
     {/* do poprawy courtid */}
     <TextInput label={'Strefa'} source={'courtId'} />
     <TextInput label={'Imię'} source={'name'} />

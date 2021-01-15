@@ -23,13 +23,13 @@ export const UsersShow = ({ ...props }) => {
         <Tab label={'Rezerwacje do faktury'} path={'reservations'}>
           <ReferenceManyField addLabel={false} reference={'reservations'} target={'userId'}>
             <Datagrid>
-              <TextField source={'start_time'} />
-              <TextField source={'hour'} />
-              <TextField source={'courtId'} />
+              <TextField label={'Data początkowa'} source={'dayString'} />
+              <TextField label={'Godzina'} source={'title'} />
               <TextField label={'Imię'} source={'userId.name'} />
               <TextField label={'Nazwisko'} source={'userId.surname'} />
               <BooleanField label={'Vat'} source={'vat'} />
               <BooleanField label={'Faktura obsłużona'} source={'isServedVat'} />
+              <TextField label={'Sektor'} source={'courtId.nameCourt'} />
               <PDFDownload />
             </Datagrid>
           </ReferenceManyField>

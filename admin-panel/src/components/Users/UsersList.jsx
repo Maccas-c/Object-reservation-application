@@ -15,7 +15,7 @@ export const UsersList = ({ ...props }) => (
         <Datagrid size={'medium'}>
           <TextField label={'Imię'} source={'name'} />
           <TextField label={'Nazwisko'} source={'surname'} />
-          <TextField source={'email'} />
+          <TextField label={'Email'} source={'email'} />
           <ShowButton label={'Pokaż więcej'} />
         </Datagrid>
       }

@@ -128,8 +128,8 @@ module.exports.reservationsEdit = async function (req, res) {
       },
       {
         $set: {
-          start_time: req.body.start_time,
-          hour: req.body.hour,
+          dayString: req.body.dayString,
+          title: req.body.title,
           vat: req.body.vat,
           isServedVat: req.body.isServedVat,
         },
