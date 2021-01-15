@@ -94,12 +94,11 @@ module.exports.reservationsDelete = async function (req, res) {
 module.exports.reservationCreate = async function (req, res) {
   const isExist = reservationModel.findOne(
     {
-      start_time: req.body.start_time,
-      hour: req.body.hour,
+      start: moment(req.body.start).add(1, 'hours'),
       courtId: req.body.courtId,
     },
     async function (err, obj) {
-      if (err) return res.status(404).json(err);
+      if (err) return res.status(404).json('err');
       if (obj) return res.status(422).json('The hour is taken');
       else {
         const reservation = new reservationModel({
@@ -117,4 +116,40 @@ module.exports.reservationCreate = async function (req, res) {
       }
     },
   );
+};
+
+module.exports.reservationsEdit = async function (req, res) {
+  try {
+    const resposneData = req.body;
+
+    const tariffUpdate = await reservationModel.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          start_time: req.body.start_time,
+          hour: req.body.hour,
+          vat: req.body.vat,
+          isServedVat: req.body.isServedVat,
+        },
+      },
+    );
+    res.status(200).send(resposneData);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+module.exports.reservationGet = async function (req, res) {
+  try {
+    const reservation = await reservationModel
+      .findById(req.params.id)
+      .populate('userId');
+    const reservationFixed = JSON.parse(
+      JSON.stringify(reservation).split('"_id":').join('"id":'),
+    );
+    res.status(200).json(reservationFixed);
+  } catch (err) {
+    res.status(404).json(err);
+  }
 };

@@ -25,5 +25,13 @@ const reservationModel = mongoose.Schema({
     ref: 'userModel',
     required: true,
   },
+  vat: {
+    type: Boolean,
+    default: false,
+  },
+  isServedVat: {
+    type: Boolean,
+    default: false,
+  },
 });
 module.exports = mongoose.model('reservationModel', reservationModel);

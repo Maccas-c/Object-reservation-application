@@ -1,7 +1,43 @@
-import { Create, SelectArrayInput, SimpleForm, TextInput } from 'react-admin';
-import React from 'react';
+export const hours = [
+  {
+    id: '9:00',
+    name: '9:00',
+  },
+  {
+    id: '10:30',
+    name: '10:30',
+  },
+  {
+    id: '12:00',
+    name: '12:00',
+  },
+  {
+    id: '13:30',
+    name: '13:30',
+  },
+  {
+    id: '15:00',
+    name: '15:00',
+  },
+  {
+    id: '16:30',
+    name: '16:30',
+  },
+  {
+    id: '18:00',
+    name: '18:00',
+  },
+  {
+    id: '19:30',
+    name: '19:30',
+  },
+  {
+    id: '21:00',
+    name: '21:00',
+  },
+];
 
-const choices = [
+export const availableDays = [
   {
     id: {
       nameOfDay: 'Mon',
@@ -115,14 +151,11 @@ const choices = [
     value: 'Nieaktywny',
   },
 ];
-const optionRenderer = (choice) => `${choice.nameOfDay} (${choice.value})`;
-export const CourtCreate = (props) => (
-  <Create {...props}>
-    <SimpleForm>
-      <TextInput label={'Boisko'} source={'ids'} />
-      <TextInput label={'Rozmiar Boiska'} source={'description'} />
-      <TextInput label={'Strefa'} source={'nameCourt'} />
-      <SelectArrayInput source={'date'} choices={choices} optionText={optionRenderer} />
-    </SimpleForm>
-  </Create>
-);
+export const zones = [
+  { id: 'A', name: 'A' },
+  { id: 'B', name: 'B' },
+  { id: 'C', name: 'C' },
+  { id: 'D', name: 'D' },
+];
+
+export const courts = [{ id: 'Boisko główne', name: 'Boisko główne' }];

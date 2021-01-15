@@ -26,6 +26,7 @@ module.exports.rangeReservations = async function (req, res, next) {
         const reservations = await reservationModel
           .find({ $and: [{ userId: { $in: ids } }, filter] })
           .populate('userId')
+          .populate('courtId')
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
@@ -42,11 +43,36 @@ module.exports.rangeReservations = async function (req, res, next) {
         console.log(err);
         res.status(404).json(err);
       }
+    } else if ('userId' in filter) {
+      filter['isServedVat'] = false;
+      filter['vat'] = true;
+      console.log('lol');
+      try {
+        const reservations = await reservationModel
+          .find(filter)
+          .populate('userId')
+          .populate('courtId')
+          .sort({ [keyForSort]: valueForSort });
+
+        const reservationFixed = JSON.parse(
+          JSON.stringify(reservations).split('"_id":').join('"id":'),
+        );
+        const path = req.path.slice(11);
+        const header = `${path} 0-${reservationFixed.length}/${reservationFixed.length}`;
+        res.header('Content-Range', header);
+        res.locals.allReservations = reservationFixed;
+        res.locals.rangeFilters = rangeFilters;
+        next();
+      } catch (err) {
+        console.log(err);
+        res.status(404).json(err);
+      }
     } else {
       try {
         const reservations = await reservationModel
           .find(filter)
           .populate('userId')
+          .populate('courtId')
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(

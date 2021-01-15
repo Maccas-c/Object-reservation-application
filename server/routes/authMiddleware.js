@@ -13,15 +13,9 @@ module.exports.isAuth = (req, res, next) => {
     });
   }
 };
-
-module.exports.authRole = role => {
-  return (req, res, next) => {
-    if (req.user.role !== role) {
-      res.status(401);
-      return res.send('Not allowed');
-    }
-    next();
-  };
+module.exports.isAdmin = (req, res, next) => {
+  if (req.headers['react-admin'] == process.env.REACT_APP_SECRET) next();
+  else return res.status(401).end('not admin');
 };
 
 module.exports.checkUser = (req, res, next) => {
@@ -41,27 +35,16 @@ module.exports.checkEmail = async function (req, res, next) {
     function (err, user) {
       if (err) return res.status(404).json(err);
       else if (user) {
+        console.log('req.body.email', req.body.email);
+        console.log('user', user);
+        console.log('req.user', req.user);
         if (req.body.email == req.user.email) next();
         else return res.status(422).json('The email exist');
       } else next();
     },
   );
 };
-module.exports.rangeUsers = async function (req, res, next) {
-  const usersLength = (await userModel.find()).length;
-  const path = req.path.slice(11);
-  const header = `${path} 0-${usersLength}/${usersLength}`;
-  res.header('Content-Range', header);
-  next();
-};
 
-module.exports.rangeReservations = async function (req, res, next) {
-  const reservationsLength = (await reservationModel.find()).length;
-  const path = req.path.slice(11);
-  const header = `${path} 0-${reservationsLength}/${reservationsLength}`;
-  res.header('Content-Range', header);
-  next();
-};
 module.exports.rangeCourts = async function (req, res, next) {
   const courtLength = (await courtModel.find()).length;
   const path = req.path.slice(11);
