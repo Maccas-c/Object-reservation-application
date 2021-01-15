@@ -31,6 +31,7 @@ const userModel = mongoose.Schema({
   createDate: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  reservations: [{}],
 });
 
 module.exports = mongoose.model('userModel', userModel);

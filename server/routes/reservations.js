@@ -15,7 +15,7 @@ router.post(
 );
 
 router.post(
-  '/api/reservation/addToBasktet',
+  '/api/reservation/addToBasket',
   // isAuth,
   reservationController.reservationAddBasket,
 );

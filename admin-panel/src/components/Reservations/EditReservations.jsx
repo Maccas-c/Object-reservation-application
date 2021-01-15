@@ -13,7 +13,7 @@ const TagEditToolbar = translate(({ onCancel, translate, ...props }) => (
 export const EditReservations = ({ onCancel, ...props }) => (
   <Edit title={' '} {...props}>
     <SimpleForm toolbar={<TagEditToolbar onCancel={onCancel} />}>
-      <DateInput label={'Data'} source={'dayString'} />
+      <DateInput label={'Data'} source={'start'} />
       <SelectInput label={'Godzina'} source={'title'} choices={hours} />
       <BooleanInput label={'Vat'} source={'vat'} />
       <BooleanInput label={'Faktura obsłużona'} source={'isServedVat'} />

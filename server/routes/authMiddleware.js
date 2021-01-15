@@ -14,7 +14,8 @@ module.exports.isAuth = (req, res, next) => {
   }
 };
 module.exports.isAdmin = (req, res, next) => {
-  if (req.headers['react-admin'] == process.env.REACT_APP_SECRET) next();
+  if (!req.headers.cookie) res.status(401).end('not admin');
+  else if (req.session.passport.user.role == 'admin') next();
   else return res.status(401).end('not admin');
 };
 
