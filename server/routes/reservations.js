@@ -9,9 +9,14 @@ router.get('/api/reservations', reservationController.reservationsGet);
 router.post('/api/reservations/getPrice', reservationController.getPriceFront);
 
 router.post(
-  '/api/reservation/addToBasket',
+  '/api/reservation/create',
   // isAuth,
   reservationController.reservationAddBasket2,
+);
+router.post(
+  '/api/reservation/addToBasket',
+  // isAuth,
+  reservationController.reservationAddBasket,
 );
 
 router.post(
