@@ -8,33 +8,20 @@ router.get('/api/reservations', reservationController.reservationsGet);
 
 router.post('/api/reservations/getPrice', reservationController.getPriceFront);
 
-router.get(
-  '/api/allReservations',
-  isAuth,
-  reservationController.reservationsGetAll,
-);
-
 router.post(
   '/api/reservation/create',
   // isAuth,
-  reservationController.reservationCreate,
+  reservationController.reservationAddBasket2,
 );
 
 router.post(
+  '/api/reservation/addToBasktet',
+  // isAuth,
+  reservationController.reservationAddBasket,
+);
+router.post(
   '/api/reservation/create/groups',
   reservationController.reservationCreateConstant,
-);
-
-router.delete(
-  '/api/reservation/delete/:reservationId',
-  isAuth,
-  reservationController.reservationDelete,
-);
-
-router.patch(
-  '/api/reservation/update/:reservationId',
-  isAuth,
-  reservationController.reservationUpdate,
 );
 
 router.get(
