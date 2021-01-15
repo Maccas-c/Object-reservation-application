@@ -5,84 +5,41 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { DateTimePicker } from '@material-ui/pickers';
 import moment from 'moment';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeEvent, updateEvent, addEvent, closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
-
-const defaultFormState = {
-	id: FuseUtils.generateGUID(),
-	title: '',
-	start: moment(new Date(), 'MM/DD/YYYY'),
-	end: moment(new Date(), 'MM/DD/YYYY'),
-	desc: ''
-};
+import { addEvent, closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
+import { Form, Formik } from 'formik';
+import { getDay } from './utils';
+import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
 
 function EventDialog(props) {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
-	const { form, handleChange, setForm, setInForm } = useForm(defaultFormState);
+	const courts = useSelector(({ courtReducer }) => courtReducer.court);
+	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
+	const freeTimes = useSelector(({ courtReducer }) => courtReducer.freeTimes);
 
-	const initDialog = useCallback(() => {
-		/**
-		 * Dialog type: 'edit'
-		 */
-		if (eventDialog.type === 'edit' && eventDialog.data) {
-			setForm({ ...eventDialog.data });
-		}
+	const [selectedTime, setSelectedTime] = useState(null);
 
-		/**
-		 * Dialog type: 'new'
-		 */
-		if (eventDialog.type === 'new') {
-			setForm({
-				...defaultFormState,
-				...eventDialog.data,
-				id: FuseUtils.generateGUID()
-			});
-		}
-	}, [eventDialog.data, eventDialog.type, setForm]);
-
-	useEffect(() => {
-		/**
-		 * After Dialog Open
-		 */
-		if (eventDialog.props.open) {
-			initDialog();
-		}
-	}, [eventDialog.props.open, initDialog]);
+	useEffect(() => {}, []);
 
 	function closeComposeDialog() {
 		return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
 	}
 
-	function canBeSubmitted() {
-		return form.title.length > 0;
-	}
-
-	function handleSubmit(event) {
-		console.log(form);
-		event.preventDefault();
-
-		if (eventDialog.type === 'new') {
-			dispatch(addEvent(form));
-		} else {
-			dispatch(updateEvent(form));
-		}
-		closeComposeDialog();
-	}
-
-	function handleRemove() {
-		dispatch(removeEvent(form.id));
-		closeComposeDialog();
+	if (freeTimes && !selectedTime) {
+		const timesHelper = freeTimes.reverse();
+		timesHelper.forEach(time => {
+			if (time.free) {
+				setSelectedTime(time.durationTime);
+			}
+		});
 	}
 
 	return (
@@ -97,84 +54,119 @@ function EventDialog(props) {
 			}}
 		>
 			<AppBar position="static">
-				<Toolbar className="flex w-full">
+				<Toolbar className="flex w-full" style={{ justifyContent: 'center' }}>
 					<Typography variant="subtitle1" color="inherit">
-						Nowa rezerwacja
+						{eventDialog.type === 'new' ? 'Nowa rezerwacja' : 'Podgląd'}
 					</Typography>
 				</Toolbar>
 			</AppBar>
 
-			<form noValidate onSubmit={handleSubmit}>
-				<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
-					<TextField
-						id="title"
-						label="Title"
-						className="mt-8 mb-16"
-						InputLabelProps={{
-							shrink: true
-						}}
-						name="title"
-						value={form.title}
-						onChange={handleChange}
-						variant="outlined"
-						autoFocus
-						required
-						fullWidth
-					/>
-					<DateTimePicker
-						label="Start"
-						inputVariant="outlined"
-						value={form.start}
-						onChange={date => {
-							console.log(date);
-							setInForm('start', date);
-						}}
-						className="mt-8 mb-16 w-full"
-						maxDate={form.end}
-					/>
-					<DateTimePicker
-						label="End"
-						inputVariant="outlined"
-						value={form.end}
-						onChange={date => {
-							console.log(date);
-							setInForm('end', date);
-						}}
-						className="mt-8 mb-16 w-full"
-						minDate={form.start}
-					/>
-					<TextField
-						className="mt-8 mb-16"
-						id="desc"
-						label="Description"
-						type="text"
-						name="desc"
-						value={form.desc}
-						onChange={handleChange}
-						multiline
-						rows={5}
-						variant="outlined"
-						fullWidth
-					/>
-				</DialogContent>
+			<Formik
+				enableReinitialize
+				initialValues={{ courtId: defaultCourt, time: selectedTime }}
+				onSubmit={(values, actions) => {
+					console.log(values);
+					closeComposeDialog();
+				}}
+				render={({ handleSubmit, handleChange, handleBlur, values }) => (
+					<Form onSubmit={handleSubmit}>
+						<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
+							<TextField
+								className="mt-8 mb-16"
+								id="court"
+								label="Sektor"
+								select
+								name="court"
+								value={values.courtId}
+								onChange={({ target }) => {
+									dispatch(setCourt(target.value));
+									dispatch(getFreeTimes(target.value, eventDialog.data.start));
+								}}
+								rows={5}
+								variant="outlined"
+								disabled={eventDialog.type !== 'new'}
+								fullWidth
+							>
+								{courts.map(court =>
+									court.date.map(day => {
+										if (eventDialog.data) {
+											if (
+												day.value &&
+												day.nameOfDay === getDay(new Date(eventDialog.data.start).getDay())
+											) {
+												return (
+													<MenuItem key={court.nameCourt} value={court.nameCourt}>
+														{court.nameCourt}
+													</MenuItem>
+												);
+											}
+										}
+									})
+								)}
+							</TextField>
+							<TextField
+								className="mt-8 mb-16"
+								id="court"
+								label="Wolne godziny"
+								select
+								name="court"
+								value={values.time || ''}
+								onChange={({ target }) => {
+									setSelectedTime(target.value);
+								}}
+								rows={5}
+								variant="outlined"
+								disabled={eventDialog.type !== 'new'}
+								fullWidth
+							>
+								{freeTimes.map(time => {
+									if (time.free) {
+										return (
+											<MenuItem key={time.durationTime} value={time.durationTime}>
+												{time.durationTime}
+											</MenuItem>
+										);
+									}
+								})}
+							</TextField>
+							<TextField
+								className="mt-8 mb-16"
+								id="desc"
+								label="Dodatkowe informacje"
+								type="text"
+								name="desc"
+								value={''}
+								onChange={handleChange}
+								multiline
+								rows={5}
+								variant="outlined"
+								disabled={eventDialog.type !== 'new'}
+								fullWidth
+							/>
+						</DialogContent>
 
-				{eventDialog.type === 'new' ? (
-					<DialogActions className="justify-between px-8 sm:px-16">
-						<Button variant="contained" color="primary" type="submit" disabled={!canBeSubmitted()}>
-							Add
-						</Button>
-					</DialogActions>
-				) : (
-					<DialogActions className="justify-between px-8 sm:px-16">
-						<Button variant="contained" color="primary" type="submit" disabled={!canBeSubmitted()}>
-							Save
-						</Button>
-						<IconButton onClick={handleRemove}>
-							<Icon>delete</Icon>
-						</IconButton>
-					</DialogActions>
+						{eventDialog.type === 'new' ? (
+							<DialogActions
+								className="justify-between px-8 sm:px-16"
+								style={{ justifyContent: 'center', paddingBottom: '20px' }}
+							>
+								<Button variant="contained" color="primary" type="submit">
+									Dodaj do koszyka
+								</Button>
+							</DialogActions>
+						) : (
+							<DialogActions
+								className="justify-between px-8 sm:px-16"
+								style={{ justifyContent: 'center', paddingBottom: '20px' }}
+							>
+								<Button variant="contained" color="primary" type="submit">
+									Zamknij
+								</Button>
+							</DialogActions>
+						)}
+					</Form>
 				)}
-			</form>
+			/>
 		</Dialog>
 	);
 }

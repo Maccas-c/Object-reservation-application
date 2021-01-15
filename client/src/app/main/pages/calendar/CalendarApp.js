@@ -15,15 +15,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from './store';
-import {
-	dateFormat,
-	selectEvents,
-	openNewEventDialog,
-	openEditEventDialog,
-	updateEvent,
-	getEvents
-} from './store/eventsSlice';
+import { dateFormat, selectEvents, openNewEventDialog, openEditEventDialog, getEvents } from './store/eventsSlice';
+import { fetchCourt, setDialogCourt, getFreeTimes } from '../../../../store/actions/courts';
 import 'moment/locale/pl';
+import { getDay } from './utils';
 
 const localizer = momentLocalizer(moment);
 
@@ -189,33 +184,16 @@ function CalendarApp(props) {
 		end: moment(event.end, dateFormat).toDate()
 	}));
 	const id = useSelector(({ auth: { user } }) => user._id);
+	const courts = useSelector(({ courtReducer }) => courtReducer.court);
+	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
 
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
 
 	useEffect(() => {
 		dispatch(getEvents(id));
+		dispatch(fetchCourt());
 	}, [dispatch]);
-	function moveEvent({ event, start, end }) {
-		dispatch(
-			updateEvent({
-				...event,
-				start,
-				end
-			})
-		);
-	}
-
-	function resizeEvent({ event, start, end }) {
-		delete event.type;
-		dispatch(
-			updateEvent({
-				...event,
-				start,
-				end
-			})
-		);
-	}
 
 	return (
 		<div className={clsx(classes.root, 'flex flex-col flex-auto relative')}>
@@ -225,9 +203,7 @@ function CalendarApp(props) {
 				selectable
 				localizer={localizer}
 				events={events}
-				onEventDrop={moveEvent}
 				resizable
-				onEventResize={resizeEvent}
 				defaultDate={new Date()}
 				startAccessor="start"
 				endAccessor="end"
@@ -241,9 +217,11 @@ function CalendarApp(props) {
 				}}
 				// onNavigate={handleNavigate}
 				onSelectEvent={event => {
+					dispatch(setDialogCourt(courts, getDay(event.start.getDay())));
 					dispatch(openEditEventDialog(event));
 				}}
 				onSelectSlot={slotInfo => {
+					dispatch(setDialogCourt(courts, getDay(slotInfo.start.getDay()), slotInfo.start));
 					dispatch(openNewEventDialog(slotInfo));
 				}}
 			/>
