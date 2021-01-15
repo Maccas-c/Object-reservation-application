@@ -45,7 +45,7 @@ function UserListTable({ reservations }) {
 						{reservations ? (
 							reservations
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map(({ _id, title, dayString, courtName }) => {
+								.map(({ _id, title, dayString, courtId: {nameCourt} }) => {
 									return (
 										<TableRow className="h-64" hover role="checkbox" tabIndex={-1} key={_id}>
 											<TableCell padding="10" className="p-4 md:p-16" component="th" scope="row">
@@ -63,7 +63,7 @@ function UserListTable({ reservations }) {
 												scope="row"
 												align="right"
 											>
-												{courtName}
+												{nameCourt}
 											</TableCell>
 										</TableRow>
 									);
