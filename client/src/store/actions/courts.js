@@ -13,10 +13,10 @@ export const fetchCourt = () => {
 	};
 };
 
-export const getFreeTimes = (courtId, date) => {
+export const getFreeTimes = (nameCourt, date) => {
 	return dispatch => {
 		axios
-			.post(`/reservationsDate`, { courtId, date })
+			.post(`/reservationsDate`, { nameCourt, date })
 			.then(response => {
 				dispatch(setFreeTiems(response.data));
 			})
@@ -24,13 +24,14 @@ export const getFreeTimes = (courtId, date) => {
 	};
 };
 
-export const setDialogCourt = (courts, calendarDay) => {
+export const setDialogCourt = (courts, calendarDay, clickDate) => {
 	let breakHelper = false;
 	return dispatch => {
 		courts.forEach(court => {
 			court.date.forEach(day => {
 				if (!breakHelper && day.value && day.nameOfDay === calendarDay) {
 					dispatch(setDialogCurtSuccess(court.nameCourt));
+					dispatch(getFreeTimes(court.nameCourt, clickDate));
 					breakHelper = true;
 				}
 			});

@@ -16,18 +16,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addEvent, closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { Form, Formik } from 'formik';
 import { getDay } from './utils';
-import { setCourt } from '../../../../store/actions/courts';
+import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
 
 function EventDialog(props) {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
 	const courts = useSelector(({ courtReducer }) => courtReducer.court);
 	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
+	const freeTimes = useSelector(({ courtReducer }) => courtReducer.freeTimes);
+
+	const [selectedTime, setSelectedTime] = useState(null);
 
 	useEffect(() => {}, []);
 
 	function closeComposeDialog() {
 		return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
+	}
+
+	if (freeTimes && !selectedTime) {
+		const timesHelper = freeTimes.reverse();
+		timesHelper.forEach(time => {
+			if (time.free) {
+				setSelectedTime(time.durationTime);
+			}
+		});
 	}
 
 	return (
@@ -51,7 +63,7 @@ function EventDialog(props) {
 
 			<Formik
 				enableReinitialize
-				initialValues={{ courtId: defaultCourt }}
+				initialValues={{ courtId: defaultCourt, time: selectedTime }}
 				onSubmit={(values, actions) => {
 					console.log(values);
 					closeComposeDialog();
@@ -67,8 +79,8 @@ function EventDialog(props) {
 								name="court"
 								value={values.courtId}
 								onChange={({ target }) => {
-									console.log(target);
 									dispatch(setCourt(target.value));
+									dispatch(getFreeTimes(target.value, eventDialog.data.start));
 								}}
 								rows={5}
 								variant="outlined"
@@ -91,6 +103,31 @@ function EventDialog(props) {
 										}
 									})
 								)}
+							</TextField>
+							<TextField
+								className="mt-8 mb-16"
+								id="court"
+								label="Wolne godziny"
+								select
+								name="court"
+								value={values.time || ''}
+								onChange={({ target }) => {
+									setSelectedTime(target.value);
+								}}
+								rows={5}
+								variant="outlined"
+								disabled={eventDialog.type !== 'new'}
+								fullWidth
+							>
+								{freeTimes.map(time => {
+									if (time.free) {
+										return (
+											<MenuItem key={time.durationTime} value={time.durationTime}>
+												{time.durationTime}
+											</MenuItem>
+										);
+									}
+								})}
 							</TextField>
 							<TextField
 								className="mt-8 mb-16"

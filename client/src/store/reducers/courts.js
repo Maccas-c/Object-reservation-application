@@ -3,7 +3,6 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
 	court: [],
 	defaultCourt: '',
-	defaultCourtId: '',
 	freeTimes: []
 };
 
@@ -15,7 +14,7 @@ const getCourts = (state, action) => {
 };
 
 const setCourt = (state, action) => {
-	return { ...state, defaultCourt: action.courts[0].nameCourt, defaultCourtId: action.courts[0]._id };
+	return { ...state, defaultCourt: action.courts[0].nameCourt };
 };
 
 const setDialogCourt = (state, action) => {

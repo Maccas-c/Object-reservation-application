@@ -221,8 +221,7 @@ function CalendarApp(props) {
 					dispatch(openEditEventDialog(event));
 				}}
 				onSelectSlot={slotInfo => {
-					dispatch(setDialogCourt(courts, getDay(slotInfo.start.getDay())));
-					dispatch(getFreeTimes(defaultCourt, slotInfo.start));
+					dispatch(setDialogCourt(courts, getDay(slotInfo.start.getDay()), slotInfo.start));
 					dispatch(openNewEventDialog(slotInfo));
 				}}
 			/>
