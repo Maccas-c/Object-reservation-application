@@ -50,7 +50,7 @@ function Home({ history }, props) {
 			<div
 				className={clsx(
 					classes.header,
-					'relative overflow-hidden flex flex-col flex-shrink-0 items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-288'
+					'relative overflow-hidden flex flex-col flex-shrink-0 items-center justify-center text-center p-16'
 				)}
 			>
 				<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
@@ -109,7 +109,7 @@ function Home({ history }, props) {
 														key={id}
 														className="text-center text-13 font-600 mt-4"
 														color="textSecondary"
-														style={{ height: 'auto' }}
+														style={{ height: 'auto',padding:'5' }}
 													>
 														{`${getDay(nameOfDay)}`}{' '}
 														{value ? (

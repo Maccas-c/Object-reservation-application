@@ -50,7 +50,7 @@ function KnowledgeBase() {
 			<div
 				className={clsx(
 					classes.header,
-					'flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360'
+					'flex flex-col items-center justify-center text-center p-16 sm:p-24'
 				)}
 			>
 				<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
