@@ -54,7 +54,7 @@ function Login() {
 						)}
 						square
 					>
-						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+						<CardContent style={{cursor:"pointer"}} className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
 								<div className="flex items-center mb-32">
 									<img className="logo-icon w-48" src="/assets/images/logos/logo.svg" alt="logo" />
