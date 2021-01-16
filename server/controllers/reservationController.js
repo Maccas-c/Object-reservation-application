@@ -194,6 +194,7 @@ module.exports.reservationAddBasket = async function (req, res) {
                     .add(req.body.duration, 'm'),
                   courtId: req.body.courtId,
                   userId: req.body.userId,
+                  isPaid: 'false',
                 },
               },
             },

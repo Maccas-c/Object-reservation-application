@@ -1,5 +1,6 @@
 const { json } = require('express');
 const request = require('request');
+const userModel = require('../models/userModel');
 
 module.exports.getPayToken = async function (req, res) {
   request(
@@ -38,29 +39,29 @@ module.exports.createPayments = function (req, res) {
         Authorization: 'Bearer ' + req.headers.bearer,
       },
       body: JSON.stringify({
-        customerIp: '127.0.0.1',
+        customerIp: '150.254.78.206',
+        notifyUrl: 'https://devcourt.projektstudencki.pl/api/notify',
         merchantPosId: process.env.PAYU_CLIENT_ID,
         description: 'DEV',
         currencyCode: 'PLN',
         totalAmount: req.body.price,
-        continueUrl: 'http://localhost:3000/',
+        continueUrl: 'https://devcourt.projektstudencki.pl/',
         buyer: {
-          customerId: req.user._id,
-          email: req.user.email,
-          firstName: req.user.name,
-          phone: '+48 ' + req.user.phone_number,
-          lastName: req.user.surname,
+          email: req.body.email,
+          phone: '+48 ' + req.body.phone,
+          firstName: req.body.name,
+          lastName: req.body.surname,
           language: 'pl',
-        },
-        buyerDelivery: {
-          street: req.user.adress_street,
-          postalCode: req.user.adress_postalCode,
-          city: req.user.adress_city,
-          countryCode: 'PL',
+          delivery: {
+            postalCode: req.body.adress_postalCode,
+            city: req.body.adress_city,
+            street: req.body.adress_street,
+            countryCode: 'PL',
+          },
         },
         products: [
           {
-            name: req.body.nameOfReservation,
+            name: req.body._id,
             unitPrice: req.body.price,
             quantity: '1',
           },
@@ -84,9 +85,24 @@ module.exports.createPayments = function (req, res) {
   );
 };
 
-module.exports.notify = function (req, res) {
-  console.log(req.body);
-  res.status(200);
+module.exports.notify = async function (req, res) {
+  console.log(req.body.order);
+  if (req.body.order.status == 'COMPLETED') {
+    const user = await userModel.findOneAndUpdate(
+      { _id: req.body.order.products[0].name },
+      {
+        $set: {
+          reservations: [],
+        },
+      },
+      {
+        useFindAndModify: false,
+        new: true,
+      },
+    );
+    console.log('user', user);
+    res.status(200);
+  }
 };
 
 module.exports.getOrderInfo = function (req, res) {
