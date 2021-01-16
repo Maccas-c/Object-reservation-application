@@ -33,6 +33,7 @@ const i18nProvider = polyglotI18nProvider(() => polishMessages, 'pl');
 export const App = () => {
   return (
     <Admin {...{ dataProvider, authProvider }} locale={'pl'} i18nProvider={i18nProvider}>
+      <Resource options={{ label: 'Użytkownicy' }} name={'users'} icon={PeopleIcon} list={UsersList} show={UsersShow} />
       <Resource
         options={{ label: 'Cennik' }}
         name={'priceLists'}
@@ -40,7 +41,6 @@ export const App = () => {
         list={PriceList}
         edit={EditPrice}
       />
-      <Resource options={{ label: 'Użytkownicy' }} name={'users'} icon={PeopleIcon} list={UsersList} show={UsersShow} />
       <Resource options={{ label: 'Rezerwacje' }} name={'reservations'} list={ReservationsList} />
       <Resource options={{ label: 'Boiska' }} name={'courts'} create={CourtCreate} list={CourtList} />
     </Admin>

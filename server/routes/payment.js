@@ -11,7 +11,7 @@ router.post('/api/getToken', paymentController.getPayToken);
 
 router.post('/api/createPayment', paymentController.createPayments);
 
-router.post('/notify', paymentController.notify);
+router.post('/api/notify', paymentController.notify);
 
 router.get('/getPaymentInfo/:orderId', paymentController.getOrderInfo);
 

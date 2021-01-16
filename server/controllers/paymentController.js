@@ -45,14 +45,18 @@ module.exports.createPayments = function (req, res) {
         totalAmount: req.body.price,
         continueUrl: 'http://localhost:3000/',
         buyer: {
+          customerId: req.user._id,
           email: req.user.email,
-          firstnName: req.user.name,
-          phone: req.user.phone_number,
+          firstName: req.user.name,
+          phone: '+48 ' + req.user.phone_number,
           lastName: req.user.surname,
+          language: 'pl',
         },
         buyerDelivery: {
+          street: req.user.adress_street,
           postalCode: req.user.adress_postalCode,
           city: req.user.adress_city,
+          countryCode: 'PL',
         },
         products: [
           {
