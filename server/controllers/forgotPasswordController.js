@@ -28,8 +28,10 @@ module.exports.forgotPassword = async function (req, res) {
       if (!user)
         return res.status(401).json('Użytkownik o podanym e-mail nie istnieje');
 
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         auth: {
           user: `${process.env.EMAIL_ADDRESS}`,
           pass: `${process.env.EMAIL_PASSWORD}`,
