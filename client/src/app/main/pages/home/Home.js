@@ -81,10 +81,10 @@ function Home({ history }, props) {
 											Sektor {nameCourt} {description}
 										</Typography>
 										<div className="flex items-center justify-center opacity-75">
-											<Icon className="text-20 mx-8" color="inherit">
+											<Icon style={{color:'green'}} className="text-30 mx-8" color="inherit">
 												access_time
 											</Icon>
-											<div className="text-16 whitespace-nowrap">{sessionTime} min</div>
+											<div className="text-20 whitespace-nowrap">{sessionTime} min</div>
 										</div>
 									</div>
 									<CardContent
