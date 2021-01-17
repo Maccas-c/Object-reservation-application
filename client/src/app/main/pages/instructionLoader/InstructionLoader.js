@@ -43,13 +43,13 @@ const InstructionLoader = ({history}) => {
                             </Typography>
                             <div className="flex flex-col items-center justify-center pt-32 pb-24">
                                 <Button onClick={() => {
-                                    handlePushHome()
+                                    handlePushInstruction()
                                 }} style={{marginBottom: '5px'}} className="font-medium" variant='contained'
                                         color='primary'>
                                     Skorzystaj z instrukcji!
                                 </Button>
                                 <Button onClick={() => {
-                                    handlePushInstruction()
+                                    handlePushHome()
                                 }} className="font-medium" variant='contained' color='primary'>
                                     Przejdź na stronę główną!
                                 </Button>

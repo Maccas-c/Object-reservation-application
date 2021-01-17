@@ -24,7 +24,7 @@ const routes = [
 	{
 		path: '/',
 		exact: true,
-		component: () => <Redirect to="/home" />
+		component: () => <Redirect to="/prepare" />
 	},
 	{
 		component: () => <Redirect to="/not-found" />
