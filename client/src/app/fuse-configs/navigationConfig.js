@@ -22,14 +22,6 @@ const navigationConfig = [
 				url: '/home'
 			},
 			{
-				id: 'profile-component',
-				title: 'Profile',
-				translate: 'PROFILE',
-				type: 'item',
-				icon: 'person',
-				url: '/profile'
-			},
-			{
 				id: 'calendar-component',
 				title: 'Calendar',
 				translate: 'CALENDAR',
@@ -42,7 +34,7 @@ const navigationConfig = [
 				title: 'Historia rezerwacji',
 				translate: 'RESERVATION',
 				type: 'item',
-				icon: 'list',
+				icon: 'article',
 				url: '/reservation'
 			}
 		]

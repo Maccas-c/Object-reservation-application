@@ -91,7 +91,13 @@ class CalendarHeader extends Toolbar {
 				<div className={clsx(classes.root, 'flex h-200 min-h-200 relative', moment(date).format('MMM'))}>
 					<div className="flex flex-1 flex-col p-12 justify-between z-10 container">
 						<div className="flex flex-col items-center justify-between sm:flex-row">
-							<div className="flex items-center my-16 sm:mb-0">
+							<div
+								className="flex items-center my-16 sm:mb-0"
+								onClick={this.navigate.bind(null, navigate.TODAY)}
+								style={{
+									cursor: 'default'
+								}}
+							>
 								<FuseAnimate animation="transition.expandIn" delay={300}>
 									<Icon className="text-32 mx-12">today</Icon>
 								</FuseAnimate>
@@ -127,7 +133,14 @@ class CalendarHeader extends Toolbar {
 										</Icon>
 									</IconButton>
 								</Tooltip>
-								<Typography variant="h6">{label}</Typography>
+								<Typography
+									variant="h6"
+									style={{
+										cursor: 'default'
+									}}
+								>
+									{label}
+								</Typography>
 								<Tooltip title="Next">
 									<IconButton aria-label="Next" onClick={this.navigate.bind(null, navigate.NEXT)}>
 										<Icon>

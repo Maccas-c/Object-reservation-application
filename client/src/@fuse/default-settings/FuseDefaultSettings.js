@@ -39,7 +39,7 @@ export function getParsedQuerySettings() {
  */
 export const defaultThemeOptions = {
 	typography: {
-		fontFamily: ['Muli', 'Roboto', '"Helvetica"', 'Arial', 'sans-serif'].join(','),
+		fontFamily: ['Roboto', '"Helvetica"', 'Arial', 'sans-serif'].join(','),
 		fontWeightLight: 300,
 		fontWeightRegular: 400,
 		fontWeightMedium: 600,

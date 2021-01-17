@@ -161,7 +161,12 @@ function EventDialog(props) {
 								className="justify-between px-8 sm:px-16"
 								style={{ justifyContent: 'center', paddingBottom: '20px' }}
 							>
-								<Button variant="contained" color="primary" type="submit">
+								<Button
+									variant="contained"
+									color="primary"
+									type="button"
+									onClick={() => dispatch(closeEditEventDialog())}
+								>
 									Zamknij
 								</Button>
 							</DialogActions>

@@ -19,7 +19,12 @@ function UserListHeader({ reservations }) {
 			<FuseAnimate animation="transition.slideRightIn" delay={300}>
 				<div className="flex items-center justify-between px-16 h-64 border-b-1">
 					<Typography className="text-11 font-500 rounded-4 text-white bg-blue px-8 py-4">
-						{reservations.length} rezerwacji
+						{reservations.length}{' '}
+						{reservations.length === 1
+							? 'rezerwacja'
+							: reservations.length === 2 || reservations.length === 3 || reservations.length === 4
+							? 'rezerwacje'
+							: 'rezerwacji'}
 					</Typography>
 				</div>
 			</FuseAnimate>

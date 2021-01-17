@@ -28,7 +28,7 @@ function UserListTable({ reservations }) {
 			<FuseAnimate delay={100}>
 				<div className="flex flex-1 items-center justify-center h-full">
 					<Typography color="textSecondary" variant="h5">
-						Nie masz jeszcze żadnych rezerwacji!
+						Nie masz jeszcze żadnych rezerwacji
 					</Typography>
 				</div>
 			</FuseAnimate>

@@ -561,7 +561,6 @@ module.exports = {
 		},
 		fontFamily: {
 			sans: [
-				'Muli',
 				'Roboto',
 				'-apple-system',
 				'BlinkMacSystemFont',

@@ -58,7 +58,7 @@ class DemoFrame extends React.Component {
 					__html: `
                     html {
                     font-size: 62.5%;
-                    font-family: Muli, Roboto, Helvetica Neue, Arial, sans-serif;
+                    font-family: Roboto, Helvetica Neue, Arial, sans-serif;
                     }
                 `
 				}}

@@ -199,7 +199,6 @@ function CalendarApp(props) {
 			<div ref={headerEl} />
 			<DragAndDropCalendar
 				className="flex flex-1 container"
-				selectable
 				localizer={localizer}
 				events={events}
 				resizable
@@ -207,6 +206,7 @@ function CalendarApp(props) {
 				startAccessor="start"
 				endAccessor="end"
 				step={60}
+				selectable
 				components={{
 					toolbar: _props => {
 						return headerEl.current
