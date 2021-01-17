@@ -20,6 +20,13 @@ const useStyles = makeStyles(theme => ({
 const InstructionLoader = ({history}) => {
     const classes = useStyles();
 
+    const handlePushHome = () => {
+        history.push('/home')
+    }
+
+    const handlePushInstruction = () => {
+        history.push('/knowledge-base')
+    }
     return (
         <div className={clsx(classes.root, 'flex flex-col flex-auto flex-shrink-0 items-center justify-center p-32')}>
             <div className="flex flex-col items-center justify-center w-full">
@@ -31,19 +38,18 @@ const InstructionLoader = ({history}) => {
                                     emoji_objects
                                 </Icon>
                             </div>
-
                             <Typography variant="h5" className="text-center mb-16">
                                 Czy chcesz skorzystać z instrukcji przed skorzystaniem z naszego systemu?
                             </Typography>
                             <div className="flex flex-col items-center justify-center pt-32 pb-24">
                                 <Button onClick={() => {
-                                    history.push('/knowledge-base')
+                                    handlePushHome()
                                 }} style={{marginBottom: '5px'}} className="font-medium" variant='contained'
                                         color='primary'>
                                     Skorzystaj z instrukcji!
                                 </Button>
                                 <Button onClick={() => {
-                                    history.push('/home')
+                                    handlePushInstruction()
                                 }} className="font-medium" variant='contained' color='primary'>
                                     Przejdź na stronę główną!
                                 </Button>
