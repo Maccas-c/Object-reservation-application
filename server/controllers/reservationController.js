@@ -187,11 +187,12 @@ module.exports.reservationAddBasket = async function (req, res) {
               $push: {
                 reservations: {
                   title: titleDate,
-                  start: moment(req.body.start).add(1, 'hours'),
+                  start: moment(req.body.start).add(1, 'hours').toDate(),
                   dayString: dayString,
                   end: moment(req.body.start)
                     .add(1, 'hours')
-                    .add(req.body.duration, 'm'),
+                    .add(req.body.duration, 'm')
+                    .toDate(),
                   courtId: req.body.courtId,
                   userId: req.body.userId,
                   isPaid: 'false',
