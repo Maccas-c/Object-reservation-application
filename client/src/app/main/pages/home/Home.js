@@ -6,142 +6,142 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router';
-import { useConstructor } from '../../../../utils/customHooks';
-import { fetchCourt } from '../../../../store/actions/courts';
-import { getDay } from './utils/utils';
+import {useDispatch, useSelector} from 'react-redux';
+import {withRouter} from 'react-router';
+import {useConstructor} from '../../../../utils/customHooks';
+import {fetchCourt} from '../../../../store/actions/courts';
+import {getDay} from './utils/utils';
 
 const useStyles = makeStyles(theme => ({
-	header: {
-		background: `linear-gradient(to left, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
-		color: theme.palette.getContrastText(theme.palette.primary.main)
-	},
-	headerIcon: {
-		position: 'absolute',
-		top: -64,
-		left: 0,
-		opacity: 0.04,
-		fontSize: 512,
-		width: 512,
-		height: 512,
-		pointerEvents: 'none'
-	}
+    header: {
+        background: `linear-gradient(to left, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
+        color: theme.palette.getContrastText(theme.palette.primary.main)
+    },
+    headerIcon: {
+        position: 'absolute',
+        top: -64,
+        left: 0,
+        opacity: 0.04,
+        fontSize: 512,
+        width: 512,
+        height: 512,
+        pointerEvents: 'none'
+    }
 }));
 
-function Home({ history }, props) {
-	const classes = useStyles(props);
-	const dispatch = useDispatch();
-	const court = useSelector(state => state.courtReducer.court);
-	useConstructor(() => {
-		dispatch(fetchCourt());
-	});
+function Home({history}, props) {
+    const classes = useStyles(props);
+    const dispatch = useDispatch();
+    const court = useSelector(state => state.courtReducer.court);
+    useConstructor(() => {
+        dispatch(fetchCourt());
+    });
 
-	const handleSetCourt = () => {
-		history.push('/calendar');
-	};
+    const handleSetCourt = () => {
+        history.push('/calendar');
+    };
 
-	return (
-		<div className="flex flex-col flex-auto flex-shrink-0 w-full">
-			<div
-				className={clsx(
-					classes.header,
-					'relative overflow-hidden flex flex-col flex-shrink-0 items-center justify-center text-center p-16'
-				)}
-			>
-				<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
-					<Typography color="inherit" className="text-24 sm:text-40 font-light">
-						Witamy w serwsie DevCourt
-					</Typography>
-				</FuseAnimate>
-				<FuseAnimate duration={400} delay={600}>
-					<Typography variant="subtitle1" color="inherit" className="mt-8 sm:mt-16 mx-auto max-w-512">
-						<span className="opacity-75">Nasz serwis umożliwia rezerwacji boiska sportowego!</span>
-					</Typography>
-				</FuseAnimate>
-				<Icon className={classes.headerIcon}> book </Icon>
-			</div>
-			<div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-24">
-				<FuseAnimateGroup
-					enter={{
-						animation: 'transition.slideUpBigIn'
-					}}
-					className="flex flex-wrap py-24"
-				>
-					{court.map(({ date, description, _id, nameCourt, sessionTime }) => {
-						return (
-							<div className="w-full h-auto pb-24 sm:w-1/2 lg:w-9/20 sm:p-16" key={_id}>
-								<Card className="flex  flex-col h-256 rounded-8 shadow">
-									<div className="flex flex-shrink-0 items-center justify-between px-24 h-64">
-										<Typography className="font-medium truncate" color="inherit">
-											Sektor {nameCourt} {description}
-										</Typography>
-										<div className="flex items-center justify-center opacity-75">
-											<Icon style={{color:'green'}} className="text-30 mx-8" color="inherit">
-												access_time
-											</Icon>
-											<div className="text-20 whitespace-nowrap">{sessionTime} min</div>
-										</div>
-									</div>
-									<CardContent
-										style={{
-											justifyContent: 'space-between',
-											flexWrap: 'wrap',
-											paddingLeft: 0,
-											paddingRight: 0
-										}}
-										className="flex flex-col flex-auto items-center justify-center"
-									>
-										<Typography className="text-center text-13 font-900 mt-4" color="textSecondary">
-											Dostępność:
-										</Typography>
-										<CardContent
-											style={{ flexWrap: 'wrap', paddingLeft: 0, paddingRight: 0 }}
-											className="flex flex col flex-auto items-center justify-center"
-										>
-											{date.map(({ _id: id, nameOfDay, value }) => {
-												return (
-													<span
-														key={id}
-														className="text-center text-13 font-600 mt-4"
-														color="textSecondary"
-														style={{ height: 'auto',padding:'5' }}
-													>
+    return (
+        <div className="flex flex-col flex-auto flex-shrink-0 w-full">
+            <div
+                className={clsx(
+                    classes.header,
+                    'relative overflow-hidden flex flex-col flex-shrink-0 items-center justify-center text-center p-16'
+                )}
+            >
+                <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
+                    <Typography color="inherit" className="text-24 sm:text-40 font-light">
+                        Witamy w serwisie DevCourt!
+                    </Typography>
+                </FuseAnimate>
+                <FuseAnimate duration={400} delay={600}>
+                    <Typography variant="subtitle1" color="inherit" className="mt-8 sm:mt-16 mx-auto max-w-512">
+                        <span className="opacity-75">Nasz serwis umożliwia rezerwacji boiska sportowego!</span>
+                    </Typography>
+                </FuseAnimate>
+                <Icon className={classes.headerIcon}> book </Icon>
+            </div>
+            <div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-24">
+                <FuseAnimateGroup
+                    enter={{
+                        animation: 'transition.slideUpBigIn'
+                    }}
+                    className="flex flex-wrap py-24"
+                >
+                    {court.map(({date, description, _id, nameCourt, sessionTime}) => {
+                        return (
+                            <div className="w-full h-auto pb-24 sm:w-1/2 lg:w-9/20 sm:p-16" key={_id}>
+                                <Card className="flex  flex-col h-256 rounded-8 shadow">
+                                    <div className="flex flex-shrink-0 items-center justify-between px-24 h-64">
+                                        <Typography className="font-medium truncate" color="inherit">
+                                            Sektor {nameCourt} {description}
+                                        </Typography>
+                                        <div className="flex items-center justify-center opacity-75">
+                                            <Icon style={{color: 'green'}} className="text-30 mx-8" color="inherit">
+                                                access_time
+                                            </Icon>
+                                            <div className="text-20 whitespace-nowrap">{sessionTime} min</div>
+                                        </div>
+                                    </div>
+                                    <CardContent
+                                        style={{
+                                            justifyContent: 'space-between',
+                                            flexWrap: 'wrap',
+                                            paddingLeft: 0,
+                                            paddingRight: 0
+                                        }}
+                                        className="flex flex-col flex-auto items-center justify-center"
+                                    >
+                                        <Typography className="text-center text-13 font-900 mt-4" color="textSecondary">
+                                            Dostępność:
+                                        </Typography>
+                                        <CardContent
+                                            style={{flexWrap: 'wrap', paddingLeft: 0, paddingRight: 0}}
+                                            className="flex flex col flex-auto items-center justify-center"
+                                        >
+                                            {date.map(({_id: id, nameOfDay, value}) => {
+                                                return (
+                                                    <span
+                                                        key={id}
+                                                        className="text-center text-13 font-600 mt-4"
+                                                        color="textSecondary"
+                                                        style={{height: 'auto', padding: '5'}}
+                                                    >
 														{`${getDay(nameOfDay)}`}{' '}
-														{value ? (
-															<Icon className="text-green text-20">check_circle</Icon>
-														) : (
-															<Icon className="text-red text-20">remove_circle</Icon>
-														)}
+                                                        {value ? (
+                                                            <Icon className="text-green text-20">check_circle</Icon>
+                                                        ) : (
+                                                            <Icon className="text-red text-20">remove_circle</Icon>
+                                                        )}
 													</span>
-												);
-											})}
-										</CardContent>
-									</CardContent>
-									<Divider />
-									<CardActions className="justify-center">
-										<Button
-											onClick={() => {
-												handleSetCourt();
-											}}
-											className="justify-start px-32"
-											color="secondary"
-										>
-											Rezerwuj!
-										</Button>
-									</CardActions>
-								</Card>
-							</div>
-						);
-					})}
-				</FuseAnimateGroup>
-			</div>
-		</div>
-	);
+                                                );
+                                            })}
+                                        </CardContent>
+                                    </CardContent>
+                                    <Divider/>
+                                    <CardActions className="justify-center">
+                                        <Button
+                                            onClick={() => {
+                                                handleSetCourt();
+                                            }}
+                                            className="justify-start px-32"
+                                            color="secondary"
+                                        >
+                                            Rezerwuj!
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </div>
+                        );
+                    })}
+                </FuseAnimateGroup>
+            </div>
+        </div>
+    );
 }
 
 export default withRouter(Home);
