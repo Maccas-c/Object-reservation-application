@@ -39,12 +39,12 @@ const InstructionLoader = ({history}) => {
                                 <Button onClick={() => {
                                     history.push('/knowledge-base')
                                 }} style={{marginBottom: '5px'}} className="font-medium" variant='contained'
-                                        color='primary' to="/knowledge-base">
+                                        color='primary'>
                                     Skorzystaj z instrukcji!
                                 </Button>
                                 <Button onClick={() => {
                                     history.push('/home')
-                                }} className="font-medium" variant='contained' color='primary' to="/home">
+                                }} className="font-medium" variant='contained' color='primary'>
                                     Przejdź na stronę główną!
                                 </Button>
                             </div>
