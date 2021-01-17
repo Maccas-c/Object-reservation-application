@@ -46,12 +46,12 @@ const InstructionLoader = ({history}) => {
                                     handlePushInstruction()
                                 }} style={{marginBottom: '5px'}} className="font-medium" variant='contained'
                                         color='primary'>
-                                    Skorzystaj z instrukcji!
+                                    Skorzystaj z instrukcji
                                 </Button>
                                 <Button onClick={() => {
                                     handlePushHome()
                                 }} className="font-medium" variant='contained' color='primary'>
-                                    Przejdź na stronę główną!
+                                    Przejdź na stronę główną
                                 </Button>
                             </div>
                         </CardContent>
