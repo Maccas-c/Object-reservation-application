@@ -4,7 +4,8 @@ import CalendarApp from './calendar/CalendarAppConfig';
 import UserListReservationConfig from './userReservation/UserListReservationConfig';
 import HomeConfig from './home/HomeConfig';
 import KnowledgeBasePageConfig from './knowledgeBase/KnowledgeBaseConfig';
-import InstructionLoaderConfig from "./instructionLoader/InstructionLoaderConfig";
+import InstructionLoaderConfig from './instructionLoader/InstructionLoaderConfig';
+import BasketConfig from './basket/BasketConfig';
 
 const pagesConfigs = [
 	Error404PageConfig,
@@ -13,7 +14,8 @@ const pagesConfigs = [
 	UserListReservationConfig,
 	HomeConfig,
 	KnowledgeBasePageConfig,
-	InstructionLoaderConfig
+	InstructionLoaderConfig,
+	BasketConfig
 ];
 
 export default pagesConfigs;

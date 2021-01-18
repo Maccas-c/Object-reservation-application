@@ -18,6 +18,7 @@ import { addReservation } from '../../../../store/actions/calendar';
 function EventDialog() {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
+	const reservationInfo = useSelector(({ calendarApp }) => calendarApp.events.eventDialog.data);
 	const courts = useSelector(({ courtReducer }) => courtReducer.court);
 	const userId = useSelector(({ auth }) => auth.user._id);
 	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
@@ -92,47 +93,61 @@ function EventDialog() {
 									})
 								)}
 							</TextField>
-							<TextField
-								className="mt-8 mb-16"
-								id="durationTime"
-								select
-								label="Wolne godziny"
-								name="durationTime"
-								onBlur={handleBlur}
-								required
-								value={values.durationTime || ''}
-								isClearable
-								onChange={handleChange}
-								rows={5}
-								variant="outlined"
-								disabled={eventDialog.type !== 'new'}
-								fullWidth
-							>
-								{freeTimes &&
-									freeTimes.map(item => {
-										if (item.free)
-											return (
-												<MenuItem key={item.durationTime} value={item.durationTime}>
-													{item.durationTime}
-												</MenuItem>
-											);
-										return null;
-									})}
-							</TextField>
-							<TextField
-								className="mt-8 mb-16"
-								id="desc"
-								label="Dodatkowe informacje"
-								type="text"
-								name="desc"
-								value=""
-								onChange={handleChange}
-								multiline
-								rows={5}
-								variant="outlined"
-								disabled={eventDialog.type !== 'new'}
-								fullWidth
-							/>
+							{eventDialog.type === 'new' ? (
+								<>
+									<TextField
+										className="mt-8 mb-16"
+										id="durationTime"
+										select
+										label="Wolne godziny"
+										name="durationTime"
+										onBlur={handleBlur}
+										required
+										value={values.durationTime || ''}
+										onChange={handleChange}
+										rows={5}
+										variant="outlined"
+										disabled={eventDialog.type !== 'new'}
+										fullWidth
+									>
+										{freeTimes &&
+											freeTimes.map(item => {
+												if (item.free)
+													return (
+														<MenuItem key={item.durationTime} value={item.durationTime}>
+															{item.durationTime}
+														</MenuItem>
+													);
+												return null;
+											})}
+									</TextField>
+									<TextField
+										className="mt-8 mb-16"
+										id="desc"
+										label="Dodatkowe informacje"
+										type="text"
+										name="desc"
+										value=""
+										onChange={handleChange}
+										multiline
+										rows={5}
+										variant="outlined"
+										disabled={eventDialog.type !== 'new'}
+										fullWidth
+									/>
+								</>
+							) : (
+								<TextField
+									className="mt-8 mb-16"
+									id="durationTime"
+									label="Godzina rezerwacji"
+									name="durationTime"
+									value={reservationInfo ? reservationInfo.title.slice(3, 8) : ''}
+									variant="outlined"
+									disabled={eventDialog.type !== 'new'}
+									fullWidth
+								/>
+							)}
 						</DialogContent>
 
 						{eventDialog.type === 'new' ? (
