@@ -36,6 +36,14 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'article',
 				url: '/reservation'
+			},
+			{
+				id: 'basket-component',
+				title: 'Koszyk',
+				translate: 'BASKET',
+				type: 'item',
+				icon: 'shopping_basket',
+				url: '/basket'
 			}
 		]
 	}

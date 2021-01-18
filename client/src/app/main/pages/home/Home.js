@@ -6,17 +6,16 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { useConstructor } from '../../../../utils/customHooks';
 import { fetchCourt } from '../../../../store/actions/courts';
 import { getDay } from './utils/utils';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
 	palette: {
@@ -72,7 +71,7 @@ function Home({ history }, props) {
 				</FuseAnimate>
 				<FuseAnimate duration={400} delay={600}>
 					<Typography variant="subtitle1" color="inherit" className="mt-8 sm:mt-1 mx-auto max-w-512">
-						<span className="opacity-75">Umożliwiami rezerwację sektorów boiska UAM</span>
+						<span className="opacity-75">Umożliwiamy rezerwację sektorów boiska UAM</span>
 					</Typography>
 				</FuseAnimate>
 			</div>

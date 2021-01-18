@@ -3,7 +3,8 @@ const locale = {
 	PROFILE: 'Profil użytkownika',
 	CALENDAR: 'Kalendarz',
 	RESERVATION: 'Historia Rezerwacji',
-	HOME: 'Strona główna'
+	HOME: 'Strona główna',
+	BASKET: 'Koszyk'
 };
 
 export default locale;

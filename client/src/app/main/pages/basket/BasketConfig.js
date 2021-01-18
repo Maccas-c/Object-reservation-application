@@ -1,5 +1,6 @@
 import React from 'react';
-import { authRoles } from '../../../auth';
+
+import { authRoles } from 'app/auth';
 
 const BasketConfig = {
 	settings: {
