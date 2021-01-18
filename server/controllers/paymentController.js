@@ -25,13 +25,15 @@ module.exports.getPayToken = async function (req, res) {
       } catch {
         if (error) return res.status(404).json(error);
       }
-    },
+    }
   );
 };
 
 module.exports.returnListToSave = async function (req, res, next) {
   const reservations = req.body.reservations;
   let saveToBase = [];
+  let iterator = 0;
+  let ifPass = true;
   const user = userModel.findOne({ _id: req.body.userId });
   for (const item of reservations) {
     console.log('middleware1 - tu powinienem byc 1');
@@ -44,35 +46,42 @@ module.exports.returnListToSave = async function (req, res, next) {
     let month = start.format('MM');
     const dayString = year + '-' + month + '-' + day;
     console.log('jestem przed findone');
-    let reserv = await reservationModel.findOne(
-      { start: start.toDate() },
+    console.log('item', item);
+    let reserv = await reservationModel.find(
+      {
+        dayString: dayString,
+        title: titleDate,
+        courtId: item.courtId,
+      },
       async function (err, obj) {
         console.log('jestem we funkcji');
         if (err) {
-          userModel.update(
+          console.log('error', err);
+          await userModel.update(
             {
               _id: req.body.userId,
             },
             {
               reservations: [],
-            },
+            }
           );
 
-          return res.status(404).json(err);
+          ifPass = false;
         }
-        if (obj) {
-          userModel.update(
+        if (obj.length > 0) {
+          console.log('obj', obj);
+          await userModel.update(
             {
               _id: req.body.userId,
             },
             {
               reservations: [],
-            },
+            }
           );
-
-          return res.status(422).json('Godzina zajęta');
+          ifPass = false;
         } else {
           console.log('dodaje do saveToBase');
+          iterator = iterator + 1;
           saveToBase.push({
             title: titleDate,
             start: moment(item.start).add(1, 'hours'),
@@ -83,13 +92,18 @@ module.exports.returnListToSave = async function (req, res, next) {
           });
         }
         console.log(saveToBase);
-      },
+      }
     );
   }
-  console.log('middleware1 - tu powinienem byc 2');
-  console.log(saveToBase);
-  res.locals.saveToBase = saveToBase;
-  next();
+  console.log('iterator', iterator);
+  console.log('length res', reservations.length);
+  console.log('ifpass', ifpass);
+  if (ifPass == true && iterator == reservations.length) {
+    console.log('middleware1 - tu powinienem byc 2');
+    console.log(saveToBase);
+    res.locals.saveToBase = saveToBase;
+    next();
+  } else return res.status(422).send('godzina zajeta');
 };
 
 module.exports.saveToBase = async function (req, res, next) {
@@ -138,9 +152,9 @@ module.exports.createPayments = async function (req, res) {
       }),
     },
     function (error, response, body) {
-      console.log(error);
-      console.log('respone' + response);
-      console.log('body', body);
+      // console.log(error);
+      // console.log('respone' + response);
+      // console.log('body', body);
       let jsonBody = JSON.parse(body);
       if (jsonBody.status.statusCode == 'SUCCESS') {
         return res.status(200).send(body);
@@ -150,7 +164,7 @@ module.exports.createPayments = async function (req, res) {
         return res.status(500).send('Problem with PayU server');
       }
       res.end();
-    },
+    }
   );
 };
 
@@ -162,7 +176,7 @@ module.exports.notify = async function (req, res) {
     const reservation = await reservationModel.find({
       orderId: req.body.order.products[0].orderId,
     });
-    user.reservations.forEach(item => console.log(item));
+    user.reservations.forEach((item) => console.log(item));
     console.log('user', user);
     res.status(200);
   }
@@ -180,6 +194,6 @@ module.exports.getOrderInfo = function (req, res) {
     function (error, response, body) {
       let jsonBody = JSON.parse(body);
       res.status(200).send(jsonBody.status.statusCode);
-    },
+    }
   );
 };
