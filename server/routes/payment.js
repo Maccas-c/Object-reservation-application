@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
+const { isAuth } = require('./../controllers/middleware');
 const paymentController = require('./../controllers/paymentController');
 const { getPrice } = require('../controllers/reservationController');
 

@@ -42,21 +42,6 @@ module.exports.checkEmail = async function (req, res, next) {
         if (req.body.email == req.user.email) next();
         else return res.status(422).json('The email exist');
       } else next();
-    },
+    }
   );
-};
-
-module.exports.rangeCourts = async function (req, res, next) {
-  const courtLength = (await courtModel.find()).length;
-  const path = req.path.slice(11);
-  const header = `${path} 0-${courtLength}/${courtLength}`;
-  res.header('Content-Range', header);
-  next();
-};
-module.exports.rangeCourtsTariff = async function (req, res, next) {
-  const TariffLength = (await courtsTariff.find()).length;
-  const path = req.path.slice(11);
-  const header = `${path} 0-${TariffLength}/${TariffLength}`;
-  res.header('Content-Range', header);
-  next();
 };
