@@ -32,8 +32,8 @@ module.exports.getPayToken = async function (req, res) {
 module.exports.returnListToSave = async function (req, res, next) {
   const reservations = req.body.reservations;
   let saveToBase = [];
-  const user = await userModel.findOne({ _id: req.body.userId });
-  reservations.forEach(item => {
+  const user = userModel.findOne({ _id: req.body.userId });
+  for (const item of reservations) {
     console.log('middleware1 - tu powinienem byc 1');
     let start = moment(item.start);
 
@@ -43,12 +43,13 @@ module.exports.returnListToSave = async function (req, res, next) {
     let year = start.format('YYYY');
     let month = start.format('MM');
     const dayString = year + '-' + month + '-' + day;
-    let reserv = reservationModel.findOne(
+    console.log('jestem przed findone');
+    let reserv = await reservationModel.findOne(
       { start: start },
       async function (err, obj) {
-        console.log;
+        console.log('jestem we funkcji');
         if (err) {
-          await userModel.update(
+          userModel.update(
             {
               _id: req.body.userId,
             },
@@ -60,7 +61,7 @@ module.exports.returnListToSave = async function (req, res, next) {
           return res.status(404).json(err);
         }
         if (obj) {
-          await userModel.update(
+          userModel.update(
             {
               _id: req.body.userId,
             },
@@ -79,14 +80,14 @@ module.exports.returnListToSave = async function (req, res, next) {
             end: moment(req.body.start)
               .add(1, 'hours')
               .add(req.body.reservations.duration, 'm'),
-            courtId: req.body.reservations.courtId,
+            courtId: item.courtId,
             userId: req.body.userId,
           });
         }
         console.log(saveToBase);
       },
     );
-  });
+  }
   console.log('middleware1 - tu powinienem byc 2');
   console.log(saveToBase);
   res.locals.saveToBase = saveToBase;
