@@ -9,6 +9,7 @@ module.exports.login = function (req, res) {
       role: req.user.role,
       createDate: req.user.createDate,
       isStudent: req.user.isStudent,
+      firstLogin: req.user.firstLogin,
     });
   } else {
     res.status(404).end();

@@ -31,6 +31,10 @@ const userModel = mongoose.Schema({
   createDate: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  firstLogin: {
+    type: Boolean,
+    default: true,
+  },
   reservations: [{}],
 });
 

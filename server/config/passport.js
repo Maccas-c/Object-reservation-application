@@ -26,7 +26,7 @@ const consumer = new oauth.OAuth(
   '1.0',
   'http:/localhost:3000/api/loginUsos/callback',
   'HMAC-SHA1',
-  null,
+  null
 );
 let usosClient = new OAuth1Strategy(
   {
@@ -49,7 +49,13 @@ let usosClient = new OAuth1Strategy(
         async function (err, user) {
           if (err) return cb(err);
           if (user) {
-            if (user.isActive === false) {
+            if (user.firstLogin === true) {
+              await user.update({
+                firstLogin: false,
+              });
+              user.save();
+              return cb(null, user);
+            } else if (user.isActive === false) {
               await user.update({
                 isActive: true,
               });
@@ -94,10 +100,10 @@ let usosClient = new OAuth1Strategy(
 
             transporter.sendMail(mailOptions);
           }
-        },
+        }
       );
     });
-  },
+  }
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
@@ -116,7 +122,7 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
       } catch (e) {
         return cb(e);
       }
-    },
+    }
   );
 };
 passport.use(usosClient);
@@ -128,32 +134,35 @@ const customFields = {
   passReqToCallback: true,
 };
 
-const verifyCallback = (req, email, password, done) => {
+const verifyCallback = async function (req, email, password, done) {
   let role = req.params.role == undefined ? 'user' : 'admin';
-  console.log(req.path);
-  console.log(role);
-  userModel
-    .findOne({
+  const user = userModel.findOne(
+    {
       email: email,
       isActive: true,
       role: role,
-    })
-    .then(user => {
-      if (!user) {
+    },
+    async function (err, user) {
+      if (err) {
+        console.log(err);
         return done(null, false);
-      }
-
-      const isValid = validPassword(password, user.hash, user.salt);
-
-      if (isValid) {
-        return done(null, user);
       } else {
-        return done(null, false);
+        const isValid = validPassword(password, user.hash, user.salt);
+
+        if (isValid) {
+          if (user.firstLogin === true) {
+            await user.update({
+              firstLogin: false,
+            });
+            user.save();
+            return done(null, user);
+          } else return done(null, user);
+        } else {
+          return done(null, false);
+        }
       }
-    })
-    .catch(err => {
-      done(err);
-    });
+    }
+  );
 };
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
