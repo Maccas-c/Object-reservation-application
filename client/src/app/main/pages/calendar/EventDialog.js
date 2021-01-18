@@ -7,15 +7,15 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { Form, Formik } from 'formik';
+import { closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { getDay, getId } from './utils';
 import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
 import { addReservation } from '../../../../store/actions/calendar';
 
-function EventDialog(props) {
+function EventDialog() {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
 	const courts = useSelector(({ courtReducer }) => courtReducer.court);
@@ -23,21 +23,8 @@ function EventDialog(props) {
 	const defaultCourt = useSelector(({ courtReducer }) => courtReducer.defaultCourt);
 	const freeTimes = useSelector(({ courtReducer }) => courtReducer.freeTimes);
 
-	const [selectedTime, setSelectedTime] = useState(null);
-
-	useEffect(() => {}, []);
-
 	function closeComposeDialog() {
 		return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
-	}
-
-	if (freeTimes && !selectedTime) {
-		const timesHelper = freeTimes.reverse();
-		timesHelper.forEach(time => {
-			if (time.free) {
-				setSelectedTime(time.durationTime);
-			}
-		});
 	}
 
 	const id = getId(courts, defaultCourt);
@@ -63,9 +50,9 @@ function EventDialog(props) {
 
 			<Formik
 				enableReinitialize
-				initialValues={{ courtId: defaultCourt, time: selectedTime }}
-				onSubmit={(values, actions) => {
-					dispatch(addReservation(values.time, id, userId, eventDialog.data.start));
+				initialValues={{ courtId: defaultCourt }}
+				onSubmit={values => {
+					dispatch(addReservation(values.durationTime, id, userId, eventDialog.data.start));
 					dispatch(closeNewEventDialog());
 				}}
 				render={({ handleSubmit, handleChange, handleBlur, values }) => (
@@ -107,29 +94,30 @@ function EventDialog(props) {
 							</TextField>
 							<TextField
 								className="mt-8 mb-16"
-								id="court"
-								label="Wolne godziny"
+								id="durationTime"
 								select
-								name="court"
-								value={values.time || ''}
-								onChange={({ target }) => {
-									setSelectedTime(target.value);
-								}}
+								label="Wolne godziny"
+								name="durationTime"
+								onBlur={handleBlur}
+								required
+								value={values.durationTime || ''}
+								isClearable
+								onChange={handleChange}
 								rows={5}
 								variant="outlined"
 								disabled={eventDialog.type !== 'new'}
 								fullWidth
 							>
-								{freeTimes.map(time => {
-									if (time.free) {
-										return (
-											<MenuItem key={time.durationTime} value={time.durationTime}>
-												{time.durationTime}
-											</MenuItem>
-										);
-									}
-									return null;
-								})}
+								{freeTimes &&
+									freeTimes.map(item => {
+										if (item.free)
+											return (
+												<MenuItem key={item.durationTime} value={item.durationTime}>
+													{item.durationTime}
+												</MenuItem>
+											);
+										return null;
+									})}
 							</TextField>
 							<TextField
 								className="mt-8 mb-16"
@@ -137,7 +125,7 @@ function EventDialog(props) {
 								label="Dodatkowe informacje"
 								type="text"
 								name="desc"
-								value={''}
+								value=""
 								onChange={handleChange}
 								multiline
 								rows={5}
