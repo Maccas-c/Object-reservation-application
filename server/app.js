@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const mongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 require('dotenv').config();
-require('./config/passport');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const reservationRouter = require('./routes/reservations');
@@ -27,7 +27,7 @@ const cors = require('cors');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
-
+require('./config/passport');
 const swaggerOptions = {
   swaggerDefinition: {
     components: {},
@@ -56,14 +56,14 @@ app.use(
     methods: 'GET,PUT,PATCH,DELETE,POST',
     origin: ['http://localhost:3000', 'http://localhost:3002'],
     exposedHeaders: 'Content-Range',
-  }),
+  })
 );
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: false,
-  }),
+  })
 );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -82,7 +82,7 @@ app.use(
     dbName: 'DevelopTeam',
     resave: false,
     saveUninitialized: false,
-  }),
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());

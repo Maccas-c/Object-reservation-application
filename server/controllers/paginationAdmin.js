@@ -30,7 +30,7 @@ module.exports.rangeReservations = async function (req, res, next) {
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
-          JSON.stringify(reservations).split('"_id":').join('"id":'),
+          JSON.stringify(reservations).split('"_id":').join('"id":')
         );
 
         const path = req.path.slice(11);
@@ -55,7 +55,7 @@ module.exports.rangeReservations = async function (req, res, next) {
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
-          JSON.stringify(reservations).split('"_id":').join('"id":'),
+          JSON.stringify(reservations).split('"_id":').join('"id":')
         );
         const path = req.path.slice(11);
         const header = `${path} 0-${reservationFixed.length}/${reservationFixed.length}`;
@@ -76,7 +76,7 @@ module.exports.rangeReservations = async function (req, res, next) {
           .sort({ [keyForSort]: valueForSort });
 
         const reservationFixed = JSON.parse(
-          JSON.stringify(reservations).split('"_id":').join('"id":'),
+          JSON.stringify(reservations).split('"_id":').join('"id":')
         );
         const path = req.path.slice(11);
         const header = `${path} 0-${reservationFixed.length}/${reservationFixed.length}`;
@@ -107,7 +107,7 @@ module.exports.rangeUsers = async function (req, res, next) {
         .find(filter)
         .sort({ [key]: value });
       const usersFixed = JSON.parse(
-        JSON.stringify(usersDocuments).split('"_id":').join('"id":'),
+        JSON.stringify(usersDocuments).split('"_id":').join('"id":')
       );
       const path = req.path.slice(11);
       const header = `${path} 0-${usersFixed.length}/${usersFixed.length}`;
@@ -122,4 +122,19 @@ module.exports.rangeUsers = async function (req, res, next) {
   } else {
     res.status(404).end('no filter and sort');
   }
+};
+
+module.exports.rangeCourts = async function (req, res, next) {
+  const courtLength = (await courtModel.find()).length;
+  const path = req.path.slice(11);
+  const header = `${path} 0-${courtLength}/${courtLength}`;
+  res.header('Content-Range', header);
+  next();
+};
+module.exports.rangeCourtsTariff = async function (req, res, next) {
+  const TariffLength = (await courtsTariff.find()).length;
+  const path = req.path.slice(11);
+  const header = `${path} 0-${TariffLength}/${TariffLength}`;
+  res.header('Content-Range', header);
+  next();
 };
