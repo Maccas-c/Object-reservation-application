@@ -45,7 +45,7 @@ module.exports.returnListToSave = async function (req, res, next) {
     const dayString = year + '-' + month + '-' + day;
     console.log('jestem przed findone');
     let reserv = await reservationModel.findOne(
-      { start: start },
+      { start: start.toDate() },
       async function (err, obj) {
         console.log('jestem we funkcji');
         if (err) {
@@ -75,11 +75,9 @@ module.exports.returnListToSave = async function (req, res, next) {
           console.log('dodaje do saveToBase');
           saveToBase.push({
             title: titleDate,
-            start: moment(req.body.reservations.start).add(1, 'hours'),
+            start: moment(item.start).add(1, 'hours'),
             dayString: dayString,
-            end: moment(req.body.start)
-              .add(1, 'hours')
-              .add(req.body.reservations.duration, 'm'),
+            end: moment(item.start).add(1, 'hours').add(item.duration, 'm'),
             courtId: item.courtId,
             userId: req.body.userId,
           });
