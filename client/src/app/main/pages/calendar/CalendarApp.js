@@ -230,10 +230,10 @@ function CalendarApp(props) {
 					aria-label="add"
 					className={classes.addButton}
 					onClick={() => {
+						dispatch(setDialogCourt(courts, getDay(new Date())));
 						dispatch(
 							openNewEventDialog({
-								start: new Date(),
-								end: new Date()
+								start: new Date()
 							})
 						);
 					}}

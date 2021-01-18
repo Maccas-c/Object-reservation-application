@@ -16,6 +16,15 @@ import { useConstructor } from '../../../../utils/customHooks';
 import { fetchCourt } from '../../../../store/actions/courts';
 import { getDay } from './utils/utils';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+	palette: {
+		secondary: {
+			main: '#7690a8'
+		}
+	}
+});
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -114,11 +123,11 @@ function Home({ history }, props) {
 										className="flex flex-col flex-auto items-center justify-center"
 									>
 										<Typography
-											className="text-center text-13 font-700"
+											className="text-center text-13 font-500"
 											color="textSecondary"
 											style={{ paddingTop: '15px' }}
 										>
-											Dostępność:
+											Sektor jest możliwy do rozerwacji w dniach:
 										</Typography>
 										<CardContent
 											style={{ flexWrap: 'wrap', paddingLeft: 0, paddingRight: 0 }}
@@ -126,19 +135,22 @@ function Home({ history }, props) {
 										>
 											{date.map(({ _id: id, nameOfDay, value }) => {
 												return (
-													<span
-														key={id}
-														className="text-center text-13 font-600 mt-4"
-														color="textSecondary"
-														style={{ height: 'auto', padding: '5' }}
-													>
-														{`${getDay(nameOfDay)}`}{' '}
+													<div>
+														<span
+															key={id}
+															className="text-center text-13 font-500"
+															color="textSecondary"
+															style={{ padding: '4' }}
+														>
+															{`${getDay(nameOfDay)}`}
+															{}
+														</span>
 														{value ? (
-															<Icon className="text-green text-20">check_circle</Icon>
+															<Icon className="text-green text-15">check_circle</Icon>
 														) : (
-															<Icon className="text-red text-20">remove_circle</Icon>
+															<Icon className="text-red text-15">remove_circle</Icon>
 														)}
-													</span>
+													</div>
 												);
 											})}
 										</CardContent>
@@ -149,13 +161,14 @@ function Home({ history }, props) {
 											onClick={() => {
 												handleSetCourt();
 											}}
-											className="justify-start px-30"
-											color="#192D3E"
+											color="#42698c"
 										>
-											Rezerwuj
+											Przejdź do kalendarza
 										</Button>
 									</CardActions>
-									<LinearProgress className="w-full" variant="determinate" color="primary" />
+									<MuiThemeProvider theme={theme}>
+										<LinearProgress className="w-full" variant="determinate" />
+									</MuiThemeProvider>
 								</Card>
 							</div>
 						);
