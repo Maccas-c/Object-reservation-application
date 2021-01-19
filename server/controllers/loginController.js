@@ -10,6 +10,7 @@ module.exports.login = function (req, res) {
       createDate: req.user.createDate,
       isStudent: req.user.isStudent,
       firstLogin: req.user.firstLogin,
+      reservations: req.user.reservations,
     });
   } else {
     res.status(404).end();
