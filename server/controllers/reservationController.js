@@ -1,5 +1,5 @@
 const { Double } = require('mongodb');
-const { db } = require('../models/reservationModel');
+const { db, insertMany } = require('../models/reservationModel');
 const reservationModel = require('../models/reservationModel');
 const userModel = require('./../models/userModel');
 const courtsTariff = require('../models/tariffModel');
@@ -184,6 +184,12 @@ module.exports.reservationAddBasket = async function (req, res) {
 
           const userParsed = JSON.parse(JSON.stringify(user));
 
+          let sumPrice = 0;
+          userParsed.reservations.forEach(item => {
+            console.log(item.price);
+            sumPrice += parseInt(item.price);
+          });
+
           const tariffdoc = await courtsTariff.find({
             nameCourt: req.body.nameCourt,
           });
@@ -193,6 +199,8 @@ module.exports.reservationAddBasket = async function (req, res) {
           const price = userParsed.isStudent
             ? tariffdocParsed[0].classes_and_sports_training * 0.5
             : tariffdocParsed[0].classes_and_sports_training;
+
+          sumPrice = parseInt(sumPrice) + parseInt(price);
 
           const userUpdate = await userModel.findOneAndUpdate(
             {
@@ -211,8 +219,9 @@ module.exports.reservationAddBasket = async function (req, res) {
                   courtId: req.body.courtId,
                   nameCourt: req.body.nameCourt,
                   userId: req.body.userId,
-                  isPaid: 'false',
+                  isPaid: false,
                   price: price,
+                  sumPrice: sumPrice,
                 },
               },
             },

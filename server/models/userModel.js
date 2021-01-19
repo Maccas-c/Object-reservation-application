@@ -35,7 +35,20 @@ const userModel = mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  reservations: [{}],
+  reservations: [
+    {
+      title: String,
+      start: Date,
+      dayString: String,
+      end: Date,
+      courtId: String,
+      nameCourt: String,
+      userId: String,
+      isPaid: Boolean,
+      price: Number,
+      sumPrice: Number,
+    },
+  ],
 });
 
 module.exports = mongoose.model('userModel', userModel);

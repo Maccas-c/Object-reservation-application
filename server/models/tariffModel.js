@@ -10,6 +10,10 @@ const courtsTariff = mongoose.Schema({
     type: String,
     required: true,
   },
+  nameCourt: {
+    type: String,
+    required: true,
+  },
   classes_and_sports_training: {
     type: String,
     required: true,
