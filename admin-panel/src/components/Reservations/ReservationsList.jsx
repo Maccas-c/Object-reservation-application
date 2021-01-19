@@ -77,7 +77,7 @@ class ReservationsList extends React.Component {
       <>
         <List actions={<ListActions />} filters={<FilterReservation />} title={'Rezerwacje'} {...props}>
           <Datagrid size={'medium'}>
-            <TextField label={'Data'} source={'start'} />
+            <TextField label={'Data'} source={'dayString'} />
             <TextField label={'Godzina'} source={'title'} />
             <TextField label={'Strefa boiska'} source={'courtId.nameCourt'} />
             <TextField label={'Imię'} source={'userId.name'} />
