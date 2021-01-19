@@ -78,6 +78,7 @@ module.exports.returnListToSave = async function (req, res, next) {
     },
     {
       reservations: [],
+      sumPrice: 0,
     },
   );
 

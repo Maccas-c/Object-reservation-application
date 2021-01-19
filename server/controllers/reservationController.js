@@ -221,8 +221,10 @@ module.exports.reservationAddBasket = async function (req, res) {
                   userId: req.body.userId,
                   isPaid: false,
                   price: price,
-                  sumPrice: sumPrice,
                 },
+              },
+              $set: {
+                sumPrice: sumPrice,
               },
             },
             { new: true },

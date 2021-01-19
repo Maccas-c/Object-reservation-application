@@ -35,6 +35,9 @@ const userModel = mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  sumPrice: {
+    type: Number,
+  },
   reservations: [
     {
       title: String,
@@ -46,7 +49,6 @@ const userModel = mongoose.Schema({
       userId: String,
       isPaid: Boolean,
       price: Number,
-      sumPrice: Number,
     },
   ],
 });
