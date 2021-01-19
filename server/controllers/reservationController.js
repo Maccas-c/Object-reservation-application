@@ -161,6 +161,7 @@ module.exports.reservationsGetByDate = async function (req, res) {
 };
 
 module.exports.reservationAddBasket = async function (req, res) {
+  let isStudent = false;
   const isExist = reservationModel.findOne(
     {
       start: moment(req.body.start).add(1, 'hours'),
@@ -179,6 +180,20 @@ module.exports.reservationAddBasket = async function (req, res) {
         let month = start.format('MM');
         const dayString = year + '-' + month + '-' + day;
         try {
+          const user = await userModel.findById(req.body.userId);
+
+          const userParsed = JSON.parse(JSON.stringify(user));
+
+          const tariffdoc = await courtsTariff.find({
+            nameCourt: req.body.nameCourt,
+          });
+
+          const tariffdocParsed = JSON.parse(JSON.stringify(tariffdoc));
+
+          const price = userParsed.isStudent
+            ? tariffdocParsed[0].classes_and_sports_training * 0.5
+            : tariffdocParsed[0].classes_and_sports_training;
+
           const userUpdate = await userModel.findOneAndUpdate(
             {
               _id: req.body.userId,
@@ -197,6 +212,7 @@ module.exports.reservationAddBasket = async function (req, res) {
                   nameCourt: req.body.nameCourt,
                   userId: req.body.userId,
                   isPaid: 'false',
+                  price: price,
                 },
               },
             },
