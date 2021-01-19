@@ -40,6 +40,11 @@ const reservationModel = mongoose.Schema({
   orderId: {
     type: String,
   },
+  email_sent: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('reservationModel', reservationModel);

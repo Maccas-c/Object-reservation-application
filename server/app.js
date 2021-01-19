@@ -26,8 +26,10 @@ const crypto = require('crypto');
 const cors = require('cors');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const { task } = require('./lib/cronEmail');
 const app = express();
 
+//task();
 const swaggerOptions = {
   swaggerDefinition: {
     components: {},
