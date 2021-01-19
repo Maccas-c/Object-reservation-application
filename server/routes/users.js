@@ -21,10 +21,10 @@ router.post(
       .notEmpty()
       .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)
       .withMessage(
-        'Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long'
+        'Password should be combination of one uppercase , one lower case, one digit and min 6 , max 20 char long',
       ),
   ],
-  userController.userCreate
+  userController.userCreate,
 );
 
 // router.patch(
@@ -50,16 +50,16 @@ router.patch(
       .optional(),
     check('nip')
       .matches(
-        /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/
+        /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/,
       )
       .optional(),
   ],
   isAuth,
   checkUser,
   checkEmail,
-  userController.userUpdate
+  userController.userUpdate,
 );
 
-router.get('/api/user/:userId', isAuth, userController.userGet);
+router.get('/api/user/reservations/:userId', userController.userGet);
 
 module.exports = router;
