@@ -66,6 +66,7 @@ module.exports.returnListToSave = async function (req, res, next) {
             end: moment(item.start).add(1, 'hours').add(item.duration, 'm'),
             courtId: item.courtId,
             userId: req.user._id,
+            price: item.price,
           });
         }
       },

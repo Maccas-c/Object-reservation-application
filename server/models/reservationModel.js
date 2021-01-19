@@ -45,6 +45,9 @@ const reservationModel = mongoose.Schema({
     default: false,
     required: true,
   },
+  price: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('reservationModel', reservationModel);
