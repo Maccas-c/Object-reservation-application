@@ -179,7 +179,7 @@ module.exports.reservationAddBasket = async function (req, res) {
         let month = start.format('MM');
         const dayString = year + '-' + month + '-' + day;
         try {
-          const userUpdate = await userModel.updateOne(
+          const userUpdate = await userModel.findOneAndUpdate(
             {
               _id: req.body.userId,
             },
@@ -194,15 +194,17 @@ module.exports.reservationAddBasket = async function (req, res) {
                     .add(req.body.duration, 'm')
                     .toDate(),
                   courtId: req.body.courtId,
+                  nameCourt: req.body.nameCourt,
                   userId: req.body.userId,
                   isPaid: 'false',
                 },
               },
             },
+            { new: true },
           );
 
-          const result = [{ msg: 'Pomyślnie dodano rezerwacje' }];
-          res.status(201).json(result);
+          // const result = [{ msg: 'Pomyślnie dodano rezerwacje' }];
+          res.status(201).json(userUpdate);
         } catch (err) {
           console.log(err);
           res.status(400).json(err);
