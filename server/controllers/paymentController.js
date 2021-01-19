@@ -34,7 +34,7 @@ module.exports.returnListToSave = async function (req, res, next) {
   let saveToBase = [];
   let iterator = 0;
   let ifPass = true;
-  const user = userModel.findOne({ _id: req.body.userId });
+  const user = userModel.findOne({ _id: req.user._id });
   for (const item of reservations) {
     console.log('middleware1 - tu powinienem byc 1');
     let start = moment(item.start);
@@ -65,7 +65,7 @@ module.exports.returnListToSave = async function (req, res, next) {
             dayString: dayString,
             end: moment(item.start).add(1, 'hours').add(item.duration, 'm'),
             courtId: item.courtId,
-            userId: req.body.userId,
+            userId: req.user._id,
           });
         }
       },
@@ -74,7 +74,7 @@ module.exports.returnListToSave = async function (req, res, next) {
 
   await userModel.update(
     {
-      _id: req.body.userId,
+      _id: req.user._id,
     },
     {
       reservations: [],
@@ -113,21 +113,21 @@ module.exports.createPayments = async function (req, res) {
         totalAmount: req.body.price,
         continueUrl: 'https://devcourt.projektstudencki.pl/',
         buyer: {
-          email: req.body.email,
-          phone: '+48 ' + req.body.phone,
-          firstName: req.body.name,
-          lastName: req.body.surname,
+          email: req.user.email,
+          phone: '+48 ' + req.user.phone,
+          firstName: req.user.name,
+          lastName: req.user.surname,
           language: 'pl',
           delivery: {
-            postalCode: req.body.adress_postalCode,
-            city: req.body.adress_city,
-            street: req.body.adress_street,
+            postalCode: req.user.adress_postalCode,
+            city: req.user.adress_city,
+            street: req.user.adress_street,
             countryCode: 'PL',
           },
         },
         products: [
           {
-            name: req.body._id,
+            name: req.user._id,
             unitPrice: req.body.price,
             quantity: '1',
           },
