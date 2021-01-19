@@ -3,13 +3,12 @@ import Icon from '@material-ui/core/Icon';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 
 function BasketHeader() {
-	const dispatch = useDispatch();
 	const mainTheme = useSelector(selectMainTheme);
-
+	const price = useSelector(({ auth: { user } }) => user.sumPrice);
 	return (
 		<div className="flex flex-1 w-full items-center justify-between">
 			<div className="flex items-center">
@@ -26,7 +25,7 @@ function BasketHeader() {
 							color="inherit"
 							className="text-xl mt-8 sm:mt-1 mx-auto max-w-512"
 						>
-							<span className="opacity-75">Do zapłaty: 999pln</span>
+							<span className="opacity-75">Do zapłaty: {price} zł</span>
 						</Typography>
 					</FuseAnimate>
 				</ThemeProvider>

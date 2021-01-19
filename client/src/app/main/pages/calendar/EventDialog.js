@@ -13,7 +13,7 @@ import { Form, Formik } from 'formik';
 import { closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { getDay, getId } from './utils';
 import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
-import { addReservation } from '../../../../store/actions/calendar';
+import { addToBasket } from '../../../../store/actions/calendar';
 
 function EventDialog() {
 	const dispatch = useDispatch();
@@ -53,7 +53,7 @@ function EventDialog() {
 				enableReinitialize
 				initialValues={{ courtId: defaultCourt }}
 				onSubmit={values => {
-					dispatch(addReservation(values.durationTime, id, userId, eventDialog.data.start));
+					dispatch(addToBasket(values.durationTime, id, userId, eventDialog.data.start, defaultCourt));
 					dispatch(closeNewEventDialog());
 				}}
 				render={({ handleSubmit, handleChange, handleBlur, values }) => (

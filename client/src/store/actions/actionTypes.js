@@ -5,3 +5,4 @@ export const SET_COURT = 'SET_COURT';
 export const SET_COURT_SELECT = 'SET_COURT_SELECT';
 export const SET_DIALOG_COURT = 'SET_DIALOG_COURT';
 export const SET_FREE_TIMES = 'SET_FREE_TIMES';
+export const SET_PAYU_LINK = 'SET_PAYU_LINK';

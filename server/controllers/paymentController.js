@@ -47,8 +47,8 @@ module.exports.returnListToSave = async function (req, res, next) {
     const dayString = year + '-' + month + '-' + day;
     let reserv = await reservationModel.find(
       {
-        dayString: dayString,
-        title: titleDate,
+        dayString: item.dayString,
+        title: item.title,
         courtId: item.courtId,
       },
       async function (err, obj) {
@@ -60,12 +60,12 @@ module.exports.returnListToSave = async function (req, res, next) {
         } else {
           iterator = iterator + 1;
           saveToBase.push({
-            title: titleDate,
-            start: moment(item.start).add(1, 'hours'),
-            dayString: dayString,
-            end: moment(item.start).add(1, 'hours').add(item.duration, 'm'),
+            title: item.title,
+            start: item.start,
+            dayString: item.dayString,
+            end: item.end,
             courtId: item.courtId,
-            userId: req.user._id,
+            userId: item.userId,
             price: item.price,
           });
         }
@@ -112,7 +112,7 @@ module.exports.createPayments = async function (req, res) {
         description: 'DEV',
         currencyCode: 'PLN',
         totalAmount: req.body.price,
-        continueUrl: 'https://devcourt.projektstudencki.pl/',
+        continueUrl: 'http://devcourt.projektstudencki.pl/',
         buyer: {
           email: req.user.email,
           phone: '+48 ' + req.user.phone,

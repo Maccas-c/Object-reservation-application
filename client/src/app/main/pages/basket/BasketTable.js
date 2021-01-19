@@ -6,37 +6,36 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FuseAnimate from '@fuse/core/FuseAnimate/FuseAnimate';
 import { Button } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import BasketTableHead from './BasketTableHead';
+import PayConfirm from '../payConfirm/payConfirm';
+import { getPayuToken } from '../../../../store/actions/payment';
 
-function BasketTable(props) {
+function BasketTable() {
 	const dispatch = useDispatch();
-	const [loading, setLoading] = useState(true);
-	const [selected, setSelected] = useState([]);
-	const [data, setData] = useState([]);
-	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(10);
-	const [order, setOrder] = useState({
-		direction: 'asc',
-		id: null
-	});
+	const [open, setOpen] = useState(false);
+	const price = useSelector(({ auth: { user } }) => user.sumPrice);
+	const userName = useSelector(({ auth: { user } }) => user.name);
+	const basketUser = useSelector(
+		({
+			auth: {
+				user: { reservations }
+			}
+		}) => reservations
+	);
+	const handleOpenDialog = () => {
+		setOpen(true);
+		dispatch(getPayuToken(userName, basketUser, price));
+	};
 
-	function handleClick(item) {
-		props.history.push(`/apps/e-commerce/products/${item.id}/${item.handle}`);
-	}
-
-	function handleChangePage(event, value) {
-		setPage(value);
-	}
-
-	function handleChangeRowsPerPage(event) {
-		setRowsPerPage(event.target.value);
-	}
-
-	if (!data.length === 0) {
+	const handleCloseDialog = () => {
+		setOpen(false);
+	};
+	if (basketUser.length === 0) {
 		return (
 			<FuseAnimate delay={100}>
 				<div className="flex flex-1 items-center justify-center h-full">
@@ -52,71 +51,48 @@ function BasketTable(props) {
 		<div className="w-full flex flex-col">
 			<FuseScrollbars className="flex-grow overflow-x-auto">
 				<Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
-					<BasketTableHead selectedProductIds={selected} order={order} rowCount={data.length} />
-
+					<BasketTableHead />
 					<TableBody>
-						{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							.map(n => {
-								return (
-									<TableRow
-										className="h-64 cursor-pointer"
-										hover
-										role="checkbox"
-										tabIndex={-1}
-										key={n.id}
-										// onClick={event => handleClick(n)}
-									>
-										<TableCell
-											className="w-52 px-4 md:px-0"
-											component="th"
-											scope="row"
-											padding="none"
-										>
-											{/* {n.images.length > 0 && n.featuredImageId ? ( */}
-											{/*	<img */}
-											{/*		className="w-full block rounded" */}
-											{/*		src={_.find(n.images, { id: n.featuredImageId }).url} */}
-											{/*		alt={n.name} */}
-											{/*	/> */}
-											{/* ) : ( */}
-											{/*	<img */}
-											{/*		className="w-full block rounded" */}
-											{/*		src="assets/images/ecommerce/product-image-placeholder.png" */}
-											{/*		alt={n.name} */}
-											{/*	/> */}
-											{/* )} */}
-										</TableCell>
+						{basketUser.map(({ dayString, end, title, nameCourt, price }, index) => {
+							return (
+								<TableRow className="h-64" hover tabIndex={-1} key={index}>
+									<TableCell className="p-4 md:p-16" component="th" scope="row">
+										{dayString}
+									</TableCell>
 
-										<TableCell className="p-4 md:p-16" component="th" scope="row">
-											n.name
-										</TableCell>
+									<TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
+										{title}
+									</TableCell>
 
-										<TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
-											{('n.categories.join(', ')')}
-										</TableCell>
+									<TableCell className="p-4 md:p-16" component="th" scope="row">
+										{price} <span>zł</span>
+									</TableCell>
 
-										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-											<span>$</span>
-											n.priceTaxIncl
-										</TableCell>
+									<TableCell className="p-4 md:p-16" component="th" scope="row">
+										{nameCourt}
+									</TableCell>
 
-										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-											n.quantity
-										</TableCell>
-
-										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
+									<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
+										<IconButton>
 											<Icon className="text-red text-20">delete</Icon>
-										</TableCell>
-									</TableRow>
-								);
-							})}
+										</IconButton>
+									</TableCell>
+								</TableRow>
+							);
+						})}
 					</TableBody>
 				</Table>
 			</FuseScrollbars>
-			<Button color="success" variant="contained">
+			<Button
+				onClick={() => {
+					handleOpenDialog();
+				}}
+				color="inherit"
+				variant="contained"
+			>
 				Zapłać
 			</Button>
+			<PayConfirm price={price} reservations={basketUser} open={open} handleClose={handleCloseDialog} />
 		</div>
 	);
 }
