@@ -1,6 +1,8 @@
 const { json } = require('express');
 const request = require('request');
 const userModel = require('../models/userModel');
+const reservationModel = require('../models/reservationModel');
+const moment = require('moment');
 
 module.exports.getPayToken = async function (req, res) {
   request(
@@ -27,9 +29,72 @@ module.exports.getPayToken = async function (req, res) {
   );
 };
 
-module.exports.createPayments = function (req, res) {
-  //let jsonBody1 = JSON.parse(req);
-  console.log('lol' + req.body.price);
+module.exports.returnListToSave = async function (req, res, next) {
+  const reservations = req.body.reservations;
+  let saveToBase = [];
+  let iterator = 0;
+  let ifPass = true;
+  const user = userModel.findOne({ _id: req.body.userId });
+  for (const item of reservations) {
+    console.log('middleware1 - tu powinienem byc 1');
+    let start = moment(item.start);
+
+    let titleDate = start.format('HH:mm');
+
+    let day = start.format('DD');
+    let year = start.format('YYYY');
+    let month = start.format('MM');
+    const dayString = year + '-' + month + '-' + day;
+    let reserv = await reservationModel.find(
+      {
+        dayString: dayString,
+        title: titleDate,
+        courtId: item.courtId,
+      },
+      async function (err, obj) {
+        if (err) {
+          ifPass = false;
+        }
+        if (obj.length > 0) {
+          ifPass = false;
+        } else {
+          iterator = iterator + 1;
+          saveToBase.push({
+            title: titleDate,
+            start: moment(item.start).add(1, 'hours'),
+            dayString: dayString,
+            end: moment(item.start).add(1, 'hours').add(item.duration, 'm'),
+            courtId: item.courtId,
+            userId: req.body.userId,
+          });
+        }
+      },
+    );
+  }
+
+  await userModel.update(
+    {
+      _id: req.body.userId,
+    },
+    {
+      reservations: [],
+    },
+  );
+
+  if (ifPass == true && iterator == reservations.length) {
+    console.log('middleware1 - tu powinienem byc 2');
+    res.locals.saveToBase = saveToBase;
+    next();
+  } else return res.status(422).send('godzina zajeta');
+};
+
+module.exports.saveToBase = async function (req, res, next) {
+  console.log('middleware2 - zapis do bazy');
+  await reservationModel.insertMany(res.locals.saveToBase);
+  next();
+};
+
+module.exports.createPayments = async function (req, res) {
   request(
     {
       method: 'POST',
@@ -69,9 +134,9 @@ module.exports.createPayments = function (req, res) {
       }),
     },
     function (error, response, body) {
-      console.log(error);
-      console.log('respone' + response);
-      console.log('body', body);
+      // console.log(error);
+      // console.log('respone' + response);
+      // console.log('body', body);
       let jsonBody = JSON.parse(body);
       if (jsonBody.status.statusCode == 'SUCCESS') {
         return res.status(200).send(body);
@@ -88,21 +153,28 @@ module.exports.createPayments = function (req, res) {
 module.exports.notify = async function (req, res) {
   console.log(req.body.order);
   if (req.body.order.status == 'COMPLETED') {
-    const user = await userModel.findOneAndUpdate(
-      { _id: req.body.order.products[0].name },
+    await reservationModel.updateMany(
+      {
+        userId: req.body.order.products[0].name,
+        orderId: { $exists: false },
+        paid: false,
+      },
       {
         $set: {
-          reservations: [],
+          paid: true,
+          orderId: req.body.order.orderId,
         },
       },
-      {
-        useFindAndModify: false,
-        new: true,
-      },
     );
-    console.log('user', user);
-    res.status(200);
   }
+  if (req.body.order.status == 'CANCELED') {
+    await reservationModel.deleteMany({
+      userId: req.body.order.products[0].name,
+      orderId: { $exists: false },
+      paid: false,
+    });
+  }
+  res.status(200);
 };
 
 module.exports.getOrderInfo = function (req, res) {

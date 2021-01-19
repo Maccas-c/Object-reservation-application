@@ -10,7 +10,12 @@ const { nextTick } = require('process');
 let bodyObject = {};
 router.post('/api/getToken', paymentController.getPayToken);
 
-router.post('/api/createPayment', paymentController.createPayments);
+router.post(
+  '/api/createPayment',
+  paymentController.returnListToSave,
+  paymentController.saveToBase,
+  paymentController.createPayments,
+);
 
 router.post('/api/notify', paymentController.notify);
 

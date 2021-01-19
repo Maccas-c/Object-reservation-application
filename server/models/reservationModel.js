@@ -33,5 +33,18 @@ const reservationModel = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  paid: {
+    type: Boolean,
+    default: false,
+  },
+  orderId: {
+    type: String,
+  },
+  email_sent: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
+
 module.exports = mongoose.model('reservationModel', reservationModel);

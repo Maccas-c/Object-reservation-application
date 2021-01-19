@@ -26,8 +26,11 @@ const crypto = require('crypto');
 const cors = require('cors');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const { task } = require('./lib/cronEmail');
 const app = express();
 require('./config/passport');
+
+//task();
 const swaggerOptions = {
   swaggerDefinition: {
     components: {},
@@ -56,14 +59,14 @@ app.use(
     methods: 'GET,PUT,PATCH,DELETE,POST',
     origin: ['http://localhost:3000', 'http://localhost:3002'],
     exposedHeaders: 'Content-Range',
-  })
+  }),
 );
 app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: false,
-  })
+  }),
 );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -82,7 +85,7 @@ app.use(
     dbName: 'DevelopTeam',
     resave: false,
     saveUninitialized: false,
-  })
+  }),
 );
 app.use(passport.initialize());
 app.use(passport.session());
