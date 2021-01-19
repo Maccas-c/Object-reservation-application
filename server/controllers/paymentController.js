@@ -25,7 +25,7 @@ module.exports.getPayToken = async function (req, res) {
       } catch {
         if (error) return res.status(404).json(error);
       }
-    }
+    },
   );
 };
 
@@ -45,8 +45,6 @@ module.exports.returnListToSave = async function (req, res, next) {
     let year = start.format('YYYY');
     let month = start.format('MM');
     const dayString = year + '-' + month + '-' + day;
-    console.log('jestem przed findone');
-    console.log('item', item);
     let reserv = await reservationModel.find(
       {
         dayString: dayString,
@@ -54,33 +52,12 @@ module.exports.returnListToSave = async function (req, res, next) {
         courtId: item.courtId,
       },
       async function (err, obj) {
-        console.log('jestem we funkcji');
         if (err) {
-          console.log('error', err);
-          await userModel.update(
-            {
-              _id: req.body.userId,
-            },
-            {
-              reservations: [],
-            }
-          );
-
           ifPass = false;
         }
         if (obj.length > 0) {
-          console.log('obj', obj);
-          await userModel.update(
-            {
-              _id: req.body.userId,
-            },
-            {
-              reservations: [],
-            }
-          );
           ifPass = false;
         } else {
-          console.log('dodaje do saveToBase');
           iterator = iterator + 1;
           saveToBase.push({
             title: titleDate,
@@ -91,16 +68,21 @@ module.exports.returnListToSave = async function (req, res, next) {
             userId: req.body.userId,
           });
         }
-        console.log(saveToBase);
-      }
+      },
     );
   }
-  console.log('iterator', iterator);
-  console.log('length res', reservations.length);
-  console.log('ifpass', ifpass);
+
+  await userModel.update(
+    {
+      _id: req.body.userId,
+    },
+    {
+      reservations: [],
+    },
+  );
+
   if (ifPass == true && iterator == reservations.length) {
     console.log('middleware1 - tu powinienem byc 2');
-    console.log(saveToBase);
     res.locals.saveToBase = saveToBase;
     next();
   } else return res.status(422).send('godzina zajeta');
@@ -164,22 +146,35 @@ module.exports.createPayments = async function (req, res) {
         return res.status(500).send('Problem with PayU server');
       }
       res.end();
-    }
+    },
   );
 };
 
 module.exports.notify = async function (req, res) {
   console.log(req.body.order);
   if (req.body.order.status == 'COMPLETED') {
-    const user = await userModel.find({ _id: req.body.order.products[0].name });
-
-    const reservation = await reservationModel.find({
-      orderId: req.body.order.products[0].orderId,
-    });
-    user.reservations.forEach((item) => console.log(item));
-    console.log('user', user);
-    res.status(200);
+    await reservationModel.updateMany(
+      {
+        userId: req.body.order.products[0].name,
+        orderId: { $exists: false },
+        paid: false,
+      },
+      {
+        $set: {
+          paid: true,
+          orderId: req.body.order.orderId,
+        },
+      },
+    );
   }
+  if (req.body.order.status == 'CANCELED') {
+    await reservationModel.deleteMany({
+      userId: req.body.order.products[0].name,
+      orderId: { $exists: false },
+      paid: false,
+    });
+  }
+  res.status(200);
 };
 
 module.exports.getOrderInfo = function (req, res) {
@@ -194,6 +189,6 @@ module.exports.getOrderInfo = function (req, res) {
     function (error, response, body) {
       let jsonBody = JSON.parse(body);
       res.status(200).send(jsonBody.status.statusCode);
-    }
+    },
   );
 };
