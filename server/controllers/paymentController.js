@@ -29,6 +29,21 @@ module.exports.getPayToken = async function (req, res) {
   );
 };
 
+module.exports.removeReservation = async function (req, res) {
+  console.log(req.user);
+  userModel.findByIdAndUpdate(
+    req.user._id,
+    { $pull: { reservations: { _id: req.params.reservationId } } },
+    { safe: true, upsert: true, new: true },
+    function (err, node) {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).json(node);
+    },
+  );
+};
+
 module.exports.returnListToSave = async function (req, res, next) {
   const reservations = req.body.reservations;
   let saveToBase = [];

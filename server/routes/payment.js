@@ -16,6 +16,11 @@ router.post(
   paymentController.saveToBase,
   paymentController.createPayments,
 );
+router.delete(
+  '/api/reservationsDelete/:reservationId',
+
+  paymentController.removeReservation,
+);
 
 router.post('/api/notify', paymentController.notify);
 
