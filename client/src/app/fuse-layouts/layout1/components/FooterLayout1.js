@@ -7,6 +7,7 @@ import { selectFooterTheme } from 'app/store/fuse/settingsSlice';
 import RegulationButton from 'app/fuse-layouts/shared-components/regulations/RegulationButton';
 import PurchaseButton from 'app/fuse-layouts/shared-components/PurchaseButton';
 import KnowledgeBaseButton from '../../shared-components/knowLedgeBase/KnowledgeBaseButton';
+import PriceListButton from '../../shared-components/priceList/PriceListButton';
 
 function FooterLayout1() {
 	const footerTheme = useSelector(selectFooterTheme);
@@ -26,6 +27,7 @@ function FooterLayout1() {
 					<PurchaseButton className="mx-4" />
 					<RegulationButton className="mx-4" />
 					<KnowledgeBaseButton className="mx-4" />
+					<PriceListButton className="mx-4" />
 				</Toolbar>
 			</AppBar>
 		</ThemeProvider>

@@ -11,10 +11,17 @@ const setLink = (state, action) => {
 	};
 };
 
+const deleteReservation = state => {
+	return {
+		...state
+	};
+};
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.SET_PAYU_LINK:
 			return setLink(state, action);
+		case actionTypes.DELETE_RESERVATION:
+			return deleteReservation(state);
 		default:
 			return state;
 	}

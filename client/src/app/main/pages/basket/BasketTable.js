@@ -35,6 +35,7 @@ function BasketTable() {
 	const handleCloseDialog = () => {
 		setOpen(false);
 	};
+
 	if (basketUser.length === 0) {
 		return (
 			<FuseAnimate delay={100}>
@@ -53,7 +54,7 @@ function BasketTable() {
 				<Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
 					<BasketTableHead />
 					<TableBody>
-						{basketUser.map(({ dayString, end, title, nameCourt, price }, index) => {
+						{basketUser.map(({ dayString, end, title, nameCourt, price: prices }, index) => {
 							return (
 								<TableRow className="h-64" hover tabIndex={-1} key={index}>
 									<TableCell className="p-4 md:p-16" component="th" scope="row">
@@ -65,7 +66,7 @@ function BasketTable() {
 									</TableCell>
 
 									<TableCell className="p-4 md:p-16" component="th" scope="row">
-										{price} <span>zł</span>
+										{prices} <span>zł</span>
 									</TableCell>
 
 									<TableCell className="p-4 md:p-16" component="th" scope="row">

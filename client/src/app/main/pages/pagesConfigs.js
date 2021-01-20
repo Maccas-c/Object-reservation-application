@@ -6,6 +6,7 @@ import HomeConfig from './home/HomeConfig';
 import KnowledgeBasePageConfig from './knowledgeBase/KnowledgeBaseConfig';
 import InstructionLoaderConfig from './instructionLoader/InstructionLoaderConfig';
 import BasketConfig from './basket/BasketConfig';
+import PriceConfig from './priceList/PriceConfig';
 
 const pagesConfigs = [
 	Error404PageConfig,
@@ -15,7 +16,8 @@ const pagesConfigs = [
 	HomeConfig,
 	KnowledgeBasePageConfig,
 	InstructionLoaderConfig,
-	BasketConfig
+	BasketConfig,
+	PriceConfig
 ];
 
 export default pagesConfigs;
