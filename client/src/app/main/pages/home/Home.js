@@ -52,8 +52,11 @@ function Home({ history }, props) {
 		dispatch(fetchCourt());
 	});
 
-	const handleSetCourt = () => {
+	const handlePushCalendar = () => {
 		history.push('/calendar');
+	};
+	const handlePushPriceList = () => {
+		history.push('/priceList');
 	};
 
 	return (
@@ -158,11 +161,19 @@ function Home({ history }, props) {
 									<CardActions className="justify-center">
 										<Button
 											onClick={() => {
-												handleSetCourt();
+												handlePushPriceList();
 											}}
 											color="#42698c"
 										>
-											Przejdź do kalendarza
+											Cennik
+										</Button>
+										<Button
+											onClick={() => {
+												handlePushCalendar();
+											}}
+											color="#42698c"
+										>
+											Kalendarz
 										</Button>
 									</CardActions>
 									<MuiThemeProvider theme={theme}>
