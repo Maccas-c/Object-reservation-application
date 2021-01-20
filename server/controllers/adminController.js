@@ -2,6 +2,7 @@ const { ObjectId } = require('mongodb');
 const userModel = require('../models/userModel');
 const reservationModel = require('../models/reservationModel');
 const courtModel = require('../models/courtModel');
+const courtsTariff = require('./../models/tariffModel');
 const { validationResult } = require('express-validator');
 const queryString = require('query-string');
 const moment = require('moment');
@@ -23,7 +24,7 @@ module.exports.userGet = async function (req, res) {
   try {
     const getUser = await userModel.findById(req.params.userId);
     const userFixed = JSON.parse(
-      JSON.stringify(getUser).split('"_id":').join('"id":')
+      JSON.stringify(getUser).split('"_id":').join('"id":'),
     );
     res.status(200).json(userFixed);
   } catch (err) {
@@ -41,7 +42,7 @@ module.exports.userDelete = async function (req, res) {
         $set: {
           isActive: req.body.isActive,
         },
-      }
+      },
     );
     res.status(200).json(updatedUser);
   } catch (err) {
@@ -60,7 +61,7 @@ module.exports.userUpdate = async function (req, res) {
       {
         _id: ObjectId(req.body._id),
       },
-      req.body
+      req.body,
     );
     res.status(200).json(updatedUser);
   } catch (err) {
@@ -88,7 +89,7 @@ module.exports.reservationsDelete = async function (req, res) {
     });
 
     const reservationFixed = JSON.parse(
-      JSON.stringify(reservation).split('"_id":').join('"id":')
+      JSON.stringify(reservation).split('"_id":').join('"id":'),
     );
     res.status(200).json(reservation);
   } catch (err) {
@@ -144,7 +145,7 @@ module.exports.reservationCreate = async function (req, res) {
           res.status(400).json(err);
         }
       }
-    }
+    },
   );
 };
 module.exports.reservationsEdit = async function (req, res) {
@@ -162,7 +163,7 @@ module.exports.reservationsEdit = async function (req, res) {
           vat: req.body.vat,
           isServedVat: req.body.isServedVat,
         },
-      }
+      },
     );
     res.status(200).send(resposneData);
   } catch (err) {
@@ -175,7 +176,7 @@ module.exports.reservationGet = async function (req, res) {
       .findById(req.params.id)
       .populate('userId');
     const reservationFixed = JSON.parse(
-      JSON.stringify(reservation).split('"_id":').join('"id":')
+      JSON.stringify(reservation).split('"_id":').join('"id":'),
     );
     res.status(200).json(reservationFixed);
   } catch (err) {
@@ -189,7 +190,7 @@ module.exports.courtsGet = async function (req, res) {
   try {
     const courts = await courtModel.find();
     let courtsFixed = JSON.parse(
-      JSON.stringify(courts).split('"_id":').join('"id":')
+      JSON.stringify(courts).split('"_id":').join('"id":'),
     );
     res.status(200).json(courtsFixed);
   } catch (err) {
@@ -220,7 +221,7 @@ module.exports.courtsCreate = async function (req, res) {
           res.status(400).json(err);
         }
       }
-    }
+    },
   );
 };
 
@@ -245,14 +246,14 @@ module.exports.courtsUpdate = async function (req, res) {
           ids: req.body.id,
           nameCourt: req.body.nameCourt,
           description: req.body.description,
-          date: req.body.date.map((date) => {
+          date: req.body.date.map(date => {
             return {
               nameOfDay: date.nameOfDay,
               value: date.value,
             };
           }),
         },
-      }
+      },
     );
     res.status(200).json(updatedCourt);
   } catch (err) {
@@ -289,10 +290,12 @@ module.exports.tariffsGet = async function (req, res) {
   try {
     const tariff = await courtsTariff.find();
     const tariffFixed = JSON.parse(
-      JSON.stringify(tariff).split('"_id":').join('"id":')
+      JSON.stringify(tariff).split('"_id":').join('"id":'),
     );
+    console.log(tariffFixed);
     res.status(200).json(tariffFixed);
   } catch (err) {
+    console.log(err);
     res.status(404).json(err);
   }
 };
@@ -300,7 +303,7 @@ module.exports.tariffGet = async function (req, res) {
   try {
     const tariff = await courtsTariff.findById(req.params.id);
     const tariffFixed = JSON.parse(
-      JSON.stringify(tariff).split('"_id":').join('"id":')
+      JSON.stringify(tariff).split('"_id":').join('"id":'),
     );
     res.status(200).json(tariffFixed);
   } catch (err) {
@@ -323,7 +326,7 @@ module.exports.tariffUpdate = async function (req, res) {
           tournament_matches: req.body.tournament_matches,
           university_club: req.body.university_club,
         },
-      }
+      },
     );
     res.status(200).send(resposneData);
   } catch (err) {
