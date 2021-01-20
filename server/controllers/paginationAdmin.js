@@ -12,7 +12,7 @@ module.exports.rangeReservations = async function (req, res, next) {
     let response = [];
     const keyForSort = sort[0];
     const valueForSort = keyForSort[1] === 'ASC' ? '1' : '-1';
-    console.log(filter);
+
     if ('name' in filter || 'surname' in filter) {
       try {
         const filterUser = JSON.parse(JSON.stringify(filter));
@@ -42,13 +42,12 @@ module.exports.rangeReservations = async function (req, res, next) {
         res.locals.rangeFilters = rangeFilters;
         next();
       } catch (err) {
-        console.log(err);
         res.status(404).json(err);
       }
     } else if ('userId' in filter) {
       filter['isServedVat'] = false;
       filter['vat'] = true;
-      console.log('lol');
+
       try {
         const reservations = await reservationModel
           .find(filter)
@@ -59,7 +58,7 @@ module.exports.rangeReservations = async function (req, res, next) {
         const reservationFixed = JSON.parse(
           JSON.stringify(reservations).split('"_id":').join('"id":'),
         );
-        console.log(reservationFixed);
+
         const path = req.path.slice(11);
         const header = `${path} 0-${reservationFixed.length}/${reservationFixed.length}`;
         res.header('Content-Range', header);
@@ -67,7 +66,6 @@ module.exports.rangeReservations = async function (req, res, next) {
         res.locals.rangeFilters = rangeFilters;
         next();
       } catch (err) {
-        console.log(err);
         res.status(404).json(err);
       }
     } else {
@@ -88,7 +86,6 @@ module.exports.rangeReservations = async function (req, res, next) {
         res.locals.rangeFilters = rangeFilters;
         next();
       } catch (err) {
-        console.log(err);
         res.status(404).json(err);
       }
     }
@@ -119,7 +116,6 @@ module.exports.rangeUsers = async function (req, res, next) {
       res.locals.rangeFilters = rangeFilters;
       next();
     } catch (err) {
-      console.log(err);
       res.status(404).json(err);
     }
   } else {
@@ -129,7 +125,6 @@ module.exports.rangeUsers = async function (req, res, next) {
 
 module.exports.rangeCourts = async function (req, res, next) {
   const courtLength = (await courtModel.find()).length;
-
   const path = req.path.slice(11);
   const header = `${path} 0-${courtLength}/${courtLength}`;
   res.header('Content-Range', header);
@@ -137,7 +132,6 @@ module.exports.rangeCourts = async function (req, res, next) {
 };
 module.exports.rangeCourtsTariff = async function (req, res, next) {
   const TariffLength = (await courtsTariff.find()).length;
-  console.log('lol', TariffLength);
   const path = req.path.slice(11);
   const header = `${path} 0-${TariffLength}/${TariffLength}`;
   res.header('Content-Range', header);

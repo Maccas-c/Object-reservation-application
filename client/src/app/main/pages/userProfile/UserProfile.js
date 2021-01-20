@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
-import AnalogClock from 'analog-clock-react';
+// import AnalogClock from 'analog-clock-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
 import useStyles, { options } from './styles';
@@ -50,9 +50,7 @@ function UserProfile() {
 								style={{ marginBottom: '10px' }}
 								className="min-w-full flex flex-col items-center justify-center sm:flex-row sm:justify-start sm:items-center -mx-8"
 							>
-								<div className="relative mx-8">
-									<AnalogClock {...options} />
-								</div>
+								<div className="relative mx-8">{/* <AnalogClock {...options} /> */}</div>
 
 								<div className="mx-8">
 									<Typography variant="h6" className="mb-8">

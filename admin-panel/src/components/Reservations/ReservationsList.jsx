@@ -55,7 +55,7 @@ const ListActions = (props) => {
           filterValues,
           context: 'button',
         })}
-      <CreateButton basePath={basePath} label={'Stwórz nową rezerwację'} />
+      <CreateButton basePath={basePath} label={'Zablokuj termin '} />
     </TopToolbar>
   );
 };
@@ -84,6 +84,7 @@ class ReservationsList extends React.Component {
             <TextField label={'Nazwisko'} source={'userId.surname'} />
             <BooleanField label={'Vat'} source={'vat'} />
             <BooleanField label={'Faktura obsłużona'} source={'isServedVat'} />
+            <BooleanField label={'Zapłacono'} source={'paid'} />
             <EditButton label={'Edytuj'} />
           </Datagrid>
         </List>

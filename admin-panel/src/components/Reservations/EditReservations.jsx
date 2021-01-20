@@ -14,8 +14,8 @@ export const EditReservations = ({ onCancel, ...props }) => (
   <Edit title={' '} {...props}>
     <SimpleForm toolbar={<TagEditToolbar onCancel={onCancel} />}>
       <DateInput label={'Data'} source={'dayString'} />
-      <SelectInput label={'Strefa'} source={'courtId'} choices={zones} />
       <SelectInput label={'Godzina'} source={'title'} choices={hours} />
+      <SelectInput label={'Strefa Boiska'} source={'courtId'} choices={zones} />
       <BooleanInput label={'Vat'} source={'vat'} />
       <BooleanInput label={'Faktura obsłużona'} source={'isServedVat'} />
     </SimpleForm>

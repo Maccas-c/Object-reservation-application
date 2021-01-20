@@ -3,7 +3,7 @@ import { Datagrid, Filter, List, Responsive, ShowButton, TextField, TextInput } 
 
 const PostFilter = (props) => (
   <Filter {...props}>
-    <TextInput label={'Imię'} source={'name'} alwaysOn />
+    <TextInput label={'Imię'} source={'name'} />
     <TextInput label={'Nazwisko'} source={'surname'} />
     <TextInput label={'Email'} source={'email'} />
   </Filter>

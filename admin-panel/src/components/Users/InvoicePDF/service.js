@@ -9,23 +9,33 @@ export const PDFDownloadService = () => {
 
     const getFirstReservation = data[Object.keys(data)[0]];
     pdf.text(20, 20, `${getFirstReservation.userId.name} ${getFirstReservation.userId.surname}`);
-    pdf.text(20, 30, `Adres: ${getFirstReservation.userId.adress_city}, ${getFirstReservation.userId.adress_street}`);
-    pdf.text(20, 40, `Kod pocztowy: ${getFirstReservation.userId.adress_postalCode}`);
-    pdf.text(20, 50, `NIP: ${getFirstReservation.userId.nip}`);
+    pdf.text(
+      20,
+      30,
+      `Adres: ${getFirstReservation.userId.adress_city ? 'undefined' : ' '} ${
+        getFirstReservation.userId.adress_street ? 'undefined' : 'nie podano'
+      }`
+    );
+    pdf.text(20, 40, `Kod pocztowy: ${getFirstReservation.userId.adress_postalCode ? 'undefined' : 'nie podano'}`);
+    pdf.text(20, 50, `NIP: ${getFirstReservation.userId.nip ? 'undefined' : 'nie podano'}`);
     pdf.text(20, 60, `E-mail: ${getFirstReservation.userId.email}`);
-    pdf.text(20, 70, `Numer telefonu: ${getFirstReservation.userId.phone_number}`);
-
+    pdf.text(20, 70, `Numer telefonu: ${getFirstReservation.userId.phone_number ? 'undefined' : 'nie podano'}`);
+    pdf.text(20, 80, `Cena : ${getFirstReservation.price}`);
     let lineHelper = 90;
     pdf.text(20, lineHelper, `Rezerwacje:`);
     Object.entries(data).forEach(([, value]) => {
       lineHelper += 7;
-      pdf.text(20, lineHelper, `${value.dayString}, ${value.title}, sektor: ${value.courtId.nameCourt}`);
+      pdf.text(
+        20,
+        lineHelper,
+        `${value.dayString}, ${value.title}, sektor: ${value.courtId.nameCourt}, cena: ${value.price}zł`
+      );
       if (lineHelper > 270) {
         lineHelper = 20;
         pdf.addPage();
       }
     });
-    pdf.save('pdf');
+    pdf.save(`Dane-${getFirstReservation.userId.name}-${getFirstReservation.userId.surname}`);
   };
 
   return { print };

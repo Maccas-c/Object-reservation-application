@@ -1,6 +1,15 @@
 import React from 'react';
 
-import { BooleanField, Datagrid, ReferenceManyField, Show, Tab, TabbedShowLayout, TextField } from 'react-admin';
+import {
+  BooleanField,
+  Datagrid,
+  NumberField,
+  ReferenceManyField,
+  Show,
+  Tab,
+  TabbedShowLayout,
+  TextField,
+} from 'react-admin';
 
 import { PDFDownload } from './InvoicePDF/PDFDownload';
 
@@ -27,6 +36,7 @@ export const UsersShow = ({ ...props }) => {
               <TextField label={'Godzina'} source={'title'} />
               <TextField label={'Imię'} source={'userId.name'} />
               <TextField label={'Nazwisko'} source={'userId.surname'} />
+              <NumberField label={'Cena'} source={'price'} />
               <BooleanField label={'Vat'} source={'vat'} />
               <BooleanField label={'Faktura obsłużona'} source={'isServedVat'} />
               <TextField label={'Sektor'} source={'courtId.nameCourt'} />

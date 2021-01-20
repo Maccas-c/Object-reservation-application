@@ -15,7 +15,7 @@ import { UsersList } from './Users/UsersList';
 import { UsersShow } from './Users/UsersShow';
 import { CourtCreate } from './Court/CourtCreate';
 import { CourtList } from './Court/CourtList';
-
+import { myTheme } from './theme';
 import ReservationsList from './Reservations/ReservationsList';
 
 const httpClient = (url, options = {}) => {
@@ -32,7 +32,7 @@ const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpC
 const i18nProvider = polyglotI18nProvider(() => polishMessages, 'pl');
 export const App = () => {
   return (
-    <Admin {...{ dataProvider, authProvider }} locale={'pl'} i18nProvider={i18nProvider}>
+    <Admin theme={myTheme} {...{ dataProvider, authProvider }} locale={'pl'} i18nProvider={i18nProvider}>
       <Resource options={{ label: 'Użytkownicy' }} name={'users'} icon={PeopleIcon} list={UsersList} show={UsersShow} />
       <Resource
         options={{ label: 'Cennik' }}

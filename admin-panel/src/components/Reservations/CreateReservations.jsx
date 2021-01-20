@@ -26,9 +26,12 @@ export const CreateReservations = ({ onCancel, ...props }) => (
       <DateInput label={'Dzień'} source={'dayString'} required />
       <SelectInput label={'Godzina'} source={'title'} defaultValue={'15:00'} choices={hours} required />
       {/*  do poprawienia courtId */}
-      <SelectInput label={'Strefa Boiska'} source={'courtId'} choices={zones} required />
-      <BooleanInput label={'Vat'} source={'vat'} required />
-      <TextInput label={'Id'} source={'userId'} defaultValue={'600207d37cf246583c4e4f5e'} disabled />
+      <SelectInput label={'Strefa Boiska'} source={'courtId.nameCourt'} defaultValue={'A'} choices={zones} required />
+      <TextInput label={'Imię'} source={'userId.name'} defaultValue={'Admin'} disabled />
+      <TextInput label={'Imię'} source={'userId.surname'} defaultValue={'Admin'} disabled />
+      <BooleanInput label={'Vat'} source={'vat'} defaultValue={false} />
+      <BooleanInput label={'Zapłacono'} source={'paid'} defaultValue={false} />
+      <BooleanInput label={'Obsłużona faktura'} source={'isServedVat'} defaultValue={false} />
     </SimpleForm>
   </Create>
 );

@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
 const reservationModel = require('../models/reservationModel');
 const courtModel = require('../models/courtModel');
@@ -110,12 +111,16 @@ module.exports.reservationCreate = async function (req, res) {
   const dayString = year + '-' + month + '-' + day;
   console.log(dayToDate);
 
-  const court = await courtModel.find({ nameCourt: req.body.courtId });
+  const court = await courtModel.findOne({
+    nameCourt: req.body.courtId.nameCourt,
+  });
   const courtFixed = JSON.parse(JSON.stringify(court));
 
-  const { _id, sessionTime } = courtFixed[0];
+  const { _id, sessionTime } = courtFixed;
   console.log(_id, sessionTime);
 
+  const admin = await userModel.findOne({ role: 'admin' });
+  const adminFixed = JSON.parse(JSON.stringify(admin));
   const isExist = reservationModel.findOne(
     {
       dayString: dayString,
@@ -134,14 +139,22 @@ module.exports.reservationCreate = async function (req, res) {
             .set({ hour: hour, minute: minute, second: 0, millisecond: 0 })
             .add(sessionTime, 'm'),
           title: req.body.title,
-          courtId: _id,
-          userId: req.body.userId,
+          courtId: ObjectId(_id),
+          userId: ObjectId(adminFixed._id),
         });
+
         try {
-          console.log(req.body);
           const savedReservation = await reservation.save();
-          res.status(201).json(req.body);
+          const findreservation = await reservationModel
+            .find({ _id: reservation._id })
+            .populate('userId')
+            .populate('courtId');
+          const responseBody = JSON.parse(
+            JSON.stringify(findreservation[0]).split('"_id":').join('"id":'),
+          );
+          res.status(201).send(responseBody);
         } catch (err) {
+          console.log(err);
           res.status(400).json(err);
         }
       }
@@ -174,7 +187,8 @@ module.exports.reservationGet = async function (req, res) {
   try {
     const reservation = await reservationModel
       .findById(req.params.id)
-      .populate('userId');
+      .populate('userId')
+      .populate('courtId');
     const reservationFixed = JSON.parse(
       JSON.stringify(reservation).split('"_id":').join('"id":'),
     );
@@ -292,7 +306,6 @@ module.exports.tariffsGet = async function (req, res) {
     const tariffFixed = JSON.parse(
       JSON.stringify(tariff).split('"_id":').join('"id":'),
     );
-    console.log(tariffFixed);
     res.status(200).json(tariffFixed);
   } catch (err) {
     console.log(err);
