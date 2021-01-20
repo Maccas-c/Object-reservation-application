@@ -1,5 +1,6 @@
 import axios from '../../axios/axios-auth';
 import * as action from './actionTypes';
+import { setUserData } from '../../app/auth/store/userSlice';
 
 export const getPayuToken = (name, reservation, price) => {
 	return dispatch => {
@@ -36,6 +37,19 @@ export const createPayment = (token, name, reservation, price) => {
 			})
 			.catch(error => {
 				console.log(error);
+			});
+	};
+};
+
+export const deleteReservation = id => {
+	return dispatch => {
+		axios
+			.delete(`/reservationsDelete/${id}`)
+			.then(response => {
+				dispatch(setUserData(response.data));
+			})
+			.catch(error => {
+				console.log('error');
 			});
 	};
 };

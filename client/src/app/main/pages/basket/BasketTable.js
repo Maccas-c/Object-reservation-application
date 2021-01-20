@@ -13,7 +13,7 @@ import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import BasketTableHead from './BasketTableHead';
 import PayConfirm from '../payConfirm/payConfirm';
-import { getPayuToken } from '../../../../store/actions/payment';
+import { deleteReservation, getPayuToken } from '../../../../store/actions/payment';
 
 function BasketTable() {
 	const dispatch = useDispatch();
@@ -36,6 +36,9 @@ function BasketTable() {
 		setOpen(false);
 	};
 
+	const handleDeleteReservation = id => {
+		dispatch(deleteReservation(id));
+	};
 	if (basketUser.length === 0) {
 		return (
 			<FuseAnimate delay={100}>
@@ -54,7 +57,7 @@ function BasketTable() {
 				<Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
 					<BasketTableHead />
 					<TableBody>
-						{basketUser.map(({ dayString, end, title, nameCourt, price: prices }, index) => {
+						{basketUser.map(({ dayString, end, title, nameCourt, price: prices, _id }, index) => {
 							return (
 								<TableRow className="h-64" hover tabIndex={-1} key={index}>
 									<TableCell className="p-4 md:p-16" component="th" scope="row">
@@ -74,7 +77,11 @@ function BasketTable() {
 									</TableCell>
 
 									<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-										<IconButton>
+										<IconButton
+											onClick={() => {
+												handleDeleteReservation(_id);
+											}}
+										>
 											<Icon className="text-red text-20">delete</Icon>
 										</IconButton>
 									</TableCell>

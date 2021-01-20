@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 import React from 'react';
 import Toolbar from 'react-big-calendar/lib/Toolbar';
-import { navigate } from 'react-big-calendar/lib/utils/constants';
+import { navigate, views } from 'react-big-calendar/lib/utils/constants';
 import connect from 'react-redux/es/connect/connect';
 import { selectMainThemeDark } from 'app/store/fuse/settingsSlice';
 
@@ -114,6 +114,18 @@ class CalendarHeader extends Toolbar {
 												onClick={this.navigate.bind(null, navigate.TODAY)}
 											>
 												<Icon>today</Icon>
+											</IconButton>
+										</FuseAnimate>
+									</div>
+								</Tooltip>
+								<Tooltip title="Miesiąc">
+									<div>
+										<FuseAnimate animation="transition.expandIn" delay={500}>
+											<IconButton
+												aria-label="Month"
+												onClick={() => this.props.onView(views.MONTH)}
+											>
+												<Icon>view_module</Icon>
 											</IconButton>
 										</FuseAnimate>
 									</div>
