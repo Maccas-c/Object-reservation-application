@@ -23,7 +23,7 @@ const knowledgeBaseDB = [
 					`<p>Strefa A, B, C:</p>` +
 					`<p>Poniedziałek, wtorek, środa, czwartek, piątek</p>` +
 					`<p>Strefa D:</p>` +
-					`<p>Sobota, niedziela</p>)}`
+					`<p>Sobota, niedziela</p>`
 			},
 			{
 				id: '3',
