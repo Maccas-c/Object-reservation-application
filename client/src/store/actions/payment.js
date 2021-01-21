@@ -42,7 +42,6 @@ export const createPayment = (token, name, reservation, price) => {
 };
 
 export const deleteReservation = (id, price, sumPrice) => {
-	console.log(sumPrice);
 	return dispatch => {
 		axios
 			.post(`/reservationsDelete/${id}`, { price, sumPrice })
