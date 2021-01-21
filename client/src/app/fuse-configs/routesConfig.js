@@ -22,6 +22,10 @@ const routeConfigs = [
 const routes = [
 	...FuseUtils.generateRoutesFromConfigs(routeConfigs),
 	{
+		path: '/',
+		component: () => <Redirect to="/home" />
+	},
+	{
 		path: '*',
 		component: () => <Redirect to="/not-found" />
 	}

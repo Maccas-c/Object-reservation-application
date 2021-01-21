@@ -14,7 +14,7 @@ router.get(
   passport.authenticate('oauth', {
     successRedirect: 'http://localhost:3000/login',
     failureRedirect: '/api/loginUsos/connect',
-  })
+  }),
 );
 
 router.get('/api/loginUsos/logout', isAuth, loginUsosController.logout);
