@@ -35,3 +35,16 @@ export const fetchReservationUserList = reservation => {
 		reservation
 	};
 };
+
+export const updateUser = id => {
+	return dispatch => {
+		axios
+			.get(`/getUser/${id}`)
+			.then(response => {
+				dispatch(setUserData(response.data));
+			})
+			.catch(() => {
+				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
+			});
+	};
+};

@@ -50,9 +50,7 @@ function UserProfile() {
 								style={{ marginBottom: '10px' }}
 								className="min-w-full flex flex-col items-center justify-center sm:flex-row sm:justify-start sm:items-center -mx-8"
 							>
-								<div className="relative mx-8">
-									<AnalogClock {...options} />
-								</div>
+								<div className="relative mx-8">{/* <AnalogClock {...options} /> */}</div>
 
 								<div className="mx-8">
 									<Typography variant="h6" className="mb-8">

@@ -14,10 +14,7 @@ class LoginService extends FuseUtils.EventEmitter {
 			},
 			err => {
 				return new Promise(() => {
-					if (
-						(err.response.status === 401) &&
-						err.response.config.url !== '/logout'
-					) {
+					if (err.response.status === 401 && err.response.config.url !== '/logout') {
 						// if you ever get an unauthorized response, logout the user
 						this.emit('onAutoLogout');
 					}
@@ -127,7 +124,7 @@ class LoginService extends FuseUtils.EventEmitter {
 	};
 
 	signInWithUSOS = () => {
-		window.location.href = 'http://localhost:3001/api/loginUsos/connect';
+		window.location.href = 'https://devcourt.projektstudencki.pl/api/loginUsos/connect';
 	};
 
 	logout = () => {

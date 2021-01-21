@@ -47,8 +47,10 @@ function Home({ history }, props) {
 	const dispatch = useDispatch();
 	const court = useSelector(state => state.courtReducer.court);
 	const theme = useTheme();
+	const isFirstLogin = useSelector(({ auth: { user } }) => user.firstLogin);
 
 	useConstructor(() => {
+		if (isFirstLogin) history.push('/prepare');
 		dispatch(fetchCourt());
 	});
 

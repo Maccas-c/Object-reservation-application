@@ -9,8 +9,9 @@ import clsx from 'clsx';
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useConstructor } from '../../../../utils/customHooks';
+import { updateUser } from '../../../../store/actions/userProfile';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -21,16 +22,15 @@ const useStyles = makeStyles(theme => ({
 
 const InstructionLoader = ({ history }) => {
 	const classes = useStyles();
-	const isFirstLogin = useSelector(({ auth: { user } }) => user.firstLogin);
+	const dispatch = useDispatch();
+	const id = useSelector(({ auth: { user } }) => user._id);
 	const handlePushHome = () => {
+		dispatch(updateUser(id));
 		history.push('/home');
 	};
 
-	useConstructor(() => {
-		if (isFirstLogin) return;
-		history.push('/home');
-	});
 	const handlePushInstruction = () => {
+		dispatch(updateUser(id));
 		history.push('/knowledge-base');
 	};
 	return (
