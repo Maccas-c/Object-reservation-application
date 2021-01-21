@@ -60,6 +60,8 @@ router.patch(
   userController.userUpdate,
 );
 
-router.get('/api/user/reservations/:userId', userController.userGet);
+router.get('/api/getUser', userController.userGet);
+
+
 
 module.exports = router;
