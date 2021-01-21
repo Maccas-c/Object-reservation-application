@@ -41,7 +41,7 @@ export const createPayment = (token, name, reservation, price) => {
 	};
 };
 
-export const deleteReservation = id => {
+export const deleteReservation = (id) => {
 	return dispatch => {
 		axios
 			.delete(`/reservationsDelete/${id}`)

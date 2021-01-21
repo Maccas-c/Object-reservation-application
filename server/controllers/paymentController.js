@@ -32,15 +32,18 @@ module.exports.getPayToken = async function (req, res) {
 module.exports.removeReservation = async function (req, res) {
   console.log(req.user);
   userModel.findByIdAndUpdate(
-    req.user._id,
-    { $pull: { reservations: { _id: req.params.reservationId } } },
-    { safe: true, upsert: true, new: true },
-    function (err, node) {
-      if (err) {
-        console.log(err);
-      }
-      res.status(200).json(node);
-    },
+      req.user._id,
+      {
+        $pull: { reservations: { _id: req.params.reservationId } },
+        $set: { sumPrice: req.body.sumPrice - req.body.price },
+      },
+      { safe: true, upsert: true, new: true },
+      function (err, node) {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).json(node);
+      },
   );
 };
 

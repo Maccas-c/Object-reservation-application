@@ -203,6 +203,7 @@ function CalendarApp(props) {
 				events={events}
 				resizable
 				defaultDate={new Date()}
+				onEventDrop={false}
 				startAccessor="start"
 				endAccessor="end"
 				step={60}
