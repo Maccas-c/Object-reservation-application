@@ -18,7 +18,7 @@ import { deleteReservation, getPayuToken } from '../../../../store/actions/payme
 function BasketTable() {
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
-	const price = useSelector(({ auth: { user } }) => user.sumPrice);
+	const sumPrice = useSelector(({ auth: { user } }) => user.sumPrice);
 	const userName = useSelector(({ auth: { user } }) => user.name);
 	const basketUser = useSelector(
 		({
@@ -29,15 +29,15 @@ function BasketTable() {
 	);
 	const handleOpenDialog = () => {
 		setOpen(true);
-		dispatch(getPayuToken(userName, basketUser, price));
+		dispatch(getPayuToken(userName, basketUser, sumPrice));
 	};
 
 	const handleCloseDialog = () => {
 		setOpen(false);
 	};
 
-	const handleDeleteReservation = id => {
-		dispatch(deleteReservation(id));
+	const handleDeleteReservation = (id, prices) => {
+		dispatch(deleteReservation(id, prices, sumPrice));
 	};
 	if (basketUser.length === 0) {
 		return (
@@ -79,7 +79,7 @@ function BasketTable() {
 									<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
 										<IconButton
 											onClick={() => {
-												handleDeleteReservation(_id);
+												handleDeleteReservation(_id, prices);
 											}}
 										>
 											<Icon className="text-red text-20">delete</Icon>
@@ -100,7 +100,7 @@ function BasketTable() {
 			>
 				Zapłać
 			</Button>
-			<PayConfirm price={price} reservations={basketUser} open={open} handleClose={handleCloseDialog} />
+			<PayConfirm price={sumPrice} reservations={basketUser} open={open} handleClose={handleCloseDialog} />
 		</div>
 	);
 }
