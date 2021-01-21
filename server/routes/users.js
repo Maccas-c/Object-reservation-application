@@ -60,7 +60,7 @@ router.patch(
   userController.userUpdate,
 );
 
-router.get('/api/getUser', userController.userGet);
+router.get('/api/getUser/:userId', userController.userGet);
 
 
 

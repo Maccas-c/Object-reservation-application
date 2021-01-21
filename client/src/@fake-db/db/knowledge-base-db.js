@@ -8,22 +8,32 @@ const knowledgeBaseDB = [
 			{
 				id: '1',
 				title: 'Jak zarezerwować boisko?',
-				content: 'Tak'
+				content:
+					`<p>1. Wchodzimy w zakładkę kalendarz. </p><p>1. Wchodzimy w zakładkę kalendarz. </p>` +
+					`<p>2. Wybieramy dzień w którym chcemy zarezerwować boisko.</p>` +
+					`<p>3. Pojawi się okienko w którym wybieramy strefę oraz godzinę i dodajemy do koszyka.</p>` +
+					`<p>4. Przechodzimy do koszyka i klikamy w zapłać.</p>` +
+					`<p>5. Pojawi się okienko potwierdzające, które po kliknięciu w 'Zapłać' przeniesie nas na serwis PayU gdzie będziemy musieli opłacić rezerwację.</p>` +
+					`<p>6. Po zapłaceniu powrócimy na stronę główną, dodatkowo dostaniemy maila potwierdzajacą płatność.</p>`
 			},
 			{
 				id: '2',
 				title: 'Kiedy są dostępne strefy?',
-				content: 'Tak'
+				content:
+					`<p>Strefa A, B, C:</p>` +
+					`<p>Poniedziałek, wtorek, środa, czwartek, piątek</p>` +
+					`<p>Strefa D:</p>` +
+					`<p>Sobota, niedziela</p>)}`
 			},
 			{
 				id: '3',
 				title: 'Czy możesz połączyć strefy?',
-				content: 'Tak'
+				content: `<p>Aktualnie serwis DevCourt nie umożliwia taka opcję.</p>`
 			},
 			{
 				id: '4',
 				title: 'Czy można usunąc rezerwację z koszyka?',
-				content: 'Tak'
+				content: `<p>Tak, po przejściu na zakładkę koszyk, w kolumnie anuluj mamy przycisk do usunięcia rezerwacji.</p>`
 			},
 			{
 				id: '5',
