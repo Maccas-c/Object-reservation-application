@@ -190,15 +190,25 @@ module.exports.reservationAddBasket = async function (req, res) {
             sumPrice += parseInt(item.price);
           });
 
-          const tariffdoc = await courtsTariff.find({
-            nameCourt: req.body.nameCourt,
-          });
+          // const tariffdoc = await courtsTariff.find({
+          //   nameCourt: req.body.nameCourt,
+          // });
 
-          const tariffdocParsed = JSON.parse(JSON.stringify(tariffdoc));
+          // const tariffdocParsed = JSON.parse(JSON.stringify(tariffdoc));
+
+          const court = await courtModel.find(
+            { courtId: req.body.courtId }.populate('tariffId'),
+          );
+
+          const courtParsed = JSON.parse(JSON.stringify(court));
 
           const price = userParsed.isStudent
-            ? tariffdocParsed[0].classes_and_sports_training * 0.5
-            : tariffdocParsed[0].classes_and_sports_training;
+            ? courtParsed.tariffId.classes_and_sports_training * 0.5
+            : courtParsed.tariffId.classes_and_sports_training;
+
+          // const price = userParsed.isStudent
+          //   ? tariffdocParsed[0].classes_and_sports_training * 0.5
+          //   : tariffdocParsed[0].classes_and_sports_training;
 
           sumPrice = parseInt(sumPrice) + parseInt(price);
 

@@ -7,6 +7,7 @@ const courtsTariff = require('./../models/tariffModel');
 const { validationResult } = require('express-validator');
 const queryString = require('query-string');
 const moment = require('moment');
+const tariffModel = require('./../models/tariffModel');
 
 // Użytkownicy
 module.exports.usersGet = async function (req, res) {
@@ -214,6 +215,19 @@ module.exports.courtsGet = async function (req, res) {
 
 module.exports.courtsCreate = async function (req, res) {
   console.log(req.body.date);
+
+  const tariff = new courtsTariff({
+    name: req.body.name,
+    classes_and_sports_training: req.body.classes_and_sports_training,
+    tournament_matches: req.body.tournament_matches,
+    university_club: req.body.university_club,
+  });
+  let savedTariff = '';
+  try {
+    savedTariff = await tariff.save();
+  } catch (err) {
+    console.log(err);
+  }
   const isExist = courtModel.findOne(
     {
       ids: req.params.ids,
@@ -227,6 +241,7 @@ module.exports.courtsCreate = async function (req, res) {
           description: req.body.description,
           date: req.body.date,
           sessionTime: req.body.sessionTime,
+          tariffId: savedTariff._id,
         });
         try {
           const savedCourt = await court.save();
