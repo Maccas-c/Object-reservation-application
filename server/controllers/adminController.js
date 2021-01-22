@@ -41,7 +41,7 @@ module.exports.userDelete = async function (req, res) {
       },
       {
         $set: {
-          isActive: req.body.isActive,
+          isActive: false,
         },
       },
     );
