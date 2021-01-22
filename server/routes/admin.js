@@ -13,6 +13,7 @@ const {
 // Użytkownicy
 router.get('/api/admin/users', rangeUsers, adminController.usersGet);
 router.get('/api/admin/users/:userId', adminController.userGet);
+router.delete('/api/admin/users/:userId', adminController.userDelete);
 // ---------------------------------------------------------
 
 // Rezerwacje
@@ -20,22 +21,22 @@ router.get(
   '/api/admin/reservations',
 
   rangeReservations,
-  adminController.reservationsGetByUserId
+  adminController.reservationsGetByUserId,
 );
 router.put(
   '/api/admin/reservations/:id',
 
-  adminController.reservationsEdit
+  adminController.reservationsEdit,
 );
 router.get(
   '/api/admin/reservations/:id',
 
-  adminController.reservationGet
+  adminController.reservationGet,
 );
 router.delete(
   '/api/admin/reservations/:id',
 
-  adminController.reservationsDelete
+  adminController.reservationsDelete,
 );
 router.post('/api/admin/reservations', adminController.reservationCreate);
 // ---------------------------------------------------------
@@ -58,12 +59,12 @@ router.post('/api/admin/tariff', adminController.tariffCreate);
 router.get(
   '/api/admin/priceLists',
   rangeCourtsTariff,
-  adminController.tariffsGet
+  adminController.tariffsGet,
 );
 router.get(
   '/api/admin/priceLists/:id',
   rangeCourtsTariff,
-  adminController.tariffGet
+  adminController.tariffGet,
 );
 router.put('/api/admin/priceLists/:id', adminController.tariffUpdate);
 // ---------------------------------------------------------
