@@ -1,3 +1,5 @@
+import * as Cookies from 'js-cookie';
+
 const authProvider = {
   login: ({ username, password }) => {
     const email = username;

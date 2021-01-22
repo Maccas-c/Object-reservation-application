@@ -61,6 +61,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "js-cookie": "^2.2.1",
     "jspdf": "^2.2.0",
     "lodash": "^4.17.20",
     "ra-data-rest-client": "^1.1.1",
