@@ -44,8 +44,6 @@ export const updateUser = (id, history, route) => {
 				dispatch(setUserData(response.data));
 				history.push(route);
 			})
-			.catch(() => {
-				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
-			});
+			.catch(() => {});
 	};
 };

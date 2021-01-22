@@ -121,20 +121,6 @@ function EventDialog() {
 												return null;
 											})}
 									</TextField>
-									<TextField
-										className="mt-8 mb-16"
-										id="desc"
-										label="Dodatkowe informacje"
-										type="text"
-										name="desc"
-										value=""
-										onChange={handleChange}
-										multiline
-										rows={5}
-										variant="outlined"
-										disabled={eventDialog.type !== 'new'}
-										fullWidth
-									/>
 								</>
 							) : (
 								<TextField

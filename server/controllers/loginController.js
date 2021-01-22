@@ -11,6 +11,7 @@ module.exports.login = function (req, res) {
       isStudent: req.user.isStudent,
       firstLogin: req.user.firstLogin,
       reservations: req.user.reservations,
+      sumPrice: req.user.sumPrice,
     });
   } else {
     res.status(404).end();
