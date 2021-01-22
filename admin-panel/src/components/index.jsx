@@ -1,6 +1,6 @@
 import React from 'react';
-import { Admin, Resource, fetchUtils } from 'react-admin';
-import simpleRestProvider from 'ra-data-simple-rest';
+import { Admin, Resource } from 'react-admin';
+
 import polishMessages from 'ra-language-polish';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import PeopleIcon from '@material-ui/icons/People';
@@ -17,17 +17,7 @@ import { CourtCreate } from './Court/CourtCreate';
 import { CourtList } from './Court/CourtList';
 import { myTheme } from './theme';
 import ReservationsList from './Reservations/ReservationsList';
-
-const httpClient = (url, options = {}) => {
-  options.headers = new Headers({ Accept: 'application/json' });
-  options.headers = new Headers({ Accept: 'Content-Type' });
-  options.headers.set('Cache-Control', 'no-cache');
-
-  const token = localStorage.getItem('token');
-  options.headers.set('react-admin', token);
-  return fetchUtils.fetchJson(url, options);
-};
-const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpClient);
+import { dataProvider } from './dataprovider';
 
 const i18nProvider = polyglotI18nProvider(() => polishMessages, 'pl');
 export const App = () => {

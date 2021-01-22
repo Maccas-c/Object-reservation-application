@@ -24,10 +24,16 @@ router.get(
   adminController.reservationsGetByUserId,
 );
 router.put(
+  '/api/admin/reservations/update/:id',
+
+  adminController.reservationsEditMany,
+);
+router.put(
   '/api/admin/reservations/:id',
 
   adminController.reservationsEdit,
 );
+
 router.get(
   '/api/admin/reservations/:id',
 

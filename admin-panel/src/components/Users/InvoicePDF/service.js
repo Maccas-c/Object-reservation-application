@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-
+import { dataProvider } from '../../dataprovider';
 import './fonts/AbhayaLibre-Regular-normal';
 
 export const PDFDownloadService = () => {
@@ -34,6 +34,13 @@ export const PDFDownloadService = () => {
         lineHelper = 20;
         pdf.addPage();
       }
+    });
+    const tab = [];
+    Object.entries(data).forEach(([, value]) => {
+      tab.push(value.id);
+    });
+    dataProvider.updateMany('reservations/update', {
+      ids: tab,
     });
     pdf.save(`Dane-${getFirstReservation.userId.name}-${getFirstReservation.userId.surname}`);
   };

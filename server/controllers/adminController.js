@@ -161,11 +161,27 @@ module.exports.reservationCreate = async function (req, res) {
     },
   );
 };
-module.exports.reservationsEdit = async function (req, res) {
+module.exports.reservationsEditMany = async function (req, res) {
   try {
     const resposneData = req.body;
 
-    const reservationUpdate = await reservationModel.updateOne(
+    const reservations = await reservationModel.updateMany(
+      { _id: req.params.id },
+      {
+        $set: {
+          isServedVat: true,
+        },
+      },
+    );
+    res.status(200).send(resposneData);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
+module.exports.reservationsEdit = async function (req, res) {
+  try {
+    const reservationUpdate = await reservationModel.updateMany(
       {
         _id: req.params.id,
       },
@@ -183,6 +199,7 @@ module.exports.reservationsEdit = async function (req, res) {
     res.status(404).json(err);
   }
 };
+
 module.exports.reservationGet = async function (req, res) {
   try {
     const reservation = await reservationModel
