@@ -13,8 +13,8 @@ export const updateUserProfileStart = user => {
 				dispatch(showMessage({ message: 'Pomyślnie zmieniono dane' }));
 				dispatch(setUserData(response.data));
 			})
-			.catch(() => {
-				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
+			.catch(err => {
+				dispatch(showMessage({ message: err.response.data }));
 			});
 	};
 };
@@ -43,8 +43,6 @@ export const updateUser = id => {
 			.then(response => {
 				dispatch(setUserData(response.data));
 			})
-			.catch(() => {
-				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
-			});
+			.catch(() => {});
 	};
 };

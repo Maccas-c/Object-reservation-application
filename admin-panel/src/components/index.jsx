@@ -27,7 +27,7 @@ const httpClient = (url, options = {}) => {
   options.headers.set('react-admin', token);
   return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = simpleRestProvider('http://localhost:3001/api/admin', httpClient);
+const dataProvider = simpleRestProvider('http://localhost:3000/api/admin', httpClient);
 
 const i18nProvider = polyglotI18nProvider(() => polishMessages, 'pl');
 export const App = () => {

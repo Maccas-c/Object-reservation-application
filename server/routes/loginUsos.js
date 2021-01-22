@@ -12,7 +12,7 @@ router.get('/api/loginUsos/connect', passport.authenticate('oauth'));
 router.get(
   '/api/loginUsos/callback',
   passport.authenticate('oauth', {
-    successRedirect: 'http://localhost:3000/login',
+    successRedirect: 'https://devcourt.projektstudencki.pl/login',
     failureRedirect: '/api/loginUsos/connect',
   }),
 );

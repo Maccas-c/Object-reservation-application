@@ -123,7 +123,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
 
 module.exports.reservationsGetByDate = async function (req, res) {
   const start = moment(req.body.date);
-
+  console.group(req);
   let day = start.format('DD');
   let year = start.format('YYYY');
   let month = start.format('MM');

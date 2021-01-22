@@ -48,7 +48,7 @@ module.exports.forgotPassword = async function (req, res) {
         text:
           'Otrzymujesz to, ponieważ Ty (lub ktoś inny) poprosiłeś o zresetowanie hasła do swojego konta.\n\n' +
           'Kliknij następujący link lub wklej go do przeglądarki, aby zakończyć proces w ciągu godziny od jego otrzymania:\n\n' +
-          `http://localhost:3000/reset/${token}\n\n` +
+          `https://devcourt.projektstudencki.pl/reset/${token}\n\n` +
           'Jeśli nie poprosiłeś o to, zignoruj ​​ten e-mail, a twoje hasło pozostanie niezmienione.\n',
       };
 

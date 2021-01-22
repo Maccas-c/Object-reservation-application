@@ -57,7 +57,7 @@ app.use(
   cors({
     credentials: true,
     methods: 'GET,PUT,PATCH,DELETE,POST',
-    origin: ['http://localhost:3000', 'http://localhost:3002'],
+    origin: ['https://devcourt.projektstudencki.pl'],
     exposedHeaders: 'Content-Range',
   }),
 );
