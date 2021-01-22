@@ -278,14 +278,19 @@ module.exports.courtsCreate = async function (req, res) {
 };
 
 module.exports.courtsDelete = async function (req, res) {
-  try {
-    const deletedCourt = await courtModel.deleteOne({
-      _id: req.params.courtId,
-    });
-    res.status(200).json(deletedCourt);
-  } catch (err) {
-    res.status(404).json(err);
-  }
+  courtModel.findByIdAndRemove(req.params.courtId, function (err, docs) {
+    if (err) {
+      console.log(err);
+    } else {
+      tariffModel.findByIdAndRemove(docs.tariffId, function (error, docs) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.status(200).json('Pomyślnie usunięto');
+        }
+      });
+    }
+  });
 };
 module.exports.courtsUpdate = async function (req, res) {
   try {

@@ -22,7 +22,7 @@ const courtModel = mongoose.Schema({
   },
   tariffId: {
     type: ObjectId,
-    ref: 'tariffModel',
+    ref: 'courtsTariff',
     required: true,
   },
 });

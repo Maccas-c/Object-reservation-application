@@ -195,10 +195,11 @@ module.exports.reservationAddBasket = async function (req, res) {
           // });
 
           // const tariffdocParsed = JSON.parse(JSON.stringify(tariffdoc));
-
-          const court = await courtModel.find(
-            { courtId: req.body.courtId }.populate('tariffId'),
-          );
+          console.log('jestem przed czytanie courtModel');
+          const court = await courtModel
+            .findOne({ _id: req.body.courtId })
+            .populate('tariffId');
+          console.log(court);
 
           const courtParsed = JSON.parse(JSON.stringify(court));
 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectID, ObjectId } = require('mongodb');
 
 const userModel = mongoose.Schema({
   email: String,
@@ -44,7 +45,11 @@ const userModel = mongoose.Schema({
       start: Date,
       dayString: String,
       end: Date,
-      courtId: String,
+      courtId: {
+        type: ObjectId,
+        ref: 'courtModel',
+        required: true,
+      },
       nameCourt: String,
       userId: String,
       isPaid: Boolean,
