@@ -221,6 +221,11 @@ function CalendarApp(props) {
 					dispatch(openEditEventDialog(event));
 				}}
 				onSelectSlot={slotInfo => {
+					const dateHelper = Object.assign(slotInfo.start);
+					dateHelper.setHours(23, 59, 59, 0);
+					if (dateHelper < new Date()) {
+						return false;
+					}
 					dispatch(setDialogCourt(courts, getDay(slotInfo.start.getDay()), slotInfo.start));
 					dispatch(openNewEventDialog(slotInfo));
 				}}

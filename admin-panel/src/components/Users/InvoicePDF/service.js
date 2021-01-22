@@ -8,7 +8,6 @@ export const PDFDownloadService = () => {
     pdf.setFont('AbhayaLibre-Regular', 'normal');
 
     const getFirstReservation = data[Object.keys(data)[0]];
-    console.log(getFirstReservation);
     pdf.text(20, 20, `${getFirstReservation.userId.name} ${getFirstReservation.userId.surname}`);
     pdf.text(
       20,
