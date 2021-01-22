@@ -23,8 +23,8 @@ export const CourtCreate = (props) => (
     <SimpleForm toolbar={<CreateToolbar />}>
       <SelectInput label={'Boisko'} source={'ids'} choices={courts} />
       <SelectInput label={'Wielkość Boiska'} source={'name'} choices={courtBuild} />
-      <SelectInput label={'Stworzenie Strefy'} source={'description'} choices={courtSource} />
       <SelectInput label={'Strefa'} source={'nameCourt'} choices={zones} />
+      <SelectInput label={'Dodatkowy Opis Strefy'} source={'description'} choices={courtSource} />
       <SelectArrayInput source={'date'} label={'Dostępność'} choices={availableDays} optionText={optionRenderer} />
       <NumberInput min={0} label={'Mecze, Turnieje'} source={'classes_and_sports_training'} />
       <NumberInput min={0} label={'Zajęcia Sportowe Treningi'} source={'tournament_matches'} />
