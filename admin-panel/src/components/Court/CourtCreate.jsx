@@ -10,7 +10,7 @@ import {
   translate,
 } from 'react-admin';
 import React from 'react';
-import { availableDays, courts, zones } from '../Reservations/Constants';
+import { availableDays, courtBuild, courts, zones } from '../Reservations/Constants';
 
 const CreateToolbar = translate(({ onCancel, translate, ...props }) => (
   <Toolbar {...props}>
@@ -23,6 +23,7 @@ export const CourtCreate = (props) => (
   <Create title={'Stwórz nowe boisko '} options={{ label: 'Użytkownicy' }} {...props}>
     <SimpleForm toolbar={<CreateToolbar />}>
       <SelectInput label={'Boisko'} source={'ids'} choices={courts} />
+      <SelectInput label={'Wielkość Boiska'} source={'name'} choices={courtBuild} />
       <TextInput label={'Opis'} source={'description'} />
       <SelectInput label={'Strefa'} source={'nameCourt'} choices={zones} />
       <SelectArrayInput source={'date'} label={'Dostępność'} choices={availableDays} optionText={optionRenderer} />

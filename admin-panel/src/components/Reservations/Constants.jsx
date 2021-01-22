@@ -159,3 +159,8 @@ export const zones = [
 ];
 
 export const courts = [{ id: 'Boisko główne', name: 'Boisko główne' }];
+
+export const courtBuild = [
+  { id: 'Całe boisko', name: 'Całe Boisko' },
+  { id: '1/3 Boiska', name: '1/3 Boiska' },
+];
