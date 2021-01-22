@@ -162,6 +162,7 @@ module.exports.reservationCreate = async function (req, res) {
     },
   );
 };
+
 module.exports.reservationsEdit = async function (req, res) {
   try {
     const resposneData = req.body;
@@ -181,6 +182,28 @@ module.exports.reservationsEdit = async function (req, res) {
     );
     res.status(200).send(resposneData);
   } catch (err) {
+    res.status(404).json(err);
+  }
+};
+module.exports.reservationsEditMany = async function (req, res) {
+  try {
+    const reservationUpdate = await reservationModel.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          isServedVat: true,
+        },
+      },
+    );
+    const reservation = await reservationModel.findById(req.params.id);
+    const reservationFixed = JSON.parse(
+      JSON.stringify(reservation).split('"_id":').join('"id":'),
+    );
+    res.status(200).send(reservationFixed);
+  } catch (err) {
+    console.log(err);
     res.status(404).json(err);
   }
 };
