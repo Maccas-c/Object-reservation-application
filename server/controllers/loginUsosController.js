@@ -17,7 +17,15 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.logout = function (req, res) {
-  res.redirect(
-    'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj',
-  );
+  res.clearCookie('connect.sid', function (err) {
+    if (err) return res.status(404);
+  });
+  req.session.destroy(function (err) {
+    if (err) return res.status(404);
+    res
+      .status(200)
+      .redirect(
+        'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj',
+      );
+  });
 };
