@@ -40,8 +40,8 @@ module.exports.checkEmail = async function (req, res, next) {
         console.log('user', user);
         console.log('req.user', req.user);
         if (req.body.email == req.user.email) next();
-        else return res.status(422).json('The email exist');
+        else return res.status(422).json('Podany e-mail istnieje');
       } else next();
-    }
+    },
   );
 };
