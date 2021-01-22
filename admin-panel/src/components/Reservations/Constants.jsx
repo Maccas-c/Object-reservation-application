@@ -164,3 +164,10 @@ export const courtBuild = [
   { id: 'Całe boisko', name: 'Całe Boisko' },
   { id: '1/3 Boiska', name: '1/3 Boiska' },
 ];
+
+export const courtSource = [
+  { id: 'Lewa', name: 'Lewa' },
+  { id: 'Środek', name: 'Środek' },
+  { id: 'Prawa', name: 'Prawa' },
+  { id: 'Całe Boisko', name: 'Całe Boisko' },
+];
