@@ -8,6 +8,7 @@ export const PDFDownloadService = () => {
     pdf.setFont('AbhayaLibre-Regular', 'normal');
 
     const getFirstReservation = data[Object.keys(data)[0]];
+    console.log(getFirstReservation);
     pdf.text(20, 20, `${getFirstReservation.userId.name} ${getFirstReservation.userId.surname}`);
     pdf.text(
       20,
@@ -16,6 +17,7 @@ export const PDFDownloadService = () => {
         getFirstReservation.userId.adress_street ? 'undefined' : 'nie podano'
       }`
     );
+
     pdf.text(20, 40, `Kod pocztowy: ${getFirstReservation.userId.adress_postalCode ? 'undefined' : 'nie podano'}`);
     pdf.text(20, 50, `NIP: ${getFirstReservation.userId.nip ? 'undefined' : 'nie podano'}`);
     pdf.text(20, 60, `E-mail: ${getFirstReservation.userId.email}`);
@@ -30,7 +32,7 @@ export const PDFDownloadService = () => {
         lineHelper,
         `${value.dayString}, ${value.title}, sektor: ${value.courtId.nameCourt}, cena: ${value.price}zł`
       );
-      if (lineHelper > 270) {
+      if (lineHelper > 270 && getFirstReservation !== undefined) {
         lineHelper = 20;
         pdf.addPage();
       }
@@ -39,10 +41,10 @@ export const PDFDownloadService = () => {
     Object.entries(data).forEach(([, value]) => {
       tab.push(value.id);
     });
+    pdf.save(`Dane-${getFirstReservation.userId.name}-${getFirstReservation.userId.surname}`);
     dataProvider.updateMany('reservations/update', {
       ids: tab,
     });
-    pdf.save(`Dane-${getFirstReservation.userId.name}-${getFirstReservation.userId.surname}`);
   };
 
   return { print };

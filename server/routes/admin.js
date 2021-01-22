@@ -33,7 +33,6 @@ router.put(
 
   adminController.reservationsEdit,
 );
-
 router.get(
   '/api/admin/reservations/:id',
 
