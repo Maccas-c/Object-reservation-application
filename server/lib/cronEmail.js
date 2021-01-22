@@ -4,7 +4,7 @@ const { getMaxListeners, get } = require('../config/database');
 const reservationModel = require('../models/reservationModel');
 const moment = require('moment');
 
-const sendEmail = function (email) {
+const sendEmail = function (email, godzina) {
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -18,8 +18,8 @@ const sendEmail = function (email) {
   const mailOptions = {
     from: `${process.env.EMAIL_ADDRESS}`,
     to: `${email}`,
-    subject: 'Link To Reset Password',
-    text: 'wiadomosć',
+    subject: 'Przypomnienie o Twojej rezerwacji w serwisie DevCourt',
+    text: `Uprzejmie informujemy, że jutro o godzinie ${godzina} zaczyna się Twoja rezerwacja oraz dziękujemy za skorzystanie z naszych usług `,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -32,45 +32,33 @@ const sendEmail = function (email) {
 };
 
 module.exports.task = function () {
-  cron.schedule('* * * * *', () => {
+  cron.schedule('0 12 * * *', () => {
     console.log('scheduled');
     reservationModel
       .find({ email_sent: false })
       .populate('userId')
       .then(allReservation => {
         for (let result of allReservation) {
-          var time = moment().toDate(); // This will return a copy of the Date that the moment uses
+          let startTime = moment.utc();
+          let date = moment.utc(result.start).subtract(1, 'day');
 
-          time.setHours(0);
-          time.setMinutes(0);
-          time.setSeconds(0);
-          time.setMilliseconds(0);
-          console.log(time);
-          let date = result.start;
-          date.setHours(0, 0, 0, 0);
-          console.log(date.getDay());
-          if (today.getDate() + 1 == date.getDate()) {
-            console.log('tutaj wysyłam se meila');
+          if (startTime.isSame(date, 'day')) {
+            sendEmail(result.userId.email, result.title);
+            const getUser = reservationModel.findOne(
+              {
+                _id: result._id,
+              },
+              async function (err, reservation) {
+                if (reservation) {
+                  await reservation.updateOne({
+                    $set: {
+                      email_sent: true,
+                    },
+                  });
+                }
+              },
+            );
           }
-          //console.log(Date.now() < date - 24 * 60 * 60 * 1000 * 7);
-          // if (Date.now() < date - 24 * 60 * 60 * 1000 * 7) {
-          //   console.log('send');
-          //   sendEmail(result.userId.email);
-          //   const getUser = reservationModel.findOne(
-          //     {
-          //       _id: result._id,
-          //     },
-          //     async function (err, reservation) {
-          //       if (reservation) {
-          //         await reservation.updateOne({
-          //           $set: {
-          //             email_sent: true,
-          //           },
-          //         });
-          //       }
-          //     },
-          //   );
-          // }
         }
       });
   });
