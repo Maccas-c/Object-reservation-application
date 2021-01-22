@@ -45,7 +45,6 @@ module.exports.task = function () {
           time.setMinutes(0);
           time.setSeconds(0);
           time.setMilliseconds(0);
-          console.log(time);
           let date = result.start;
           date.setHours(0, 0, 0, 0);
           console.log(date.getDay());
