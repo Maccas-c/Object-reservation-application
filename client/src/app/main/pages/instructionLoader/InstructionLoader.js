@@ -25,13 +25,11 @@ const InstructionLoader = ({ history }) => {
 	const dispatch = useDispatch();
 	const id = useSelector(({ auth: { user } }) => user._id);
 	const handlePushHome = () => {
-		dispatch(updateUser(id));
-		history.push('/home');
+		dispatch(updateUser(id, history, '/home'));
 	};
 
 	const handlePushInstruction = () => {
-		dispatch(updateUser(id));
-		history.push('/knowledge-base');
+		dispatch(updateUser(id, history, '/knowledge-base'));
 	};
 	return (
 		<div className={clsx(classes.root, 'flex flex-col flex-auto flex-shrink-0 items-center justify-center p-32')}>

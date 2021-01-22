@@ -81,7 +81,7 @@ function UserMenu(props) {
 						</MenuItem>
 						<MenuItem
 							onClick={() => {
-								dispatch(logoutUser());
+								dispatch(logoutUser(user.isStudent));
 								userMenuClose();
 							}}
 						>

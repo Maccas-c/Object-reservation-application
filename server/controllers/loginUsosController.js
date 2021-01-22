@@ -22,10 +22,9 @@ module.exports.logout = function (req, res) {
   });
   req.session.destroy(function (err) {
     if (err) return res.status(404);
-    res
-      .status(200)
-      .redirect(
-        'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj',
-      );
+
+    redirect(
+      'https://usosweb.amu.edu.pl/kontroler.php?_action=logowaniecas/wyloguj',
+    );
   });
 };

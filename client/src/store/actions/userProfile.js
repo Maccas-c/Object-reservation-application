@@ -36,12 +36,13 @@ export const fetchReservationUserList = reservation => {
 	};
 };
 
-export const updateUser = id => {
+export const updateUser = (id, history, route) => {
 	return dispatch => {
 		axios
 			.get(`/getUser/${id}`)
 			.then(response => {
 				dispatch(setUserData(response.data));
+				history.push(route);
 			})
 			.catch(() => {});
 	};

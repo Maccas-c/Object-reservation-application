@@ -137,6 +137,16 @@ class LoginService extends FuseUtils.EventEmitter {
 				.catch(() => {});
 		});
 	};
+	logoutUSOS = () => {
+		return new Promise(() => {
+			axios
+				.get('/loginUsos/logout')
+				.then(response => {
+					this.emit('onLogout', response.data);
+				})
+				.catch(() => {});
+		});
+	};
 }
 
 const instance = new LoginService();

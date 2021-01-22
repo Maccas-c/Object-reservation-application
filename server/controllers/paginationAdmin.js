@@ -101,7 +101,8 @@ module.exports.rangeUsers = async function (req, res, next) {
     let rangeFilters = JSON.parse(req.query.range);
     const key = sort[0];
     const value = sort[1] === 'ASC' ? '1' : '-1';
-
+    filter['isActive'] = true;
+    console.log(filter);
     try {
       const usersDocuments = await userModel
         .find(filter)
