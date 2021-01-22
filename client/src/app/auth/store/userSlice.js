@@ -20,8 +20,8 @@ export const setUserData = user => async (dispatch, getState) => {
 	dispatch(setUser(user));
 };
 
-export const logoutUser = () => async (dispatch, getState) => {
-	authService.logout();
+export const logoutUser = isStudent => async (dispatch, getState) => {
+	isStudent ? authService.logoutUSOS() : authService.logout();
 	history.push({
 		pathname: '/login'
 	});

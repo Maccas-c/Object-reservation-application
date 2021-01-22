@@ -135,9 +135,22 @@ module.exports.userUpdate = async function (req, res) {
 
 module.exports.userGet = async function (req, res) {
   try {
-    const getUser = await userModel.findById(req.params.userId);
-
-    return res.status(200).json(getUser);
+    const getUser = await userModel.findOne(
+      { _id: req.params.userId },
+      async function (err, user) {
+        console.log('przed', user);
+        if (user.firstLogin == true) {
+          const userFiexd = JSON.parse(JSON.stringify(user));
+          userFiexd.firstLogin = false;
+          console.log('userfiexd', userFiexd);
+          await user.updateOne({
+            firstLogin: false,
+          });
+          user.save();
+          return res.status(200).send(userFiexd);
+        } else return res.status(200).send(user);
+      },
+    );
   } catch (err) {
     return res.status(404).json(err);
   }

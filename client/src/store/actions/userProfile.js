@@ -13,7 +13,7 @@ export const updateUserProfileStart = user => {
 				dispatch(showMessage({ message: 'Pomyślnie zmieniono dane' }));
 				dispatch(setUserData(response.data));
 			})
-			.catch((err) => {
+			.catch(err => {
 				dispatch(showMessage({ message: err.response.data }));
 			});
 	};
@@ -36,12 +36,13 @@ export const fetchReservationUserList = reservation => {
 	};
 };
 
-export const updateUser = id => {
+export const updateUser = (id, history, route) => {
 	return dispatch => {
 		axios
 			.get(`/getUser/${id}`)
 			.then(response => {
 				dispatch(setUserData(response.data));
+				history.push(route);
 			})
 			.catch(() => {
 				dispatch(showMessage({ message: 'Błąd autoryzacji, zostałeś wylogowany.' }));
