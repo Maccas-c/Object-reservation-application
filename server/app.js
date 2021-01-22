@@ -30,7 +30,7 @@ const { task } = require('./lib/cronEmail');
 const app = express();
 require('./config/passport');
 
-//task();
+task();
 const swaggerOptions = {
   swaggerDefinition: {
     components: {},
