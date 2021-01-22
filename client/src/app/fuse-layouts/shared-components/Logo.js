@@ -33,7 +33,7 @@ function Logo() {
 		<div className={clsx(classes.root, 'flex items-center')}>
 			<img className="logo-icon" src="/assets/images/logos/logo.svg" alt="logo" />
 			<Typography className="text-16 mx-12 font-light logo-text" color="inherit">
-				Devcourt
+				DevCourt
 			</Typography>
 			<div className={clsx(classes.reactBadge, 'badge flex items-center py-4 px-8 rounded')}>
 				<span className="react-text text-12 mx-4">system rezerwacji</span>
