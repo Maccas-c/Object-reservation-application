@@ -104,7 +104,7 @@ class LoginService extends FuseUtils.EventEmitter {
 		return new Promise((resolve, reject) => {
 			axios
 				.get(
-					`/user/${userId}`,
+					`/getUser/${userId}`,
 
 					{
 						withCredentials: true

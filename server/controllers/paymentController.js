@@ -32,18 +32,18 @@ module.exports.getPayToken = async function (req, res) {
 module.exports.removeReservation = async function (req, res) {
   console.log(req.user);
   userModel.findByIdAndUpdate(
-      req.user._id,
-      {
-        $pull: { reservations: { _id: req.params.reservationId } },
-        $set: { sumPrice: req.body.sumPrice - req.body.price },
-      },
-      { safe: true, upsert: true, new: true },
-      function (err, node) {
-        if (err) {
-          console.log(err);
-        }
-        res.status(200).json(node);
-      },
+    req.user._id,
+    {
+      $pull: { reservations: { _id: req.params.reservationId } },
+      $set: { sumPrice: req.body.sumPrice - req.body.price },
+    },
+    { safe: true, upsert: true, new: true },
+    function (err, node) {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).json(node);
+    },
   );
 };
 
@@ -85,6 +85,7 @@ module.exports.returnListToSave = async function (req, res, next) {
             courtId: item.courtId,
             userId: item.userId,
             price: item.price,
+            vat: item.vat,
           });
         }
       },
@@ -102,14 +103,12 @@ module.exports.returnListToSave = async function (req, res, next) {
   );
 
   if (ifPass == true && iterator == reservations.length) {
-    console.log('middleware1 - tu powinienem byc 2');
     res.locals.saveToBase = saveToBase;
     next();
   } else return res.status(422).send('godzina zajeta');
 };
 
 module.exports.saveToBase = async function (req, res, next) {
-  console.log('middleware2 - zapis do bazy');
   await reservationModel.insertMany(res.locals.saveToBase);
   next();
 };

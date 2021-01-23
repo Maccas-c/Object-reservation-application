@@ -99,7 +99,7 @@ function PriceList({ history }, props) {
 												className="text-13 whitespace-nowrap opacity-75"
 												style={{ color: 'rgb(255, 255, 255)' }}
 											>
-												{nameCourt} - {name}
+												{name}
 											</div>
 											<div className="flex items-center justify-center opacity-75">
 												<Icon className="text-15 mx-8" color="inherit">

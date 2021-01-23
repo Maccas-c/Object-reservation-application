@@ -203,13 +203,19 @@ module.exports.reservationAddBasket = async function (req, res) {
 
           const courtParsed = JSON.parse(JSON.stringify(court));
 
-          const price = userParsed.isStudent
-            ? courtParsed.tariffId.classes_and_sports_training * 0.5
-            : courtParsed.tariffId.classes_and_sports_training;
+          const activity = req.body.activity;
 
-          // const price = userParsed.isStudent
-          //   ? tariffdocParsed[0].classes_and_sports_training * 0.5
-          //   : tariffdocParsed[0].classes_and_sports_training;
+          let qw = 0;
+          if (activity == 'classes_and_sports_training') {
+            qw = courtParsed.tariffId.classes_and_sports_training;
+          }
+          if (activity == 'tournament_matches') {
+            qw = courtParsed.tariffId.tournament_matches;
+          }
+          if (activity == 'university_club') {
+            qw = courtParsed.tariffId.university_club;
+          }
+          const price = userParsed.isStudent ? qw * 0.5 : qw;
 
           sumPrice = parseInt(sumPrice) + parseInt(price);
 
@@ -232,6 +238,7 @@ module.exports.reservationAddBasket = async function (req, res) {
                   userId: req.body.userId,
                   isPaid: false,
                   price: price,
+                  vat: req.body.vat,
                 },
               },
               $set: {

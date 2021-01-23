@@ -12,15 +12,27 @@ export const PDFDownloadService = () => {
     pdf.text(
       20,
       30,
-      `Adres: ${getFirstReservation.userId.adress_city ? 'undefined' : ' '} ${
-        getFirstReservation.userId.adress_street ? 'undefined' : 'nie podano'
+      `Adres: ${getFirstReservation.userId ? getFirstReservation.userId.adress_city : ' nie podano '} ${
+        getFirstReservation.userId ? getFirstReservation.userId.adress_street : 'nie podano'
       }`
     );
 
-    pdf.text(20, 40, `Kod pocztowy: ${getFirstReservation.userId.adress_postalCode ? 'undefined' : 'nie podano'}`);
-    pdf.text(20, 50, `NIP: ${getFirstReservation.userId.nip ? 'undefined' : 'nie podano'}`);
+    pdf.text(
+      20,
+      40,
+      `Kod pocztowy: ${
+        getFirstReservation.userId.adress_postalCode ? getFirstReservation.userId.adress_postalCode : 'nie podano'
+      }`
+    );
+    pdf.text(20, 50, `NIP: ${getFirstReservation.userId.nip ? getFirstReservation.userId.nip : 'nie podano'}`);
     pdf.text(20, 60, `E-mail: ${getFirstReservation.userId.email}`);
-    pdf.text(20, 70, `Numer telefonu: ${getFirstReservation.userId.phone_number ? 'undefined' : 'nie podano'}`);
+    pdf.text(
+      20,
+      70,
+      `Numer telefonu: ${
+        getFirstReservation.userId.phone_number ? getFirstReservation.userId.phone_number : 'nie podano'
+      }`
+    );
     pdf.text(20, 80, `Cena : ${getFirstReservation.price}`);
     let lineHelper = 90;
     pdf.text(20, lineHelper, `Rezerwacje:`);
@@ -31,7 +43,7 @@ export const PDFDownloadService = () => {
         lineHelper,
         `${value.dayString}, ${value.title}, sektor: ${value.courtId.nameCourt}, cena: ${value.price}zł`
       );
-      if (lineHelper > 270 && getFirstReservation !== undefined) {
+      if (lineHelper > 270) {
         lineHelper = 20;
         pdf.addPage();
       }

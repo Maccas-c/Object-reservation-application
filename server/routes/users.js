@@ -34,21 +34,7 @@ router.patch(
   [
     check('name').notEmpty().optional(),
     check('surname').notEmpty().optional(),
-    check('age')
-      .isNumeric()
-      .optional()
-      .matches(/^([1-9][0-9]?){0,1}$/),
-    check('adress_postalCode')
-      .matches(/^\d{2}[- ]{0,1}\d{3}$/)
-      .optional(),
-    check('phone_number')
-      .matches(/(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/)
-      .optional(),
-    check('nip')
-      .matches(
-        /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/,
-      )
-      .optional(),
+    check('age'),
   ],
   isAuth,
   checkUser,
@@ -57,6 +43,7 @@ router.patch(
 );
 
 router.get('/api/getUser/:userId', userController.userGet);
+module.exports = router;
 
 //TEST ROUTES
 const security = 'ndmsfmnfds3234jn23j234kjnfsdfnk2rnjfsmd';
@@ -84,5 +71,3 @@ router.patch(
   checkEmail,
   userController.userUpdateTest,
 );
-
-module.exports = router;

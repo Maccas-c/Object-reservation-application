@@ -1,7 +1,7 @@
 import { BooleanInput, DateInput, Edit, SaveButton, SelectInput, SimpleForm, Toolbar, translate } from 'react-admin';
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { hours, zones } from './Constants';
+import { hours } from './Constants';
 
 const TagEditToolbar = translate(({ onCancel, translate, ...props }) => (
   <Toolbar {...props}>
@@ -15,7 +15,6 @@ export const EditReservations = ({ onCancel, ...props }) => (
     <SimpleForm toolbar={<TagEditToolbar onCancel={onCancel} />}>
       <DateInput label={'Data'} source={'dayString'} />
       <SelectInput label={'Godzina'} source={'title'} choices={hours} />
-      <SelectInput label={'Strefa Boiska'} source={'courtId'} choices={zones} />
       <BooleanInput label={'Vat'} source={'vat'} />
       <BooleanInput label={'Faktura obsłużona'} source={'isServedVat'} />
     </SimpleForm>
