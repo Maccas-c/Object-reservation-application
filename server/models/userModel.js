@@ -54,6 +54,10 @@ const userModel = mongoose.Schema({
       userId: String,
       isPaid: Boolean,
       price: Number,
+      vat: {
+        type: Boolean,
+        default: false,
+      },
     },
   ],
 });
