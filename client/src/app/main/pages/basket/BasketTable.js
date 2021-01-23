@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import BasketTableHead from './BasketTableHead';
 import PayConfirm from '../payConfirm/payConfirm';
 import { deleteReservation, getPayuToken } from '../../../../store/actions/payment';
-
+import { useConstructor } from '../../../../utils/customHooks';
 function BasketTable() {
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
@@ -27,9 +27,15 @@ function BasketTable() {
 			}
 		}) => reservations
 	);
+
+	useConstructor(() => {
+		if (basketUser.length === 0) return null;
+		else {
+			dispatch(getPayuToken());
+		}
+	});
 	const handleOpenDialog = () => {
 		setOpen(true);
-		dispatch(getPayuToken(userName, basketUser, sumPrice));
 	};
 
 	const handleCloseDialog = () => {

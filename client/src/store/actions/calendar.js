@@ -26,7 +26,7 @@ export const addReservation = (start, courtId, userId, date) => {
 	};
 };
 
-export const addToBasket = (start, courtId, userId, date, defaultCourt) => {
+export const addToBasket = (start, courtId, userId, date, defaultCourt, activity, vat) => {
 	return dispatch => {
 		const hours = parseInt(start.substring(0, 2));
 		const minutes = parseInt(start.substring(3, 5));
@@ -36,6 +36,8 @@ export const addToBasket = (start, courtId, userId, date, defaultCourt) => {
 				start: new Date(time),
 				courtId,
 				userId,
+				activity,
+				vat,
 				duration: '90',
 				nameCourt: defaultCourt
 			})

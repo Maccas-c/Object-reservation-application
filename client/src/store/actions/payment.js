@@ -2,16 +2,23 @@ import axios from '../../axios/axios-auth';
 import * as action from './actionTypes';
 import { setUserData } from '../../app/auth/store/userSlice';
 
-export const getPayuToken = (name, reservation, price) => {
+export const getPayuToken = () => {
 	return dispatch => {
 		axios
 			.post('/getToken', { withCredentials: true })
 			.then(response => {
-				dispatch(createPayment(response.data, name, reservation, price));
+				dispatch(setToken(response.data));
 			})
 			.catch(error => {
 				console.log(error);
 			});
+	};
+};
+
+export const setToken = token => {
+	return {
+		type: action.SET_TOKEN,
+		token: token
 	};
 };
 
@@ -33,7 +40,7 @@ export const createPayment = (token, name, reservation, price) => {
 				{ withCredentials: true }
 			)
 			.then(response => {
-				dispatch(setRedirectLink(response.data.redirectUri));
+				window.location.href = response.data.redirectUri;
 			})
 			.catch(error => {
 				console.log(error);

@@ -137,16 +137,7 @@ class LoginService extends FuseUtils.EventEmitter {
 				.catch(() => {});
 		});
 	};
-	logoutUSOS = () => {
-		return new Promise(() => {
-			axios
-				.get('/loginUsos/logout')
-				.then(response => {
-					this.emit('onLogout', response.data);
-				})
-				.catch(() => {});
-		});
-	};
+	logoutUSOS = () => (window.location.href = 'http://localhost:3001/api/loginUsos/logout');
 }
 
 const instance = new LoginService();

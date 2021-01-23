@@ -5,12 +5,16 @@ import Icon from '@material-ui/core/Icon';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { createPayment } from '../../../../store/actions/payment';
 function PayForm({ onClose, reservations, price }) {
+	const dispatch = useDispatch();
+
 	const link = useSelector(state => state.paymentReducer.link);
+	const token = useSelector(state => state.paymentReducer.token);
+	const name = useSelector(state => state.auth.user._id);
 	const handleSendPay = () => {
-		window.location.href = link;
+		dispatch(createPayment(token, name, reservations, price));
 	};
 	return (
 		<div className="flex flex-col w-full">

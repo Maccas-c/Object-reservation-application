@@ -21,7 +21,11 @@ export const setUserData = user => async (dispatch, getState) => {
 };
 
 export const logoutUser = isStudent => async (dispatch, getState) => {
-	isStudent ? authService.logoutUSOS() : authService.logout();
+	if (isStudent) {
+		authService.logoutUSOS();
+		return;
+	}
+	authService.logout();
 	history.push({
 		pathname: '/login'
 	});

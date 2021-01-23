@@ -5,15 +5,24 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Formik } from 'formik';
+import { Form, Formik, Field } from 'formik';
 import { closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
 import { getDay, getId } from './utils';
 import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
 import { addToBasket } from '../../../../store/actions/calendar';
+
+const activity = [
+	{ name: 'classes_and_sports_training', value: 'Klasowe treningi sportowe', price: '230' },
+	{ name: 'tournament_matches', value: 'Turniej', price: '340' },
+	{ name: 'university_club', value: 'Klub AZS', price: '110' }
+];
 
 function EventDialog() {
 	const dispatch = useDispatch();
@@ -51,9 +60,19 @@ function EventDialog() {
 
 			<Formik
 				enableReinitialize
-				initialValues={{ courtId: defaultCourt }}
+				initialValues={{ courtId: defaultCourt, c: false }}
 				onSubmit={values => {
-					dispatch(addToBasket(values.durationTime, id, userId, eventDialog.data.start, defaultCourt));
+					dispatch(
+						addToBasket(
+							values.durationTime,
+							id,
+							userId,
+							eventDialog.data.start,
+							defaultCourt,
+							values.activity,
+							values.vat
+						)
+					);
 					dispatch(closeNewEventDialog());
 				}}
 				render={({ handleSubmit, handleChange, handleBlur, values }) => (
@@ -121,6 +140,35 @@ function EventDialog() {
 												return null;
 											})}
 									</TextField>
+									<TextField
+										className="mt-8 mb-16"
+										id="activity"
+										select
+										label="Rodzaj aktywności"
+										name="activity"
+										onBlur={handleBlur}
+										required
+										value={values.activity || ''}
+										onChange={handleChange}
+										rows={5}
+										variant="outlined"
+										disabled={eventDialog.type !== 'new'}
+										fullWidth
+									>
+										{activity &&
+											activity.map(item => {
+												return (
+													<MenuItem key={item.name} value={item.name}>
+														{item.value}
+													</MenuItem>
+												);
+											})}
+									</TextField>
+
+									<FormControlLabel
+										control={<Switch checked={values.vat} onChange={handleChange} name="vat" />}
+										label="Faktura VAT"
+									/>
 								</>
 							) : (
 								<TextField
@@ -129,7 +177,7 @@ function EventDialog() {
 									label="Godzina rezerwacji"
 									name="durationTime"
 									value={reservationInfo ? reservationInfo.title.slice(3, 8) : ''}
-									variant="outlined"
+									variant="oustlined"
 									disabled={eventDialog.type !== 'new'}
 									fullWidth
 								/>

@@ -8,3 +8,4 @@ export const SET_FREE_TIMES = 'SET_FREE_TIMES';
 export const SET_PAYU_LINK = 'SET_PAYU_LINK';
 export const DELETE_RESERVATION = 'DELETE_RESERVATION';
 export const GET_PRICE_LIST = 'GET_PRICE_LIST';
+export const SET_TOKEN = 'SET_TOKEN';
