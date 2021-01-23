@@ -48,6 +48,7 @@ const reservationModel = mongoose.Schema({
   price: {
     type: Number,
   },
+  referId: String,
 });
 
 module.exports = mongoose.model('reservationModel', reservationModel);

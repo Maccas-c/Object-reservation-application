@@ -30,7 +30,6 @@ module.exports.getPayToken = async function (req, res) {
 };
 
 module.exports.removeReservation = async function (req, res) {
-  console.log(req.user);
   userModel.findByIdAndUpdate(
     req.user._id,
     {
@@ -54,7 +53,6 @@ module.exports.returnListToSave = async function (req, res, next) {
   let ifPass = true;
   const user = userModel.findOne({ _id: req.user._id });
   for (const item of reservations) {
-    console.log('middleware1 - tu powinienem byc 1');
     let start = moment(item.start);
 
     let titleDate = start.format('HH:mm');
@@ -78,6 +76,7 @@ module.exports.returnListToSave = async function (req, res, next) {
         } else {
           iterator = iterator + 1;
           saveToBase.push({
+            referId: item._id,
             title: item.title,
             start: item.start,
             dayString: item.dayString,
@@ -102,7 +101,7 @@ module.exports.returnListToSave = async function (req, res, next) {
     },
   );
 
-  if (ifPass == true && iterator == reservations.length) {
+  if (ifPass == true) {
     res.locals.saveToBase = saveToBase;
     next();
   } else return res.status(422).send('godzina zajeta');
@@ -114,6 +113,15 @@ module.exports.saveToBase = async function (req, res, next) {
 };
 
 module.exports.createPayments = async function (req, res) {
+  let ids = '';
+  console.log('body', req.body);
+  ids = `${req.body.reservations[0].userId}`;
+  const reservations = req.body.reservations;
+  reservations.forEach(value => {
+    ids = ids + `,${value._id}`;
+  });
+  console.log('ids createPayment', ids);
+
   request(
     {
       method: 'POST',
@@ -124,12 +132,12 @@ module.exports.createPayments = async function (req, res) {
       },
       body: JSON.stringify({
         customerIp: '150.254.78.206',
-        notifyUrl: 'https://devcourt.projektstudencki.pl/api/notify',
+        notifyUrl: 'https://devcourt.projektstudencki.pl/api/notifyy',
         merchantPosId: process.env.PAYU_CLIENT_ID,
         description: 'DEV',
         currencyCode: 'PLN',
         totalAmount: req.body.price,
-        continueUrl: 'http://devcourt.projektstudencki.pl/',
+        continueUrl: 'https://devcourt.projektstudencki.pl/',
         buyer: {
           email: req.user.email,
           phone: '+48 ' + req.user.phone,
@@ -145,7 +153,7 @@ module.exports.createPayments = async function (req, res) {
         },
         products: [
           {
-            name: req.user._id,
+            name: ids,
             unitPrice: req.body.price,
             quantity: '1',
           },
@@ -170,11 +178,17 @@ module.exports.createPayments = async function (req, res) {
 };
 
 module.exports.notify = async function (req, res) {
-  console.log(req.body.order);
+  const ids = req.body.order.products[0].name.split(',');
+  const userId = ids[0];
+  console.log('ids notify', ids);
+  ids.shift();
+  console.log('after shift', ids);
+
   if (req.body.order.status == 'COMPLETED') {
     await reservationModel.updateMany(
       {
-        userId: req.body.order.products[0].name,
+        referId: { $in: ids },
+        userId: userId,
         orderId: { $exists: false },
         paid: false,
       },
@@ -185,13 +199,15 @@ module.exports.notify = async function (req, res) {
         },
       },
     );
-  }
-  if (req.body.order.status == 'CANCELED') {
+    return res.status(200);
+  } else if (req.body.order.status == 'CANCELED') {
     await reservationModel.deleteMany({
-      userId: req.body.order.products[0].name,
+      userId: userId,
+      referId: { $in: ids },
       orderId: { $exists: false },
       paid: false,
     });
+    return res.status(200);
   }
   res.status(200);
 };
