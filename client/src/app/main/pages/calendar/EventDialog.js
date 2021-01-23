@@ -5,8 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import {FormControlLabel, Switch} from '@material-ui/core';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,9 +18,9 @@ import { getFreeTimes, setCourt } from '../../../../store/actions/courts';
 import { addToBasket } from '../../../../store/actions/calendar';
 
 const activity = [
-	{ name: 'classes_and_sports_training', value: 'Klasowe treningi sportowe', price: '230' },
-	{ name: 'tournament_matches', value: 'Turniej', price: '340' },
-	{ name: 'university_club', value: 'Klub AZS', price: '110' }
+	{ name: 'classes_and_sports_training', value: 'Zajęcia sportowe, treningi' },
+	{ name: 'tournament_matches', value: 'Mecze, turnieje' },
+	{ name: 'university_club', value: 'Uczelniany Klub AZS UAM' }
 ];
 
 function EventDialog() {
@@ -177,7 +176,7 @@ function EventDialog() {
 									label="Godzina rezerwacji"
 									name="durationTime"
 									value={reservationInfo ? reservationInfo.title.slice(3, 8) : ''}
-									variant="oustlined"
+									variant="outlined"
 									disabled={eventDialog.type !== 'new'}
 									fullWidth
 								/>

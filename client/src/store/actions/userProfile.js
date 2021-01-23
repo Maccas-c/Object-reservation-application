@@ -14,7 +14,7 @@ export const updateUserProfileStart = user => {
 				dispatch(setUserData(response.data));
 			})
 			.catch(err => {
-				dispatch(showMessage({ message: err.response.data }));
+				dispatch(showMessage({ message: 'Niepomyślnie zmieniono dane' }));
 			});
 	};
 };
