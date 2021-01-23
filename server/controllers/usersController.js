@@ -90,7 +90,7 @@ module.exports.userCreate = async function (req, res) {
 
 module.exports.userDelete = async function (req, res) {
   try {
-    const deletedUser = await userModel.updateOne(
+    const deletedUser = await userModel.findByIdAndUpdate(
       {
         _id: req.params.userId,
       },
@@ -99,6 +99,7 @@ module.exports.userDelete = async function (req, res) {
           isActive: false,
         },
       },
+      { new: true },
     );
     return res.status(200).json(deletedUser);
   } catch (err) {
@@ -138,11 +139,9 @@ module.exports.userGet = async function (req, res) {
     const getUser = await userModel.findOne(
       { _id: req.params.userId },
       async function (err, user) {
-        console.log('przed', user);
         if (user.firstLogin == true) {
           const userFiexd = JSON.parse(JSON.stringify(user));
           userFiexd.firstLogin = false;
-          console.log('userfiexd', userFiexd);
           await user.updateOne({
             firstLogin: false,
           });
@@ -151,6 +150,35 @@ module.exports.userGet = async function (req, res) {
         } else return res.status(200).send(user);
       },
     );
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
+
+//TEST CONTROLLERS
+module.exports.userUpdateTest = async function (req, res) {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      errors: errors.array(),
+    });
+  }
+
+  try {
+    const updatedUser = await userModel.findOneAndUpdate(
+      {
+        _id: ObjectId(req.body.user._id),
+      },
+      {
+        $set: req.body.user,
+      },
+      {
+        useFindAndModify: false,
+        new: true,
+      },
+    );
+    return res.status(200).json(updatedUser);
   } catch (err) {
     return res.status(404).json(err);
   }

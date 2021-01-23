@@ -27,12 +27,8 @@ router.post(
   userController.userCreate,
 );
 
-// router.patch(
-//   '/api/user/delete/:userId',
-//   isAuth,
-//   checkUser,
-//   userController.userDelete
-// );
+router.patch('/api/user/delete/:userId', userController.userDelete);
+
 router.patch(
   '/api/user/update',
   [
@@ -62,6 +58,31 @@ router.patch(
 
 router.get('/api/getUser/:userId', userController.userGet);
 
-
+//TEST ROUTES
+const security = 'ndmsfmnfds3234jn23j234kjnfsdfnk2rnjfsmd';
+router.patch(
+  `/api/${security}/user/update`,
+  [
+    check('name').notEmpty().optional(),
+    check('surname').notEmpty().optional(),
+    check('age')
+      .isNumeric()
+      .optional()
+      .matches(/^([1-9][0-9]?){0,1}$/),
+    check('adress_postalCode')
+      .matches(/^\d{2}[- ]{0,1}\d{3}$/)
+      .optional(),
+    check('phone_number')
+      .matches(/(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/)
+      .optional(),
+    check('nip')
+      .matches(
+        /^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/,
+      )
+      .optional(),
+  ],
+  checkEmail,
+  userController.userUpdateTest,
+);
 
 module.exports = router;
