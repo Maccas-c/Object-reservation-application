@@ -12,7 +12,7 @@ export const registerSchema = Yup.object().shape({
 export const userProfileEdit = Yup.object().shape({
 	nip: Yup.string().matches(
 		/^((\d{3}[-]\d{3}[-]\d{2}[-]\d{2})|(\d{3}[-]\d{2}[-]\d{2}[-]\d{3}))$/,
-		'Niepoprawny format NIP, przykładowy format: XXX-XX-XX-XXX lub XXX-XX-XX-XXX'
+		'Niepoprawny format NIP, przykładowy format: XXX-XXX-XX-XX lub XXX-XX-XX-XXX'
 	),
 	adress_postalCode: Yup.string().matches(
 		/^\d{2}[- ]{0,1}\d{3}$/,
