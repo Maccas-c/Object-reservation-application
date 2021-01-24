@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -7,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import AnalogClock from 'analog-clock-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
 import useStyles, { options } from './styles';
@@ -25,12 +25,12 @@ function UserProfile() {
 	const [formValues, setFormValues] = useState('');
 
 	useEffect(() => {
-		// const oneDay = 24 * 60 * 60 * 1000;
-		// let diffDays = Math.round(Math.abs((new Date().getTime() - new Date(createDate).getTime()) / oneDay));
-		// if (diffDays === 0) {
-		// 	diffDays = 1;
-		// }
-		// setResults(diffDays);
+		const oneDay = 24 * 60 * 60 * 1000;
+		let diffDays = Math.round(Math.abs((new Date().getTime() - new Date(createDate).getTime()) / oneDay));
+		if (diffDays === 0) {
+			diffDays = 1;
+		}
+		setResults(diffDays);
 		setFormValues(userProfile);
 	}, [dispatch, userProfile, createDate]);
 
@@ -51,16 +51,16 @@ function UserProfile() {
 								className="min-w-full flex flex-col items-center justify-center sm:flex-row sm:justify-start sm:items-center -mx-8"
 							>
 								<div className="relative mx-8">
-									{/*<AnalogClock {...options} />*/}
+									<AnalogClock {...options} />
 								</div>
 
 								<div className="mx-8">
 									<Typography variant="h6" className="mb-8">
 										Witaj,
 									</Typography>
-									{/*<Typography color="textSecondary">{`Jesteś z nami już ${results} ${formatDayString(*/}
-									{/*	results*/}
-									{/*)} :)`}</Typography>*/}
+									<Typography color="textSecondary">{`Jesteś z nami już ${results} ${formatDayString(
+										results
+									)} :)`}</Typography>
 								</div>
 							</div>
 							<Formik
