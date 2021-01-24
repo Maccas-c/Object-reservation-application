@@ -134,8 +134,6 @@ function UserProfile() {
 											type="number"
 											label="Numer telefonu"
 											id="phone_number"
-											helperText={phone_number}
-											error={phone_number}
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={phone_number1 || ''}
@@ -147,8 +145,6 @@ function UserProfile() {
 											name="age"
 											label="Wiek"
 											type="number"
-											helperText={age}
-											error={age}
 											id="age"
 											onBlur={handleBlur}
 											onChange={handleChange}
@@ -170,8 +166,6 @@ function UserProfile() {
 										<TextField
 											className="mb-16"
 											name="adress_postalCode"
-											helperText={adress_postalCode}
-											error={adress_postalCode}
 											label="Kod pocztowy"
 											id="adress_postalCode"
 											onBlur={handleBlur}
@@ -196,8 +190,6 @@ function UserProfile() {
 											name="nip"
 											label="NIP"
 											id="nip"
-											error={nip}
-											helperText={nip}
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={nip1 || ''}
