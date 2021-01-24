@@ -161,9 +161,6 @@ module.exports.createPayments = async function (req, res) {
       }),
     },
     function (error, response, body) {
-      // console.log(error);
-      // console.log('respone' + response);
-      // console.log('body', body);
       let jsonBody = JSON.parse(body);
       if (jsonBody.status.statusCode == 'SUCCESS') {
         return res.status(200).send(body);
@@ -178,6 +175,10 @@ module.exports.createPayments = async function (req, res) {
 };
 
 module.exports.notify = async function (req, res) {
+  const response = {
+    statusCode: 200,
+  };
+  d;
   const ids = req.body.order.products[0].name.split(',');
   const userId = ids[0];
   console.log('ids notify', ids);
@@ -199,7 +200,8 @@ module.exports.notify = async function (req, res) {
         },
       },
     );
-    return res.status(200);
+
+    return res.status(200).send(response);
   } else if (req.body.order.status == 'CANCELED') {
     await reservationModel.deleteMany({
       userId: userId,
@@ -207,9 +209,9 @@ module.exports.notify = async function (req, res) {
       orderId: { $exists: false },
       paid: false,
     });
-    return res.status(200);
+    return res.status(response);
   }
-  res.status(200);
+  res.status(200).send(response);
 };
 
 module.exports.getOrderInfo = function (req, res) {
