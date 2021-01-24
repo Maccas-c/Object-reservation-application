@@ -40,6 +40,11 @@ const knowledgeBaseDB = [
 				title: 'Czy dostanę powiadomienie po dokonanej rezerwacji?',
 				content:
 					'<p>Serwis DevCourt wysyła twoje dokonane rezerwacje mijające okresie terminie do 24 godzin. </p>'
+			},
+			{
+				id: '5',
+				title: 'Czemu dostaje komunikat, że nie mogę dokonac rezerwacji?',
+				content: '<p>Dana godzina została zarezerwowana przez ciebie lub kogoś innego. </p>'
 			}
 		]
 	},
