@@ -12,7 +12,6 @@ import { Form, Formik } from 'formik';
 import useStyles, { options } from './styles';
 import { updateUserProfileStart } from '../../../../store/actions/userProfile';
 import { userProfileTransform } from '../../../services/validation/initialValuesValidation';
-import { userProfileEdit } from '../../../services/validation/validationSchema';
 import { getUserProfile } from '../../../auth/store/loginSlice';
 import { useConstructor } from '../../../../utils/customHooks';
 
@@ -66,7 +65,6 @@ function UserProfile() {
 							<Formik
 								enableReinitialize
 								initialValues={userProfileTransform(formValues)}
-								validationSchema={userProfileEdit}
 								onSubmit={(values, actions) => {
 									dispatch(updateUserProfileStart(values));
 									actions.setSubmitting(false);
