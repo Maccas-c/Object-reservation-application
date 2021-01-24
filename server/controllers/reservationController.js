@@ -5,6 +5,7 @@ const userModel = require('./../models/userModel');
 const courtsTariff = require('../models/tariffModel');
 const courtModel = require('../models/courtModel');
 const moment = require('moment');
+const e = require('express');
 
 const groupBy = (list, key) =>
   list.reduce(
@@ -159,89 +160,103 @@ module.exports.reservationsGetByDate = async function (req, res) {
 
 module.exports.reservationAddBasket = async function (req, res) {
   let isStudent = false;
-  const isExist = reservationModel.findOne(
+  const user = await userModel.find(
     {
-      start: moment(req.body.start).add(1, 'hours'),
-      courtId: req.body.courtId,
+      'reservations.start': moment(req.body.start).add(1, 'hours'),
+      'reservations.courtId': req.body.courtId,
     },
     async function (err, obj) {
       if (err) return res.status(404).json(err);
-      if (obj) return res.status(422).json('Godzina zajęta');
-      else {
-        let start = moment(req.body.start);
+      if (obj.length > 0) {
+        console.log(obj);
+        return res.status(422).json('Wybrana rezerwacja jest już w koszyku');
+      } else {
+        const isExist = reservationModel.findOne(
+          {
+            start: moment(req.body.start).add(1, 'hours'),
+            courtId: req.body.courtId,
+          },
+          async function (err, obj) {
+            if (err) return res.status(404).json(err);
+            if (obj) return res.status(422).json('Godzina zajęta');
+            else {
+              let start = moment(req.body.start);
 
-        let titleDate = start.format('HH:mm');
+              let titleDate = start.format('HH:mm');
 
-        let day = start.format('DD');
-        let year = start.format('YYYY');
-        let month = start.format('MM');
-        const dayString = year + '-' + month + '-' + day;
-        try {
-          const user = await userModel.findById(req.body.userId);
+              let day = start.format('DD');
+              let year = start.format('YYYY');
+              let month = start.format('MM');
+              const dayString = year + '-' + month + '-' + day;
+              try {
+                const user = await userModel.findById(req.body.userId);
 
-          const userParsed = JSON.parse(JSON.stringify(user));
+                const userParsed = JSON.parse(JSON.stringify(user));
 
-          let sumPrice = 0;
-          userParsed.reservations.forEach(item => {
-            sumPrice += parseInt(item.price);
-          });
+                let sumPrice = 0;
+                userParsed.reservations.forEach(item => {
+                  sumPrice += parseInt(item.price);
+                });
 
-          const court = await courtModel
-            .findOne({ _id: req.body.courtId })
-            .populate('tariffId');
+                const court = await courtModel
+                  .findOne({ _id: req.body.courtId })
+                  .populate('tariffId');
 
-          const courtParsed = JSON.parse(JSON.stringify(court));
+                const courtParsed = JSON.parse(JSON.stringify(court));
 
-          const activity = req.body.activity;
+                const activity = req.body.activity;
 
-          let qw = 0;
-          if (activity == 'classes_and_sports_training') {
-            qw = courtParsed.tariffId.classes_and_sports_training;
-          }
-          if (activity == 'tournament_matches') {
-            qw = courtParsed.tariffId.tournament_matches;
-          }
-          if (activity == 'university_club') {
-            qw = courtParsed.tariffId.university_club;
-          }
-          const price = userParsed.isStudent ? qw * 0.5 : qw;
+                let qw = 0;
+                if (activity == 'classes_and_sports_training') {
+                  qw = courtParsed.tariffId.classes_and_sports_training;
+                }
+                if (activity == 'tournament_matches') {
+                  qw = courtParsed.tariffId.tournament_matches;
+                }
+                if (activity == 'university_club') {
+                  qw = courtParsed.tariffId.university_club;
+                }
+                const price = userParsed.isStudent ? qw * 0.5 : qw;
 
-          sumPrice = parseInt(sumPrice) + parseInt(price);
+                sumPrice = parseInt(sumPrice) + parseInt(price);
 
-          const userUpdate = await userModel.findOneAndUpdate(
-            {
-              _id: req.body.userId,
-            },
-            {
-              $push: {
-                reservations: {
-                  title: titleDate,
-                  start: moment(req.body.start).add(1, 'hours').toDate(),
-                  dayString: dayString,
-                  end: moment(req.body.start)
-                    .add(1, 'hours')
-                    .add(req.body.duration, 'm')
-                    .toDate(),
-                  courtId: req.body.courtId,
-                  nameCourt: req.body.nameCourt,
-                  userId: req.body.userId,
-                  isPaid: false,
-                  price: price,
-                  vat: req.body.vat,
-                },
-              },
-              $set: {
-                sumPrice: sumPrice,
-              },
-            },
-            { new: true },
-          );
+                const userUpdate = await userModel.findOneAndUpdate(
+                  {
+                    _id: req.body.userId,
+                  },
+                  {
+                    $push: {
+                      reservations: {
+                        title: titleDate,
+                        start: moment(req.body.start).add(1, 'hours').toDate(),
+                        dayString: dayString,
+                        end: moment(req.body.start)
+                          .add(1, 'hours')
+                          .add(req.body.duration, 'm')
+                          .toDate(),
+                        courtId: req.body.courtId,
+                        nameCourt: req.body.nameCourt,
+                        userId: req.body.userId,
+                        isPaid: false,
+                        price: price,
+                        vat: req.body.vat,
+                      },
+                    },
+                    $set: {
+                      sumPrice: sumPrice,
+                    },
+                  },
+                  { new: true },
+                );
 
-          // const result = [{ msg: 'Pomyślnie dodano rezerwacje' }];
-          res.status(201).json(userUpdate);
-        } catch (err) {
-          res.status(400).json(err);
-        }
+                // const result = [{ msg: 'Pomyślnie dodano rezerwacje' }];
+                res.status(201).json(userUpdate);
+              } catch (err) {
+                res.status(400).json(err);
+              }
+            }
+          },
+        );
       }
     },
   );

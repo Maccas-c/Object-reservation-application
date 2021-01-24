@@ -90,13 +90,15 @@ module.exports.returnListToSave = async function (req, res, next) {
     );
   }
 
-  await userModel.update(
+  await userModel.updateOne(
     {
       _id: req.user._id,
     },
     {
-      reservations: [],
-      sumPrice: 0,
+      $set: {
+        reservations: [],
+        sumPrice: 0,
+      },
     },
   );
 
