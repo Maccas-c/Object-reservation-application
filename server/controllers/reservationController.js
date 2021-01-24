@@ -169,7 +169,9 @@ module.exports.reservationAddBasket = async function (req, res) {
       if (err) return res.status(404).json(err);
       if (obj.length > 0) {
         console.log(obj);
-        return res.status(422).json('Wybrana rezerwacja jest już w koszyku');
+        return res
+          .status(422)
+          .json('Wybrana rezerwacja jest chwilowo niedostępna');
       } else {
         const isExist = reservationModel.findOne(
           {
