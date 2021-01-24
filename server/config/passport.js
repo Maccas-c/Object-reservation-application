@@ -4,9 +4,7 @@ const OAuth1Strategy = require('passport-oauth1');
 const LocalStrategy = require('passport-local').Strategy;
 const userModel = require('../models/userModel');
 const mongoose = require('mongoose');
-const {
-  validPassword
-} = require('../lib/password');
+const { validPassword } = require('../lib/password');
 const nodemailer = require('nodemailer');
 
 passport.serializeUser(function (user, cb) {
@@ -28,12 +26,15 @@ const consumer = new oauth.OAuth(
   '1.0',
   'http:/localhost:3000/api/loginUsos/callback',
   'HMAC-SHA1',
-  null
+  null,
 );
-let usosClient = new OAuth1Strategy({
-    requestTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies',
+let usosClient = new OAuth1Strategy(
+  {
+    requestTokenURL:
+      'https://usosapps.amu.edu.pl/services/oauth/request_token?scopes=student_exams|personal|email|staff_perspective|cards|studies',
     accessTokenURL: 'https://usosapps.amu.edu.pl/services/oauth/access_token',
-    userAuthorizationURL: 'https://usosapps.amu.edu.pl/services/oauth/authorize',
+    userAuthorizationURL:
+      'https://usosapps.amu.edu.pl/services/oauth/authorize',
     consumerKey: process.env.USOS_CONSUMER_KEY,
     consumerSecret: process.env.USOS_CONSUMER_SECRET,
     callbackURL: 'http:/localhost:3001/api/loginUsos/callback',
@@ -41,7 +42,8 @@ let usosClient = new OAuth1Strategy({
   },
   function (accessToken, tokenSecret, profile, cb) {
     process.nextTick(async function () {
-      await userModel.findOne({
+      await userModel.findOne(
+        {
           email: profile.email,
         },
         async function (err, user) {
@@ -92,15 +94,16 @@ let usosClient = new OAuth1Strategy({
               from: `${process.env.EMAIL_ADDRESS}`,
               to: `${profile.email}`,
               subject: 'Rejestracja w serwisie do Devcourt',
-              text: 'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.',
+              text:
+                'Dziękujemy za rejestrację w naszym  systemie, życzymy miłego i sprawnego korzystania.',
             };
 
             transporter.sendMail(mailOptions);
           }
-        }
+        },
       );
     });
-  }
+  },
 );
 usosClient.userProfile = function (token, tokenSecret, params, cb) {
   consumer.get(
@@ -119,7 +122,7 @@ usosClient.userProfile = function (token, tokenSecret, params, cb) {
       } catch (e) {
         return cb(e);
       }
-    }
+    },
   );
 };
 passport.use(usosClient);
@@ -133,17 +136,16 @@ const customFields = {
 
 const verifyCallback = async function (req, email, password, done) {
   let role = req.params.role == undefined ? 'user' : 'admin';
-  const user = userModel.findOne({
+  const user = userModel.findOne(
+    {
       email: email,
       isActive: true,
       role: role,
     },
     async function (err, user) {
       if (err) {
-        console.log(err);
         return done(null, false);
       } else if (user) {
-        console.log(user)
         const isValid = validPassword(password, user.hash, user.salt);
 
         if (isValid) {
@@ -157,8 +159,8 @@ const verifyCallback = async function (req, email, password, done) {
         } else {
           return done(null, false);
         }
-      } else return done(null, false)
-    }
+      } else return done(null, false);
+    },
   );
 };
 

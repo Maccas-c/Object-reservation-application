@@ -39,7 +39,6 @@ module.exports.removeReservation = async function (req, res) {
     { safe: true, upsert: true, new: true },
     function (err, node) {
       if (err) {
-        console.log(err);
       }
       res.status(200).json(node);
     },
@@ -114,13 +113,12 @@ module.exports.saveToBase = async function (req, res, next) {
 
 module.exports.createPayments = async function (req, res) {
   let ids = '';
-  console.log('body', req.body);
+
   ids = `${req.body.reservations[0].userId}`;
   const reservations = req.body.reservations;
   reservations.forEach(value => {
     ids = ids + `,${value._id}`;
   });
-  console.log('ids createPayment', ids);
 
   request(
     {
@@ -181,9 +179,8 @@ module.exports.notify = async function (req, res) {
   d;
   const ids = req.body.order.products[0].name.split(',');
   const userId = ids[0];
-  console.log('ids notify', ids);
+
   ids.shift();
-  console.log('after shift', ids);
 
   if (req.body.order.status == 'COMPLETED') {
     await reservationModel.updateMany(

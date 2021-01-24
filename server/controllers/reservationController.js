@@ -50,7 +50,6 @@ module.exports.reservationAddBasket2 = async function (req, res) {
         let month = start.format('MM');
         const dayString = year + '-' + month + '-' + day;
 
-        console.log(dayString);
         const reservation = new reservationModel({
           title: titleDate,
           start: moment(req.body.start).add(1, 'hours'),
@@ -104,7 +103,6 @@ module.exports.getReservation = async function (req, res) {
 };
 
 module.exports.reservationsGetByUserId = async function (req, res) {
-  console.log('byłem tu');
   const userId = req.params.userId;
   try {
     const reservations = await reservationModel
@@ -129,7 +127,6 @@ module.exports.reservationsGetByDate = async function (req, res) {
   let month = start.format('MM');
   const dayString = year + '-' + month + '-' + day;
 
-  //console.log(dayString);
   let dates = [
     { hour: '15:00', durationTime: '15:00-16:30', free: true },
     { hour: '16:30', durationTime: '16:30-18:00', free: true },
@@ -186,20 +183,12 @@ module.exports.reservationAddBasket = async function (req, res) {
 
           let sumPrice = 0;
           userParsed.reservations.forEach(item => {
-            console.log(item.price);
             sumPrice += parseInt(item.price);
           });
 
-          // const tariffdoc = await courtsTariff.find({
-          //   nameCourt: req.body.nameCourt,
-          // });
-
-          // const tariffdocParsed = JSON.parse(JSON.stringify(tariffdoc));
-          console.log('jestem przed czytanie courtModel');
           const court = await courtModel
             .findOne({ _id: req.body.courtId })
             .populate('tariffId');
-          console.log(court);
 
           const courtParsed = JSON.parse(JSON.stringify(court));
 
@@ -251,7 +240,6 @@ module.exports.reservationAddBasket = async function (req, res) {
           // const result = [{ msg: 'Pomyślnie dodano rezerwacje' }];
           res.status(201).json(userUpdate);
         } catch (err) {
-          console.log(err);
           res.status(400).json(err);
         }
       }
@@ -277,7 +265,7 @@ module.exports.getPriceFront = async function (req, res) {
     }
 
     let grouped = groupBy(body, 'courtId');
-    console.log('keys', Object.keys(grouped));
+
     const wholeCourt = ifundefined(grouped['D']);
     const partsCourt =
       ifundefined(grouped['A']) +
@@ -295,7 +283,6 @@ module.exports.getPriceFront = async function (req, res) {
     }
     res.status(200).send(JSON.stringify(price));
   } catch (err) {
-    console.log(err);
     res.status(404).send(err);
   }
 };
@@ -317,7 +304,7 @@ module.exports.getPrice = async function (req, res, next) {
     }
 
     let grouped = groupBy(body, 'courtId');
-    console.log('keys', Object.keys(grouped));
+
     const wholeCourt = ifundefined(grouped['D']);
     const partsCourt =
       ifundefined(grouped['A']) +
@@ -334,10 +321,9 @@ module.exports.getPrice = async function (req, res, next) {
         partsCourt * cennik[1].tournament_matches;
     }
     res.locals.price = price;
-    console.log(price);
+
     next();
   } catch (err) {
-    console.log(err);
     res.status(404).send(err);
   }
 };
