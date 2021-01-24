@@ -90,22 +90,34 @@ module.exports.returnListToSave = async function (req, res, next) {
     );
   }
 
-  await userModel.updateOne(
-    {
-      _id: req.user._id,
-    },
-    {
-      $set: {
-        reservations: [],
-        sumPrice: 0,
-      },
-    },
-  );
-
   if (ifPass == true) {
     res.locals.saveToBase = saveToBase;
+    await userModel.updateOne(
+      {
+        _id: req.user._id,
+      },
+      {
+        $set: {
+          reservations: [],
+          sumPrice: 0,
+        },
+      },
+    );
     next();
-  } else return res.status(422).send('Godzina zajęta');
+  } else {
+    await userModel.updateOne(
+      {
+        _id: req.user._id,
+      },
+      {
+        $set: {
+          reservations: [],
+          sumPrice: 0,
+        },
+      },
+    );
+    return res.status(422).send('Godzina zajęta');
+  }
 };
 
 module.exports.saveToBase = async function (req, res, next) {

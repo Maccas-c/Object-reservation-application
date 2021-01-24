@@ -12,8 +12,8 @@ export const PDFDownloadService = () => {
     pdf.text(
       20,
       30,
-      `Adres: ${getFirstReservation.userId ? getFirstReservation.userId.adress_city : ' nie podano '} ${
-        getFirstReservation.userId ? getFirstReservation.userId.adress_street : 'nie podano'
+      `Adres: ${getFirstReservation.userId.adress_city ? getFirstReservation.userId.adress_city : ' '} ${
+        getFirstReservation.userId.adress_street ? getFirstReservation.userId.adress_street : 'nie podano'
       }`
     );
 
