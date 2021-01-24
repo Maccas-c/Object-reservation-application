@@ -44,7 +44,7 @@ export const createPayment = (token, name, reservation, price) => {
 				window.location.href = response.data.redirectUri;
 			})
 			.catch(error => {
-				dispatch(showMessage(error.response.data));
+				dispatch(showMessage({ message: error.response.data }));
 			});
 	};
 };
