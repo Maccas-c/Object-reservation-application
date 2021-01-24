@@ -130,7 +130,7 @@ module.exports.userUpdate = async function (req, res) {
     );
     return res.status(200).json(updatedUser);
   } catch (err) {
-    return res.status(404).json(err);
+    return res.status(404).json('Nieprawidłowe dane');
   }
 };
 

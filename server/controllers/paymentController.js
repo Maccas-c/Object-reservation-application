@@ -103,7 +103,7 @@ module.exports.returnListToSave = async function (req, res, next) {
   if (ifPass == true) {
     res.locals.saveToBase = saveToBase;
     next();
-  } else return res.status(422).send('godzina zajeta');
+  } else return res.status(422).send('Godzina zajęta');
 };
 
 module.exports.saveToBase = async function (req, res, next) {
