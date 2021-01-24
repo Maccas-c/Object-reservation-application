@@ -14,7 +14,6 @@ export const updateUserProfileStart = user => {
 				dispatch(setUserData(response.data));
 			})
 			.catch(err => {
-				console.log(err.response)
 				dispatch(showMessage({ message: err.response.data }));
 			});
 	};
