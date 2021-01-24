@@ -12,9 +12,9 @@ import { Form, Formik } from 'formik';
 import useStyles, { options } from './styles';
 import { updateUserProfileStart } from '../../../../store/actions/userProfile';
 import { userProfileTransform } from '../../../services/validation/initialValuesValidation';
-import { userProfileEdit } from '../../../services/validation/validationSchema';
 import { getUserProfile } from '../../../auth/store/loginSlice';
 import { useConstructor } from '../../../../utils/customHooks';
+import { userProfileEdit } from '../../../services/validation/validationSchema';
 
 function UserProfile() {
 	const classes = useStyles();
@@ -66,7 +66,6 @@ function UserProfile() {
 							<Formik
 								enableReinitialize
 								initialValues={userProfileTransform(formValues)}
-								validationSchema={userProfileEdit}
 								onSubmit={(values, actions) => {
 									dispatch(updateUserProfileStart(values));
 									actions.setSubmitting(false);
@@ -75,7 +74,6 @@ function UserProfile() {
 									handleSubmit,
 									handleChange,
 									handleBlur,
-									errors: { adress_postalCode, age, nip, phone_number, email },
 									values: {
 										adress_city,
 										adress_postalCode: adress_postalCode1,
@@ -96,7 +94,7 @@ function UserProfile() {
 											disabled={userProfile?.isStudent ?? null}
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={name}
+											value={name || ''}
 											variant="outlined"
 											fullWidth
 											required
@@ -110,7 +108,7 @@ function UserProfile() {
 											disabled={userProfile?.isStudent ?? null}
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={surname}
+											value={surname || ''}
 											variant="outlined"
 											required
 											fullWidth
@@ -125,9 +123,7 @@ function UserProfile() {
 											required
 											onBlur={handleBlur}
 											onChange={handleChange}
-											error={email}
-											value={email1}
-											helperText={email}
+											value={email1 || ''}
 											fullWidth
 										/>
 										<TextField
@@ -136,8 +132,7 @@ function UserProfile() {
 											type="number"
 											label="Numer telefonu"
 											id="phone_number"
-											helperText={phone_number}
-											error={phone_number}
+											helperText={userProfileEdit.phone_number}
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={phone_number1 || ''}
@@ -149,11 +144,10 @@ function UserProfile() {
 											name="age"
 											label="Wiek"
 											type="number"
-											helperText={age}
-											error={age}
 											id="age"
 											onBlur={handleBlur}
 											onChange={handleChange}
+											helperText={userProfileEdit.age}
 											value={age1 || ''}
 											variant="outlined"
 											fullWidth
@@ -172,12 +166,11 @@ function UserProfile() {
 										<TextField
 											className="mb-16"
 											name="adress_postalCode"
-											helperText={adress_postalCode}
-											error={adress_postalCode}
 											label="Kod pocztowy"
 											id="adress_postalCode"
 											onBlur={handleBlur}
 											onChange={handleChange}
+											helperText={userProfileEdit.adress_postalCode}
 											value={adress_postalCode1 || ''}
 											variant="outlined"
 											fullWidth
@@ -198,8 +191,7 @@ function UserProfile() {
 											name="nip"
 											label="NIP"
 											id="nip"
-											error={nip}
-											helperText={nip}
+											helperText={userProfileEdit.nipError}
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={nip1 || ''}

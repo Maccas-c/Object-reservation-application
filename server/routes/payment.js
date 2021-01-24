@@ -22,7 +22,7 @@ router.post(
   paymentController.removeReservation,
 );
 
-router.post('/api/notify', paymentController.notify);
+router.post('/api/notifyy', paymentController.notify);
 
 router.get('/getPaymentInfo/:orderId', paymentController.getOrderInfo);
 

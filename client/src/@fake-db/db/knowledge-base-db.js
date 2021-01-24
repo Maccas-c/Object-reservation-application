@@ -37,9 +37,15 @@ const knowledgeBaseDB = [
 			},
 			{
 				id: '5',
-				title: 'Czy dostanę powiadomienie po dokonanej rezerwacji?',
+				title: 'Czy dostanę powiadomienie e-mail o zbliżającej się rezerwacji?',
 				content:
-					'<p>Serwis DevCourt wysyła twoje dokonane rezerwacje mijające okresie terminie do 24 godzin. </p>'
+					'<p>Serwis DevCourt wysyła dzień wcześniej e-mail`a przypominającego o Twojej rezerwacji.   </p>'
+			},
+			{
+				id: '5',
+				title: 'Czemu dostaje komunikat, "Wybrana rezerwacja jest chwilowo niedostępna"?',
+				content:
+					'<p>Wybrany termin rezerwacji na dany sektor aktualnie znajduje się w Twoim koszyku albo koszyku innej osoby.   </p>'
 			}
 		]
 	},

@@ -47,8 +47,7 @@ export const addToBasket = (start, courtId, userId, date, defaultCourt, activity
 				dispatch(getEvents(userId));
 			})
 			.catch(err => {
-				console.log(err);
-				dispatch(showMessage({ message: 'Nie udało się dodać do koszyka rezerwacji' }));
+				dispatch(showMessage({ message: err.response.data }));
 			});
 	};
 };

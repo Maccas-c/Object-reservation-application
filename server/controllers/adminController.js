@@ -95,7 +95,6 @@ module.exports.reservationsDelete = async function (req, res) {
     );
     res.status(200).json(reservation);
   } catch (err) {
-    console.log(err);
     res.status(404).json(err);
   }
 };
@@ -103,14 +102,13 @@ module.exports.reservationCreate = async function (req, res) {
   let dayToDate = moment.utc(req.body.dayString);
   let hour = req.body.title.slice(0, 2);
   let minute = req.body.title.slice(3, 5);
-  console.log(hour, minute);
+
   dayToDate.set({ hour: hour, minute: minute, second: 0, millisecond: 0 });
 
   let day = dayToDate.format('DD');
   let year = dayToDate.format('YYYY');
   let month = dayToDate.format('MM');
   const dayString = year + '-' + month + '-' + day;
-  console.log(dayToDate);
 
   const court = await courtModel.findOne({
     nameCourt: req.body.courtId.nameCourt,
@@ -118,7 +116,6 @@ module.exports.reservationCreate = async function (req, res) {
   const courtFixed = JSON.parse(JSON.stringify(court));
 
   const { _id, sessionTime } = courtFixed;
-  console.log(_id, sessionTime);
 
   const admin = await userModel.findOne({ role: 'admin' });
   const adminFixed = JSON.parse(JSON.stringify(admin));
@@ -155,7 +152,6 @@ module.exports.reservationCreate = async function (req, res) {
           );
           res.status(201).send(responseBody);
         } catch (err) {
-          console.log(err);
           res.status(400).json(err);
         }
       }
@@ -203,7 +199,6 @@ module.exports.reservationsEditMany = async function (req, res) {
     );
     res.status(200).send(reservationFixed);
   } catch (err) {
-    console.log(err);
     res.status(404).json(err);
   }
 };
@@ -237,8 +232,6 @@ module.exports.courtsGet = async function (req, res) {
 };
 
 module.exports.courtsCreate = async function (req, res) {
-  console.log(req.body.date);
-
   const tariff = new courtsTariff({
     name: req.body.name,
     classes_and_sports_training: req.body.classes_and_sports_training,
@@ -248,9 +241,7 @@ module.exports.courtsCreate = async function (req, res) {
   let savedTariff = '';
   try {
     savedTariff = await tariff.save();
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
   const isExist = courtModel.findOne(
     {
       ids: req.params.ids,
@@ -280,11 +271,9 @@ module.exports.courtsCreate = async function (req, res) {
 module.exports.courtsDelete = async function (req, res) {
   courtModel.findByIdAndRemove(req.params.courtId, function (err, docs) {
     if (err) {
-      console.log(err);
     } else {
       tariffModel.findByIdAndRemove(docs.tariffId, function (error, docs) {
         if (error) {
-          console.log(error);
         } else {
           res.status(200).json('Pomyślnie usunięto');
         }
@@ -351,7 +340,6 @@ module.exports.tariffsGet = async function (req, res) {
     );
     res.status(200).json(tariffFixed);
   } catch (err) {
-    console.log(err);
     res.status(404).json(err);
   }
 };

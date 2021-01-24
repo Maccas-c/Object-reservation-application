@@ -25,8 +25,7 @@ module.exports.forgotPassword = async function (req, res) {
       if (err) {
         res.status(401).end('Błąd');
       }
-      console.log(!user);
-      console.log(user);
+
       if (!user) {
         return res.status(401).json('Użytkownik o podanym e-mail nie istnieje');
       }

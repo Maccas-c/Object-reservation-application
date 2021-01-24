@@ -1,7 +1,7 @@
 import * as Cookies from 'js-cookie';
 
 const authProvider = {
-  login: ({ username, password }) => {
+  login: async function ({ username, password }) {
     const email = username;
     const request = new Request('http://localhost:3001/api/login/admin', {
       method: 'POST',
@@ -21,7 +21,7 @@ const authProvider = {
         localStorage.setItem('token', process.env.REACT_APP_SECRET);
       })
       .catch(() => {
-        throw new Error('You are not admin');
+        throw new Error('Nie jesteś adminem');
       });
   },
   checkError: (error) => {
@@ -39,10 +39,27 @@ const authProvider = {
     if (localStorage.getItem('token') == process.env.REACT_APP_SECRET) return Promise.resolve();
     else return Promise.reject({ redirectTo: '/login' });
   },
-  logout: () => {
-    localStorage.removeItem('admin');
-    localStorage.removeItem('token');
-    localStorage.removeItem('permissions');
+  logout: async function () {
+    const request = new Request('http://localhost:3001/api/logout', {
+      method: 'GET',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+    });
+    return fetch(request)
+      .then((response) => {
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((auth) => {
+        localStorage.removeItem('admin');
+        localStorage.removeItem('token');
+        localStorage.removeItem('permissions');
+      })
+      .catch(() => {
+        throw new Error('You are not admin');
+      });
+
     return Promise.resolve();
   },
   getPermissions: () => {

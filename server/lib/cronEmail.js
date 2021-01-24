@@ -33,7 +33,6 @@ const sendEmail = function (email, godzina) {
 
 module.exports.task = function () {
   cron.schedule('0 12 * * *', () => {
-    console.log('scheduled');
     reservationModel
       .find({ email_sent: false })
       .populate('userId')
