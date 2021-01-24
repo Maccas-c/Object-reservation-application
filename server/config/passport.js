@@ -136,32 +136,61 @@ const customFields = {
 
 const verifyCallback = async function (req, email, password, done) {
   let role = req.params.role == undefined ? 'user' : 'admin';
-  const user = userModel.findOne(
-    {
-      email: email,
-      isActive: true,
-      role: role,
-    },
-    async function (err, user) {
-      if (err) {
-        return done(null, false);
-      } else if (user) {
-        const isValid = validPassword(password, user.hash, user.salt);
-
-        if (isValid) {
-          if (user.firstLogin === true) {
-            await user.update({
-              firstLogin: false,
-            });
-            user.save();
-            return done(null, user);
-          } else return done(null, user);
-        } else {
+  if (role === 'admin') {
+    const user = userModel.findOne(
+      {
+        email: email,
+        isActive: true,
+        role: 'admin',
+      },
+      async function (err, user) {
+        if (err) {
           return done(null, false);
-        }
-      } else return done(null, false);
-    },
-  );
+        } else if (user) {
+          const isValid = validPassword(password, user.hash, user.salt);
+
+          if (isValid) {
+            if (user.firstLogin === true) {
+              await user.update({
+                firstLogin: false,
+              });
+              user.save();
+              return done(null, user);
+            } else return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        } else return done(null, false);
+      },
+    );
+  } else {
+    const user = userModel.findOne(
+      {
+        email: email,
+        isActive: true,
+        role: { $in: ['admin', 'user'] },
+      },
+      async function (err, user) {
+        if (err) {
+          return done(null, false);
+        } else if (user) {
+          const isValid = validPassword(password, user.hash, user.salt);
+
+          if (isValid) {
+            if (user.firstLogin === true) {
+              await user.update({
+                firstLogin: false,
+              });
+              user.save();
+              return done(null, user);
+            } else return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        } else return done(null, false);
+      },
+    );
+  }
 };
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
