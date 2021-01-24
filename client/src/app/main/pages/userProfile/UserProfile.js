@@ -14,6 +14,7 @@ import { updateUserProfileStart } from '../../../../store/actions/userProfile';
 import { userProfileTransform } from '../../../services/validation/initialValuesValidation';
 import { getUserProfile } from '../../../auth/store/loginSlice';
 import { useConstructor } from '../../../../utils/customHooks';
+import { userProfileEdit } from '../../../services/validation/validationSchema';
 
 function UserProfile() {
 	const classes = useStyles();
@@ -73,7 +74,6 @@ function UserProfile() {
 									handleSubmit,
 									handleChange,
 									handleBlur,
-									errors: { adress_postalCode, age, nip, phone_number, email },
 									values: {
 										adress_city,
 										adress_postalCode: adress_postalCode1,
@@ -94,7 +94,7 @@ function UserProfile() {
 											disabled={userProfile?.isStudent ?? null}
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={name}
+											value={name || ''}
 											variant="outlined"
 											fullWidth
 											required
@@ -108,7 +108,7 @@ function UserProfile() {
 											disabled={userProfile?.isStudent ?? null}
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={surname}
+											value={surname || ''}
 											variant="outlined"
 											required
 											fullWidth
@@ -123,9 +123,7 @@ function UserProfile() {
 											required
 											onBlur={handleBlur}
 											onChange={handleChange}
-											error={email}
-											value={email1}
-											helperText={email}
+											value={email1 || ''}
 											fullWidth
 										/>
 										<TextField
@@ -134,6 +132,7 @@ function UserProfile() {
 											type="number"
 											label="Numer telefonu"
 											id="phone_number"
+											helperText={userProfileEdit.phone_number}
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={phone_number1 || ''}
@@ -148,6 +147,7 @@ function UserProfile() {
 											id="age"
 											onBlur={handleBlur}
 											onChange={handleChange}
+											helperText={userProfileEdit.age}
 											value={age1 || ''}
 											variant="outlined"
 											fullWidth
@@ -170,6 +170,7 @@ function UserProfile() {
 											id="adress_postalCode"
 											onBlur={handleBlur}
 											onChange={handleChange}
+											helperText={userProfileEdit.adress_postalCode}
 											value={adress_postalCode1 || ''}
 											variant="outlined"
 											fullWidth
@@ -190,6 +191,7 @@ function UserProfile() {
 											name="nip"
 											label="NIP"
 											id="nip"
+											helperText={userProfileEdit.nipError}
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={nip1 || ''}
