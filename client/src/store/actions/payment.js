@@ -1,3 +1,4 @@
+import { showMessage } from 'app/store/fuse/messageSlice';
 import axios from '../../axios/axios-auth';
 import * as action from './actionTypes';
 import { setUserData } from '../../app/auth/store/userSlice';
@@ -18,7 +19,7 @@ export const getPayuToken = () => {
 export const setToken = token => {
 	return {
 		type: action.SET_TOKEN,
-		token: token
+		token
 	};
 };
 
@@ -43,7 +44,7 @@ export const createPayment = (token, name, reservation, price) => {
 				window.location.href = response.data.redirectUri;
 			})
 			.catch(error => {
-				console.log(error);
+				dispatch(showMessage(error.response.data));
 			});
 	};
 };
