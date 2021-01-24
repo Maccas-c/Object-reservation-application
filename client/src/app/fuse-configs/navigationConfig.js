@@ -44,6 +44,14 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'shopping_basket',
 				url: '/basket'
+			},
+			{
+				id: 'profile-component',
+				title: 'Profil użytkownika',
+				translate: 'PROFILE',
+				type: 'item',
+				icon: 'person',
+				url: '/profile'
 			}
 		]
 	}
