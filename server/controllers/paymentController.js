@@ -176,7 +176,7 @@ module.exports.notify = async function (req, res) {
   const response = {
     statusCode: 200,
   };
-  d;
+
   const ids = req.body.order.products[0].name.split(',');
   const userId = ids[0];
 
