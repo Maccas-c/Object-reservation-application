@@ -111,9 +111,7 @@ module.exports.userUpdate = async function (req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).json({
-      errors: errors.array(),
-    });
+    return res.status(422).json('Nieprawidłowe dane');
   }
   try {
     const updatedUser = await userModel.findOneAndUpdate(
