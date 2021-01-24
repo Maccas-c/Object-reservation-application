@@ -2,7 +2,6 @@ const axios = require('axios');
 const axiosConfig = require('../config/axios-config');
 const userModel = require('../models/userModel');
 const mongoose = require('mongoose');
-const _ = require('lodash');
 require('dotenv').config();
 
 const userId = '600abdccdc1fd518d1b84cc6';
