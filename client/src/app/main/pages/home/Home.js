@@ -71,7 +71,7 @@ function Home({ history }, props) {
 			>
 				<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
 					<Typography color="inherit" className="text-24 sm:text-40 font-light">
-						Witamy w Devcourt
+						Witamy w DevCourt
 					</Typography>
 				</FuseAnimate>
 				<FuseAnimate duration={400} delay={600}>
