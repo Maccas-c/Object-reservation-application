@@ -90,9 +90,9 @@ function Register() {
 
 							<FuseAnimate delay={500}>
 								<Typography variant="subtitle1" color="inherit" className="mt-32">
-									Aplikacja umożliwiająca szybką rezerwację wybranych sektorów oraz natychmiastową
-									płatność. Zapewniamy integrację z kontami USOS, interaktywny kalendarz i wiele
-									więcej!
+									Aplikacja umożliwiająca szybką rezerwację wybranych sektorów na boiskach sportowych
+									UAM oraz natychmiastową płatność. Zapewniamy integrację z kontami USOS(web),
+									autoryzację CAS UAM, interaktywny kalendarz i wiele więcej!
 								</Typography>
 							</FuseAnimate>
 						</div>

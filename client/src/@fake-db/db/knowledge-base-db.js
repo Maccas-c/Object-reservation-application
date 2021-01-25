@@ -9,7 +9,7 @@ const knowledgeBaseDB = [
 				id: '1',
 				title: 'Jak zarezerwować boisko?',
 				content:
-					`<p>1. Wchodzimy w zakładkę kalendarz. </p><p>1. Wchodzimy w zakładkę kalendarz. </p>` +
+					`<p>1. Wchodzimy w zakładkę kalendarz. </p>` +
 					`<p>2. Wybieramy dzień w którym chcemy zarezerwować boisko.</p>` +
 					`<p>3. Pojawi się okienko w którym wybieramy strefę oraz godzinę i dodajemy do koszyka.</p>` +
 					`<p>4. Przechodzimy do koszyka i klikamy w zapłać.</p>` +
@@ -28,11 +28,11 @@ const knowledgeBaseDB = [
 			{
 				id: '3',
 				title: 'Czy możesz połączyć strefy?',
-				content: `<p>Aktualnie serwis DevCourt nie umożliwia taka opcję.</p>`
+				content: `<p>Aktualnie serwis DevCourt nie umożliwia takiej opcji.</p>`
 			},
 			{
 				id: '4',
-				title: 'Czy można usunąc rezerwację z koszyka?',
+				title: 'Czy można usunąć rezerwację z koszyka?',
 				content: `<p>Tak, po przejściu na zakładkę koszyk, w kolumnie anuluj mamy przycisk do usunięcia rezerwacji.</p>`
 			},
 			{
@@ -43,7 +43,7 @@ const knowledgeBaseDB = [
 			},
 			{
 				id: '5',
-				title: 'Czemu dostaje komunikat, "Wybrana rezerwacja jest chwilowo niedostępna"?',
+				title: 'Czemu dostaję komunikat - "Wybrana rezerwacja jest chwilowo niedostępna"?',
 				content:
 					'<p>Wybrany termin rezerwacji na dany sektor aktualnie znajduje się w Twoim koszyku albo koszyku innej osoby.   </p>'
 			}
@@ -58,21 +58,19 @@ const knowledgeBaseDB = [
 			{
 				id: '1',
 				content:
-					'<p>1.Po wejściu na stronie z panelem logowania klikamy na przycisk „Przypomnij hasło!”\n</p>' +
-					'<p>2.Wpisujemy nasz email i klikamy „przypomnij hasło!”\n</p>' +
-					'<p>3.Idziemy do naszej skrzynki pocztowej e-mailu, który podaliśmy wyżej\n</p>' +
-					'<p>4.Klikamy w link, który przeniesie nas do strony, gdzie podajemy wymagane pole. \n</p>' +
-					'<p>5.Klikamy „Zmień hasło” \n</p>' +
-					'<p>6.Logujemy się nowym hasłem\n</p>',
+					'<p>1. Po wejściu na stronie z panelem logowania klikamy na przycisk „Przypomnij hasło!”.\n</p>' +
+					'<p>2. Wpisujemy nasz email i klikamy „Przypomnij hasło!”.\n</p>' +
+					'<p>3. Idziemy do naszej skrzynki pocztowej e-mailu, który podaliśmy wyżej.\n</p>' +
+					'<p>4. Klikamy w link, który przeniesie nas do strony, gdzie podajemy wymagane pole. \n</p>' +
+					'<p>5. Klikamy „Zmień hasło”. \n</p>' +
+					'<p>6. Logujemy się nowym hasłem.\n</p>',
 				title: 'Jak zresetować hasło?'
 			},
 			{
 				id: '2',
 				title: 'Jak uzupełnić dane użytkownika?',
-				content:
-					'<p>1.Klikamy w prawym górnym logu \n</p>' +
-					'<p>2.Uzupełniamy podstawowe dane\n</p>' +
-					'<p>Są one wymagane przed pierwszą rezerwację!\n'
+				content: `<p>1. Klikamy w prawym górnym logu. \n</p> 
+					<p>2. Uzupełniamy podstawowe dane. \n</p>`
 			}
 		]
 	},
@@ -86,17 +84,17 @@ const knowledgeBaseDB = [
 				id: '1',
 				title: 'Jak przebiega płatność?',
 				content:
-					'<p>1. Jeśli posiadamy rezerwacje w koszyku to klikamy w niego\n</p>' +
-					'<p>2. Zostanie nam wyświetlona strona z naszymi rezerwacjami oraz ceną za nie naliczoną\n</p>' +
-					'<p>3. Jeśli wszystko to zgadza się to klikamy zapłać\n</p>' +
-					'<p>4. Przenosi Nas na stronę płatności, gdzie wymieramy interesujący Nas sposób płatności\n</p>'
+					'<p>1. Jeśli posiadamy rezerwacje w koszyku to klikamy w niego.\n</p>' +
+					'<p>2. Zostanie nam wyświetlona strona z naszymi rezerwacjami oraz ceną za nienaliczoną.\n</p>' +
+					'<p>3. Jeśli wszystko to zgadza się to klikamy zapłać.\n</p>' +
+					'<p>4. Przenosi nas na stronę płatności, gdzie wyybieramy interesujący sposób płatności.\n</p>'
 			},
 			{
 				id: '2',
-				title: 'Czy możliwy jest zwrot pieniędzy ?',
+				title: 'Czy możliwy jest zwrot pieniędzy?',
 				content:
-					'<p>Devcourt nie zapewnia zwrotów pieniędzy \n</p>' +
-					'<p>W razie takiej konieczności prosimy o kontakt z administratorem obiektu </p>'
+					'<p>Devcourt nie zapewnia zwrotów pieniędzy. \n</p>' +
+					'<p>W razie takiej konieczności prosimy o kontakt z administratorem obiektu. </p>'
 			}
 		]
 	},
