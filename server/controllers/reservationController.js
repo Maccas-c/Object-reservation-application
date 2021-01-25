@@ -140,6 +140,7 @@ module.exports.reservationsGetByDate = async function (req, res) {
     const reservations = await reservationModel
       .find({
         dayString: dayString,
+        paid: true,
       })
       .populate('courtId');
     dates.forEach(item =>
