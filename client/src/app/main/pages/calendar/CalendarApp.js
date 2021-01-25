@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import moment from 'moment';
-import React, { useEffect, useRef } from 'react';
+import React, { Children, useEffect, useRef } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 			backgroundColor: 'transparent'
 		},
 		'& .rbc-header.rbc-today, & .rbc-month-view .rbc-day-bg.rbc-today': {
-			borderBottom: `2px solid ${theme.palette.secondary.main}!important`
+			borderBottom: `15px solid ${theme.palette.secondary.main}!important`
 		},
 		'& .rbc-month-view, & .rbc-time-view, & .rbc-agenda-view': {
 			padding: 24,
@@ -176,6 +176,18 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+const CURRENT_DATE = new Date();
+CURRENT_DATE.setHours(0, 0, 0, 0);
+
+// example implementation of a wrapper
+const ColoredDateCellWrapper = ({ children, value }) =>
+	React.cloneElement(Children.only(children), {
+		style: {
+			...children.style,
+			backgroundColor: value < CURRENT_DATE ? '#e6e8f0' : '#FFF'
+		}
+	});
+
 function CalendarApp(props) {
 	const dispatch = useDispatch();
 	const events = useSelector(selectEvents).map(event => ({
@@ -213,7 +225,8 @@ function CalendarApp(props) {
 						return headerEl.current
 							? ReactDOM.createPortal(<CalendarHeader {..._props} />, headerEl.current)
 							: null;
-					}
+					},
+					dateCellWrapper: ColoredDateCellWrapper
 				}}
 				// onNavigate={handleNavigate}
 				onSelectEvent={event => {
