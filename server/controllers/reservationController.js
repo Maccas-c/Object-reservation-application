@@ -109,6 +109,7 @@ module.exports.reservationsGetByUserId = async function (req, res) {
     const reservations = await reservationModel
       .find({
         userId: userId,
+        paid: true,
       })
       .populate('courtId');
     const reservationsFixed = JSON.parse(
@@ -140,7 +141,6 @@ module.exports.reservationsGetByDate = async function (req, res) {
     const reservations = await reservationModel
       .find({
         dayString: dayString,
-        paid: true,
       })
       .populate('courtId');
     dates.forEach(item =>
