@@ -20,7 +20,7 @@ function RegisterPanel() {
 	const history = useHistory();
 	addValidationRule('isPassword', ({ password }) => {
 		if (password) {
-			return password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
+			return password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/);
 		}
 		return null;
 	});
@@ -135,7 +135,7 @@ function RegisterPanel() {
 					validations="isPassword:password"
 					validationErrors={{
 						isPassword:
-							'    Hasło musi się składać z co najmniej 6 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jeden znak specjalny oraz jedną cyfrę.\n',
+							'    Hasło musi się składać z co najmniej 8 i co najwyżej 20 znaków. Prawidłowe hasło musi zawierać co najmniej jedną małą literę, co najmniej jedna duża literę, jedną cyfrę oraz jeden znak specjalny ze zbioru @$!%*#?&.\n',
 						equalsField: 'Hasło nie jest takie samo.'
 					}}
 					InputProps={{
