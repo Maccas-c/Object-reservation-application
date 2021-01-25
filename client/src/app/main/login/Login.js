@@ -54,7 +54,10 @@ function Login() {
 						)}
 						square
 					>
-						<CardContent style={{cursor:"pointer"}} className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+						<CardContent
+							style={{ cursor: 'pointer' }}
+							className="flex flex-col items-center justify-center w-full py-96 max-w-320"
+						>
 							<FuseAnimate delay={300}>
 								<div className="flex items-center mb-32">
 									<img className="logo-icon w-48" src="/assets/images/logos/logo.svg" alt="logo" />
@@ -125,9 +128,9 @@ function Login() {
 
 							<FuseAnimate delay={500}>
 								<Typography variant="subtitle1" color="inherit" className="mt-32">
-									Aplikacja umożliwiająca szybką rezerwację wybranych sektorów oraz natychmiastową
-									płatność. Zapewniamy integrację z kontami USOS, interaktywny kalendarz i wiele
-									więcej!
+									Aplikacja umożliwiająca szybką rezerwację wybranych sektorów na boiskach sportowych
+									UAM oraz natychmiastową płatność. Zapewniamy integrację z kontami USOS(web),
+									autoryzację CAS UAM, interaktywny kalendarz i wiele więcej!
 								</Typography>
 							</FuseAnimate>
 						</div>
