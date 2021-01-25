@@ -83,10 +83,10 @@ const LoginPanel = () => {
 					label="Hasło"
 					value=""
 					validations={{
-						minLength: 6
+						minLength: 8
 					}}
 					validationErrors={{
-						minLength: 'Minimum 6 znaków'
+						minLength: 'Minimum 8 znaków'
 					}}
 					InputProps={{
 						className: 'pr-2',
@@ -122,4 +122,3 @@ const LoginPanel = () => {
 };
 
 export default LoginPanel;
-

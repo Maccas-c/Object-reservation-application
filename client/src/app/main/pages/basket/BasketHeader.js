@@ -25,8 +25,7 @@ function BasketHeader() {
 							color="inherit"
 							className="text-xl mt-8 sm:mt-1 mx-auto max-w-512"
 						>
-							{console.log(price)}
-							<span className="opacity-75">Do zapłaty: {price ? price : 0} zł</span>
+							<span className="opacity-75">Do zapłaty: {price || 0} zł</span>
 						</Typography>
 					</FuseAnimate>
 				</ThemeProvider>

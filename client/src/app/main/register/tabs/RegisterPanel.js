@@ -64,10 +64,10 @@ function RegisterPanel() {
 					name="name"
 					label="Imię"
 					validations={{
-						minLength: 4
+						minLength: 2
 					}}
 					validationErrors={{
-						minLength: 'Minimum 4 znaki.'
+						minLength: 'Minimum 2 znaki.'
 					}}
 					InputProps={{
 						endAdornment: (
@@ -87,10 +87,10 @@ function RegisterPanel() {
 					name="surname"
 					label="Nazwisko"
 					validations={{
-						minLength: 4
+						minLength: 2
 					}}
 					validationErrors={{
-						minLength: 'Minimum 4 znaki.'
+						minLength: 'Minimum 2 znaki.'
 					}}
 					InputProps={{
 						endAdornment: (
