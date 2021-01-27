@@ -4,6 +4,6 @@ const tariffController = require('../controllers/tariffController');
 const { isAuth } = require('./../controllers/middleware');
 
 // front
-router.get('/api/priceLists', tariffController.tariffsGet);
+router.get('/api/priceLists', isAuth, tariffController.tariffsGet);
 
 module.exports = router;

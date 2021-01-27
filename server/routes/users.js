@@ -57,7 +57,7 @@ router.patch(
   userController.userUpdate,
 );
 
-router.get('/api/getUser/:userId', userController.userGet);
+router.get('/api/getUser/:userId', isAuth, userController.userGet);
 module.exports = router;
 
 //TEST ROUTES

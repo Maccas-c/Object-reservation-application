@@ -6,7 +6,7 @@ router.get('/api/court', function (req, res) {
   res.send('respond with a resource');
 });
 
-router.get('/api/courts', courtController.courtsGetFront);
+router.get('/api/courts', isAuth, courtController.courtsGetFront);
 
 //router.get('/api/courts', isAuth, rangeCourts, courtController.courtsGet);
 

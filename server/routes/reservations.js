@@ -4,40 +4,47 @@ const { isAuth } = require('./../controllers/middleware');
 const router = express.Router();
 const reservationController = require('../controllers/reservationController');
 
-router.get('/api/reservations', reservationController.reservationsGet);
+router.get('/api/reservations', isAuth, reservationController.reservationsGet);
 
-router.post('/api/reservations/getPrice', reservationController.getPriceFront);
+router.post(
+  '/api/reservations/getPrice',
+  isAuth,
+  reservationController.getPriceFront,
+);
 
 router.post(
   '/api/reservation/create',
-  // isAuth,
-  reservationController.reservationAddBasket2
+  isAuth,
+  reservationController.reservationAddBasket2,
 );
 router.post(
   '/api/reservation/addToBasket',
-  // isAuth,
-  reservationController.reservationAddBasket
+  isAuth,
+  reservationController.reservationAddBasket,
 );
 
 router.post(
   '/api/reservation/create/groups',
-  reservationController.reservationCreateConstant
+  isAuth,
+  reservationController.reservationCreateConstant,
 );
 
 router.get(
   '/api/reservation/:reservationId',
-  // isAuth,
-  reservationController.getReservation
+  isAuth,
+  reservationController.getReservation,
 );
 
 router.get(
   '/api/reservations/:userId',
-  reservationController.reservationsGetByUserId
+  isAuth,
+  reservationController.reservationsGetByUserId,
 );
 
 router.post(
   '/api/reservationsDate',
-  reservationController.reservationsGetByDate
+  isAuth,
+  reservationController.reservationsGetByDate,
 );
 
 module.exports = router;

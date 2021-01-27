@@ -8,22 +8,23 @@ const { getPrice } = require('../controllers/reservationController');
 var qs = require('querystring');
 const { nextTick } = require('process');
 let bodyObject = {};
-router.post('/api/getToken', paymentController.getPayToken);
+router.post('/api/getToken', isAuth, paymentController.getPayToken);
 
 router.post(
   '/api/createPayment',
+  isAuth,
   paymentController.returnListToSave,
   paymentController.saveToBase,
   paymentController.createPayments,
 );
 router.post(
   '/api/reservationsDelete/:reservationId',
-
+  isAuth,
   paymentController.removeReservation,
 );
 
 router.post('/api/notifyy', paymentController.notify);
 
-router.get('/getPaymentInfo/:orderId', paymentController.getOrderInfo);
+router.get('/getPaymentInfo/:orderId', isAuth, paymentController.getOrderInfo);
 
 module.exports = router;
