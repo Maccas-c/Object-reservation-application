@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^5.3.0",
+    "concurrently": "^8.2.0",
     "material-table": "^1.69.1",
     "nodemailer": "^6.4.14",
     "react-calendar": "^3.1.0"
